@@ -3,7 +3,7 @@ layout: page
 title: About
 ---
 <style type="text/css">
-#htb {
+#htb img {
 all : initial;
 }
 </style>
