@@ -5,6 +5,7 @@ title: About
 <style type="text/css">
 img {
 max-width: initial;
+margin: initial;
 }
 </style>
 <img src="/public/images/whitefox.jpg"><br>
