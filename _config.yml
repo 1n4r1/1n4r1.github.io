@@ -7,7 +7,7 @@ title:            inar1.github.io
 tagline:          ""
 description:      ""
 url:              https://inar1.github.io/
-baseurl:          /
+baseurl:          https://inar1.github.io/
                   # the optional subpath of your site, e.g. "/my-jekyll-site/"
                   # This will apply to all pages in your Jekyll site.
 
