@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Fix VMware-workstation-gcc-error
+title: Fix VMware workstation gcc error
 ---
 
 
