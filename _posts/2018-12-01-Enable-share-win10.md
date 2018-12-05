@@ -13,10 +13,7 @@ How to enable Share Folder on Windows 10 with Virtualbox 5 ?
 
 ## Solution
 1. Configuring share folder on virtualbox
-From <a href="https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/">this web site</a>, we can download the official Windows 10 virtualbox .ova file
-
-After the importing of the win10 box,  
-we can configure the share folder on virtualbox console  
+From <a href="https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/">this web site</a>, we can download the official Windows 10 virtualbox .ova file. After the importing of the win10 box, we can configure the share folder on virtualbox console 
 ![placeholder](https://inar1.github.io/public/images/2018-12-05-09-49-17.png)  
 
 2. Run windows 10
