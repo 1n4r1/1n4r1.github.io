@@ -17,7 +17,7 @@ From <a href="https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/">t
 
 After the importing of the win10 box, 
 we can configure the share folder on virtualbox console
-![placeholder](https://inarScreenshot from 2018-12-05 09-49-17.png)
+![placeholder](https://inar1.github.io/public/images/2018-12-05-09-49-17.png)
 
 
 2. Run windows 10
@@ -26,15 +26,15 @@ With button "start", we can run the virtual machine
 
 3. Open "Network & Internet"
 From "Settings", we can open the "Network & Internet" tab.
-![placeholder](https://inarScreenshot from 2018-12-05 09-49-17.png)
+![placeholder](https://inar1.github.io/public/images/2018-12-05-09-50-24.png')
 
 
 
 4. Open "Sharing options"
 By clicking the "Status" from "Network & Internet",
 we can go to the "Sharing options" window.
-![placeholder](https://inarScreenshot from 2018-12-05 09-49-17.png)
+![placeholder](https://inar1.github.io/public/images/'Screenshot from 2018-12-05 09-51-13.png')
 
 As we can see, there are 2 option buttons and by changing the value of that
 we can enable the Share Folder.
-![placeholder](https://inarScreenshot from 2018-12-05 09-49-17.png)
+![placeholder](https://inar1.github.io/public/images/2018-12-05-09-53-13.png')
