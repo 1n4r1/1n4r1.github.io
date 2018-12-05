@@ -18,7 +18,7 @@ However, I have already installed gcc version 6.4.0-5.
 Somehow, it can not be found by vmware.
 
 
-### Solution
+## Solution
 Then, I ran the command by root user
 > $ sudo vmplayer
 
