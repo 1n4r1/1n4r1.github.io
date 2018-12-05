@@ -4,9 +4,9 @@ title: Enabling Share Folder on Windows 10
 ---
 
 ## Environment
-Host OS: Kali linux 2018.3
-Guest OS: Windows 10 Enterprise Evaluation (Virtualbox)
-Virtualization: Virtualbox 5.2.20_Debian
+* Host OS: Kali linux 2018.3
+* Guest OS: Windows 10 Enterprise Evaluation (Virtualbox)
+* Virtualization: Virtualbox 5.2.20_Debian
 
 ## Problem
 How to enable Share Folder on Windows 10 with Virtualbox 5 ?
