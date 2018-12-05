@@ -1,7 +1,7 @@
-```
+---
 layout: post
 title: Fix VMware-workstation-gcc-error
-```
+---
 
 
 ## Environment
