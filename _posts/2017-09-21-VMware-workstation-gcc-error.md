@@ -21,6 +21,7 @@ Somehow, it can not be found by vmware.
 ### Solution
 Then, I ranthe command by root user
 > $ sudo vmplayer
+
 After selecting the correct gcc-6 in /usr/bin, we can see this view
 
 ![placeholder](https://inar1.github.io/public/images/gcc-2.png)
