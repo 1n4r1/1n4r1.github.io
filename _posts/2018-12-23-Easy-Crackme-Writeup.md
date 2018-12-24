@@ -15,19 +15,19 @@ This is a write-up of Easy Crackme on that website.
 
 
 ## Solution
-#### 1. Running the app
+### 1. Running the app
 When we run the app, we have a small dialogue and textbox.
 As we put a rundom string and put the button, we have a message "Incorrect Password".
 ![placeholder](https://inar1.github.io/public/images/2018-12-22-22-47-15.png)
 This is likely we have to identify what is the "Password" by reverse engineering.
 
-#### 2. Opening with IDA Pro
+### 2. Opening with IDA Pro
 To analyze this application, we can open the app with IDA Pro.
 Since we can see this application retrieves the input data in the textarea, we can assume that "GetDlgItemText" Windows API is used.
 We can find it in a subprocess"sub_401080".
 ![placeholder](https://inar1.github.io/public/images/2018-12-23-11-27-39.png)
 
-#### 3. Getting password
+### 3. Getting password
 According to the manual of <a href="https://docs.microsoft.com/en-us/windows/desktop/api/winuser/nf-winuser-getdlgitemtexta">GetDlgItemText</a>, we can find where is the memory location the input data was stored.
 {% highlight c %}
 UINT GetDlgItemTextA(
@@ -66,7 +66,7 @@ call strncmp
 {% endhighlight %}
 This means, this strncmp is comparing "5y" and 3rd, 4th chars of input.
 Next, we can see this section.
-![placeholder](https://inar1.github.io/public/images/2018-12-24-16-23-23.png)
+![placeholder](https://inar1.github.io/public/images/2018-12-24-16-33-23.png)
 {% highlight shell %}
 push ebx
 push esi
