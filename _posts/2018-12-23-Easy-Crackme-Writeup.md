@@ -37,29 +37,28 @@ UINT GetDlgItemTextA(
   int   cchMax      // The maximum length, in characters, of the string to be copied to the buffer pointed to by lpString. If the length of the string, including the null character, exceeds the limit, the string is truncated.
 );
 {% endhighlight %}
-In this case, the value of lpString is
+In this case, the value of lpString is esp+0x08
 {% highlight shell %}
 String= byte ptr -64h
-lea eax, [esp+6Ch+String] # lea eax, [esp+8]
+lea eax, [esp+6Ch+String] # lea eax, [esp+0x08]
 push eax; lpString
 {% endhighlight %}
 ![placeholder](https://inar1.github.io/public/images/2018-12-24-16-30-20.png)
-This means that the address of input chars is esp+8.
-After calling the GetDlgItemTextA, we can express the address is esp+4 since each argument of GetDlgItemTextA is 1 byte.
+After calling the GetDlgItemTextA, we can express the address is esp+0x04 since each argument of GetDlgItemTextA is 1 byte.
 We can find 1st cmp instruction in the next line.
 {% highlight shell %}
-cmp byte ptr [esp+5], 61h
+cmp byte ptr [esp+0x05], 61h
 {% endhighlight %}
-The address of input chars is esp+4 so this is comparing 2nd character of password and Ascii Character "a".
+The address of input chars is esp+0x04 so this is comparing 2nd character of password and Ascii Character "a".
 Under the 1st comparison, we can find 2nd one.
 ![placeholder](https://inar1.github.io/public/images/2018-12-23-11-35-45.png)
 At first, there is a instruction
 {% highlight shell %}
 push 2
 {% endhighlight %}
-This time, the address of input chars changes to esp+8.
+This time, the address of input chars changes to esp+0x08.
 {% highlight shell %}
-lea ecx, [esp+0Ah]
+lea ecx, [esp+0x0Ah]
 push offset a5y; "5y"
 push ecx;
 call strncmp
@@ -91,4 +90,3 @@ According to these information, we can figure out the password is
 {% highlight shell %}
 Ea5yR3versing
 {% endhighlight %}
-
