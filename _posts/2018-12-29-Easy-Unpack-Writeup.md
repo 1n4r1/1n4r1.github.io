@@ -32,7 +32,7 @@ Then, proceed like
 {% highlight shell %}
 Plugins -> PEiD Generic Unpacker
 {% endhighlight %}
-![placeholder](https://inar1.github.io/public/images/2018-12-28-11-55-18.png)
+![placeholder](https://inar1.github.io/public/images/2018-12-29-11-55-18.png)
 With this plugin, we can find the OEP.
 ![placeholder](https://inar1.github.io/public/images/2018-12-29-12-01-01.png)
 According to this information, the key of this challange is "00401150".
