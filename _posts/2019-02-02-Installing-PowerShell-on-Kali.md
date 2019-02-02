@@ -34,7 +34,7 @@ The following packages have unmet dependencies:
  powershell : Depends: libssl1.0.0 but it is not installable
 E: Unable to correct problems, you have held broken packages.
 {% endhighlight %}
-However, we do not have the package "libssl1.0.0".
+However, we do not have the package "libssl1.0.0".<br>
 Then, we can download the package from <a href="https://packages.debian.org/jessie/amd64/libssl1.0.0/download">here</a> and install.
 
 {% highlight shell %}
@@ -50,30 +50,11 @@ Errors were encountered while processing:
  libssl1.0.0_1.0.1t-1+deb8u10_amd64.deb
 {% endhighlight %}
 
-Sounds like we are still missing package "multiarch-support".
+Sounds like we are still missing package "multiarch-support".<br>
 After installing the package, we can install libssl1.0.0 and powershell correctly.
 
 {% highlight shell %}
-root@kali:/home/sabonawa/Downloads# sudo apt-get install multiarch-support
-Reading package lists... Done
-Building dependency tree       
-Reading state information... Done
-The following NEW packages will be installed:
-  multiarch-support
-0 upgraded, 1 newly installed, 0 to remove and 137 not upgraded.
-Need to get 213 kB of archives.
-After this operation, 239 kB of additional disk space will be used.
-Get:1 http://kali.koyanet.lv/kali kali-rolling/main amd64 multiarch-support amd64 2.28-2 [213 kB]
-Fetched 213 kB in 1s (288 kB/s)             
-Selecting previously unselected package multiarch-support.
-(Reading database ... 424175 files and directories currently installed.)
-Preparing to unpack .../multiarch-support_2.28-2_amd64.deb ...
-Unpacking multiarch-support (2.28-2) ...
-Setting up multiarch-support (2.28-2) ...
-needrestart is being skipped since dpkg has failed
-{% endhighlight %}
-
-{% highlight shell %}
+root@kali:# apt-get install multiarch-support
 root@kali:# dpkg -i libssl1.0.0_1.0.1t-1+deb8u10_amd64.deb
 root@kali:# apt-get install powershell
 {% endhighlight %}
