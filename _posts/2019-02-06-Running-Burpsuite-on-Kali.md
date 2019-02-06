@@ -17,7 +17,7 @@ Wed Feb  6 19:13:54 EET 2019
 
 
 ## Explanation
-By default setting, it is not capable to run Burp Suite on Kali linux 2018.4 due to JRE 10.0.2.
+By default setting, it is not capable to run Burp Suite on Kali linux 2018.4 because it uses JRE 10.0.2.
 
 ## Solution
 ### 1. Launch Burp Suite
