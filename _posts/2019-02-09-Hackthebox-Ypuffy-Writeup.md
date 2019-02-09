@@ -10,7 +10,7 @@ This is a write-up of "ypuffy" on that website.
 ## Solution
 ### 1. Port scanning
 {% highlight shell %}
-root@kali:# nmap -p- 10.10.10.107 -sV -sC
+root@kali:~# nmap -p- 10.10.10.107 -sV -sC
 Starting Nmap 7.70 ( https://nmap.org ) at 2018-09-16 04:08 EEST
 Nmap scan report for 10.10.10.107
 Host is up (0.038s latency).
@@ -54,7 +54,7 @@ Nmap done: 1 IP address (1 host up) scanned in 51.69 seconds
 
 SMB enumeration:
 {% highlight shell %}
-root@kali:# nmap 10.10.10.107 --script smb-enum-shares
+root@kali:~# nmap 10.10.10.107 --script smb-enum-shares
 Starting Nmap 7.70 ( https://nmap.org ) at 2018-09-16 12:44 EEST
 Nmap scan report for 10.10.10.107
 Host is up (0.036s latency).
@@ -79,7 +79,7 @@ Nmap done: 1 IP address (1 host up) scanned in 34.92 seconds
 
 LDAP enumeration:
 {% highlight shell %}
-root@kali:/home/sabonawa/hackTB# nmap -p- 10.10.10.107 --script ldap-search --script-args 'ldap.qfiler=all'
+root@kali:~# nmap -p- 10.10.10.107 --script ldap-search --script-args 'ldap.qfiler=all'
 Starting Nmap 7.70 ( https://nmap.org ) at 2018-09-20 00:01 EEST
 Nmap scan report for 10.10.10.107
 Host is up (0.038s latency).
@@ -406,7 +406,7 @@ AuthorizedKeysCommand /usr/local/bin/curl http://127.0.0.1/sshauth?type=keys&use
 {% highlight shell %}
 AuthorizedPrincipalsCommand /usr/local/bin/curl http://127.0.0.1/sshauth?type=principals&username=%u
 {% endhighlight %}
-In "AuthorizedKeysCommand" section, a command to look up specified user's public key is specified.<br>
+In "AuthorizedKeysCommand" section, a command to look up user's public key is specified.<br>
 On the other hand, "AuthorizedPrincipalsCommand" is used for CA authentication.<br>
 By executing following command, we have interesting result.
 {% highlight shell %}
