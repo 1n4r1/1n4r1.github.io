@@ -280,5 +280,5 @@ b5fc76d1d6b91d77b2fbf2d54d0f708b
 {% endhighlight %}
 
 ### 4.References
-https://room362.com/post/2016/kerberoast-pt1/
+https://room362.com/post/2016/kerberoast-pt1/<br>
 https://room362.com/post/2016/kerberoast-pt2/
