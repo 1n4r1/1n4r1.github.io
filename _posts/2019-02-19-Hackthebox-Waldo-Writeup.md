@@ -78,7 +78,7 @@ Connection: keep-alive
 X-Powered-By: PHP/7.1.16
 
 [".","..",".list","background.jpg","cursor.png","dirRead.php","face.png","fileDelete.php","fileRead.php","fileWrite.php","index.php","list.html","list.js"]
-{% endhiglight %}
+{% endhighlight %}
 
 In addition, taking advantage of fileRead.php, we can achieve one private key of private key for user nobody.
 {% highlight shell %}
