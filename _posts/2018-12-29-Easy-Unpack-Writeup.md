@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Reversing.kr Easy Unpack Writeup
+categories: Reversing
 ---
 
 ## Environment
