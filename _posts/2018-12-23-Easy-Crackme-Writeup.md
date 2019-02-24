@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Reversing.kr Easy Crackme Writeup
+categories: Reversing
 ---
 
 ## Environment

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Reversing.kr Image Prc Writeup
+categories: Reversing
 ---
 
 ## Environment
