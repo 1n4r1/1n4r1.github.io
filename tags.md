@@ -5,7 +5,7 @@ title: Tags
 ---
 
 <div id="tags">
-{% for category in site.categories %}
+{% for category in site.categories reversed %}
   <div class="tag-group">
     {% capture category_name %}{{ category | first }}{% endcapture %}
     <div id="#{{ category_name | slugize }}"></div>
