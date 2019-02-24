@@ -142,6 +142,7 @@ Operations window:
 ![placeholder](https://inar1.github.io/public/images/2019-02-24/2019-02-24-17-48-16.png)
 
 Next, we have to create a new trigger for the action.
+Go Configuration->Hosts->Zipper(hostname)->Triggers->Create trigger
 
 ![placeholder](https://inar1.github.io/public/images/2019-02-24/2019-02-24-17-57-03.png)
 
