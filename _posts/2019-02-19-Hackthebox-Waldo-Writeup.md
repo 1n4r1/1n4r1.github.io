@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Hackthebox Waldo Writeup
+categories: HackTheBox
 ---
 
 ## Explanation

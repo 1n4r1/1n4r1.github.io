@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Hackthebox Active Writeup
+categories: HackTheBox
 ---
 
 ## Explanation

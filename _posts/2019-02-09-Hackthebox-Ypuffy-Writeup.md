@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Hackthebox ypuffy Writeup
+categories: HackTheBox
 ---
 
 ## Explanation
