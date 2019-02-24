@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Enabling Share Folder on Windows 10
+categories: Windows
 ---
 
 ## Environment
