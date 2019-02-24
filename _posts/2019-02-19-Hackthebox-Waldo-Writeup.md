@@ -4,7 +4,7 @@ title: Hackthebox Waldo Writeup
 categories: HackTheBox
 ---
 
-<img src="/public/images/hackthebox/waldo_badge.png"><br>
+<img src="/public/images/2019-02-19/waldo_badge.png"><br>
 ## Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has bunch of vulnerable machines in its own VPN.
 This is a write-up of machine "Waldo" on that website.
