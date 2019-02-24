@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Installing PowerShell on Kali linux
+categories: Kali
 ---
 
 ## Environment
