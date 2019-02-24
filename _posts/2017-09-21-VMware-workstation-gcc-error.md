@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Fix VMware workstation gcc error
+categories: VMware
 ---
 
 
