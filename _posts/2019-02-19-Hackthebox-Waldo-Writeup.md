@@ -60,11 +60,11 @@ Gobuster v2.0.0              OJ Reeves (@TheColonial)
 
 ### 2.Getting User
 Sounds like an interesting web page is running on the server.
-![placeholder](https://inar1.github.io/public/images/2019-02-19-22-02-37.png)
+![placeholder](https://inar1.github.io/public/images/2019-02-19/2019-02-19-22-02-37.png)
 
 By inspecting with chrome development tool, we can find that it is html web page and controlled by "list.js".
 
-![placeholder](https://inar1.github.io/public/images/2019-02-19-19-43-01.png)
+![placeholder](https://inar1.github.io/public/images/2019-02-19/2019-02-19-19-43-01.png)
 
 In that file, there are some interesting php path in some functions.
 
