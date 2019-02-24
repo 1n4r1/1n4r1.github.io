@@ -7,11 +7,9 @@ title: About
 all : initial;
 }
 </style>
-<img src="/public/images/whitefox.jpg"><br>
 
 <p>Wannabe hacker</p>
-
+<a href="https://www.hackthebox.eu/home/users/profile/19000">Hackthebox Profile</a>
 <div id="htb">
 <script src="https://www.hackthebox.eu/badge/19000"></script>
 </div>
-<a href="https://www.hackthebox.eu/home/users/profile/19000">Hackthebox Profile</a>
