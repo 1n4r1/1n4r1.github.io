@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Installing PowerShell on Kali linux
+title: Installing PowerShell on Kali linux 2018.04
 categories: Kali
 ---
 
