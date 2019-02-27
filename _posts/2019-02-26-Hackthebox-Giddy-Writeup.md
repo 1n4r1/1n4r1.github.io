@@ -138,7 +138,7 @@ msf5 auxiliary(server/capture/smb) > run
 
 [*] Started service listener on 10.10.14.23:445 
 [*] Server started.
-{% endhighlgiht %}
+{% endhighlight %}
 
 Then, open sql-shell with sqlmap and execute command "xp_dirtree".<br>
 
