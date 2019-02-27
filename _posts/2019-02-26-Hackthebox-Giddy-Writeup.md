@@ -111,7 +111,7 @@ We have found 2 interesting pages.
 {% endhighlight %}
 
 Product List page:
-![placeholder](https://inar1.github.io/public/images/2019-02-27/2019-02-26-21-09-31.png)
+![placeholder](https://inar1.github.io/public/images/2019-02-27/2019-02-26-21-09-32.png)
 
 If we click each product of this list, we can redirect to following url like this.
 
@@ -254,8 +254,9 @@ Ubiquiti UniFi Video 3.7.3 - Local Privilege Escalation                         
 Shellcodes: No Result
 {% endhighlight %}
 
-This means, if we have a permission for writting C:\ProgramData\unifi-video, We can write a file "taskkill.exe" in that folder.
-By default that file does not exist. However, "Unifi Video" still tries to execute it with privileged permission when it restarts.
+This means, if we have a permission for writting C:\ProgramData\unifi-video, We can write a file "taskkill.exe" in that folder.<br>
+By default that file does not exist.<br>
+However, "Unifi Video" still tries to execute it with privileged permission when it restarts.
 
 Payload creation:<br>
 This time, to avoid antivirus, we use a Metasploit evasion module.
@@ -275,7 +276,7 @@ msf5 evasion(windows/windows_defender_exe) > run
 [+] taskkill.exe stored at /root/.msf4/local/taskkill.exe
 {% endhighlight %}
 
-Then, we had our payload in the Phantom-Evasion directory.<br>
+Then, we had our payload in /root/.msf4/local.<br>
 Next, run a simple webserver to let Giddy download the "taskkill.exe"
 
 {% highlight shell %}
