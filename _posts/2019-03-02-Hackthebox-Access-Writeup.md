@@ -10,7 +10,8 @@ categories: HackTheBox
 This is a write-up of "Access".
 
 ## Solution
-### 1. Port scanning
+### 1. Initial Enumeration
+Port scanning:
 {% highlight shell %}
 root@kali:~# nmap -p- 10.10.10.98 -sV -sC
 Starting Nmap 7.70 ( https://nmap.org ) at 2018-09-30 09:27 EEST
