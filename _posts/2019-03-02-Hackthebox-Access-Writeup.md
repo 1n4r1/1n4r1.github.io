@@ -36,7 +36,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 Nmap done: 1 IP address (1 host up) scanned in 294.22 seconds
 {% endhighlight %}
 
-### 2.Getting User
+### 2. Getting User
 FTP enumeration:
 {% highlight shell %}
 root@kali:~# ftp 10.10.10.98
@@ -211,7 +211,7 @@ C:\Users\security\Desktop>type user.txt
 ff1f3b48913b213a31ff6756d2553d38
 {% endhighlight %}
 
-### Getting Root
+### 3. Getting Root
 By cmdkey command, we can confirm that windows credential manager is keeping a credential for user Administrator.
 
 {% highlight shell %}
