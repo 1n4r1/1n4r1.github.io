@@ -5,11 +5,11 @@ categories: HackTheBox
 ---
 
 <img src="/public/images/2019-03-02/access_badge.png"><br>
-## Explanation
+## Explanation:
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has bunch of vulnerable machines in its own VPN.
 This is a write-up of "Access".
 
-## Solution
+## Solution:
 ### 1. Initial Enumeration
 Port scanning:
 {% highlight shell %}
