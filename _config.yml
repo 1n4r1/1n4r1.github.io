@@ -14,7 +14,7 @@ baseurl:          https://inar1.github.io/
 author:
   name:           inari
   url:            https://github.com/inar1
-paginate:         5
+paginate:         3
 # paginate_path:    '/page:num'
                     # Or '/my-jekyll-site/page:num' if you want to move your index pages
 
