@@ -283,7 +283,7 @@ Origin codes: i - IGP, e - EGP, ? - incomplete
 *                   10.78.10.2                             0 200 300 i
 
 Total number of prefixes 27
-{% endhighlgiht %}
+{% endhighlight %}
 
 Connections to the ftp server "10.120.15.10" are transmitted with eth2(10.78.11.2)<br>
 Then, try to capture the ftp network traffic.<br>
