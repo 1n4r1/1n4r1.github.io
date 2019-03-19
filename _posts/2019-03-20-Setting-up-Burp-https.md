@@ -22,7 +22,7 @@ Without any settings, if we use Burp with https, browser shows this certificatio
 ### 2. Download SSL cert
 By accessing the Burp page on localhost, we can download the certificate "cacert.der".<br>
 We have to click on the button "CA Certificate".
-![placeholder](https://inar1.github.io/public/images/2019-03-20/2019-03-19-23-40-12.png)
+![placeholder](https://inar1.github.io/public/images/2019-03-20/2019-03-20-00-08-41.png)
 
 ### 3. Register the cert on google chrome
 Go to settings and click "Advanced". There is a menu "Manage certificates".
@@ -37,7 +37,7 @@ Only choosing the first one "Trust this certificate for identifying websites" is
 ### 4. Restart
 Then, restart the chrome and it would be fine.
 
-### 5. If had a same error?
+### 5. If still had a same error?
 In this case, we can confirm the validity of certification on "Manage certificates".<br>
 Click on "org-PortSwigger" and that certificate would be "untrusted".
 ![placeholder](https://inar1.github.io/public/images/2019-03-20/2019-03-20-00-03-21.png)
