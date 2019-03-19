@@ -111,7 +111,7 @@ We will use this information later.
 ![placeholder](https://inar1.github.io/public/images/2019-03-19/diagram_for_tac.png)
 
 We can guess like "SN" stands for "serial number".<br>
-If we try some petterns, we can find this credential for Lyghtspeed
+If we try some petterns of info from SNMP, we can find this credential for Lyghtspeed
 {% highlight shell %}
 admin:NET_45JDX23
 {% endhighlight %}
@@ -121,7 +121,7 @@ After logged in, we can find an interesting page /diag.php.
 
 Sounds like if we click "verify status" button, we have a result of linux command.<br>
 The value which we post is base64 encoded.
-{% highlight html %}i
+{% highlight html %}
 <input type="hidden" id="check" name="check" value="cXVhZ2dh">
 <div class="form-group">
     <button type="submit" class="btn btn-primary">
@@ -314,7 +314,9 @@ Then, configure eth2 as ftp server address.
 root@r1:~# ifconfig eth2 10.120.15.10 netmask 255.255.255.0 up
 {% endhighlight %}
 
-Capture the traffic with netcat
+Capture the traffic with netcat.<br>
+If we wait couple of minutes, there is a connection from remote host.<br>
+By sending a response message "331 Please specify the password.", we can ahieve a password for user root.
 {% highlight shell %}
 root@r1:~# nc -nlvp 21
 nc -nlvp 21
