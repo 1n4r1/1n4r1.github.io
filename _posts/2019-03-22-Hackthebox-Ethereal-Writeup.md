@@ -4,13 +4,13 @@ title: Hackthebox Ethereal Writeup
 categories: HackTheBox
 ---
 
+<img src="/public/images/2019-03-22/ethereal_badge.png"><br>
 ## Environment
 * Host OS: Kali linux 2018.4
 * Guest OS: Windows 7 Service Pack 1
 * Virtualization: Virtualbox 5.2.22
 * MSI builder: Wix Toolset v3.11.1
 
-<img src="/public/images/2019-03-22/ethereal_badge.png"><br>
 ## Explanation:
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has bunch of vulnerable machines in its own VPN.
 This is a write-up of "Ethereal".
