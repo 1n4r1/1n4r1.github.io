@@ -474,7 +474,7 @@ c:\windows\system32\inetsrv>dir c:\users\public\desktop\shortcuts
 03/10/2019  12:26 PM               520 vs-mod.lnk
                3 File(s)          3,534 bytes
                2 Dir(s)  15,435,128,832 bytes free
-{% endhihlight %}
+{% endhighlight %}
 
 After that, immediately rerun these servers again.<br>
 A few minutes later, we can achieve user shell whose user is "jorge".<br>
