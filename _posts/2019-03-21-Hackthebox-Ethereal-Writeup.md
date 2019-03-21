@@ -681,5 +681,17 @@ Successfully signed: c:\tmp\ethereal.msi
 
 After that, we have to upload the msi file. We can do this just like when we uploaded vs-mod.lnk.
 {% highlight shell %}
+C:\Users\jorge\Documents>copy c:\users\public\desktop\shortcuts\ethereal.msi d:\dev\msis\ethereal.msi & dir d:\dev\msis
+        1 file(s) copied.
+ Volume in drive D is Development
+ Volume Serial Number is 54E5-37D1
 
+ Directory of d:\dev\msis
+
+03/21/2019  11:25 AM    <DIR>          .
+03/21/2019  11:25 AM    <DIR>          ..
+03/21/2019  10:34 AM           663,552 ethereal.msi
+07/18/2018  09:47 PM               133 note.txt
+               2 File(s)        663,685 bytes
+               2 Dir(s)   8,436,850,688 bytes free
 {% endhighlight %}
