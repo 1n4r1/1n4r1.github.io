@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Setting up Burpsuite for HTTPS
+title: Setting up Burpsuite for HTTPS on Kali linux 2019.01
 categories: Kali
 ---
 
