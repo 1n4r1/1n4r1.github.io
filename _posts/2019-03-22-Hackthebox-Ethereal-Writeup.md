@@ -491,7 +491,7 @@ ethereal\jorge
 
 C:\Users\jorge\Documents>type C:\Users\jorge\desktop\user.txt
 2b9a4ca09408b4a39d87cbcd7bd524dd
-{% endhihlight %}
+{% endhighlight %}
 
 ### 3. Getting Root
 
