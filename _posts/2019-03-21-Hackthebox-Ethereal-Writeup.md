@@ -605,6 +605,63 @@ We can find a .msi file in specified path.
 
 #### Sign the msi file
 At first, we have to install <a href="https://www.microsoft.com/en-us/download/confirmation.aspx?id=8279">Windows SDK</a>.<br>
+
+Then, we have to decode base 64 encoded .cer file and .pvk file.<br>
+Decode MyCA.cer:
+{% highlight shell%}
+sabonawa@kali:~/hackTB/work$ cat MyCA.cer.b64 
+MIIDADCCAeigAwIBAgIQIPZoDPLffoVFfuI8gqFGajANBgkqhkiG9w0BAQsFADAQ
+MQ4wDAYDVQQDEwVNeSBDQTAeFw0xODA3MDEyMTI2MzlaFw0zOTEyMzEyMzU5NTla
+MBAxDjAMBgNVBAMTBU15IENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
+AQEAnc1wfJAWkLGTZkTOLPigFzO5Wp+4Q6DtGHO3SxHubY3ru3caRm8y4Y5LHtlY
+jc9ZP5BStiYsVtnqzJY1H+SxweLPQvpHYjSC54ZpMEt1AHKhuE9o9+2qdfNonRtK
+/xLa2qcov0prPPs9LTkde5xIWw7fplAmrpvkVf4yfgSrmactNLoZby/lnG+nhsT5
+j4ICZIGogo+Icn/eTy7UPCdRdfkOdzAHBX6xQfH6g/p7HGtPigH9rs4ia1cND6J+
+NuPAuuLlMxpbSYE5Q1Gq8sRKdYnTMK9RfLnxa+N78qqR8R/MYr/RR4lKr2klwQm4
+jWno4wAlqirjW5W7LDmBOsstNQIDAQABo1YwVDAPBgNVHRMBAf8EBTADAQH/MEEG
+A1UdAQQ6MDiAEKuZwosHXc04qkkMrVgOXvShEjAQMQ4wDAYDVQQDEwVNeSBDQYIQ
+IPZoDPLffoVFfuI8gqFGajANBgkqhkiG9w0BAQsFAAOCAQEAaJWYGIP0vCruQ7WP
+43P0vFuwCmSLUYM+Edz+kQGBifhBnNsU+klJ18TWwazRGE4c72oAF+gNCAvfFKIq
+2pbGUWaKnPzEO0znCg4pgdEIGHjNTePYngL0h76ItFlGOr4YttOIROflpk1dR6Cp
+/1PwEOxZZ/9Kr9h1GVDiz2vcQW2VA8ALcgY584SKUkuKhE8Mqao78hU87e4dgXQL
+KkqlkMYo7XeFa5MYZpiXCQNQNQIp1l7wAiA6mdaURtG6+PSoLZel8101iXYQbZUn
+FAAiPQJ0lYyqerYP1tXtoSGUUEquiZFif3iU3VGA57L2repPbNIqOSOEmd47ZXT5
+K9WXgA==
+
+sabonawa@kali:~/hackTB/work$ base64 -d MyCA.cer.b64 > MyCA.cer
+{% endhighlight %}
+
+Decode MyCA.pvk:
+{% highlight shell %}
+sabonawa@kali:~/hackTB/work$ cat MyCA.pvk.b64 
+HvG1sAAAAAACAAAAAAAAAAAAAACUBAAABwIAAAAkAABSU0EyAAgAAAEAAQA1Lcs6
+gTksu5Vb4yqqJQDj6GmNuAnBJWmvSolH0b9izB/xkarye+Nr8bl8Ua8w04l1SsTy
+qlFDOYFJWxoz5eK6wOM2fqIPDVdrIs6u/QGKT2sce/qD+vFBsX4FBzB3Dvl1USc8
+1C5P3n9yiI+CqIFkAoKP+cSGp2+c5S9vGbo0LaeZqwR+Mv5V5JuuJlCm3w5bSJx7
+HTktPfs8a0q/KKfa2hL/ShudaPN1qu33aE+4oXIAdUswaYbngjRiR/pCz+LBseQf
+NZbM6tlWLCa2UpA/Wc+NWNkeS47hMm9GGne7641t7hFLt3MY7aBDuJ9auTMXoPgs
+zkRmk7GQFpB8cM2dcZKSZIFgfu9cfUwrnXbTQC2BzNdRgmJGHW+KXCFns7ve/Cfh
+UUSEOwv+aZwivMWic+lUA3MbVE73k5SrWWAa8HfhyRGeVkClWynddhknlufRz3VT
+owT8YoHrpOey+EJ48NX5kbb/lIL0qTzd4DtWbLDSI1oW+Cj3hiuQ1unQU7wF4Ukf
+7jv7zghW6Bp6LoUBFd9Dxw0Irs/aVRPyLWKv1Smk7rdiZ+Ym6/upHuLBaak4L/rM
+qvzeT+hoV9JkdOckXA54tEf0SYoamH2+mFwSgmenHjdHEPjKOC1FJOGacC/bKB4z
+iw0AoLPAwoK+ld57HMo1mexAEfvwua3rT6WB1pHtuKszTcsw2llLlAk3C2OU8sJS
++XPjsy4564WZZJurWx10vlhPUpdKTGbF/QV+5b02FQiyR5HkWBtqKHRVyEdZB0l5
+VFFUXWZBzYc//AqSfPZg19VcrGS2B8rU6oK/5dA4djw9oeYzpQDD5q6z/GlGrLCt
+iwGht0fcUveev2+20QfAHkGMmK1l9ymFdABCxLxQ3RbsaRwFffzwIO7hICSjIPwP
+8Lfl9SbLP1TqUhfmcWhDPNgBjvgI2HuiXOTOjqgo+ML8AP4t5ctAOV3idNqGA+8o
+QfqbZIwXW8t3DhRMOQ+y+7kZAG+0Tl4W+64Z+WbpV5NQ4Lh5zSDmy0H3NookmLbM
+k/+6gRKfzGSnvlxR8+yngqaJoCYziE/+F3k293lHyGz7swQ+/Pgn4VnKXJPJTHwM
+Gh7npszdDimChYLZhdo8VKSPdIe1aBcwzlxWhKe8zU39ktBCVB6COH+X2rRlNXiv
+vvvesEbLeD0y2vFxjWxCT1IcNMSe+NWLrRLVV1FlLtjTp+uIk8158Et7Mi5/i2h3
+ic+SiTxnQceaA9VJHLXEp3yO7hKMEpH9amU41EtFVStmiRoO3S3Bv3gGmZNKxZGJ
+aocRCf2Rc0AjRB2xbshYFx4hCpDPdXCZRzDIjJjxQEfl1rLxQqA5rz3/3K8SyJSL
+S79t8hzxlqwZvuMkL8LJzJi4m9Bt9sc2IxMdka4oAHAvKNpoOi6fZKINibMP69xK
+g7lubG3/Aft9LYH2DpSSt00WyPIqFIscvOqkzrBlJHW4Dj65gsdsBqKIvb0hdfpf
+myOjgtyxIuox7xHZOTg0TjoOnw1oMAdlBLaDfRz91TDwdd5N6T83QXLy3gY=
+sabonawa@kali:~/hackTB/work$ base64 -d MyCA.pvk.b64 > MyCA.pvk
+{% endhighlight %}
+
 We have to create our .pfx file and .cer file for the signature.<br>
 {% highlight shell %}
 C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin>makecert.exe -n "CN=Ethereal" -pe -cy end -ic c:\tmp\MyCA.cer -iv c:\tmp\MyCA.pvk -sky signature -sv c:\tmp\ethereal.pvk c:\tmp\ethereal.cer
@@ -613,6 +670,16 @@ C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin>makecert.exe -n "CN=Ethereal" -
 Makecert.exe requires password input but we don't need put anything ant click "ok"
 ![placeholder](https://inar1.github.io/public/images/2019-02-27/2019-02-26-11-09-32.png)
 
-Then, execute following command.
+Then, execute following commands.
 {% highlight shell %}
-C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin>makecert.exe -n "CN=Ethereal" -pe -cy end -ic c:\tmp\MyCA.cer -iv c:\tmp\MyCA.pvk -sky signature -sv c:\tmp\ethereal.pvk c:\tmp\ethereal.cer
+C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin>pvk2pfx.exe -pvk c:\tmp\ethereal.pvk -spc c:\tmp\ethereal.cer -pfx c:\tmp\ethereal.pfx
+
+C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin>signtool.exe sign /f c:\tmp\ethereal.pfx c:\tmp\ethereal.msi
+Done Adding Additional Store
+Successfully signed: c:\tmp\ethereal.msi
+{% endhighlight %}
+
+After that, we have to upload the msi file. We can do this just like when we uploaded vs-mod.lnk.
+{% highlight shell %}
+
+{% endhighlight %}
