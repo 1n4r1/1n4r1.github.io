@@ -143,7 +143,11 @@ As always, try to enumerate HTTP.<br>
 If we click on "MENU", we can find an access to admin console.
 ![placeholder](https://inar1.github.io/public/images/2019-03-22/2019-03-20-11-25-03.png)
 
-Clicking on "Menu" again and "PING" redirects us to ethreal.htb:8080
+Clicking on "Menu" again and "PING" redirects us to ethreal.htb:8080.<br>
+We have to add following line in "/etc/hosts".
+{% highlight shell %}
+10.10.10.106 ethereal.htb
+{% endhighlight %}
 ![placeholder](https://inar1.github.io/public/images/2019-03-22/2019-03-09-17-35-42.png)
 ![placeholder](https://inar1.github.io/public/images/2019-03-22/2019-03-20-11-27-17.png)
 
@@ -222,7 +226,7 @@ alan:!C414m17y57r1k3s4g41n!
 ![placeholder](https://inar1.github.io/public/images/2019-03-22/2019-03-20-13-42-22.png)
 
 Sounds like "ping" command is executed internally.<br>
-Then, try OS command injection.<br>
+Then, try OS command injection by putting some windows OS command in the textbox and submit.<br>
 We can easily figure out this command is available.
 {% highlight shell %}
 127.0.0.1 & ping 10.10.14.23
