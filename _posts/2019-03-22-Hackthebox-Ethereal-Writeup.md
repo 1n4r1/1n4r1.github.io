@@ -626,7 +626,8 @@ Impersonate="yes"/>
 </Wix>
 {% endhighlight %}
 
-Then, we have to execute following commands.
+Then, we have to execute following commands.<br>
+"ethereal.msi" is in a directory "C:\Program Files\WiX Toolset v3.11\bin".
 {% highlight shell %}
 C:\Program Files\WiX Toolset v3.11\bin>candle.exe c:\tmp\ethereal.wxs
 Windows Installer XML Toolset Compiler version 3.11.1.2318
