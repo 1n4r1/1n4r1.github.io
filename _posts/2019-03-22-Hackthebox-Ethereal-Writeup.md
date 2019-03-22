@@ -219,7 +219,7 @@ Try each patterns and we can find following credential to login ethereal.htb:808
 {% highlight shell %}
 alan:!C414m17y57r1k3s4g41n!
 {%endhighlight %}
-![placeholder](https://inar1.github.io/public/images/2019-03-22/2019-03-20-17-16-24.png)
+![placeholder](https://inar1.github.io/public/images/2019-03-22/2019-03-20-13-42-22.png)
 
 Sounds like "ping" command is executed internally.<br>
 Then, try OS command injection.<br>
