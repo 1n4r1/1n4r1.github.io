@@ -13,7 +13,7 @@ This is a write-up of machine "Frolic" on that website.
 ### 1. Initial Enumeration
 Port Scanning:
 {% highlight shell %}
-root@kali:/home/sabonawa# nmap -p- 10.10.10.111 -sV -sC
+root@kali:~# nmap -p- 10.10.10.111 -sV -sC
 Starting Nmap 7.70 ( https://nmap.org ) at 2018-10-15 09:44 EEST
 Nmap scan report for 10.10.10.111
 Host is up (0.035s latency).
@@ -59,38 +59,89 @@ Service detection performed. Please report any incorrect results at https://nmap
 Nmap done: 1 IP address (1 host up) scanned in 85.70 seconds
 {% endhighlight %}
 
-Gobuster HTTP:
+Gobuster HTTP port 1880:
 {% highlight shell %}
-root@kali:~# gobuster -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -s '200,204,301,302,403' -u http://10.10.10.105/ -x .php
+root@kali:~# gobuster -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -s '200,204,301,302,403' -u http://10.10.10.111:1880 -x .html,.php
 
 =====================================================
-Gobuster v2.0.0              OJ Reeves (@TheColonial)
+Gobuster v2.0.1              OJ Reeves (@TheColonial)
 =====================================================
 [+] Mode         : dir
-[+] Url/Domain   : http://10.10.10.105/
+[+] Url/Domain   : http://10.10.10.111:1880/
 [+] Threads      : 10
 [+] Wordlist     : /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
 [+] Status codes : 200,204,301,302,403
-[+] Extensions   : php
+[+] Extensions   : html,php
 [+] Timeout      : 10s
 =====================================================
-2018/09/23 09:56:07 Starting gobuster
+2019/03/22 15:21:35 Starting gobuster
 =====================================================
-/index.php (Status: 200)
-/img (Status: 301)
-/tools (Status: 301)
-/doc (Status: 301)
-/css (Status: 301)
-/js (Status: 301)
-/tickets.php (Status: 302)
-/fonts (Status: 301)
-/dashboard.php (Status: 302)
-/debug (Status: 301)
-/diag.php (Status: 302)
-/server-status (Status: 403)
+/red (Status: 301)
+/vendor (Status: 301)
 =====================================================
-2018/09/23 10:27:10 Finished
+2019/03/22 16:05:09 Finished
 =====================================================
 {% endhighlight %}
 
+Gobuster HTTP port 9999:
+{% highlight shell %}
+root@kali:~# gobuster -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -s '200,204,301,302,403' -u http://10.10.10.111:9999 -x .html,.php
+
+=====================================================
+Gobuster v2.0.1              OJ Reeves (@TheColonial)
+=====================================================
+[+] Mode         : dir
+[+] Url/Domain   : http://10.10.10.111:9999/
+[+] Threads      : 10
+[+] Wordlist     : /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes : 200,204,301,302,403
+[+] Extensions   : html,php
+[+] Timeout      : 10s
+=====================================================
+2019/03/22 14:35:52 Starting gobuster
+=====================================================
+/admin (Status: 301)
+/test (Status: 301)
+/dev (Status: 301)
+/backup (Status: 301)
+/loop (Status: 301)
+=====================================================
+2019/03/22 15:18:58 Finished
+=====================================================
+{% endhighlight %}
+
+### 2. Getting User
+We can find a login page in "/admin" port 9999.<br>
+![placeholder](https://inar1.github.io/public/images/2019-03-24/2019-03-23-10-52-11.png)
+This login console is controlled by "/admin/js/login.js" and we can find the password "superduperlooperpassword_lol".
+{% highlight shell %}
+root@kali:~# curl http://10.10.10.111:9999/admin/js/login.js
+var attempt = 3; // Variable to count number of attempts.
+// Below function Executes on click of login button.
+function validate(){
+var username = document.getElementById("username").value;
+var password = document.getElementById("password").value;
+if ( username == "admin" && password == "superduperlooperpassword_lol"){
+alert ("Login successfully");
+window.location = "success.html"; // Redirecting to other page.
+return false;
+}
+else{
+attempt --;// Decrementing by one.
+alert("You have left "+attempt+" attempt;");
+// Disabling fields after 3 attempts.
+if( attempt == 0){
+document.getElementById("username").disabled = true;
+document.getElementById("password").disabled = true;
+document.getElementById("submit").disabled = true;
+return false;
+}
+}
+}
+{% endhighlight %}
+
+In the redirected page "/admin/success.html", there is a "encrypted message"
+![placeholder](https://inar1.github.io/public/images/2019-03-19/2019-03-23-10-58-52.png)
+
+### 3. Getting Root
 
