@@ -68,5 +68,5 @@ Copyright (c) Microsoft Corporation. All rights reserved.
 https://aka.ms/pscore6-docs
 Type 'help' to get help.
 
-PS /home/sabonawa/Downloads>
+PS /root/Downloads>
 {% endhighlight %}
