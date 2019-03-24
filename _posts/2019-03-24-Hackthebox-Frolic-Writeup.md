@@ -203,7 +203,7 @@ We can login to playsms which is in "/playsms". This information is found in"/de
 ![placeholder](https://inar1.github.io/public/images/2019-03-24/2019-03-24-00-53-04.png)
 
 The credential is "admin:idkwhatispass".
-![placeholder](https://inar1.github.io/public/images/2019-03-19/2019-03-24-14-44-51.png)
+![placeholder](https://inar1.github.io/public/images/2019-03-24/2019-03-24-14-44-51.png)
 
 searchsploit:
 {% highlight shell %}
