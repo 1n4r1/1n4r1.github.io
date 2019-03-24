@@ -75,15 +75,15 @@ However, we are still not able to use Zabbix GUI console due to its configuratio
 Then we have to use <a href="https://github.com/usit-gd/zabbix-cli">"zabbix-cli"</a><br>
 At first, we have to install and setup zabbix-cli with following commands.
 {% highlight shell %}
-sabonawa@kali:~$ git clone https://github.com/usit-gd/zabbix-cli.git
+root@kali:~# git clone https://github.com/usit-gd/zabbix-cli.git
 
 ~~~
 
-root@kali:/home/sabonawa/zabbix-cli# ./setup.py install
+root@kali:~/zabbix-cli# ./setup.py install
 
 ~~~
 
-root@kali:/home/sabonawa/zabbix-cli# zabbix-cli-init -z http://10.10.10.108/zabbix
+root@kali:~/zabbix-cli# zabbix-cli-init -z http://10.10.10.108/zabbix
 [INFO]: wrote config to '/root/.zabbix-cli/zabbix-cli.conf'
 
 {% endhighlight %}
@@ -91,7 +91,7 @@ root@kali:/home/sabonawa/zabbix-cli# zabbix-cli-init -z http://10.10.10.108/zabb
 Next, try to connect with "zabbix-cli" command.<br>
 As you can see, by using credentail "zapper:zapper", we can log in to zabbix CLI console.
 {% highlight shell %}
-root@kali:/home/sabonawa/zabbix-cli# zabbix-cli
+root@kali:~/zabbix-cli# zabbix-cli
 -------------------------
 Zabbix-CLI authentication
 -------------------------

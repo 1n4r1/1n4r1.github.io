@@ -11,7 +11,7 @@ root@kali:# apt-get update
 root@kali:# apt-get upgrade
 root@kali:# uname -a
 Linux kali 4.18.0-kali3-amd64 #1 SMP Debian 4.18.20-2kali2 (2018-11-30) x86_64 GNU/Linux
-root@kali:/home/sabonawa# date
+root@kali:~# date
 Wed Feb  6 19:13:54 EET 2019
 {% endhighlight %}
 * Burp Suite: Burp Suite Community Edition v1.7.36
@@ -25,7 +25,7 @@ By default setting, it is not capable to run Burp Suite on Kali linux 2018.4 bec
 As we try to launch the Burp Suite,
 we have this error.
 {% highlight shell %}
-root@kali:/home/sabonawa/inar1.github.io/_posts# burpsuite
+root@kali:~# burpsuite
 WARNING: An illegal reflective access operation has occurred
 WARNING: Illegal reflective access by burp.uie (file:/usr/bin/burpsuite) to field javax.crypto.JceSecurity.isRestricted
 WARNING: Please consider reporting this to the maintainers of burp.uie

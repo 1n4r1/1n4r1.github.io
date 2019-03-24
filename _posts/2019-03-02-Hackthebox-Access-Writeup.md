@@ -42,7 +42,7 @@ FTP enumeration:
 root@kali:~# ftp 10.10.10.98
 Connected to 10.10.10.98.
 220 Microsoft FTP Service
-Name (10.10.10.98:sabonawa): anonymous
+Name (10.10.10.98:root): anonymous
 331 Anonymous access allowed, send identity (e-mail name) as password.
 Password:
 230 User logged in.
@@ -97,28 +97,28 @@ we can use the password "access4u@security" for "Access Control.zip".<br>
 After the extraction "Access Control.zip", what we find is "Access Control.pst".
 
 {% highlight shell %}
-root@kali:~# ls -la
+root@kali:~/Downloads# ls -la
 total 288
-drwxr-xr-x 2 sabonawa sabonawa   4096 Feb 14 22:19  .
-drwxr-xr-x 5 sabonawa sabonawa   4096 Feb 14 22:15  ..
--rw-r--r-- 1 sabonawa sabonawa 271360 Aug 24 03:13 'Access Control.pst'
--rw-r--r-- 1 sabonawa sabonawa  10870 Feb 14 22:16 'Access Control.zip'
+drwxr-xr-x 2 root root   4096 Feb 14 22:19  .
+drwxr-xr-x 5 root root   4096 Feb 14 22:15  ..
+-rw-r--r-- 1 root root 271360 Aug 24 03:13 'Access Control.pst'
+-rw-r--r-- 1 root root  10870 Feb 14 22:16 'Access Control.zip'
 {% endhighlight %}
 
 ".pst" is an extension for data format of MS Outlook Personal Folders.<br>
 We can retrieve the inside file "AccessControl.mbox" with "readpst" command.
 {% highlight shell %}
-root@kali:/home/sabonawa/hackTB/access# readpst 'Access Control.pst' 
+root@kali:~/Downloads# readpst 'Access Control.pst' 
 Opening PST file and indexes...
 Processing Folder "Deleted Items"
 "Access Control" - 2 items done, 0 items skipped.
-root@kali:~# ls -la
+root@kali:~/Downloads# ls -la
 total 292
-drwxr-xr-x 2 sabonawa sabonawa   4096 Feb 14 22:23  .
-drwxr-xr-x 5 sabonawa sabonawa   4096 Feb 14 22:15  ..
--rw-r--r-- 1 root     root       3105 Feb 14 22:23 'Access Control.mbox'
--rw-r--r-- 1 sabonawa sabonawa 271360 Aug 24 03:13 'Access Control.pst'
--rw-r--r-- 1 sabonawa sabonawa  10870 Feb 14 22:16 'Access Control.zip'
+drwxr-xr-x 2 root root   4096 Feb 14 22:23  .
+drwxr-xr-x 5 root root   4096 Feb 14 22:15  ..
+-rw-r--r-- 1 root root   3105 Feb 14 22:23 'Access Control.mbox'
+-rw-r--r-- 1 root root 271360 Aug 24 03:13 'Access Control.pst'
+-rw-r--r-- 1 root root  10870 Feb 14 22:16 'Access Control.zip'
 {% endhighlight %}
 
 The content of "Access Control.pst" is new password for user "security".

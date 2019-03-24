@@ -69,7 +69,8 @@ By inspecting with chrome development tool, we can find that it is html web page
 In that file, there are some interesting php path in some functions.
 
 {% highlight shell %}
-root@kali:/home/sabonawa# curl -i http://10.10.10.87/list.js
+root@kali:~# curl -i http://10.10.10.87/list.js
+
 HTTP/1.1 200 OK
 Server: nginx/1.12.2
 Date: Tue, 18 Sep 2018 21:34:34 GMT

