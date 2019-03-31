@@ -76,10 +76,10 @@ Gobuster v2.0.0              OJ Reeves (@TheColonial)
 
 ### 2. Getting User
 We can figure out that Joomla is running on port 80.
-![placeholder](https://inar1.githuib.io/public/images/2019-03-31/2019-03-24-15-14-26.png)
+![placeholder](https://inar1.github.io/public/images/2019-03-31/2019-03-24-15-14-26.png)
 
 There is an interesting line in html source code.
-![placeholder](https://inar1.githuib.io/public/images/2019-03-31/2019-03-24-15-20-11.png)
+![placeholder](https://inar1.github.io/public/images/2019-03-31/2019-03-24-15-20-11.png)
 
 In the "secret.txt", we have base64 encoded message.
 {% highlight shell %}
@@ -97,10 +97,10 @@ floris:Curling2018!
 
 Now we have a control of admin console.<br>
 Try to upload our shellcode. Go to "Extensions" -> "Templates" -> "Templates".
-![placeholder](https://inar1.githuib.io/public/images/2019-03-31/2019-03-24-15-49-36.png)
+![placeholder](https://inar1.github.io/public/images/2019-03-31/2019-03-24-15-49-36.png)
 
 Then choose "Protostar Details and Files" -> "index.php"
-![placeholder](https://inar1.githuib.io/public/images/2019-03-31/2019-03-23-17-37-06.png)
+![placeholder](https://inar1.github.io/public/images/2019-03-31/2019-03-23-17-37-06.png)
 
 Now we have a console which we can edit the source code of index.php.<br>
 Let's add reverse shell code (<a href="http://pentestmonkey.net/tools/web-shells/php-reverse-shell">example</a>) here and access "http://10.10.10.150/index.php". We can achieve a reverse shell.
