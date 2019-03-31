@@ -78,7 +78,7 @@ Gobuster v2.0.0              OJ Reeves (@TheColonial)
 We can figure out that Joomla is running on port 80.
 ![placeholder](https://inar1.github.io/public/images/2019-03-31/2019-03-24-15-14-26.png)
 
-There is an interesting line in html source code.
+There is an interesting line in html source code in "/index.php".
 ![placeholder](https://inar1.github.io/public/images/2019-03-31/2019-03-24-15-20-11.png)
 
 In the "secret.txt", we have base64 encoded message.
