@@ -4,7 +4,7 @@ title: Hackthebox Curling Writeup
 categories: HackTheBox
 ---
 
-<img src="/public/images/2019-03-30/curling_badge.png"><br>
+<img src="/public/images/2019-03-31/curling_badge.png"><br>
 ## Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has bunch of vulnerable machines in its own VPN.
 This is a write-up of machine "Curling" on that website.
