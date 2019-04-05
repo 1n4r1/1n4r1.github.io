@@ -282,3 +282,16 @@ Matching Defaults entries for dave on DNS:
 User dave may run the following commands on DNS:
     (ALL : ALL) ALL
 {% endhighlight %}
+
+Besides, in "/etc/hosts", we can find an IP address of "vault"
+{% highlight shell %}
+dave@DNS:~$ cat /etc/hosts
+127.0.0.1	localhost
+127.0.1.1	DNS
+192.168.5.2	Vault
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+{% endhighlight %}
+
