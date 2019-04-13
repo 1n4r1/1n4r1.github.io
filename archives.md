@@ -1,7 +1,7 @@
 ---
 layout: page
-permalink: /tags/
-title: Tags
+permalink: /archives/
+title: Archives
 ---
 
 <div id="tags">
