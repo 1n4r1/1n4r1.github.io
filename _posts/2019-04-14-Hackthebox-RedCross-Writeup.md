@@ -441,7 +441,7 @@ r     |   shell
 (2 rows)
 {% endhighlight %}
 
-Then, login as user inari with ssh.
+Then, login as user inari with ssh.<br>
 Since group "sudo" can execute any command as root on this server, we can achieve a root shell by command "sudo -s".
 {% highlight shell %}
 root@kali:~# ssh inari@10.10.10.113
