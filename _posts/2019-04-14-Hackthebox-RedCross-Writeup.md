@@ -120,18 +120,14 @@ Besides, we can find an interesting pdf under the directory "/documents"
 ![placeholder](https://inar1.github.io/public/images/2019-04-14/2019-04-13-22-03-30.png)
 
 By sending following message, we can create a new credential "guest:guest".
-![placeholder](https://inar1.github.io/public/images/2019-04-14/2019-03-24-15-20-11.png)
+![placeholder](https://inar1.github.io/public/images/2019-04-14/2019-04-14-12-26-40.png)
 
 We can login to the console with a credential "guest:guest".
-![placeholder](https://inar1.github.io/public/images/2019-04-14/2019-03-24-15-20-11.png)
-
-{% highlight shell %}
-10.10.10.113 admin.redcross.htb
-{% endhighlight %}
+![placeholder](https://inar1.github.io/public/images/2019-04-14/2019-04-14-12-29-17.png)
 
 If we put a single quote in a UserID and submit, we receive followin message.<br>
 This means this webapp has SQLinjection vulnerability.
-![placeholder](https://inar1.github.io/public/images/2019-04-14/2019-03-24-15-20-11.png)
+![placeholder](https://inar1.github.io/public/images/2019-04-14/2019-04-13-22-13-22.png)
 
 In this case, the url we are redirected is following.
 {% highlight shell %}
@@ -153,22 +149,41 @@ Add following line in "/etc/hosts" and try to access.
 {% endhighlight %}
 
 We can find another login console.
-![placeholder](https://inar1.github.io/public/images/2019-04-14/2019-03-24-15-20-11.png)
+![placeholder](https://inar1.github.io/public/images/2019-04-14/2019-04-14-12-31-43.png)
 
 we can try the credential "guest:guest". However, it shows a message we don't have enough privilege.
 Then, try to do session replay attack.<br>
 Open Burp Suite and check the "PHPSESSID" in the Cookie when we accessed "intra.redcross.htb".
-![placeholder](https://inar1.github.io/public/images/2019-04-14/2019-03-24-15-20-11.png)
+![placeholder](https://inar1.github.io/public/images/2019-04-14/2019-04-14-10-28-06.png)
 
 Then, turn intercept on and try to access "admin.redcross.htb".<br>
-check the value of "PHPSESSID" in the cookie and change the value to the above session id.
-![placeholder](https://inar1.github.io/public/images/2019-04-14/2019-03-24-15-20-11.png)
+check the value of "PHPSESSID" in the cookie and change the value to the above session id.<br>
+We have to modify following 3 requests.
+![placeholder](https://inar1.github.io/public/images/2019-04-14/2019-04-14-10-32-08.png)
+![placeholder](https://inar1.github.io/public/images/2019-04-14/2019-04-14-10-32-37.png)
+![placeholder](https://inar1.github.io/public/images/2019-04-14/2019-04-14-10-33-28.png)
 
-
-
-
+Then, we can access to the admin console of "admin.redcross.htb".
+![placeholder](https://inar1.github.io/public/images/2019-04-14/2019-04-14-10-36-11.png)
+With accessing "User Management", we can create a new user on redcross.
+![placeholder](https://inar1.github.io/public/images/2019-04-14/2019-04-14-10-45-38.png)
+![placeholder](https://inar1.github.io/public/images/2019-04-14/2019-04-14-10-45-56.png)
 
 We cam use this credential for ssh login.
 {% highlight shell %}
-manolo:NIFmPpCb
+inari:YfXHf8ta
 {% endhighlight %}
+{% highlight shell %}
+root@kali:~# ssh inari@10.10.10.113
+inari@10.10.10.113's password:  # YfXHf8ta
+Linux redcross 4.9.0-6-amd64 #1 SMP Debian 4.9.88-1+deb9u1 (2018-05-07) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+$ id
+uid=2020 gid=1001(associates) groups=1001(associates)
+{% endhighligit %}
