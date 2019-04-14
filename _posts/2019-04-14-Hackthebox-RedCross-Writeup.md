@@ -132,7 +132,7 @@ This means this webapp has SQLinjection vulnerability.
 In this case, the url we are redirected is following.
 {% highlight shell %}
 https://intra.redcross.htb/?o=%27&page=app
-{% endhighlgiht %}
+{% endhighlight %}
 
 Now we have following query and we have to put something into single quote.
 {% highlight shell %}
