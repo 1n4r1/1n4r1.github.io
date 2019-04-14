@@ -140,7 +140,7 @@ or dest like ''
 {% endhighlight %}
 
 We can put % there and we can achieve following output.
-![placeholder](https://inar1.github.io/public/images/2019-04-14/2019-04-14-22-23-51.png)
+![placeholder](https://inar1.github.io/public/images/2019-04-14/2019-04-13-22-23-51.png)
 
 Sounds like we have admin webapp and we have sub domain for that.<br>
 Add following line in "/etc/hosts" and try to access.
