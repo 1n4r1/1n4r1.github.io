@@ -186,7 +186,7 @@ Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
 permitted by applicable law.
 $ id
 uid=2020 gid=1001(associates) groups=1001(associates)
-{% endhighligit %}
+{% endhighlight %}
 
 We can confirm we're in a "jail".
 {% highlight shell %}
