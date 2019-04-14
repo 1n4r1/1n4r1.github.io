@@ -346,7 +346,7 @@ ac899bd46f7b014a369fbb60e53329bf
 
 ### 3. Getting Root
 At first, we have to spawn a python full shell.
-{% highlgiht shell %}
+{% highlight shell %}
 python -c 'import pty; pty.spawn("/bin/bash")'
 {% endhighlight %}
 
