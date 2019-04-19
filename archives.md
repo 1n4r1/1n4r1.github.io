@@ -11,7 +11,7 @@ title: Archives
     <div id="#{{ category_name | slugize }}"></div>
     <p></p>
     
-    <h2 class="tag-head">{{ category_name }}</h2>
+    <h3 class="tag-head">{{ category_name }}</h3>
     <a name="{{ category_name | slugize }}"></a>
     {% for post in site.categories[category_name] %}
     <article class="archive-item">
@@ -19,5 +19,6 @@ title: Archives
     </article>
     {% endfor %}
   </div>
+  <br>
 {% endfor %}
 </div>
