@@ -16,14 +16,16 @@ How to rollback each procedure of git
 # rollback all unstaged modification
 $ git reset --hard
 
-# rollback staged files(in repository root directory)
+# rollback staged files
+# (in repository root directory)
 $ git reset .
 
-# rollback newest commit(go back to when 2nd newest commit happened) 
-# keep files modified and staged
+# rollback newest commit keep files modified and staged
+# (go back to when 2nd newest commit happened)
 $ git reset --soft HEAD^
 
-# rollback commit and discard its changing(go back to when 2nd newest commit happened)
+# rollback commit and discard its changing
+# (go back to when 2nd newest commit happened)
 $ git reset --hard HEAD^
 
 {% endhighlight %}
