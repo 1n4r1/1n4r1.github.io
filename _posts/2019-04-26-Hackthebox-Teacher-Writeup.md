@@ -268,7 +268,8 @@ $CFG->prefix    = 'mdl_';
 
 {% endhighlight%}
 
-In DB "moodle" of Mariadb, we can find some password hash for each user.
+In DB "moodle" of Mariadb, we can find some password hashes for each user.<br>
+One is outstanding.
 {% highlight shell %}
 MariaDB [moodle]> select username, password FROM mdl_user;
 select username, password FROM mdl_user;
