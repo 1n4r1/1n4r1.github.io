@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Git skip auth
+title: Git skip https auth
 categories: Git
 ---
 
@@ -19,7 +19,8 @@ Password for 'https://inar1@github.com':
 
 ## Solution
 We can use <a href="https://git-scm.com/docs/gitcredentials">git-credential</a>.<br>
-Since I'm using Kali, I can not use any authentication procedure from OS.
+Since I'm using Kali, I can not use any authentication procedure of OS.<br>
+So I have to store my credential in local directory.
 {% highlight shell %}
 git config --global credential.helper store
 {% endhighlight %}
