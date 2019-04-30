@@ -1,0 +1,35 @@
+---
+layout: post
+title: Git skip auth
+categories: Git
+---
+
+## Environment
+* OS: Kali linux 2019.1
+* Git: 2.20.1
+
+## Explanation
+How to skip authiorization when we access remote repository via https<br>
+Example:
+{% highlight shell %}
+root@kali:~/inar1.github.io# git push origin git-skip-auth
+Username for 'https://github.com': inar1
+Password for 'https://inar1@github.com': 
+{% endhighlight %}
+
+## Solution
+We can use <a href="https://git-scm.com/docs/gitcredentials">git-credential</a>.<br>
+Since I'm using Kali, I can not use any authentication procedure from OS.
+{% highlight shell %}
+git config --global credential.helper store
+{% endhighlight %}
+
+We have to login with username/password one time after this command.<br>
+Then, the auth data will be stored here
+{% highlight shell %}
+root@kali:~# cat .git-credentials 
+https://inar1:SuperStrongFakePassword!!@github.com
+root@kali:~#
+{% endhighlight %}
+
+Now, we don't have to put credentials any more.
