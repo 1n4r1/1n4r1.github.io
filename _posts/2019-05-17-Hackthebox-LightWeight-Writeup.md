@@ -4,7 +4,7 @@ title: Hackthebox Lightweight Writeup
 categories: HackTheBox
 ---
 
-<img src="/public/images/2019-05-17/lightweight_badge.png"><br>
+![placeholder](https://inar1.github.io/public/images/2019-05-17/lightweight_badge.png)
 ## Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has bunch of vulnerable machines in its own VPN.
 This is a write-up of machine "Lightweight" on that website.
