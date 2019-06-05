@@ -299,7 +299,7 @@ Method = LZMA2:12k 7zAES
 Solid = +
 Blocks = 1
 
-    
+
 Enter password (will not be echoed):
 {% endhighlight %}
 
@@ -367,7 +367,7 @@ total 1484
 [ldapuser1@lightweight ~]$ 
 {% endhighlight %}
 
-The executables "openssl" has strong permission.
+The executable "openssl" has "effective" and "permitted".
 {% highlight shell %}
 [ldapuser1@lightweight ~]$ getcap -r / 2>/dev/null
 /usr/bin/ping = cap_net_admin,cap_net_raw+p
