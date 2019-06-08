@@ -340,7 +340,7 @@ We have to add following line in "/etc/hosts" for name resolution.
 {% endhighlight %}
 
 We have an interesting page to create a pdf file there.
-![placeholder](https://inar1.github.io/public/images/2019-06-08/2019-06-08-09-11-41.png)
+![placeholder](https://inar1.github.io/public/images/2019-06-08/2019-06-08-09-56-06.png)
 
 If we see the response, we can figure out this page is using pdfTex version 3.14159265-2.6-1.40.19
 ![placeholder](https://inar1.github.io/public/images/2019-06-08/2019-06-08-08-58-53.png)
