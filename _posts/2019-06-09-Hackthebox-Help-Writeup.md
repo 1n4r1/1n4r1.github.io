@@ -59,11 +59,48 @@ Gobuster v2.0.0              OJ Reeves (@TheColonial)
 =====================================================
 {% endhighlight %}
 
+Gobuster HTTP /support:
+{% highlight shell %}
+root@kali:~# gobuster -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -s '200,204,301,302,403' -u http://10.10.10.121/support -x .html,.php
+
+=====================================================
+Gobuster v2.0.1              OJ Reeves (@TheColonial)
+=====================================================
+[+] Mode         : dir
+[+] Url/Domain   : http://10.10.10.121/support/
+[+] Threads      : 10
+[+] Wordlist     : /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes : 200,204,301,302,403
+[+] Extensions   : html,php
+[+] Timeout      : 10s
+=====================================================
+2019/06/08 20:00:01 Starting gobuster
+=====================================================
+/images (Status: 301)
+/index.php (Status: 200)
+/uploads (Status: 301)
+/css (Status: 301)
+/includes (Status: 301)
+/js (Status: 301)
+/readme.html (Status: 200)
+/views (Status: 301)
+/captcha.php (Status: 200)
+/controllers (Status: 301)
+=====================================================
+2019/06/08 20:45:19 Finished
+=====================================================
+{% endhighlight %}
+
 ### 2. Getting User
-In /support, we can confirm "HelpdeskZ" is running.
+In /support, we can confirm <a href="https://github.com/evolutionscript/HelpDeskZ-1.0">"HelpdeskZ"</a> is running.
 ![placeholder](https://inar1.github.io/public/images/2019-06-09/help_badge.png)
 
-By searchsploit, we can find a vulnerability of HelpdeskZ.
+In /readme.html, we can see that the version of HelpdeskZ is "1.0.2"
+![placeholder](https://inar1.github.io/public/images/2019-06-09/help_badge.png)
+
+By searchsploit, we can find a vulnerability of HelpdeskZ in Following page.<br>
+Sounds like we can upload arbitraty file.
+![placeholder](https://inar1.github.io/public/images/2019-06-09/help_badge.png)
 {% highlight shell %}
 root@kali:~# searchsploit helpdeskz
 ----------------------------------------------------------------------------------------- ----------------------------------------
@@ -74,6 +111,62 @@ HelpDeskZ 1.0.2 - Arbitrary File Upload                                         
 HelpDeskZ < 1.0.2 - (Authenticated) SQL Injection / Unauthorized File Download           | exploits/php/webapps/41200.py
 ----------------------------------------------------------------------------------------- ----------------------------------------
 Shellcodes: No Result
+{% endhighlight %}
+
+However, when we try php file uploading, we get "File is not allowed"
+![placeholder](https://inar1.github.io/public/images/2019-06-09/help_badge.png)
+
+Then, try to look at the code of HelpdeskZ.
+<a href="https://github.com/evolutionscript/HelpDeskZ-1.0/blob/master/controllers/submit_ticket_controller.php">"https://github.com/evolutionscript/HelpDeskZ-1.0/blob/master/controllers/submit_ticket_controller.php"</a> 
+{% highlight php %}
+				if(!isset($error_msg) && $settings['ticket_attachment']==1){
+					$uploaddir = UPLOAD_DIR.'tickets/';		
+					if($_FILES['attachment']['error'] == 0){
+						$ext = pathinfo($_FILES['attachment']['name'], PATHINFO_EXTENSION);
+						$filename = md5($_FILES['attachment']['name'].time()).".".$ext;
+						$fileuploaded[] = array('name' => $_FILES['attachment']['name'], 'enc' => $filename, 'size' => formatBytes($_FILES['attachment']['size']), 'filetype' => $_FILES['attachment']['type']);
+						$uploadedfile = $uploaddir.$filename;
+						if (!move_uploaded_file($_FILES['attachment']['tmp_name'], $uploadedfile)) {
+							$show_step2 = true;
+							$error_msg = $LANG['ERROR_UPLOADING_A_FILE'];
+						}else{
+							$fileverification = verifyAttachment($_FILES['attachment']);
+							switch($fileverification['msg_code']){
+								case '1':
+								$show_step2 = true;
+								$error_msg = $LANG['INVALID_FILE_EXTENSION'];
+								break;
+								case '2':
+								$show_step2 = true;
+								$error_msg = $LANG['FILE_NOT_ALLOWED'];
+								break;
+								case '3':
+								$show_step2 = true;
+								$error_msg = str_replace('%size%',$fileverification['msg_extra'],$LANG['FILE_IS_BIG']);
+								break;
+							}
+						}
+					}	
+				}
+{% endhighlight %}
+
+Followings are the important information.
+1. The file is uploaded to "/support/uploads/tickets/"
+2. time() is used to encode the filenames
+
+By sending a request to "Help", we can figure out this server is using GMT.
+{% highlight shell %}
+root@kali:~# curl --head http://10.10.10.121/support
+HTTP/1.1 301 Moved Permanently
+Date: Sun, 09 Jun 2019 06:30:05 GMT
+Server: Apache/2.4.18 (Ubuntu)
+Location: http://10.10.10.121/support/
+Content-Type: text/html; charset=iso-8859-1
+{% endhighlight %}
+
+We already have an exploit code on our kali linux. However, we need to modify the script a bit.
+{% highlight pytohn %}
+
 {% endhighlight %}
 
 ### 3. Getting Root
