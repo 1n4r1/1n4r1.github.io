@@ -169,7 +169,6 @@ Content-Type: text/html; charset=iso-8859-1
 We already have an exploit code on our kali linux. However, we need to modify the script a bit.<br>
 I've commented the line to be fixed and added a new line.
 {% highlight pytohn %}
-root@kali:~# cat 40300.py 
 #! /usr/bin/python
 
 import hashlib
