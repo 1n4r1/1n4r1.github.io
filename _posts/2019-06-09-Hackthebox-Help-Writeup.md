@@ -231,7 +231,7 @@ $ uname -a
 Linux help 4.4.0-116-generic #140-Ubuntu SMP Mon Feb 12 21:23:04 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux
 {% endhighlight %}
 
-Then, launch simple http server and transfer it.<br>
+Then, launch simple http server and transfer the exploit code.<br>
 We have wget command on the target server.
 {% highlight shell %}
 $ pwd  
