@@ -13,7 +13,7 @@ This is a write-up of machine "Help" on that website.
 ### 1. Initial Enumeration
 Port Scanning:
 {% highlight shell %}
-root@kali:/home/sabonawa/hackTB# nmap -sV -sC -p- 10.10.10.121
+root@kali:~# nmap -sV -sC -p- 10.10.10.121
 Starting Nmap 7.70 ( https://nmap.org ) at 2019-01-30 08:06 EET
 Nmap scan report for 10.10.10.121
 Host is up (0.035s latency).
@@ -37,7 +37,7 @@ Nmap done: 1 IP address (1 host up) scanned in 34.73 seconds
 
 Gobuster HTTP:
 {% highlight shell %}
-root@kali:/home/sabonawa# gobuster -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -s '200,204,301,302,403' -u http://10.10.10.121
+root@kali:~# gobuster -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -s '200,204,301,302,403' -u http://10.10.10.121
 
 =====================================================
 Gobuster v2.0.0              OJ Reeves (@TheColonial)
@@ -98,9 +98,7 @@ In /support, we can confirm <a href="https://github.com/evolutionscript/HelpDesk
 In /readme.html, we can see that the version of HelpdeskZ is "1.0.2"
 ![placeholder](https://inar1.github.io/public/images/2019-06-09/2019-06-09-23-29-16.png)
 
-By searchsploit, we can find a vulnerability of HelpdeskZ in Following page.<br>
-Sounds like we can upload arbitraty file.
-![placeholder](https://inar1.github.io/public/images/2019-06-09/2019-06-09-23-29-53.png)
+By searchsploit, we can find a vulnerability for helpdesk ver 1.0.2.
 {% highlight shell %}
 root@kali:~# searchsploit helpdeskz
 ----------------------------------------------------------------------------------------- ----------------------------------------
@@ -113,41 +111,44 @@ HelpDeskZ < 1.0.2 - (Authenticated) SQL Injection / Unauthorized File Download  
 Shellcodes: No Result
 {% endhighlight %}
 
+Sounds like we can upload arbitraty file with this file upload feature in module for ticket submission.
+![placeholder](https://inar1.github.io/public/images/2019-06-09/2019-06-09-23-29-53.png)
+
 However, when we try php file uploading, we get "File is not allowed"
 ![placeholder](https://inar1.github.io/public/images/2019-06-09/2019-06-09-16-44-38.png)
 
 Then, try to look at the code of HelpdeskZ.
 <a href="https://github.com/evolutionscript/HelpDeskZ-1.0/blob/master/controllers/submit_ticket_controller.php">"https://github.com/evolutionscript/HelpDeskZ-1.0/blob/master/controllers/submit_ticket_controller.php"</a> 
 {% highlight php %}
-				if(!isset($error_msg) && $settings['ticket_attachment']==1){
-					$uploaddir = UPLOAD_DIR.'tickets/';		
-					if($_FILES['attachment']['error'] == 0){
-						$ext = pathinfo($_FILES['attachment']['name'], PATHINFO_EXTENSION);
-						$filename = md5($_FILES['attachment']['name'].time()).".".$ext;
-						$fileuploaded[] = array('name' => $_FILES['attachment']['name'], 'enc' => $filename, 'size' => formatBytes($_FILES['attachment']['size']), 'filetype' => $_FILES['attachment']['type']);
-						$uploadedfile = $uploaddir.$filename;
-						if (!move_uploaded_file($_FILES['attachment']['tmp_name'], $uploadedfile)) {
-							$show_step2 = true;
-							$error_msg = $LANG['ERROR_UPLOADING_A_FILE'];
-						}else{
-							$fileverification = verifyAttachment($_FILES['attachment']);
-							switch($fileverification['msg_code']){
-								case '1':
-								$show_step2 = true;
-								$error_msg = $LANG['INVALID_FILE_EXTENSION'];
-								break;
-								case '2':
-								$show_step2 = true;
-								$error_msg = $LANG['FILE_NOT_ALLOWED'];
-								break;
-								case '3':
-								$show_step2 = true;
-								$error_msg = str_replace('%size%',$fileverification['msg_extra'],$LANG['FILE_IS_BIG']);
-								break;
-							}
-						}
-					}	
-				}
+if(!isset($error_msg) && $settings['ticket_attachment']==1){
+    $uploaddir = UPLOAD_DIR.'tickets/';
+    if($_FILES['attachment']['error'] == 0){
+        $ext = pathinfo($_FILES['attachment']['name'], PATHINFO_EXTENSION);
+        $filename = md5($_FILES['attachment']['name'].time()).".".$ext;
+        $fileuploaded[] = array('name' => $_FILES['attachment']['name'], 'enc' => $filename, 'size' => formatBytes($_FILES['attachment']['size']), 'filetype' => $_FILES['attachment']['type']);
+        $uploadedfile = $uploaddir.$filename;
+        if (!move_uploaded_file($_FILES['attachment']['tmp_name'], $uploadedfile)) {
+            $show_step2 = true;
+            $error_msg = $LANG['ERROR_UPLOADING_A_FILE'];
+        }else{
+            $fileverification = verifyAttachment($_FILES['attachment']);
+            switch($fileverification['msg_code']){
+                case '1':
+                $show_step2 = true;
+                $error_msg = $LANG['INVALID_FILE_EXTENSION'];
+                break;
+                case '2':
+                $show_step2 = true;
+                $error_msg = $LANG['FILE_NOT_ALLOWED'];
+                break;
+                case '3':
+                $show_step2 = true;
+                $error_msg = str_replace('%size%',$fileverification['msg_extra'],$LANG['FILE_IS_BIG']);
+                break;
+            }
+        }
+    }
+}
 {% endhighlight %}
 
 Followings are the important information.
@@ -168,7 +169,7 @@ Content-Type: text/html; charset=iso-8859-1
 We already have an exploit code on our kali linux. However, we need to modify the script a bit.<br>
 I've commented the line to be fixed and added a new line.
 {% highlight pytohn %}
-sabonawa@kali:~/work$ cat 40300.py 
+root@kali:~# cat 40300.py 
 #! /usr/bin/python
 
 import hashlib
