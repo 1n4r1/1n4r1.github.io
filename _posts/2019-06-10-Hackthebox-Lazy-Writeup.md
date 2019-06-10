@@ -8,7 +8,7 @@ categories: HackTheBox
 ## Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has bunch of vulnerable machines in its own VPN.<br>
 This is a write-up of machine "Lazy" on that website.<br>
-Lazy is a bit old machine but I needed to practice <a hreh="https://resources.infosecinstitute.com/padding-oracle-attack-2/#gref">Oracle Padding attack</a> for a ctf and Lazy is a good for that purpose.
+Lazy is a bit old machine but I needed to practice <a href="https://www.owasp.org/index.php/Testing_for_Padding_Oracle_(OTG-CRYPST-002)">Padding Oracle attack</a> for a ctf and Lazy is a good for that purpose.
 
 ## Solution
 ### 1. Initial Enumeration
