@@ -358,7 +358,7 @@ d558e7924bdfe31266ec96b007dc63fc
 {% endhighlight %}
 
 ### 3. Getting Root
-Pretty strait forward.<br>
+Pretty straightforward.<br>
 In the home directory of mitsos, we have a binary "backup" with SUID
 {% highlight shell %}
 mitsos@LazyClown:~$ ls -l
