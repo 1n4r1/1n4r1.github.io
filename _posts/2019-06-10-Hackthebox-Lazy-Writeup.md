@@ -330,7 +330,9 @@ ZehfB7UiBEWppiSFVR7b/Tt9vGSWM6Uyi5NWFGk/wghQRw1H4EKdwWECcyNsdts0
 pXoEbtCvgueAQmWpXVxaEiugA1eezU+bMiUmer1Qb/l1U9sNcW9DmA==
 -----END RSA PRIVATE KEY-----
 
+
 root@kali:~# chmod 600 mitsos_key 
+
 
 root@kali:~# ssh mitsos@10.10.10.18 -i mitsos_key
 Welcome to Ubuntu 14.04.5 LTS (GNU/Linux 4.4.0-31-generic i686)
