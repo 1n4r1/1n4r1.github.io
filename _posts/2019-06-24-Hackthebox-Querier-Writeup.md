@@ -103,7 +103,7 @@ smb: \>
 {% endhighlight %}
 
 It's a empty looks Microsoft excel file.<br>
-However, it's just a zip archive and we can unzip like following.
+However, ".xlsm" file is practically just a zip archive and we can unzip like following.
 {% highlight shell %}
 root@kali:~# unzip 'Currency Volume Report.xlsm' 
 Archive:  Currency Volume Report.xlsm
