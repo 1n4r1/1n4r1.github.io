@@ -323,7 +323,7 @@ Microsoft Windows [Version 10.0.17763.292]
 C:\Windows\system32>whoami
 whoami
 querier\mssql-svc
-{% endhighlgiht %}
+{% endhighlight %}
 
 User.txt is in the hoge directory of user mssql-svc.
 {% highlgight shell %}
