@@ -326,7 +326,7 @@ querier\mssql-svc
 {% endhighlight %}
 
 User.txt is in the hoge directory of user mssql-svc.
-{% highlgight shell %}
+{% highlight shell %}
 C:\Users\mssql-svc\Desktop>type user.txt
 type user.txt
 c37b41bb669da345bb14de50faab3c16
