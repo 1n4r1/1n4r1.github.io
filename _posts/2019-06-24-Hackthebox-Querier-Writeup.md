@@ -283,7 +283,7 @@ Password:  # corporate568
 [*] ACK: Result: 1 - Microsoft SQL Server (140 3232) 
 [!] Press help for extra shell commands
 SQL>
-{% endhihglight %}
+{% endhighlight %}
 
 This time, we have to enable the stored procedure "xp_cmdshell".
 {% highlight shell %}
