@@ -4,7 +4,7 @@ title: Hackthebox Netmon Writeup
 categories: HackTheBox
 ---
 
-![placeholder](https://inar1.github.io/public/images/2019-06-30/netmon-badge.png)
+![placeholder](https://inar1.github.io/public/images/2019-07-01/netmon-badge.png)
 ## Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has bunch of vulnerable machines in its own VPN.<br>
 This is a write-up of machine "Netmon" on that website.<br>
