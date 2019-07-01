@@ -119,7 +119,7 @@ File may not have transferred correctly.
 226 Transfer complete.
 33 bytes received in 0.30 secs (0.1083 kB/s)
 {% endhighlight %}
-{% highlihght shell %}
+{% highlight shell %}
 root@kali:~# cat user.txt 
 dd58ce67b49e15105e88096c8d9255a5
 {% endhighlight %}
