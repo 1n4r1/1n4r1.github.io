@@ -171,7 +171,7 @@ ftp> dir
 
 In the file "PRTG Configuration.old.bak", we have a plaintext credential.<br>
 But to login, we need to change the password to "PrTg@dmin2019"
-{% highlihght shell %}
+{% highlight shell %}
             <dbpassword>
               <!-- User: prtgadmin -->
               PrTg@dmin2018
