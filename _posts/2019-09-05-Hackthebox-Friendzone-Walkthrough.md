@@ -7,7 +7,7 @@ categories: HackTheBox
 ![placeholder](https://inar1.github.io/public/images/2019-09-05/friendzone-badge.png)
 ## Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has bunch of vulnerable machines in its own VPN.<br>
-This is a write-up of machine "Friendzone" on that website.<br>
+This is a walkthrough of machine "Friendzone" on that website.<br>
 
 ## Solution
 ### 1. Initial Enumeration
