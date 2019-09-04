@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Hackthebox Friendzone Writeup
+title: Hackthebox Friendzone Walkthrough
 categories: HackTheBox
 ---
 
