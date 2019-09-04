@@ -552,8 +552,8 @@ admin:WORKWORKHhallelujah@#
 {% endhighlight %}
 
 Then, try to look for the place which we can use this credential.<br>
-By executing a certification check, we can find a domain name "friendzone.red"<br>
-So try to access after adding following line on /etc/hosts.
+By executing SSL Certification check, we found a domain name "friendzone.red"<br>
+So try to access after adding following line in /etc/hosts.
 {% highlight shell %}
 10.10.10.123 friendzone.red
 {% endhighlight %}
