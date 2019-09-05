@@ -691,7 +691,7 @@ we can find a login form on "https://administrator1.friendzone.red/login.php".
 we can also find an interesting php script "timestamp.php".
 ![placeholder](https://inar1.github.io/public/images/2019-09-05/2019-09-04-23-13-35.png)
 
-Next, try to access with the previous credential.<br>
+Next, try to access with the previous credential from SMB.<br>
 It says go to "dashboard.php".
 ![placeholder](https://inar1.github.io/public/images/2019-09-05/2019-09-04-23-15-32.png)
 
