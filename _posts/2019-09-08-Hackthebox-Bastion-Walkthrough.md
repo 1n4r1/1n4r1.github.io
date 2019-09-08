@@ -221,7 +221,7 @@ Session completed
 We got the following credential and we can just ssh to the box.
 {% highlight shell %}
 L4mpje:bureaulampje
-{% endhighlgiht %}
+{% endhighlight %}
 {% highlight shel %}
 root@kali:~# ssh L4mpje@10.10.10.134
 {% endhighlight %}
