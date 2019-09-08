@@ -438,7 +438,7 @@ Microsoft Windows [Version 10.0.14393]
 
 C:\Windows\system32>whoami
 nt authority\system
-{% endhighiglight %}
+{% endhighlight %}
 
 root.txt is in the directory "C:\Users\Administrator\Desktop".
 {% highlight shell %}
