@@ -159,7 +159,7 @@ Before that, we have to load nbd kernel module to run subsequent command.
 root@kali:~# modprobe nbd
 
 root@kali:~# qemu-nbd -r -c /dev/nbd0 '/mnt/bastion/WindowsImageBackup/L4mpje-PC/Backup 2019-02-22 124351/9b9cfbc4-369e-11e9-a17c-806e6f6e6963.vhd'
-{% endhighlight %
+{% endhighlight %}
 
 Next, create a mount point and mount the created device file.<br>
 We can figure out that the mounted disk is a Windows hard drive.
