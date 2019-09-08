@@ -142,7 +142,10 @@ mount: /mnt/bastion: bad option; for several filesystems (e.g. nfs, cifs) you mi
 Got an error. According to <a href="https://askubuntu.com/questions/525243/why-do-i-get-wrong-fs-type-bad-option-bad-superblock-error">this article</a>, we have to install "cifs-utils".
 {% highlight shell %}
 root@kali:~# apt-get install cifs-utils
+{% endhighlight %}
 
+Then, try to mount again.
+{% highlight shell %}
 root@kali:~# mount -t cifs //10.10.10.134/Backups /mnt/bastion
 Password for root@//10.10.10.134/Backups:
 
