@@ -190,7 +190,7 @@ root@kali:~# curl http://10.10.10.137:3000
 By googling the error message, we can immediately find following  article.<br>
 <a href="https://medium.com/dev-bits/a-guide-for-adding-jwt-token-based-authentication-to-your-single-page-nodejs-applications-c403f7cf04if4">A guide for adding JWT token-based authentication to your single page Node.js applications</a><br>
 <br>
-Sounds we can use the credential with following way to get a JSON token.<br>.
+Sounds we can use the credential with following way to get a JSON token.
 {% highlight shell %}
 root@kali:~# curl -X POST http://10.10.10.137:3000/login -d 'username=admin&password=Zk6heYCyv6ZE9Xcg';
 
