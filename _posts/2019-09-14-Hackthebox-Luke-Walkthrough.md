@@ -288,7 +288,6 @@ There is a menu "Terminal" on the bottom of side bar.<br>
 Choose and click "New" button..
 ![placeholder](https://inar1.github.io/public/images/2019-09-14/2019-09-14-19-54-55.png)
 
-After that, click the created terminal.<br>
-Now we got a terminal for root user.<br>
+After that, click the created terminal and we can get a terminal for the root user.<br>
 As always, root.txt is in the directory for root.
 ![placeholder](https://inar1.github.io/public/images/2019-09-14/2019-09-14-19-57-53.png)
