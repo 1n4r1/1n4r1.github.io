@@ -64,6 +64,7 @@ Password:
 230 Login successful.
 Remote system type is UNIX.
 Using binary mode to transfer files.
+
 ftp> dir
 200 PORT command successful. Consider using PASV.
 150 Here comes the directory listing.
@@ -197,7 +198,7 @@ root@kali:~# curl -X POST http://10.10.10.137:3000/login -d 'username=admin&pass
 {"success":true,"message":"Authentication successful!","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNTY4NDc4MzE1LCJleHAiOjE1Njg1NjQ3MTV9.E7HA6sd-Ck86QnIQh6zLk6IaPZIuSEaunYC-mqgMcJg"}
 {% endhighlight %}
 
-We can access to other path like following.
+We can access to other path with the JSON token achieved.
 {% highlight shell %}
 root@kali:~# curl http://10.10.10.137:3000 -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNTY4NDc4MzE1LCJleHAiOjE1Njg1NjQ3MTV9.E7HA6sd-Ck86QnIQh6zLk6IaPZIuSEaunYC-mqgMcJg'
 
@@ -234,7 +235,7 @@ root@kali:~# curl -s http://10.10.10.137:3000/users -H 'Authorization: Bearer ey
 ]
 {% endhighlight %}
 
-We can put a username to the path and get additional information.
+We can put a username to the path and get additional information of user "Admin".
 {% highlight shell %}
 root@kali:~# curl -s http://10.10.10.137:3000/users/Admin -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNTY4NDc4MzE1LCJleHAiOjE1Njg1NjQ3MTV9.E7HA6sd-Ck86QnIQh6zLk6IaPZIuSEaunYC-mqgMcJg' | jq
 {
@@ -268,9 +269,9 @@ Now we found several credentials.<br>
 We have several URLs which we can try these creds on.
 1. http://10.10.10.137/login.php
 2. http://10.10.10.137/management (Basic AUTH)
-3. http://10.10.10.137:8000 (Ajenti)
+3. http://10.10.10.137:8000 (Ajenti login console)
 
-By trying creds for Derry on /management, we can go to the page which we have some sensitive files.
+By trying creds for "Derry" on /management, we can go to the page which we have some sensitive files.
 ![placeholder](https://inar1.github.io/public/images/2019-09-14/2019-09-14-19-48-59.png)
 
 In config.json, we can find a password for user "root".
