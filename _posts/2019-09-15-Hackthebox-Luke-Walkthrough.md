@@ -4,7 +4,7 @@ title: Hackthebox Luke Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://inar1.github.io/public/images/2019-09-15/luke-badge.png)
+![placeholder](https://inar1.github.io/public/images/2019-09-14/luke-badge.png)
 ## Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has bunch of vulnerable machines in its own VPN.<br>
 This is a walkthrough of machine "Luke" on that website.<br>
