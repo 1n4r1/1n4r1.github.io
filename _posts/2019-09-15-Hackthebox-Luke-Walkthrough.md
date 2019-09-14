@@ -190,8 +190,7 @@ root@kali:~# curl http://10.10.10.137:3000
 By googling the error message, we can immediately find following  article.<br>
 <a href="https://medium.com/dev-bits/a-guide-for-adding-jwt-token-based-authentication-to-your-single-page-nodejs-applications-c403f7cf04if4">A guide for adding JWT token-based authentication to your single page Node.js applications</a><br>
 <br>
-We can use the credential with following way.<br>
-Now we had JSON web token.
+Sounds we can use the credential with following way to get a JSON token.<br>.
 {% highlight shell %}
 root@kali:~# curl -X POST http://10.10.10.137:3000/login -d 'username=admin&password=Zk6heYCyv6ZE9Xcg';
 
@@ -272,10 +271,10 @@ We have several URLs which we can try these creds on.
 3. http://10.10.10.137:8000 (Ajenti)
 
 By trying creds for Derry on /management, we can go to the page which we have some sensitive files.
-![placeholder](https://inar1.github.io/public/images/2019-09-13/luke-badge.png)
+![placeholder](https://inar1.github.io/public/images/2019-09-14/2019-09-14-19-48-59.png)
 
 In config.json, we can find a password for user "root".
-![placeholder](https://inar1.github.io/public/images/2019-09-13/luke-badge.png)
+![placeholder](https://inar1.github.io/public/images/2019-09-14/2019-09-14-21-45-58.png)
 
 Now we got following credential.
 {% highlight shell %}
@@ -283,13 +282,13 @@ root:KpMasng6S5EtTy9Z
 {% endhighlight %}
 
 We can use this cred for login to Ajenti.
-![placeholder](https://inar1.github.io/public/images/2019-09-13/luke-badge.png)
+![placeholder](https://inar1.github.io/public/images/2019-09-14/2019-09-14-19-53-18.png)
 
 There is a menu "Terminal" on the bottom of side bar.<br>
 Choose and click "New" button..
-![placeholder](https://inar1.github.io/public/images/2019-09-13/luke-badge.png)
+![placeholder](https://inar1.github.io/public/images/2019-09-14/2019-09-14-19-54-55.png)
 
 After that, click the created terminal.<br>
 Now we got a terminal for root user.<br>
 As always, root.txt is in the directory for root.
-![placeholder](https://inar1.github.io/public/images/2019-09-13/luke-badge.png)
+![placeholder](https://inar1.github.io/public/images/2019-09-14/2019-09-14-19-57-53.png)
