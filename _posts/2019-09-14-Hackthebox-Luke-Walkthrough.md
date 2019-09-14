@@ -268,7 +268,7 @@ Now we found several credentials.<br>
 We have several URLs which we can try these creds on.
 1. http://10.10.10.137/login.php
 2. http://10.10.10.137/management (Basic AUTH)
-3. http://10.10.10.137:8000 (Ajenti)
+3. http://10.10.10.137:8000 (Ajenti login console)
 
 By trying creds for Derry on /management, we can go to the page which we have some sensitive files.
 ![placeholder](https://inar1.github.io/public/images/2019-09-14/2019-09-14-19-48-59.png)
