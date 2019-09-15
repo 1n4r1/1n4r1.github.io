@@ -224,7 +224,7 @@ SeTimeZonePrivilege
 SeUndockPrivilege
 {% endhighlight %}
 
-This means that we can use <a href="https://foxglovesecurity.com/20A16/09/26/rotten-potato-privilege-escalation-from-service-accounts-to-system/">Rotten Potato</a> to gain a privileged account.<br>
+This means that we can use MS16-075 <a href="https://foxglovesecurity.com/20A16/09/26/rotten-potato-privilege-escalation-from-service-accounts-to-system/">Rotten Potato</a> to gain a privileged account.<br>
 we need to clone the repository at first.
 {% highlight shell %}
 root@kali:~# git clone https://github.com/foxglovesec/RottenPotato
@@ -302,7 +302,7 @@ dir /R
                2 Dir(s)   7,474,098,176 bytes free
 {% endhighlight %}
 
-The file format means this is "<a href="https://blog.malwarebytes.com/101/2015/07/introduction-to-alternate-data-streams/">Alternate Data Stream</a>" which is almost like "metadata".<br>
+The file format means this is "<a href="https://blog.malwarebytes.com/101/2015/07/introduction-to-alternate-data-streams/">Alternate Data Stream</a>" which is almost like "metadata" for NTFS.<br>
 By using "more" command with redirection, we can see the content.
 {% highlight shell %}
 C:\Users\Administrator\Desktop>more < hm.txt:root.txt:$DATA
