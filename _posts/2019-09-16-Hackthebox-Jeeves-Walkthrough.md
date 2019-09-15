@@ -6,8 +6,8 @@ categories: HackTheBox
 
 ![placeholder](https://inar1.github.io/public/images/2019-09-16/jeeves-badge.png)
 ## Explanation
-<a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has bunch of vulnerable machines in its own VPN.<br>
-This is a walkthrough of machine "Jeeves" on that website.<br>
+<a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
+This is a walkthrough of a machine "Jeeves" on that website.<br>
 
 ## Solution
 ### 1. Initial Enumeration
