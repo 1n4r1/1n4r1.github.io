@@ -130,7 +130,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 ===============================================================
 {% endhighlight %}
 
-### 2. Getting User
+### 2. Getting Root
 
 By FTP enumeration, we can find an interesting txt file.
 {% highlight shell %}
