@@ -277,7 +277,7 @@ The flag is elsewhere.  Look deeper.
 {% endhighlight %}
 
 Sounds like there is nothing here.<br>
-However, by with "\R" option, we can find additional information.
+However, with "\R" option, we can find additional information.
 {% highlight shell %}
 meterpreter > shell
 Process 4384 created.
