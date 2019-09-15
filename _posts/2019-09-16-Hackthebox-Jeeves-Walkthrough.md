@@ -302,7 +302,7 @@ dir /R
                2 Dir(s)   7,474,098,176 bytes free
 {% endhighlight %}
 
-The file format means this is "Alternate Data Stream" which is almost like "metadata".<br>
+The file format means this is "<a href="https://blog.malwarebytes.com/101/2015/07/introduction-to-alternate-data-streams/">Alternate Data Stream</a>" which is almost like "metadata".<br>
 With "more" command, we can see the content with the redirection.
 {% highlight shell %}
 C:\Users\Administrator\Desktop>more < hm.txt:root.txt:$DATA
