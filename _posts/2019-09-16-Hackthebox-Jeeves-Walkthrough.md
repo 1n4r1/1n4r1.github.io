@@ -235,7 +235,7 @@ Receiving objects: 100% (426/426), 2.56 MiB | 4.59 MiB/s, done.
 Resolving deltas: 100% (128/128), done.
 {% endhighlight %}
 
-Then, achieve a token for SYSTEM user with the following procedure.
+Then, achieve a token for SYSTEM user with the following procedure.<br>
 We need to load module <a href="https://www.offensive-security.com/metasploit-unleashed/fun-incognito/">incognito</a> for that.
 {% highlight shell %}
 meterpreter > upload /root/RottenPotato/rottenpotato.exe .
@@ -303,7 +303,7 @@ dir /R
 {% endhighlight %}
 
 The file format means this is "<a href="https://blog.malwarebytes.com/101/2015/07/introduction-to-alternate-data-streams/">Alternate Data Stream</a>" which is almost like "metadata".<br>
-With "more" command, we can see the content with the redirection.
+By using "more" command with redirection, we can see the content.
 {% highlight shell %}
 C:\Users\Administrator\Desktop>more < hm.txt:root.txt:$DATA
 more < hm.txt:root.txt:$DATA
