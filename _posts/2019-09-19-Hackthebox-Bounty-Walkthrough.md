@@ -65,7 +65,7 @@ We have only one port opening 80 (HTTP).
 We have only 2 path available. "transfer.aspx" and "Uploadedfiles".<br>
 If we upload .jpg file with "transfer.aspx", it will be uploaded into "Uploadedfiles".<br>
 However, if we upload .aspx file, we get this message below.
-![placeholder](https://inar1.github.io/public/images/2019-09-20/bounty-badge.png)
+![placeholder](https://inar1.github.io/public/images/2019-09-19/2019-09-19-10-52-43.png)
 
 By trying some extensions, we can find that it's possible to upload .config file.<br>
 Besides, we can find a <a href="https://soroush.secproject.com/blog/2014/07/upload-a-web-config-file-for-fun-profit/">blog post</a> which mentions RCE by uploading web.config.<br>
