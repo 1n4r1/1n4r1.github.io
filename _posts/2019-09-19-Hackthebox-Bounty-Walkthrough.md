@@ -71,7 +71,7 @@ By trying some extensions, we can find that it's possible to upload .config file
 Besides, we can find a <a href="https://soroush.secproject.com/blog/2014/07/upload-a-web-config-file-for-fun-profit/">blog post</a> which mentions RCE by uploading web.config.<br>
 <br>
 To obtain that purpose, at first, create web.config.<br>
-This time, web.config which has ASP webshell is being used.<br>
+This time, web.config template from above website and an ASP webshell is being used.<br>
 We can find an ASP webshell <a href="https://github.com/tennc/webshell/blob/master/asp/webshell.asp">here</a>
 {% highlight shell %}
 root@kali:~# cat web.config 
