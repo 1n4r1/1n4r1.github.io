@@ -7,11 +7,11 @@ categories: HackTheBox
 ![placeholder](https://inar1.github.io/public/images/2019-09-29/nibbles-badge.png)
 ## Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
-To learn a new technique/knowledge, solve all machines (As much as possible!!).
-This is a walkthrough of a machine "Nibbles" on that website.<br>
+To learn a new technique/knowledge, solve all machines (As much as possible!!).<br>
+This is a walkthrough of a box "Nibbles".<br>
 
 ### Complation
-48th / 131 boxes
+48th / 131 boxes<br>
 
 ## Solution
 ### 1. Initial Enumeration
