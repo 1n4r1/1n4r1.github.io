@@ -8,7 +8,7 @@ categories: HackTheBox
 ## Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
 To learn a new technique/knowledge, solve all machines (As much as possible!!).<br>
-This is a walkthrough of a machine "Nibbles" on that website.<br>
+This is a walkthrough of a box "Nibbles".<br>
 
 ### Complation
 48th / 131 boxes<br>
