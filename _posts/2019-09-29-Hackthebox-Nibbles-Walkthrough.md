@@ -10,7 +10,7 @@ categories: HackTheBox
 To learn a new technique/knowledge, solve all machines (As much as possible!!).<br>
 This is a walkthrough of a box "Nibbles".<br>
 
-### Complation
+#### Complation
 48th / 131 boxes<br>
 
 ## Solution
