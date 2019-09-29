@@ -281,32 +281,18 @@ forme:forme
 {% endhighlight %}
 ![placeholder](https://inar1.github.io/public/images/2019-09-28/2019-09-27-20-07-06.png)
 
-This means that we can take advantage of <a href="https://www.exploit-db.com/exploits/37811">"Magento CE (Authenticated) Remote Code Execution"</a><br>
-Modify the script like following, launch netcat listener and execute with a command as an argument.
+Then, somehow we have to get a reverse shell. Sounds there are many ways to upload a shell.<br>
+This time, we use this <a href="https://github.com/lavalamp-/LavaMagentoBD">malicious Magento package</a>.
 {% highlight shell %}
-// from
-install_date = 'Sat, 15 Nov 2014 20:27:57 +0000'
-username = ''
-password = ''
-
-// to (value from http://10.10.10.140/app/etc/local.xml)
-install_date = 'Wed, 08 May 2019 07:23:09 +0000'
-username = 'forme'
-password = 'forme'
-{% endhighlight %}
-{% highlight shell %}
-root@kali:~# nc -nlvp 443
-listening on [any] 443 ...
-
-{% endhighlight %}
-{% highlight shell %}
-
+root@kali:~# git clone https://github.com/lavalamp-/LavaMagentoBD.git
+Cloning into 'LavaMagentoBD'...
+remote: Enumerating objects: 23, done.
+remote: Total 23 (delta 0), reused 0 (delta 0), pack-reused 23
+Unpacking objects: 100% (23/23), done.
 {% endhighlight %}
 
-Now we got a reverse shell.
-{% highlight shell %}
+Then, go to Mangento Connect > Mangento Connect Manager
 
-{% endhighlight %}
 ### 3. Getting Root
 
 
