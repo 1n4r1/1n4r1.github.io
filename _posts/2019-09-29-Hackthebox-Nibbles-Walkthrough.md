@@ -79,7 +79,7 @@ Content-Type: text/html
 {% endhighlight %}
 
 It said there is nothing interesting there. However, it is an interesting website.
-![placeholder](https://inar1.github.io/public/images/2019-09-29/2019-09-29-09-57-44png)
+![placeholder](https://inar1.github.io/public/images/2019-09-29/2019-09-29-09-57-44.png)
 
 try to gobuster again.
 In the "README", we can see that current version of this "Nibbleblog" is "v4.0.3".
