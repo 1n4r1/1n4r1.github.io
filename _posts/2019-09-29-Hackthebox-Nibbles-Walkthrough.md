@@ -11,7 +11,8 @@ To learn a new technique/knowledge, solve all machines (As much as possible!!).<
 This is a walkthrough of a box "Nibbles".<br>
 
 #### Complation
-48th / 131 boxes<br>
+48th / 131 boxes
+<br>
 
 # Solution
 ### 1. Initial Enumeration
