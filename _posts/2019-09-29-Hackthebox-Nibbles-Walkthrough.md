@@ -37,10 +37,6 @@ Service detection performed. Please report any incorrect results at https://nmap
 Nmap done: 1 IP address (1 host up) scanned in 42.33 seconds
 {% endhighlight %}
 
-Gobuster HTTP:
-{% highlight shell %}
-{% endhighlight %}
-
 ### 2. Getting User
 
 We have only one port interesting which is 80 (HTTP) and sounds there is nothing here.
