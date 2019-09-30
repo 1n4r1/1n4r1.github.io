@@ -7,7 +7,9 @@ categories: HackTheBox
 ![placeholder](https://inar1.github.io/public/images/2019-09-28/swagshop-badge.png)
 ## Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
-This is a walkthrough of a machine "Swagshop" on that website.<br>
+This is a walkthrough of a box "Swagshop".<br>
+
+### Complation: 49th / 131 boxes
 
 ## Solution
 ### 1. Initial Enumeration
@@ -279,19 +281,38 @@ Now, we had following credential for the admin console of Magento.
 {% highlight shell %}
 forme:forme
 {% endhighlight %}
-![placeholder](https://inar1.github.io/public/images/2019-09-28/2019-09-27-20-07-06.png)
+![placeholder](https://inar1.github.io/public/images/2019-09-28/2019-09-28-20-31-58.png)
 
 Then, somehow we have to get a reverse shell. Sounds there are many ways to upload a shell.<br>
-This time, we use this <a href="https://github.com/lavalamp-/LavaMagentoBD">malicious Magento package</a>.
+This time, we use the method "<a href="https://www.foregenix.com/blog/anatomy-of-a-magento-attack-froghopper">Froghopper</a> attack".<br><br>
+
+Then, go to Catalog > Manage Categories > New Root Category.<br>
+There we can upload a <a href="http://pentestmonkey.net/tools/web-shells/php-reverse-shell">reverse shell code</a>.
+![placeholder](https://inar1.github.io/public/images/2019-09-28/2019-09-27-20-07-06.png)
+
+Our uploaded file should be uploaded in '/media/catalog/category'.<br>
+To access this file, we have to activete a Magento developer function "Allow Symlinks" for Magneto Newslatter templates.<br>
+Go to System > Configuration > Developer and change the value of "Allow Symlinks".
+![placeholder](https://inar1.github.io/public/images/2019-09-28/2019-09-27-20-07-06.png)
+
+Then, go to Newsletter > Newsletter Template.<br>
+Put following code.
 {% highlight shell %}
-root@kali:~# git clone https://github.com/lavalamp-/LavaMagentoBD.git
-Cloning into 'LavaMagentoBD'...
-remote: Enumerating objects: 23, done.
-remote: Total 23 (delta 0), reused 0 (delta 0), pack-reused 23
-Unpacking objects: 100% (23/23), done.
+
 {% endhighlight %}
 
-Then, go to Mangento Connect > Mangento Connect Manager
+After that, launch netcat and click Preview.<br>
+The php reverse shell script would be executed.
+{% highlight shell %}
+root@kali:~# nc -nlvp 443
+listening on [any] 443 ...
+
+{% endhighlight %}
+![placeholder](https://inar1.github.io/public/images/2019-09-28/2019-09-27-20-07-06.png)
+{% highlight shell %}
+
+{% endhighlight %}
+
 
 ### 3. Getting Root
 
