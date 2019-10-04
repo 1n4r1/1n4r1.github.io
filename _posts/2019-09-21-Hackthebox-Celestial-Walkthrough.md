@@ -75,6 +75,8 @@ root@kali:~# echo 'eyJ1c2VybmFtZSI6IkR1bW15IiwiY291bnRyeSI6IklkayBQcm9iYWJseSBTb
 {"username":"Dummy","country":"Idk Probably Somewhere Dumb","city":"Lametown","num":"2"}
 {% endhighlight %}
 
+What we should learn is that <em>generally, it's a bad practice to parse user input due to avoid abusing of API.</em>
+
 ### 3. Getting Root
 
 
