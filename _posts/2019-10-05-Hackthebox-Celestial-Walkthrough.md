@@ -7,7 +7,8 @@ categories: HackTheBox
 ![placeholder](https://inar1.github.io/public/images/2019-10-05/celestial-badge.png)
 ## Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
-This is a walkthrough of a machine "Celestial" on that website.<br>
+To learn a new technique/knowledge, solve all machines (As much as possible!!).
+This is a walkthrough of a box "Celestial".<br>
 
 ### Complation
 49th / 131 boxes
