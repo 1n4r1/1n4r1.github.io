@@ -10,8 +10,6 @@ categories: HackTheBox
 To learn a new technique/knowledge, solve all machines (As much as possible!!).<br>
 This is a walkthrough of a box "Writeup".<br>
 
-#### Complation: 50th box
-
 # Solution
 ### 1. Initial Enumeration
 
