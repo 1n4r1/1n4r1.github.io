@@ -185,7 +185,7 @@ d4e493fd4068afc9eb1aa6a55319f978
 
 ### 3. Getting Root
 
-By running <a href="https://github.com/DominicBreuker/pspy">pyspy</a> and login with another windows, we can find that When someone login, following command runs.
+By running <a href="https://github.com/DominicBreuker/pspy">pspy</a> and login with another windows, we can find that When someone login, following command runs.
 {% highlight shell %}
 2019/10/02 12:49:04 CMD: UID=0    PID=5837   | sshd: [accepted]
 2019/10/02 12:49:04 CMD: UID=0    PID=5838   | sshd: [accepted]  
