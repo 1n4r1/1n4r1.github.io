@@ -10,9 +10,6 @@ categories: HackTheBox
 To learn a new technique/knowledge, solve all machines (As much as possible!!).<br>
 This is a walkthrough of a box "Bart".<br>
 
-### Complation
-50th / 131 boxes
-
 ## Solution
 ### 1. Initial Enumeration
 
