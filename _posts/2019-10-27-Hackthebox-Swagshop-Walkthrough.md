@@ -317,4 +317,29 @@ listening on [any] 443 ...
 
 ### 3. Getting Root
 
+At first, we need to get a stable tty shell.
+{% highlight shell %}
+
+{% endhighlight %}
+
+Then run the command "sudo -l". we can find that we can run "vi" as root for any file in "/var/www/html".
+{% highlight shell %}
+
+{% endhighlight %}
+
+So open "index.php" vi as root.
+{% highlight shell %}
+
+{% endhighlight %}
+
+Then, execute "/bin/bash" from vi with the following command.
+{% highlight shell %}
+:!/bin/bash
+{% endhighlight %}
+
+Now we got a shell as root.<br>
+As usuall, "root.txt" is in the directory "/root".
+{% highlight shell %}
+
+{% endhighlight %}
 
