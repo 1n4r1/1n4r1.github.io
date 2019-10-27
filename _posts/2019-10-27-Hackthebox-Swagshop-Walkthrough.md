@@ -4,13 +4,11 @@ title: Hackthebox Swagshop Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://inar1.github.io/public/images/2019-09-28/swagshop-badge.png)
+![placeholder](https://inar1.github.io/public/images/2019-10-27/swagshop-badge.png)
 ## Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
 To learn a new technique/knowledge, aolve all machines (As much as possible!!).
 This is a walkthrough of a box "Swagshop".<br>
-
-### Complation: 49th / 131 boxes
 
 ## Solution
 ### 1. Initial Enumeration
@@ -77,7 +75,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 ### 2. Getting User
 
 On the page port 80, we can find a shopping page and its framework is "<a href="https://magento.com/">Magento</a>"
-![placeholder](https://inar1.github.io/public/images/2019-09-28/2019-09-27-20-07-06.png)
+![placeholder](https://inar1.github.io/public/images/2019-10-27/2019-09-27-20-07-06.png)
 
 Since we figured out that CMS Magento is being used on this website, try to google with following term.
 {% highlight shell %}
@@ -282,37 +280,23 @@ Now, we had following credential for the admin console of Magento.
 {% highlight shell %}
 forme:forme
 {% endhighlight %}
-![placeholder](https://inar1.github.io/public/images/2019-09-28/2019-09-28-20-31-58.png)
+![placeholder](https://inar1.github.io/public/images/2019-10-27/2019-10-27-00-01-50.png)
 
 Then, somehow we have to get a reverse shell. Sounds there are many ways to upload a shell.<br>
-This time, we use the method "<a href="https://www.foregenix.com/blog/anatomy-of-a-magento-attack-froghopper">Froghopper</a> attack".<br><br>
+This time, <a href="https://www.exploit-db.com/exploits/37811">ID:37811 Remote Code Execution</a> was used.<br>
+<br>
 
-Then, go to Catalog > Manage Categories > New Root Category.<br>
-There we can upload a <a href="http://pentestmonkey.net/tools/web-shells/php-reverse-shell">reverse shell code</a>.
-![placeholder](https://inar1.github.io/public/images/2019-09-28/2019-09-27-20-07-06.png)
-
-Our uploaded file should be uploaded in '/media/catalog/category'.<br>
-To access this file, we have to activete a Magento developer function "Allow Symlinks" for Magneto Newslatter templates.<br>
-Go to System > Configuration > Developer and change the value of "Allow Symlinks".
-![placeholder](https://inar1.github.io/public/images/2019-09-28/2019-09-27-20-07-06.png)
-
-Then, go to Newsletter > Newsletter Template.<br>
-Put following code.
-{% highlight shell %}
-
+We need to configure several lines like following.
+The "initial_date" can be achieved from "/app/etc/local.xml" as it suggested.
+![placeholder](https://inar1.github.io/public/images/2019-10-27/2019-10-27-11-32-13.png)
+{% highlight python %}
+# Config.
+username = 'forme'
+password = 'forme'
+php_function = 'system'  # Note: we can only pass 1 argument to the function
+install_date = 'Wed, 08 May 2019 07:23:09 +0000'  # This needs to be the exact date from /app/etc/local.xml
 {% endhighlight %}
 
-After that, launch netcat and click Preview.<br>
-The php reverse shell script would be executed.
-{% highlight shell %}
-root@kali:~# nc -nlvp 443
-listening on [any] 443 ...
-
-{% endhighlight %}
-![placeholder](https://inar1.github.io/public/images/2019-09-28/2019-09-27-20-07-06.png)
-{% highlight shell %}
-
-{% endhighlight %}
 
 
 ### 3. Getting Root
