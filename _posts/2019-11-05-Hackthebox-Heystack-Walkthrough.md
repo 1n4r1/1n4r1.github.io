@@ -152,14 +152,26 @@ lrwxrwxrwx. 1 root     root       9 Jan 25  2019 .bash_history -> /dev/null
 
 ### 3. Getting Root
 
-After got user, to identify the rinning process, run "pspy".<br>
-We can find that "logstash" is running as root.
+Since we can't use netstat, use "ss" command.<br>
+We have one interesting port 5601.
+1. "-4": to use IPv4
+2. "-l": listing all listening ports
+3. "-n": display port numbers
 {% highlight shell %}
-
+[security@haystack ~]$ ss -4 -l -n
+Netid  State      Recv-Q Send-Q Local Address:Port               Peer Address:Port              
+udp    UNCONN     0      0      127.0.0.1:323                        *:*                  
+tcp    LISTEN     0      128            *:80                         *:*                  
+tcp    LISTEN     0      128            *:9200                       *:*                  
+tcp    LISTEN     0      128            *:22                         *:*                  
+tcp    LISTEN     0      128    127.0.0.1:5601                       *:*        
 {% endhighlight %}
 
-However, only user "kibana" can read the configuration file.<br>
-This time, we need a lateral movement.
+To access the "127.0.0.1:5601" from our localhost, we need port forwarding.<br>
+We can find "Kibana" which is date visualization UI used with Elasticsearch.
 {% highlight shell %}
-
+ssh -L 5601:127.0.0.1:5601 security@10.10.10.115 -N
 {% endhighlight %}
+![placeholder](https://inar1.github.io/public/images/2019-11-05/heystack-badge.png)
+
+By clicking the "Management" tab, we can figure out that the version of Kibana is "6.4.2"
