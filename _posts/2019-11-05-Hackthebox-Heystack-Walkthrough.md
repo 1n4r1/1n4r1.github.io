@@ -152,7 +152,19 @@ lrwxrwxrwx. 1 root     root       9 Jan 25  2019 .bash_history -> /dev/null
 
 ### 3. Getting Root
 
-Since we can't use netstat, use "ss" command.<br>
+After logged in, try to run "pspy" to display all running process.<br>
+We can find that "logstash" is running as a root user.
+{% highlight shell %}
+
+{% endhighlight %}
+
+However, we can't access to the config file because we don't have appropriate permission.<br>
+These files belong to a user "kibana".
+{% highlight shell %}
+
+{% endhighlight %}
+
+Then, try to check which port kibana is running. Since we can't use netstat, use "ss" command.<br>
 We have one interesting port 5601.
 1. "-4": to use IPv4
 2. "-l": listing all listening ports
@@ -203,4 +215,5 @@ We can achieve a reverse shell.
 {% highlight shell %}
 
 {% endhighlihgt %}
-{%%}
+
+
