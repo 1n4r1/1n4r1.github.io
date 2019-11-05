@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Hackthebox Heystack Walkthrough
+title: Hackthebox Haystack Walkthrough
 categories: HackTheBox
 ---
 
