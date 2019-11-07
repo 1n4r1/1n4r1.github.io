@@ -4,11 +4,11 @@ title: Hackthebox Haystack Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://inar1.github.io/public/images/2019-11-05/heystack-badge.png)
+![placeholder](https://inar1.github.io/public/images/2019-11-05/haystack-badge.png)
 # Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
 To learn a new technique/knowledge, solve all machines (As much as possible!!).<br>
-This is a walkthrough of a box "Heystack".<br>
+This is a walkthrough of a box "Haystack".<br>
 
 # Solution
 ### 1. Initial Enumeration
@@ -143,8 +143,19 @@ root@kali:~# curl http://10.10.10.115:9200/_search?q=clave
 {"took":136,"timed_out":false,"_shards":{"total":11,"successful":11,"skipped":0,"failed":0},"hits":{"total":2,"max_score":5.9335938,"hits":[{"_index":"quotes","_type":"quote","_id":"45","_score":5.9335938,"_source":{"quote":"Tengo que guardar la clave para la maquina: dXNlcjogc2VjdXJpdHkg "}},{"_index":"quotes","_type":"quote","_id":"111","_score":5.3459888,"_source":{"quote":"Esta clave no se puede perder, la guardo aca: cGFzczogc3BhbmlzaC5pcy5rZXk="}}]}}
 {% endhighlight %}
 
-We found other information. Translate it again.<br>
+Then decode the base64 encoded data.
+{% highlight shell %}
+root@kali:~# echo 'dXNlcjogc2VjdXJpdHkg' | base64 -d
+user: security
+
+root@kali:~# echo 'cGFzczogc3BhbmlzaC5pcy5rZXk=' | base64 -d
+pass: spanish.is.key
+{% endhighlight %}
+
 We got a credential for user "security" to login with ssh.
+{% highlight shell %}
+security:spanish.is.key
+{% endhighlight %}
 {% highlight shell%}
 root@kali:~# ssh security@10.10.10.115
 security@10.10.10.115's password: 
@@ -171,7 +182,7 @@ lrwxrwxrwx. 1 root     root       9 Jan 25  2019 .bash_history -> /dev/null
 
 ### 3. Getting Root
 
-After logged in, try to run "pspy" to display all running process.<br>
+After logged in, try to run "<a href="https://github.com/DominicBreuker/pspy">pspy</a>" to display all running process.<br>
 We can find that "logstash" is running as a root user.
 {% highlight shell %}
 
@@ -236,8 +247,40 @@ We can achieve a reverse shell as a user "kibana".
 {% endhighlihgt %}
 
 Then, try to look at the files for logstash.<br>
+We can refer a <a href="https://www.elastic.co/guide/en/logstash/current/pipeline.html">document</a> on the official website.<br>
+input.conf:
+{% highlight shell %}
+
+{% endhighlight %}
+
+filter.conf
+{% highlight shell %}
+
+{% endhighlight %}
+
+output.conf
+{% highlight shell %}
+
+{% endhighlight %}
+
+In summerize, what we have to do is following procedure.
+1.
+2. put the payload into "/dev/shm/lame"
+3. echo needed lines in "/dev/shm/lame"
+4. launch a netcat listener.
+
+At first, create a payload with msfvenom.
 {% highlight shell %}
 
 {% endhighlight %}
 
 
+Finally, we can achieve a reverse shell as a root user.
+{% highlight shell %}
+
+{% endhighlight %}
+
+As always, root.txt is in the directory "/root"
+{% highlight shell %}
+
+{% endhighlight %}
