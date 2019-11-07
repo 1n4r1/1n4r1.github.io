@@ -205,7 +205,8 @@ root@kali:~# curl http://10.10.10.137:3000 -H 'Authorization: Bearer eyJhbGciOiJ
 {"message":"Welcome admin ! "}
 {% endhighlight %}
 
-"/user" returns a list of users.
+"/user" returns a list of users.<br>
+We can use "jq" command to make JSON easily readable.
 {% highlight shell %}
 root@kali:~# sudo apt-get install jq
 {% endhighlight %}
