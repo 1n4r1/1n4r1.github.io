@@ -276,7 +276,7 @@ ip a
        valid_lft 86211sec preferred_lft 14211sec
     inet6 fe80::250:56ff:feb9:b473/64 scope link 
        valid_lft forever preferred_lft forever
-{% endhighlihgt %}
+{% endhighlight %}
 
 After that, get a full shell with python command.
 {% highlight shell %}
