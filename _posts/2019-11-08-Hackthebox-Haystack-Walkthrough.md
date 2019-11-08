@@ -134,7 +134,8 @@ la aguja en el pajar es "clave"
 the needle in the haystack is "key"
 {% endhighlight %}
 
-Then, go back to elasticsearch.
+Then, go back to elasticsearch.<br>
+<br>
 <em>Elasticsearch is a search engine based on the Lucene library. It provides a distributed, multitenant-capable full-text search engine with an HTTP web interface and schema-free JSON documents.</em><br>
 <br>
 To send a query to elasticsearch, we need a parameter "q".
@@ -332,6 +333,7 @@ output {
 In summerize, logstash is executing a command with following condition.
 1. The name of the config file has to be matched "logstash_*"
 2. the key of the command is has to be "Ejecutar comando"
+
 <br>
 Create following shell script to add a new admin user in "/etc/passwd".<br>
 We have to put it into "/dev/shm" with scp command.
