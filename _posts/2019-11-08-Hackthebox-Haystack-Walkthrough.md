@@ -89,8 +89,8 @@ root@kali:~# curl http://10.10.10.115:9200/
 
 ### 2. Getting User
 
-At first, take a look at port 80<br>.
-We have only one file "needle.jpg" there.<br>
+At first, take a look at port 80.<br>
+We have only one file "needle.jpg" there.
 {% highlight html %}
 root@kali:~# curl http://10.10.10.115
 <html>
