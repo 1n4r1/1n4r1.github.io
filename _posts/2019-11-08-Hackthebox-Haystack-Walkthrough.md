@@ -135,6 +135,7 @@ the needle in the haystack is "key"
 {% endhighlight %}
 
 Then, go back to elasticsearch.<br>
+<br>
 <em>Elasticsearch is a search engine based on the Lucene library. It provides a distributed, multitenant-capable full-text search engine with an HTTP web interface and schema-free JSON documents.</em><br>
 <br>
 To send a query to elasticsearch, we need a parameter "q".
