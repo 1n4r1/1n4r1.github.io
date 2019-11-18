@@ -82,10 +82,9 @@ upload.php
 {% endhighlight %}
 
 Sounds "upload.php" is to upload a file.<br>
-The function for that is defined in "lib.php"
-{% highlight shell %}
-root@kali:~# cat upload.php 
-<?php
+The function for that is defined in "lib.php"<br>
+upload.php:
+{% highlight php %}
 require '/var/www/html/lib.php';
 
 define("UPLOAD_DIR", "/var/www/html/uploads/");
@@ -137,10 +136,11 @@ if( isset($_POST['submit']) ) {
 }
 ?>
 {% endhighlight %}
-{% highlight shell %}
-root@kali:~# cat lib.php 
 
-~~~
+lib.php:
+{% highlight shell %}
+
+---
 
 function file_mime_type($file) {
   $regexp = '/^([a-z\-]+\/[a-z0-9\-\.\+]+)(;\s.+)?$/';
@@ -167,7 +167,7 @@ function file_mime_type($file) {
   return $file['type'];
 }
 
-~~~
+---
 
 function check_file_type($file) {
   $mime_type = file_mime_type($file);
@@ -178,7 +178,7 @@ function check_file_type($file) {
   }
 }
 
-~~~
+---
 
 function getnameUpload($filename) {
   $pieces = explode('.',$filename);
@@ -188,7 +188,7 @@ function getnameUpload($filename) {
   return array($name,$ext);
 }
 
-~~~
+---
 
 {% endhighlight %}
 
@@ -331,7 +331,7 @@ foreach ($files as $key => $value) {
     mail($to, $msg, $msg, $headers, "-F$value");
   }
 }
-*{% endhighlight %}
+{% endhighlight %}
 
 The important line is following.<br>
 Since $value is name of a file in the directory "/var/www/html/uploads/", by creating a file, we can inject this variable.
