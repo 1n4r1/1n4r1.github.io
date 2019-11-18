@@ -352,7 +352,7 @@ User guly may run the following commands on networked:
 [guly@networked ~]$
 {% endhighlight %}
 
-changename.sh:
+"changename.sh" is a bash script which tries to rewrite the content of "/etc/sysconfig/network-scripts/ifconfig-guly" each time it is executed.
 {% highlight shell %}
 [guly@networked ~]$ cat /usr/local/sbin/changename.sh
 cat /usr/local/sbin/changename.sh
@@ -381,6 +381,8 @@ done
 {% endhighlight %}
 
 Execution of changename.sh:
+1. take user input as "$x"
+2. write each config "NAME", "PROXY_METHOD", "BROWSER_ONLY", "BOOTPROTO" in "ifconfig-guly"
 {% highlight shell %}
 [guly@networked ~]$ sudo /usr/local/sbin/changename.sh
 sudo /usr/local/sbin/changename.sh
