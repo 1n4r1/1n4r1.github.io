@@ -81,10 +81,10 @@ photos.php
 upload.php
 {% endhighlight %}
 
-Sounds "upload.php" is to upload a file.<br>
-The function for that is defined in "lib.php"<br>
+Sounds "upload.php" is to upload a file. The function for that is defined in "lib.php"<br>
 upload.php:
 {% highlight php %}
+<?php
 require '/var/www/html/lib.php';
 
 define("UPLOAD_DIR", "/var/www/html/uploads/");
@@ -138,8 +138,8 @@ if( isset($_POST['submit']) ) {
 {% endhighlight %}
 
 lib.php:
-{% highlight shell %}
-
+{% highlight php %}
+<?php
 ---
 
 function file_mime_type($file) {
@@ -190,6 +190,7 @@ function getnameUpload($filename) {
 
 ---
 
+?>
 {% endhighlight %}
 
 In summerize, what "upload.php" is doing the followings.
@@ -200,7 +201,7 @@ In summerize, what "upload.php" is doing the followings.
 5. Finally, move the uploaded file from the temporary directory to "/uploads"
 
 This means, by using double extention method, with adding appropriate magic bytes, we can bypass the filter.
-{% highlight shell %}
+{% highlight php %}
 root@kali:~# cat simple-backdoor.php.gif
 GIF89a
 <!-- Simple PHP backdoor by DK (http://michaeldaw.org) -->
