@@ -196,7 +196,8 @@ In summerize, what "upload.php" is doing the followings.
 1. Check if the uploaded file is valid with "check_file_type()".
 2. "check_file_type()" checks the magic bytes of the file with "check_mime_type()".
 3. Check the extension of the uploaded file
-4. If these are OK, move the uploaded file from the temporary directory to "/uploads"
+4. If these are OK, create a name of uploaded file with "getnameUploaded()"
+5. Finally, move the uploaded file from the temporary directory to "/uploads"
 
 This means, by using double extention method, with adding appropriate magic bytes, we can bypass the filter.
 {% highlight shell %}
