@@ -81,8 +81,7 @@ photos.php
 upload.php
 {% endhighlight %}
 
-Sounds "upload.php" is to upload a file.<br>
-The function for that is defined in "lib.php"<br>
+Sounds "upload.php" is to upload a file. The function for that is defined in "lib.php"<br>
 upload.php:
 {% highlight php %}
 require '/var/www/html/lib.php';
