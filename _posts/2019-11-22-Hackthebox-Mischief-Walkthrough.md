@@ -249,7 +249,7 @@ Ncat: Listening on :::1234
 
 Then, try to invoke a reverse shell.<br>
 We can use a python reverse shell from <a href="http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet">Pentestmonkey</a>.<br>
-However, this time we have to use IPv6.
+However, this time we have to use IPv6 and we need some modifications for that.
 
 #### python payload:
 {% highlight shell %}
@@ -335,7 +335,8 @@ loki@Mischief:~$
 {% endhighlight %}
 
 The user "loki" can't use a command "su".<br>
-This is because that user "loki" doesn't have a permission for that and we can confirm that with "getfacl" command.
+This is because <a href="https://wiki.archlinux.org/index.php/Access_Control_Lists">Access Control List</a> doesn't allow user "loki" to execute the command.<br>
+We can confirm that with "getfacl" command.
 {% highlight shell %}
 loki@Mischief:~$ getfacl /bin/su
 getfacl: Removing leading '/' from absolute path names
