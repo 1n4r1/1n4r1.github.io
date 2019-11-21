@@ -222,7 +222,6 @@ root@kali:~#
 Now we found a Unique-Local address "dead:beef:0000:0000:0250:56ff:feb9:c793".<br>
 Try to access with web browser.
 ![placeholder](https://inar1.github.io/public/images/2019-11-21/2019-11-20-16-27-19.png)
-![placeholder](https://inar1.github.io/public/images/2019-11-21/2019-11-20-16-42-09.png)
 
 Then, login to the console with the following password found on port 3366.<br>
 However, this does not work.
@@ -234,10 +233,10 @@ After some trying common password combination, we can find out that the followin
 {% highlight shell %}
 administrator:trickeryanddeceit
 {% endhighlight %}
-![placeholder](https://inar1.github.io/public/images/2019-11-21/2019-11-20-16-48-42.png)
+![placeholder](https://inar1.github.io/public/images/2019-11-21/2019-11-20-16-42-09.png)
 
 If we put just like "id;", we can see that the command is executed.
-![placeholder](https://inar1.github.io/public/images/2019-11-21/2019-11-20-17-41-57.png)
+![placeholder](https://inar1.github.io/public/images/2019-11-21/2019-11-20-16-48-42.png)
 
 Next, launch a netcat listener with "ncat". This is because it has an option "-6" for IPv6.
 {% highlight shell %}
