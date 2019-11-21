@@ -179,7 +179,7 @@ In this command output, we can find the credential of the Basic Auth.
 python -m SimpleHTTPAuthServer 3366 loki:godofmischiefisloki --dir /home/loki/hosted/
 {% endhighlight %}
 
-With the credential, we can login to the web server.
+With the credential, we can login to the web server for IPv6.
 {% highlight shell %}
 loki:godofmischiefisloki
 {% endhighlight %}
