@@ -52,7 +52,7 @@ Nmap done: 1 IP address (1 host up) scanned in 12.42 seconds
 
 ### 2. Getting User
 
-We have only one service which is protected by Basic Auth.
+For TCP, we have HTTP but it is protected with Basic Auth.
 {% highlight shell %}
 root@kali:~# curl -i http://10.10.10.92:3366
 HTTP/1.0 401 Unauthorized
