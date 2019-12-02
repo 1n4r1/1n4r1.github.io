@@ -13,7 +13,7 @@ This is a write-up of machine "Teacher" on that website.
 ### 1. Initial Enumeration
 Port Scanning:
 {% highlight shell %}
-root@kali:/home/sabonawa/hackTB/work# nmap -p- 10.10.10.153 -sV -sC
+root@kali:# nmap -p- 10.10.10.153 -sV -sC
 Starting Nmap 7.70 ( https://nmap.org ) at 2019-02-15 23:12 EET
 Nmap scan report for 10.10.10.153
 Host is up (0.035s latency).
