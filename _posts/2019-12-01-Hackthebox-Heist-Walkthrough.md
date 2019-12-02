@@ -341,7 +341,7 @@ chase:Q4)sJu\Y8qz*A3?d
 {% endhighlight %}
 
 Still we can not use Psexec, but this time we can login via WinRM.<br>
-This time, "<a href="https://github.com/Hackplayers/evil-winrm">evil-winrm"</a>" was used for the user shell as "Chase".
+This time, "<a href="https://github.com/Hackplayers/evil-winrm">evil-winrm</a>" was used for the user shell as "Chase".
 {% highlight shell %}
 root@kali:~# python impacket/examples/psexec.py 'chase:Q4)sJu\Y8qz*A3?d@10.10.10.149'
 Impacket v0.9.20 - Copyright 2019 SecureAuth Corporation
