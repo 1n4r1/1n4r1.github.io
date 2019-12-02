@@ -544,7 +544,7 @@ Info: Upload successful!
 {% endhighlight %}
 
 Then, execute the "procdump.exe".<br>
-It generates a process file "C:\Users\Chase\Desktop\firefox.exe_191202_022858.dmp"
+It generates a process file for the firefox.
 {% highlight shell %}
 *Evil-WinRM* PS C:\Users\Chase\Desktop> ./procdump.exe -ma 6728 -accepteula
 
