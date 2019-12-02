@@ -544,7 +544,7 @@ Info: Upload successful!
 {% endhighlight %}
 
 Then, execute the "procdump.exe".<br>
-It generates a process file for the firefox and this time 5 files are created due to 4 processes of firefox.
+It generates a process file for the firefox and this time 5 files are created with 5 command executions for 5 processes.
 {% highlight shell %}
 *Evil-WinRM* PS C:\Users\Chase\Desktop> ./procdump.exe -ma 6728 -accepteula
 
