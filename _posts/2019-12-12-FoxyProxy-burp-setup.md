@@ -6,7 +6,7 @@ categories: Kali
 
 # Explanation
 To analyse just specific domain with Burp Suite, Install browser extension "FoxyProxy".
-This time, "FoxyProxy" was used to apply Burp Suite for OWASP Juice shop on the localhost.
+This time, "FoxyProxy" was used to apply Burp intercept for OWASP Juice shop on the localhost.
 
 # Environment
 * OS: Kali linux 2019.4
