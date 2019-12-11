@@ -1,0 +1,57 @@
+---
+layout: post
+title: Intercept specific domain with FoxyProxy and Burp Suite
+categories: Kali
+---
+
+# Explanation
+To analyse just specific domain with Burp Suite, Install browser extension "FoxyProxy".
+This time, "FoxyProxy" was used to apply Burp intercept for OWASP Juice shop on the localhost.
+
+# Environment
+* OS: Kali linux 2019.4
+* Burp Suite: v2.1.04
+* Browser: Google Chrome 78.0.3904.108 (Official Build) (64-bit)
+* FoxyProxy: FoxyProxy Standard 3.0.7.1 
+
+# Solution
+
+## 1. Installing FoxyProxy
+
+At first, go to the Chrome Webstore and install Chrome extension "<a href="https://getfoxyproxy.org/">FoxyProxy</a>"
+![placeholder](https://inar1.github.io/public/images/2019-12-12/2019-12-11-23-36-55.png)
+
+## 2. Launch Burp Suite
+
+Next, launch Burp Suite.<br>
+This time, default setting (IP: 127.0.0.1, port 8080) was used.
+![placeholder](https://inar1.github.io/public/images/2019-12-12/2019-12-12-01-27-55.png)
+
+## 3. Edit "/etc/hosts"
+
+If we intercept the traffic to the localhost, we need this step.<br>
+Add following line to the "/etc/hosts" to give an additional name for localhost.
+{% highlight shell %}
+127.0.0.1 juice-shop
+{% endhighlight %}
+
+## 4. Setup FoxyProxy
+
+Then, open the extension icon on the right of Chrome header and select "options"<br>
+Click "New Proxy" and open the Proxy settings window.<br>
+Go to "Proxy Details" and set configuration for running Burp Suite.
+![placeholder](https://inar1.github.io/public/images/2019-12-12/2019-12-12-00-03-48.png)
+
+Next, go to "URL Patterns" and "Add new pattern".<br>
+We can use Wildcard for the domain name for the proxy.
+![placeholder](https://inar1.github.io/public/images/2019-12-12/2019-12-12-01-24-17.png)
+
+Finally, go to top page of FoxyProxy configuration and enable the proxy configuration.<br>
+Choose "Use proxies based on their pre-defined patterns and priorities" as Proxy mode.
+![placeholder](https://inar1.github.io/public/images/2019-12-12/2019-12-12-00-08-47.png)
+
+## 4. Check configuration with Burp Suite.
+
+Take a look at "HTTP history" tab on Burp Suite.<br>
+We can confirm that we can analyze the traffic to localhost.
+![placeholder](https://inar1.github.io/public/images/2019-12-12/2019-12-12-01-23-33.png)
