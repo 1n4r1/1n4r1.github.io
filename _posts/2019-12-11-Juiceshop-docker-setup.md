@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Running OWASP Juice Shop on Docker on Kali linux 2019.4
+title: Running OWASP Juice Shop on Docker
 categories: OWASP
 ---
 ## Explanation
