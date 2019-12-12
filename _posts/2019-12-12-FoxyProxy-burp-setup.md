@@ -31,7 +31,8 @@ This time, default setting (IP: 127.0.0.1, port: 8080) was used.
 
 ## 3. Edit "/etc/hosts"
 
-Add following line to the "/etc/hosts" to give an additional name "juice-shop" for localhost.
+Add following line to the "/etc/hosts" to give an additional name "juice-shop" for localhost.<br>
+(We can't use the name "localhost" for this purpose.)
 {% highlight shell %}
 127.0.0.1 juice-shop
 {% endhighlight %}
