@@ -54,7 +54,7 @@ Choose "Use proxies based on their pre-defined patterns and priorities" as Proxy
 ![placeholder](https://inar1.github.io/public/images/2019-12-12/2019-12-12-00-08-47.png)
 <br>
 
-## 4. Check the configuration with Burp Suite.
+## 5. Check the configuration with Burp Suite.
 
 Access "http://sec-juice:3000" with Google Chrome and take a look at "HTTP history" tab on Burp Suite.<br>
 We can confirm that we can analyze the traffic to localhost.
