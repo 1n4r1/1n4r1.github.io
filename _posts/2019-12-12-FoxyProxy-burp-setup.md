@@ -6,7 +6,7 @@ categories: Burp
 
 # Explanation
 To use Burp interception just for the localhost application, install browser extension "FoxyProxy".<br>
-This time, "FoxyProxy" was used for OWASP Juice shop on the localhost.
+This time, "FoxyProxy" was used for OWASP Juice shop on the localhost:3000.
 
 # Environment
 * OS: Kali linux 2019.4
@@ -31,7 +31,7 @@ This time, default setting (IP: 127.0.0.1, port: 8080) was used.
 
 ## 3. Edit "/etc/hosts"
 
-Add following line to the "/etc/hosts" to give an additional name for localhost.
+Add following line to the "/etc/hosts" to give an additional name "juice-shop" for localhost.
 {% highlight shell %}
 127.0.0.1 juice-shop
 {% endhighlight %}
@@ -55,6 +55,6 @@ Choose "Use proxies based on their pre-defined patterns and priorities" as Proxy
 
 ## 4. Check configuration with Burp Suite.
 
-Take a look at "HTTP history" tab on Burp Suite.<br>
+Access "sec-juice:3000" (localhost) with Google chrome and take a look at "HTTP history" tab on Burp Suite.<br>
 We can confirm that we can analyze the traffic to localhost.
 ![placeholder](https://inar1.github.io/public/images/2019-12-12/2019-12-12-01-23-33.png)
