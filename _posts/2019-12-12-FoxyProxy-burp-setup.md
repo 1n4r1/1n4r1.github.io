@@ -5,7 +5,7 @@ categories: Burp
 ---
 
 # Explanation
-To use Burp interception just for the localhost application, install browser extension "FoxyProxy".<br>
+To use Burp interception just for the localhost application, install browser extension <a href="https://getfoxyproxy.org/">"FoxyProxy"</a><br>
 This time, "FoxyProxy" was used for OWASP Juice Shop on the localhost:3000.
 
 # Environment
@@ -18,7 +18,7 @@ This time, "FoxyProxy" was used for OWASP Juice Shop on the localhost:3000.
 
 ## 1. Installing FoxyProxy
 
-At first, go to the Chrome webstore and install Chrome extension "<a href="https://getfoxyproxy.org/">FoxyProxy</a>"
+At first, go to the Chrome webstore and install Chrome extension FoxyProxy.
 ![placeholder](https://inar1.github.io/public/images/2019-12-12/2019-12-11-23-36-55.png)
 <br>
 
