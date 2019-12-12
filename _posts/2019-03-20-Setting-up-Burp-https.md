@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Setting up Burpsuite for HTTPS on Kali linux 2019.01
-categories: Kali
+categories: Burp Suite
 ---
 
 ## Environment
