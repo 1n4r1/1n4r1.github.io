@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Burp interception for localhost application with FoxyProxy
-categories: Burp Suite
+categories: Burp
 ---
 
 # Explanation

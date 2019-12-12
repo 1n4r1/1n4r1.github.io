@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Running Burp suite on Kali linux 2018.4
-categories: Burp Suite
+categories: Burp
 ---
 
 ## Environment
