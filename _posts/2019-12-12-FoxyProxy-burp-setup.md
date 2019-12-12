@@ -1,12 +1,12 @@
 ---
 layout: post
-title: Intercept specific domain with FoxyProxy and Burp Suite
+title: Burp interception for localhost application with FoxyProxy
 categories: Kali
 ---
 
 # Explanation
-To analyse just specific domain with Burp Suite, Install browser extension "FoxyProxy".<br>
-This time, "FoxyProxy" was used to apply Burp intercept for OWASP Juice shop on the localhost.
+To use Burp interception just for the localhost application, install browser extension "FoxyProxy".<br>
+This time, "FoxyProxy" was used for OWASP Juice shop on the localhost.
 
 # Environment
 * OS: Kali linux 2019.4
@@ -25,13 +25,12 @@ At first, go to the Chrome Webstore and install Chrome extension "<a href="https
 ## 2. Launch Burp Suite
 
 Next, launch Burp Suite.<br>
-This time, default setting (IP: 127.0.0.1, port 8080) was used.
+This time, default setting (IP: 127.0.0.1, port: 8080) was used.
 ![placeholder](https://inar1.github.io/public/images/2019-12-12/2019-12-12-01-27-55.png)
 <br>
 
 ## 3. Edit "/etc/hosts"
 
-If we intercept the traffic to the localhost, we need this step.<br>
 Add following line to the "/etc/hosts" to give an additional name for localhost.
 {% highlight shell %}
 127.0.0.1 juice-shop
@@ -41,7 +40,7 @@ Add following line to the "/etc/hosts" to give an additional name for localhost.
 ## 4. Setup FoxyProxy
 
 Then, open the extension icon on the right of Chrome header and select "options"<br>
-Click "New Proxy" and open the Proxy settings window.<br>
+Click "add New Proxy" and open the "Proxy settings" window.<br>
 Go to "Proxy Details" and set configuration for running Burp Suite.
 ![placeholder](https://inar1.github.io/public/images/2019-12-12/2019-12-12-00-03-48.png)
 
