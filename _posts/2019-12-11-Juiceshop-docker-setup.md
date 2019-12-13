@@ -55,6 +55,7 @@ info: Server listening on port 3000
 ![placeholder](https://inar1.github.io/public/images/2019-12-11/2019-12-11-13-35-40.png)
 
 ## 3. Version confirmation
+
 {% highlight shell %}
 root@kali:~# lsb_release -a
 No LSB modules are available.
@@ -66,5 +67,24 @@ root@kali:~#
 
 root@kali:~# docker --version
 Docker version 19.03.4, build 9013bf5
+root@kali:~#
+{% endhighlight %}
+
+## 4. Remove Docker container
+
+When terminate the OWASP Juice Shop container, at first, check the container ID.
+{% highlight shell %}
+root@kali:~# docker container ls
+CONTAINER ID        IMAGE                   COMMAND                  CREATED             STATUS              PORTS                    NAMES
+a9214ce6b90b        bkimminich/juice-shop   "docker-entrypoint.s…"   2 days ago          Up 2 days           0.0.0.0:3000->3000/tcp   sleepy_kalam
+
+root@kali:~#
+{% endhighlight %}
+
+After that, run the following command.
+{% highlight shell %}
+root@kali:~# docker container kill a9214ce6b90b
+a9214ce6b90b
+
 root@kali:~#
 {% endhighlight %}
