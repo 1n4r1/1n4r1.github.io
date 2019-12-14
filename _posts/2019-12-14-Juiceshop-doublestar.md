@@ -29,10 +29,10 @@ By accessing the <a href="http://localhost:3000/#/administration">http://localho
 ### Prerequisite
 login as a user
 
-> Perform an XSS attack with <script>alert(`xss`)</script> on a legacy page within the application.
+> Perform an XSS attack with &lt;script>alert(`xss`)</script> on a legacy page within the application.
 
 Login as any user and go to <a href="http://localhost:3000/#/profile">http://localhost:3000/#/profile</a>.<br>
-Set "<script>alert('xss')</script>" as a Username and submit. We can get the following output.
+Set "&lt;script>alert(`xss`)</script>" as a Username and submit. We can get the following output.
 ![placeholder](https://inar1.github.io/public/images/2019-12-14/2019-12-14-11-38-16.png)
 
 This sanitaization is not enough.<br>
