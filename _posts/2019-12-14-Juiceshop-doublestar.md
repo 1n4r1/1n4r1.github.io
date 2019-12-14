@@ -23,6 +23,7 @@ This is a writeup of 2 stars challenge.
 This is kinda guessing task.<br>
 By accessing the <a href="http://localhost:3000/#/administration">http://localhost:3000/#/administration</a>, we can achieve the purpose.
 ![placeholder](https://inar1.github.io/public/images/2019-12-14/2019-12-14-14-01-29.png)
+<br>
 
 
 ## 2. Classic Stored XSS
@@ -40,6 +41,7 @@ By setting the following payload, we can execute stored XSS.
 {% highlight html %}
 <<script>ascript>alert('xss')</script>
 {% endhighlight %}
+<br>
 
 
 ## 3. Deprecated Interface
@@ -61,6 +63,7 @@ root@kali:~# cat note.xml
 
 root@kali:~# 
 {% endhighlight %}
+<br>
 
 
 ## 4. Five-Star Feedback
@@ -72,6 +75,7 @@ login as a user
 After logged in, go to <a href="http://localhost:3000/#/administration">http://localhost:3000/#/administration</a> which we found in the previous challenge.
 By clicking the trash bins, delete the 5-star feedback.
 ![placeholder](https://inar1.github.io/public/images/2019-12-14/2019-12-14-14-05-25.png)
+<br>
 
 
 ## 5. Login Admin
@@ -82,6 +86,7 @@ The login console has SQL injection.<br>
 Go to <a href="http://localhost:3000/#/login">http://localhost:3000/#/login</a> and use following username and random password for login credential.<br>
 we can login as a user "admin@juice-sh.op".
 ![placeholder](https://inar1.github.io/public/images/2019-12-14/2019-12-14-14-07-06.png)
+<br>
 
 
 ## 6.  Login MC SafeSearch
@@ -95,6 +100,7 @@ With the following credential, we can login as a user "mc.safesearch".
 {% highlight shell %}
 mc.safesearch@juice-sh.op:Mr. N00dles
 {% endhighlight %}
+<br>
 
 
 ## 7. Password Strength
@@ -121,6 +127,7 @@ Then, start attack
 
 By filtering, we can find the correct password "admin123".
 ![placeholder](https://inar1.github.io/public/images/2019-12-14/2019-12-14-13-58-08.png)
+<br>
 
 
 ## 8. Security Policy
@@ -131,6 +138,7 @@ login as a user
 
 We have to just go to "Account" -> "Privacy & Security" -> "Privacy Policy".
 ![placeholder](https://inar1.github.io/public/images/2019-12-14/2019-12-14-13-55-10.png)
+<br>
 
 
 ## 9. View Basket
@@ -139,9 +147,10 @@ login as a user
 
 > View another user's shopping basket.
 
-Launch Burp Suite and open the page <a href="http://localhost:3000/#/basket">http://localhost:3000/#/basket</a>.
+Launch Burp Suite and open the page <a href="http://localhost:3000/#/basket">http://localhost:3000/#/basket</a>.<br>
 We can find the following traffic. By changing the sending uri to "/rest/basket/2"(With Burp Repeater or whatever), we can clear the challenge.
 ![placeholder](https://inar1.github.io/public/images/2019-12-14/2019-12-14-02-59-16.png)
+<br>
 
 
 ## 10. Weird Crypto
