@@ -139,7 +139,7 @@ login as a user
 
 > View another user's shopping basket.
 
-Launch Burp Suite and open the page <a href="http://localhost:3000/#/basket">http://localhost:3000/#/basket</a>.
+Launch Burp Suite and open the page <a href="http://localhost:3000/#/basket">http://localhost:3000/#/basket</a>.<br>
 We can find the following traffic. By changing the sending uri to "/rest/basket/2"(With Burp Repeater or whatever), we can clear the challenge.
 ![placeholder](https://inar1.github.io/public/images/2019-12-14/2019-12-14-02-59-16.png)
 
