@@ -53,6 +53,8 @@ After that, change the current password.
 Now we can start the challenges.<br>
 By clicking "Get Next Challenge", we cam proceed to the challenges.
 ![placeholder](https://inar1.github.io/public/images/2019-12-17/2019-12-17-14-52-30.png)
+
+First challenge is for the HTTP request modification with local proxy.
 ![placeholder](https://inar1.github.io/public/images/2019-12-17/2019-12-17-15-25-29.png)
 
 ## 4. Remove Docker container
