@@ -3,6 +3,9 @@ layout: post
 title: Running OWASP Security Shepherd with Docker compose on Kali 2019.4
 categories: OWASP
 ---
+
+![placeholder](https://inar1.github.io/public/images/general/ss.png)
+
 # Explanation
 <a href="https://github.com/OWASP/SecurityShepherd">OWASP Security Shepherd</a> is a vulnerable web application for the practice.<br>
 Unlike other vulnerable webapp like DVWA, Juice Shop, WebGoat,
