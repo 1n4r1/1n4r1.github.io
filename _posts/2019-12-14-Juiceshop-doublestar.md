@@ -16,18 +16,16 @@ This is a writeup of 2 stars challenge.
 
 # Solution
 
-## 1. Admin Section
+### 1. Admin Section
 
 > Access the administration section of the store.
 
 This is kinda guessing task.<br>
 By accessing the <a href="http://localhost:3000/#/administration">http://localhost:3000/#/administration</a>, we can achieve the purpose.
 ![placeholder](https://inar1.github.io/public/images/2019-12-14/2019-12-14-14-01-29.png)
-<br>
 
-
-## 2. Classic Stored XSS
-### Prerequisite
+### 2. Classic Stored XSS
+#### Prerequisite
 login as a user
 
 > Perform an XSS attack with &lt;script>alert(`xss`)</script> on a legacy page within the application.
@@ -41,10 +39,9 @@ By setting the following payload, we can execute stored XSS.
 {% highlight html %}
 <<script>ascript>alert('xss')</script>
 {% endhighlight %}
-<br>
 
 
-## 3. Deprecated Interface
+#### 3. Deprecated Interface
 ### Prerequisite
 login as a user
 
@@ -63,11 +60,9 @@ root@kali:~# cat note.xml
 
 root@kali:~# 
 {% endhighlight %}
-<br>
 
-
-## 4. Five-Star Feedback
-### Prerequisite
+### 4. Five-Star Feedback
+#### Prerequisite
 login as a user
 
 > Get rid of all 5-star customer feedback.
@@ -78,7 +73,7 @@ By clicking the trash bins, delete the 5-star feedback.
 <br>
 
 
-## 5. Login Admin
+### 5. Login Admin
 
 > Log in with the administrator's user account.
 
@@ -86,10 +81,8 @@ The login console has SQL injection.<br>
 Go to <a href="http://localhost:3000/#/login">http://localhost:3000/#/login</a> and use following username and random password for login credential.<br>
 we can login as a user "admin@juice-sh.op".
 ![placeholder](https://inar1.github.io/public/images/2019-12-14/2019-12-14-14-07-06.png)
-<br>
 
-
-## 6.  Login MC SafeSearch
+### 6.  Login MC SafeSearch
 
 > Log in with MC SafeSearch's original user credentials without applying SQL Injection or any other bypass.
 
@@ -100,11 +93,9 @@ With the following credential, we can login as a user "mc.safesearch".
 {% highlight shell %}
 mc.safesearch@juice-sh.op:Mr. N00dles
 {% endhighlight %}
-<br>
 
-
-## 7. Password Strength
-### Prerequisite
+### 7. Password Strength
+#### Prerequisite
 2 star Challenge 5: "Login Admin"
 
 > Log in with the administrator's user credentials without previously changing them or applying SQL Injection.
@@ -127,22 +118,18 @@ Then, start attack
 
 By filtering, we can find the correct password "admin123".
 ![placeholder](https://inar1.github.io/public/images/2019-12-14/2019-12-14-13-58-08.png)
-<br>
 
-
-## 8. Security Policy
-### Prerequisite
+### 8. Security Policy
+#### Prerequisite
 login as a user
 
 > Behave like any "white-hat" should before getting into the action.
 
 We have to just go to "Account" -> "Privacy & Security" -> "Privacy Policy".
 ![placeholder](https://inar1.github.io/public/images/2019-12-14/2019-12-14-13-55-10.png)
-<br>
 
-
-## 9. View Basket
-### Prerequisite
+### 9. View Basket
+#### Prerequisite
 login as a user
 
 > View another user's shopping basket.
@@ -150,11 +137,9 @@ login as a user
 Launch Burp Suite and open the page <a href="http://localhost:3000/#/basket">http://localhost:3000/#/basket</a>.<br>
 We can find the following traffic. By changing the sending uri to "/rest/basket/2"(With Burp Repeater or whatever), we can clear the challenge.
 ![placeholder](https://inar1.github.io/public/images/2019-12-14/2019-12-14-02-59-16.png)
-<br>
 
-
-## 10. Weird Crypto
-### Prerequisite
+### 10. Weird Crypto
+#### Prerequisite
 login as a user
 
 > Inform the shop about an algorithm or library it should definitely not use the way it does.
