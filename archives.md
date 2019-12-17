@@ -1,24 +1,18 @@
 ---
 layout: page
-permalink: /archives/
-title: Archives
+permalink: /archive/
+title: Archive
 ---
 
-<div id="tags">
-{% for category in site.categories reversed %}
-  <div class="tag-group">
-    {% capture category_name %}{{ category | first }}{% endcapture %}
-    <div id="#{{ category_name | slugize }}"></div>
-    <p></p>
-    
-    <h3 class="tag-head">{{ category_name }}</h3>
-    <a name="{{ category_name | slugize }}"></a>
-    {% for post in site.categories[category_name] %}
+<div id="archives">
+{% assign postsByYearMonth = site.posts | group_by_exp:"post", "post.date | date: '%Y %b'"  %}
+{% for yearMonth in postsByYearMonth %}
+  <h3>{{ yearMonth.name }}</h3>
     <article class="archive-item">
-      <h4>{{ post.date | date_to_string }}: <a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a></h4>
+      {% for post in yearMonth.items %}
+        <h4>{{ post.date | date_to_string }}:<a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h4>
+      {% endfor %}
     </article>
-    {% endfor %}
-  </div>
-  <br>
+    <br>
 {% endfor %}
 </div>
