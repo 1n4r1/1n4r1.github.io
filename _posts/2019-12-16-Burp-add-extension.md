@@ -14,7 +14,7 @@ To automate the reflected XSS finding process, install a burp extension <a href=
 
 # Solution
 
-## 1. Setting up Burp Suite
+### 1. Setting up Burp Suite
 
 At first, download the .jar file from <a href="https://github.com/elkokc/reflector/releases">https://github.com/elkokc/reflector/releases</a>.
 ![placeholder](https://inar1.github.io/public/images/2019-12-16/2019-12-16-11-34-42.png)
