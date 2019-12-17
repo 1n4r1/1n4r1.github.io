@@ -9,12 +9,13 @@ Unlike other vulnerable webapp like DVWA, Juice Shop, WebGoat,
 1. has also challenges for mobile app security 
 2. focuses on the vulnerability of web application "spec". not like ordinary XSS, SQLi and so on.
 3. more focused on learning local proxy(like Burp Suite), request validation
+<br>
 We have several ways to set up this platform but this time Docker compose was used.
 
 # Environment
 * OS: Kali linux 2019.4
 * Docker: 19.03.4
-* OWASP Security Shepherd v3.2
+* OWASP Security Shepherd: v3.2
 
 # Solution
 ## 1. Installing prerequisits
