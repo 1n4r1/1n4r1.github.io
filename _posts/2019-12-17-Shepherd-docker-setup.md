@@ -10,7 +10,8 @@ Unlike other vulnerable webapp like DVWA, Juice Shop, WebGoat,
 2. focuses on the vulnerability of web application "spec". not like ordinary XSS, SQLi and so on.
 3. more focused on learning local proxy(like Burp Suite), request validation
 
-We have several ways to set up this platform but this time Docker compose was used.
+We have several ways to set up this platform but this time Docker compose was used.<br>
+This is a personal memo for the setup procedure.
 
 # Environment
 * OS: Kali linux 2019.4
