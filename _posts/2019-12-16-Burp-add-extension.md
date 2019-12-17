@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Find reflected XXS with Burp extension reflector
+title: Install Burp extension reflector
 categories: Burp
 ---
 
