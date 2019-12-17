@@ -13,7 +13,7 @@ This is the explanation of environment creation for OWASP Juice Shop with Docker
 
 # Solution
 
-## 1. Installing prerequisits
+### 1. Installing prerequisits
 {% highlight shell %}
 root@kali:~# apt-get install docker.io docker-compose
 
@@ -24,7 +24,7 @@ root@kali:~# docker pull bkimminich/juice-shop
 ---
 {% endhighlight %}
 
-## 2. Launch OWASP Juice Shop
+### 2. Launch OWASP Juice Shop
 
 With the following command, we can launch OWASP Juice Shop on Docker.
 {% highlight shell %}
@@ -54,7 +54,7 @@ info: Server listening on port 3000
 {% endhighlight %}
 ![placeholder](https://inar1.github.io/public/images/2019-12-11/2019-12-11-13-35-40.png)
 
-## 3. Version confirmation
+### 3. Version confirmation
 
 {% highlight shell %}
 root@kali:~# lsb_release -a
@@ -70,7 +70,7 @@ Docker version 19.03.4, build 9013bf5
 root@kali:~#
 {% endhighlight %}
 
-## 4. Remove Docker container
+### 4. Remove Docker container
 
 When terminate the OWASP Juice Shop container, at first, check the container ID.
 {% highlight shell %}
