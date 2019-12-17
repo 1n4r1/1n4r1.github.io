@@ -22,7 +22,7 @@ This is a personal memo for the setup procedure.
 * OWASP Security Shepherd: v3.2
 
 # Solution
-## 1. Installing prerequisits
+### 1. Installing prerequisits
 {% highlight shell %}
 root@kali:~# apt-get install docker.io docker-compose default-jdk maven
 
@@ -30,9 +30,8 @@ root@kali:~# apt-get install docker.io docker-compose default-jdk maven
 
 root@kali:~# git clone https://github.com/OWASP/SecurityShepherd.git
 {% endhighlight %}
-<br>
 
-## 2. Initial setup
+### 2. Initial setup
 {% highlight shell %}
 root@kali:~# cd SecurityShepherd/
 
@@ -44,9 +43,8 @@ root@kali:~/SecurityShepherd# docker-compose up -d # -d for get terminal back
 
 ---
 {% endhighlight %}
-<br>
 
-## 3. Login
+### 3. Login
 ![placeholder](https://inar1.github.io/public/images/2019-12-17/2019-12-17-15-06-15.png)
 We can use the following credential for login.
 {% highlight shell %}
@@ -62,16 +60,14 @@ By clicking "Get Next Challenge", we cam proceed to the challenges.
 
 First challenge is for the HTTP request modification with local proxy.
 ![placeholder](https://inar1.github.io/public/images/2019-12-17/2019-12-17-15-25-29.png)
-<br>
 
-## 4. Select Open Floor mode
+### 4. Select Open Floor mode
 To see all challenges, we have to change the mode to the "Open Floor mode".<br>
 Click "Admin" and go to "Module Management" -> "Challenge Module Layout".<br>
 Enable the "Open Floor mode" by clicking the button.
 ![placeholder](https://inar1.github.io/public/images/2019-12-17/2019-12-17-22-43-33.png)
-<br>
 
-## 5. Remove Docker container
+### 5. Remove Docker container
 {% highlight shell %}
 # stop all docker containers
 root@kali:~/SecurityShepherd# docker-compose stop
