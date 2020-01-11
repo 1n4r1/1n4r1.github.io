@@ -8,9 +8,9 @@ categories: HackTheBox
 #### Retired date: 2017/07/07
 
 # Explanation
-![placeholder](https://inar1.github.io/public/images/general/oscp_like_box.png)
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
 For the practice, solve the left boxes in the list of OSCP like boxes and this is a walkthrough of a box "Granpa".<br>
+![placeholder](https://inar1.github.io/public/images/general/oscp_like_box.png)
 
 # Solution
 ### 1. Initial Enumeration
