@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Hackthebox Granpa Walkthrough
+title: Hackthebox Granpa/Granny Walkthrough
 categories: HackTheBox
 ---
 
@@ -9,7 +9,7 @@ categories: HackTheBox
 
 # Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
-For the practice, solve the left boxes in the list of OSCP like boxes and this is a walkthrough of a box "Granpa".<br>
+For the practice, solve the left boxes in the list of OSCP like boxes and this is a walkthrough of a box "Granpa" and we can use same technique for "Granny" also.<br>
 ![placeholder](https://inar1.github.io/public/images/general/oscp_like_box.png)
 
 # Solution
