@@ -116,12 +116,14 @@ On the port 8080, we have Tomcat and on the port 60000, we can find a "Private B
 By adding a parameter, we can view the prohibited web pages of Kotarak like "server-status".<br>
 Meaning, this web application has a SSRF (Server Side Request Forgery) vulnerability and an attacker can view the hidden services.<br>
 The interesting point is that "Kotarak" has a running service on "127.0.0.1:888".
+#### Request to see "http://10.10.10.55:60000":
 {% highlight shell %}
 http://10.10.10.55:60000/url.php?path=http://localhost:60000/server-status
 {% endhighlight %}
 ![placeholder](https://inar1.github.io/public/images/2020-01-14/2020-01-14-14-11-44.png)
 
 Then,take a look at "127.0.0.1:888" by sending the following request to the native web browser.
+#### Request to see "http://10.10.10.55:8888":
 {% highlight shell %}
 http://10.10.10.55:60000/url.php?path=http://localhost:888
 {% endhighlight %}
@@ -153,7 +155,7 @@ root@kali:~#
 {% endhighlight %}
 
 By going to "http://10.10.10.55:8080/manager/html" and try some possible password combination,<br>
-we can figure out the following credential is available.
+we can figure out the following credential is available for tomcat.
 {% highlight shell %}
 admin:3@g01PdhB!
 {% endhighlight %}
@@ -346,6 +348,7 @@ cat app.log
 atanas@kotarak-dmz:/root$
 {% endhighlight %}
 
+Sounds "10.0.3.133" is continuously sending GET request to this host with Wget 1.16.<br>
 By googling like following,<br>
 we can find a vulnerability <a href="https://www.exploit-db.com/exploits/40064">GNU Wget 1.18 - Arbitrary File Upload / Remote Code Execution</a>.
 {% highlight shell %}
