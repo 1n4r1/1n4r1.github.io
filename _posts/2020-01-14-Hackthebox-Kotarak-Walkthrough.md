@@ -215,6 +215,7 @@ meterpreter > download 20170721114637_default_192.168.110.133_psexec.ntdsgrab._0
 {% endhighlight %}
 
 These files look like NTDS file for database of Active directory.<br>
+.dit stands for "Directory Information Tree" and the hierarchy of network objects and access permissiona are saved.<br>
 To confirm what are these files, we can use "file" command.<br>
 {% highlight shell %}
 root@kali:~# file 2017072111463*
