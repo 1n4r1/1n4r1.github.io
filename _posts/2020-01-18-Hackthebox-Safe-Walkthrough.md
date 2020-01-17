@@ -162,6 +162,10 @@ It is showing that actually "uptime" command is running.
 Then, open the executable with GDB and its extension GEF.<br>
 By the "checksec" command, we can analyze if it has any protection.<br>
 This time, NX is enabled and this means we can't write our shellcode on the stack and execute.
+* Canary: used to detect a stack buffer overflow before execution of malicious code can occur.
+* NX: No eXecute bit(Data Execution Prevention for Windows)
+* PIE: Position Independent Executable 
+* RelRO: RELocation ReadOnly
 {% highlight shell %}
 root@kali:~# gdb -q myapp
 GEF for linux ready, type `gef' to start, `gef config' to configure
