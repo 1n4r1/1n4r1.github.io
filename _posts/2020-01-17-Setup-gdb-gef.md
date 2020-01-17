@@ -5,7 +5,7 @@ categories: Reversing
 ---
 
 # Explanation
-"GDB Enhanced Features(GEF)" is a GDB extension to provide additional commands for dynamic analysis and exploit development.<br>
+"<a href="https://github.com/hugsy/gef">GDB Enhanced Features(GEF)</a>" is a GDB extension to provide additional commands for dynamic analysis and exploit development.<br>
 To setup for Kali linux, we need some steps and this is a memo for that.
 
 # Environment
