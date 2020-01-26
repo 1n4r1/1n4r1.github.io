@@ -46,6 +46,7 @@ The ELF format object file consists of the following parts.
 
 #### Showing ELF header
 > The ELF header defines whether to use 32- or 64-bit addresses. The header contains three fields that are affected by this setting and offset other fields that follow them. The ELF header is 52 or 64 bytes long for 32-bit and 64-bit binaries respectively.
+
 {% highlight shell %}
 root@kali:~# readelf -h helloworld
 ELF Header:
@@ -102,6 +103,7 @@ ELF header (Ehdr)
 #### Showing program header
 > For the kernel to map segments into virtual address space with mmap(2) system call for runtime execution.
 > Mandatory for execution
+
 1. -l: for showing program header
 2. -W: for showing more than 80 chars in one line
 {% highlight shell %}
@@ -144,6 +146,7 @@ Program Headers:
 #### Showing section header
 > The section headers define all the sections in the file for linking and relocation. 
 > Actually not mandatory to execute the ELF file.
+
 1. -S: for showing section header
 2. -W: for showing more than 80 chars in one line
 {% highlight shell %}
