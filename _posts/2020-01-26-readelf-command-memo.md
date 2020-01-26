@@ -74,7 +74,7 @@ ELF Header:
 
 Also, the following is the definition of ELF header.<br>
 We can find it with the command "man elf"$
-{% highlight shell %}$
+{% highlight shell %}
 ELF header (Ehdr)
        The ELF header is described by the type Elf32_Ehdr or Elf64_Ehdr:
 
@@ -96,7 +96,7 @@ ELF header (Ehdr)
                uint16_t      e_shnum;
                uint16_t      e_shstrndx;
            } ElfN_Ehdr;
-{% endhighlight %}$
+{% endhighlight %}
 
 
 #### Showing program header
