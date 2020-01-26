@@ -74,7 +74,7 @@ ELF Header:
 * ABI: ABI is short for Application Binary Interface and specifies a low-level interface between the operating system and a piece of executable code.
 
 Also, the following is the definition of ELF header.<br>
-We can find it with the command "man elf"$
+We can find it with the command "man elf"
 {% highlight shell %}
 ELF header (Ehdr)
        The ELF header is described by the type Elf32_Ehdr or Elf64_Ehdr:
