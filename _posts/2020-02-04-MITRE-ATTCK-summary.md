@@ -17,16 +17,19 @@ summarize the security framework "MITRE ATT&CK".
 ## 1. Who published it?
 The <a href="https://www.mitre.org/">MITRE Corporation</a> is an American not-for-profit organization based in Bedford, Massachusetts, and McLean, Virginia.
 <br>
+<br>
 
 
 ## 2. When it was published?
 Started 2013 and updated every quarter.
+<br>
 <br>
 
 
 ## 3. Why it is important?
 1. There used to be no common frameworks for consulting, penetration test, SOC that is for both attack side and defence side.
 2. The ATT&CK framework has become widespread rapidly in the security product industry since approximately 2018.
+<br>
 <br>
 
 
@@ -41,7 +44,7 @@ What we have to care is "Enterprise" is mostly for the post-exploitation while P
 The following <a href="https://attack.mitre.org/resources/enterprise-introduction/">model</a> explains what "PRE-ATT&CK" and "ATT&CK" cover.
 ![placeholder](https://inar1.github.io/public/images/2020-02-04/enterprise-pre-lifecycle.png)
 
-To explain, this time I use the "<a href="https://attack.mitre.org/matrices/enterprise/">Enterprise Matrix</a>".<br>
+To explain a bit more, this time I use the "<a href="https://attack.mitre.org/matrices/enterprise/">Enterprise Matrix</a>".<br>
 The following is the part of Enterprise Matrix.
 ![placeholder](https://inar1.github.io/public/images/2020-02-04/2020-02-01-16-07-53.png)
 
@@ -51,7 +54,7 @@ We have 3 keyword for this matrix.
 3. <a href="https://attack.mitre.org/mitigations/enterprise/">Mitigations</a> : Mitigation for the attack methods.
 
 Then, go to each Techniques.<br>
-This time, the example is "<a href="https://attack.mitre.org/techniques/T1106/">Execution through API</a>.
+This time, the example is "<a href="https://attack.mitre.org/techniques/T1106/">Execution through API</a>".
 ![placeholder](https://inar1.github.io/public/images/2020-02-04/2020-02-03-21-04-24.png)
 
 Each Techniques has the following information.
@@ -61,27 +64,29 @@ Each Techniques has the following information.
 4. Detection : How to detect this Technique.
 5. References
 <br>
+<br>
 
 
 ## 5. What we can do with "ATT&CK" ?
 On the document "<a href="https://www.mitre.org/sites/default/files/publications/pr-18-0944-11-mitre-attack-design-and-philosophy.pdf">MITRE ATT&CK™: Design and Philosophy</a>", we have the following use case of ATT&CK.
 ### 1. Adversary Enumeration
-> The process of assessing the security of a technology domain by applying cyber threat intelligence about specific adversaries and how they operate to emulate that threat.
+> ATT&CK can be used as a tool to create adversary emulation scenarios to test and verify defenses against common adversary techniques.  
 
 ### 2. Red Teaming
-> Applying an adversarial mindset without use of known threat intelligence for the purpose of conducting an exercise.
+> ATT&CK can be used as a tool to create red team plans and organize operations to avoid certain defensive measures that may be in place within a network. 
 
 ### 3. Behavioral Analytics Development
->  behavioral detection analytics can be used to identify potentially malicious activity within a system or network that may not rely on prior knowledge of adversary tools and indicators. 
+> ATT&CK can be used as a tool to construct and test behavioral analytics to detect adversarial behavior within an environment.
 
 ### 4. Defensive Gap Assessment
-> A defensive gap assessment allows an organization to determine what parts of its enterprise lack defenses and/or visibility. 
+> ATT&CK can be used as a common behavior-focused adversary model to assess tools, monitoring, and mitigations of existing defenses within an organization’s enterprise.
 
 ### 5. Soc Maturity Assessment
 > ATT&CK can be used as one measurement to determine how effective a SOC is at detecting, analyzing, and responding to intrusions.
 
 ### 6. Cyber Threat Intelligence Enrichment
-> Cyber threat intelligence covers knowledge of cyber threats and threat actor groups that impact cybersecurity.
+> ATT&CK is useful for understanding and documenting adversary group profiles from a behavioral perspective that is agnostic of the tools the group may use.
+<br>
 <br>
 
 
@@ -112,11 +117,14 @@ Document explains what happens when Windows server logs being attacked.
 
 ### 3. Other tools / Documents
 1. <a href="https://mitre-attack.github.io/attack-navigator/">ATT&CK navigator</a>
+Navigation and annotation of the ATT&CK for each matrix (However, I have no idea how to use this).
+<br>
 <br>
 
 
 ## 7. FAQ
 * <a href="https://attack.mitre.org/resources/getting-started/">Frequently Asked Questions</a>
+<br>
 <br>
 
 
