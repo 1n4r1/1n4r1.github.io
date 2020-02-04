@@ -81,31 +81,31 @@ On the document "<a href="https://www.mitre.org/sites/default/files/publications
 
 
 ## 6. Tools / Resources
-### Tools are the simulators of testing "ATT&CK" implementation.
-1. <a href="https://github.com/uber-common/metta">Uber Metta</a>
+### 1. Simulators of testing "ATT&CK" implementation.
+1. <a href="https://github.com/uber-common/metta">Uber Metta</a><br>
 Tutorial: <a href="https://medium.com/uber-security-privacy/uber-security-metta-open-source-a8a49613b4a">https://medium.com/uber-security-privacy/uber-security-metta-open-source-a8a49613b4a</a>
 
-2. <a href="https://github.com/mitre/caldera">MITRE Caldera</a>
-Website: <a href="https://www.mitre.org/research/technology-transfer/open-source-software/caldera"></a>
-Video tutorial: <a href="https://www.mitre.org/research/technology-transfer/open-source-software/caldera"></a>
+2. <a href="https://github.com/mitre/caldera">MITRE Caldera</a><br>
+Website: <a href="https://www.mitre.org/research/technology-transfer/open-source-software/caldera">https://www.mitre.org/research/technology-transfer/open-source-software/caldera</a><br>
+Video tutorial: <a href="https://www.mitre.org/research/technology-transfer/open-source-software/caldera">https://www.mitre.org/research/technology-transfer/open-source-software/caldera"/a><br>
 
-3. <a href="https://github.com/redcanaryco/atomic-red-team">Red Canary atomic Red Team</a>
+3. <a href="https://github.com/redcanaryco/atomic-red-team">Red Canary atomic Red Team</a><br>
 Website: <a href="https://redcanary.com/atomic-red-team/">https://redcanary.com/atomic-red-team/</a>
 
-4. <a href="https://github.com/endgameinc/RTA">Endgame Red Team Automation</a>
+4. <a href="https://github.com/endgameinc/RTA">Endgame Red Team Automation</a><br>
 Website: <a href="https://www.endgame.com/blog/technical-blog/introducing-endgame-red-team-automation">https://www.endgame.com/blog/technical-blog/introducing-endgame-red-team-automation</a>
 
-### Documents of log expected result of testing "ATT&CK" implementation.
-1. <a href="https://car.mitre.org/">MITRE Cyber Analytics Repository</a>
+### 2. Documents of log expected result of testing "ATT&CK" implementation.
+1. <a href="https://car.mitre.org/">MITRE Cyber Analytics Repository</a><br>
 Knowledge base of analytics based on the MITRE ATT&CK adversary model.
 
-2. <a href="https://pan-unit42.github.io/playbook_viewer/">Palo Alto Unit 42 Playbook Viewer</a>
+2. <a href="https://pan-unit42.github.io/playbook_viewer/">Palo Alto Unit 42 Playbook Viewer</a><br>
 Free playbook based on ATT&CK by Palo Alto Unit 42.
 
-3. <a href="https://static1.squarespace.com/static/552092d5e4b0661088167e5c/t/5b8f091c0ebbe8644d3a886c/1536100639356/Windows+ATT%26CK_Logging+Cheat+Sheet_ver_Sept_2018.pdf">Malware Archaeology Windows ATT&CK Logging Cheat Sheet</a>
+3. <a href="https://static1.squarespace.com/static/552092d5e4b0661088167e5c/t/5b8f091c0ebbe8644d3a886c/1536100639356/Windows+ATT%26CK_Logging+Cheat+Sheet_ver_Sept_2018.pdf">Malware Archaeology Windows ATT&CK Logging Cheat Sheet</a><br>
 Document explains what happens when Windows server logs being attacked.
 
-### Other tools / Documents
+### 3. Other tools / Documents
 1. <a href="https://mitre-attack.github.io/attack-navigator/">ATT&CK navigator</a>
 
 
