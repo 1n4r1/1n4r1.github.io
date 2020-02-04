@@ -97,7 +97,7 @@ Tutorial: <a href="https://medium.com/uber-security-privacy/uber-security-metta-
 
 2. <a href="https://github.com/mitre/caldera">MITRE Caldera</a><br>
 Website: <a href="https://www.mitre.org/research/technology-transfer/open-source-software/caldera">https://www.mitre.org/research/technology-transfer/open-source-software/caldera</a><br>
-Video tutorial: <br>
+Video tutorial: 
 [![](https://img.youtube.com/vi/xjDrWStR68E/0.jpg)](https://www.youtube.com/watch?v=xjDrWStR68E) 
 
 3. <a href="https://github.com/redcanaryco/atomic-red-team">Red Canary atomic Red Team</a><br>
@@ -118,7 +118,7 @@ Document explains what happens when Windows server logs being attacked.
 
 ### 3. Other Tools / Documents / Videos
 1. <a href="https://mitre-attack.github.io/attack-navigator/">ATT&CK navigator</a><br>
-Navigation and annotation of the ATT&CK for each matrix (However, I have no idea how to use this).<br>
+Navigation and annotation of the ATT&CK for each matrix (However, I have no idea how to use this).
 [![](https://img.youtube.com/vi/pcclNdwG8Vs/0.jpg)](https://www.youtube.com/watch?v=pcclNdwG8Vs)
 
 2. Official video tutorial
