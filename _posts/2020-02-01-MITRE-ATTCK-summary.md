@@ -14,12 +14,17 @@ summarize the security framework "MITRE ATT&CK".
 2020/02/01
 
 # Solution
-### 1. Who published it ?
+### 1. Who published it?
 The <a href="https://www.mitre.org/">MITRE Corporation</a> is an American not-for-profit organization based in Bedford, Massachusetts, and McLean, Virginia.
 
 
-### 2. When it was published ?
+### 2. When it was published?
 Started 2013 and updated every quarter.
+
+
+### 3. Why it is important?
+1. There used to be no common frameworks for consulting, penetration test, SOC that is for both attack side and defence side.
+2. The ATT&CK framework has become widespread rapidly in the security product industry since approximately 2018.
 
 
 ### 3. What is the "MITRE ATT&CK" ?
@@ -73,9 +78,9 @@ On the document "<a href="https://www.mitre.org/sites/default/files/publications
 
 #### 6. Cyber Threat Intelligence Enrichment
 > Cyber threat intelligence covers knowledge of cyber threats and threat actor groups that impact cybersecurity.
- 
 
-### 5. Tools / Resources
+
+### 6. Tools / Resources
 #### Tools are the simulators of testing "ATT&CK" implementation.
 1. <a href="https://github.com/uber-common/metta">Uber Metta</a>
 Tutorial: <a href="https://medium.com/uber-security-privacy/uber-security-metta-open-source-a8a49613b4a">https://medium.com/uber-security-privacy/uber-security-metta-open-source-a8a49613b4a</a>
@@ -104,10 +109,10 @@ Document explains what happens when Windows server logs being attacked.
 1. <a href="https://mitre-attack.github.io/attack-navigator/">ATT&CK navigator</a>
 
 
-### 6. FAQ
+### 7. FAQ
 * <a href="https://attack.mitre.org/resources/getting-started/">Frequently Asked Questions</a>
 
 
-### 7. Conclusion
+### 8. Conclusion
 
-Please some one give me a correction if there are some incorrect description!!
+Please someone give me a correction if there is an incorrect description or lacking information!!
