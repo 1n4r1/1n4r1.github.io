@@ -16,15 +16,18 @@ summarize the security framework "MITRE ATT&CK".
 # Solution
 ## 1. Who published it?
 The <a href="https://www.mitre.org/">MITRE Corporation</a> is an American not-for-profit organization based in Bedford, Massachusetts, and McLean, Virginia.
+<br>
 
 
 ## 2. When it was published?
 Started 2013 and updated every quarter.
+<br>
 
 
 ## 3. Why it is important?
 1. There used to be no common frameworks for consulting, penetration test, SOC that is for both attack side and defence side.
 2. The ATT&CK framework has become widespread rapidly in the security product industry since approximately 2018.
+<br>
 
 
 ## 4. What is the "MITRE ATT&CK" ?
@@ -57,6 +60,7 @@ Each Techniques has the following information.
 3. Mitigations : How to mitigate the risk of this Technique.
 4. Detection : How to detect this Technique.
 5. References
+<br>
 
 
 ## 5. What we can do with "ATT&CK" ?
@@ -78,6 +82,7 @@ On the document "<a href="https://www.mitre.org/sites/default/files/publications
 
 ### 6. Cyber Threat Intelligence Enrichment
 > Cyber threat intelligence covers knowledge of cyber threats and threat actor groups that impact cybersecurity.
+<br>
 
 
 ## 6. Tools / Resources
@@ -97,7 +102,7 @@ Website: <a href="https://www.endgame.com/blog/technical-blog/introducing-endgam
 
 ### 2. Documents of log expected result of testing "ATT&CK" implementation.
 1. <a href="https://car.mitre.org/">MITRE Cyber Analytics Repository</a><br>
-Knowledge base of analytics based on the MITRE ATT&CK adversary model.
+Analytics based on the MITRE ATT&CK adversary model.
 
 2. <a href="https://pan-unit42.github.io/playbook_viewer/">Palo Alto Unit 42 Playbook Viewer</a><br>
 Free playbook based on ATT&CK by Palo Alto Unit 42.
@@ -107,10 +112,12 @@ Document explains what happens when Windows server logs being attacked.
 
 ### 3. Other tools / Documents
 1. <a href="https://mitre-attack.github.io/attack-navigator/">ATT&CK navigator</a>
+<br>
 
 
 ## 7. FAQ
 * <a href="https://attack.mitre.org/resources/getting-started/">Frequently Asked Questions</a>
+<br>
 
 
 ## 8. Conclusion
