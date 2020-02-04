@@ -118,7 +118,8 @@ Document explains what happens when Windows server logs being attacked.
 
 ### 3. Other Tools / Documents / Videos
 1. <a href="https://mitre-attack.github.io/attack-navigator/">ATT&CK navigator</a><br>
-Navigation and annotation of the ATT&CK for each matrix.
+Navigation and annotation of the ATT&CK for each matrix.<br>
+Video tutorial:
 [![](https://img.youtube.com/vi/pcclNdwG8Vs/0.jpg)](https://www.youtube.com/watch?v=pcclNdwG8Vs)
 
 2. Official video tutorial
