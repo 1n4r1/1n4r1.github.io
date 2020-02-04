@@ -97,7 +97,7 @@ Website: <a href="https://www.endgame.com/blog/technical-blog/introducing-endgam
 
 ### 2. Documents of log expected result of testing "ATT&CK" implementation.
 1. <a href="https://car.mitre.org/">MITRE Cyber Analytics Repository</a><br>
-Knowledge base of analytics based on the MITRE ATT&CK adversary model.
+Analytics based on the MITRE ATT&CK adversary model.
 
 2. <a href="https://pan-unit42.github.io/playbook_viewer/">Palo Alto Unit 42 Playbook Viewer</a><br>
 Free playbook based on ATT&CK by Palo Alto Unit 42.
