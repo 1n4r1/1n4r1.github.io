@@ -97,7 +97,8 @@ Tutorial: <a href="https://medium.com/uber-security-privacy/uber-security-metta-
 
 2. <a href="https://github.com/mitre/caldera">MITRE Caldera</a><br>
 Website: <a href="https://www.mitre.org/research/technology-transfer/open-source-software/caldera">https://www.mitre.org/research/technology-transfer/open-source-software/caldera</a><br>
-Video tutorial: <a href="https://www.mitre.org/research/technology-transfer/open-source-software/caldera">https://www.mitre.org/research/technology-transfer/open-source-software/caldera"/a><br>
+Video tutorial: <br>
+[![](https://img.youtube.com/vi/xjDrWStR68E/0.jpg)](https://www.youtube.com/watch?v=xjDrWStR68E) 
 
 3. <a href="https://github.com/redcanaryco/atomic-red-team">Red Canary atomic Red Team</a><br>
 Website: <a href="https://redcanary.com/atomic-red-team/">https://redcanary.com/atomic-red-team/</a>
@@ -115,9 +116,13 @@ Free playbook based on ATT&CK by Palo Alto Unit 42.
 3. <a href="https://static1.squarespace.com/static/552092d5e4b0661088167e5c/t/5b8f091c0ebbe8644d3a886c/1536100639356/Windows+ATT%26CK_Logging+Cheat+Sheet_ver_Sept_2018.pdf">Malware Archaeology Windows ATT&CK Logging Cheat Sheet</a><br>
 Document explains what happens when Windows server logs being attacked.
 
-### 3. Other tools / Documents
+### 3. Other Tools / Documents / Videos
 1. <a href="https://mitre-attack.github.io/attack-navigator/">ATT&CK navigator</a><br>
-Navigation and annotation of the ATT&CK for each matrix (However, I have no idea how to use this).
+Navigation and annotation of the ATT&CK for each matrix (However, I have no idea how to use this).<br>
+[![](https://img.youtube.com/vi/pcclNdwG8Vs/0.jpg)](https://www.youtube.com/watch?v=pcclNdwG8Vs)
+
+2. Official video tutorial
+[![](https://img.youtube.com/vi/EsvUUCrbhIE/0.jpg)](https://www.youtube.com/watch?v=EsvUUCrbhIE)
 <br>
 <br>
 
