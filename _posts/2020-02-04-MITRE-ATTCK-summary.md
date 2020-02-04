@@ -116,7 +116,7 @@ Free playbook based on ATT&CK by Palo Alto Unit 42.
 Document explains what happens when Windows server logs being attacked.
 
 ### 3. Other tools / Documents
-1. <a href="https://mitre-attack.github.io/attack-navigator/">ATT&CK navigator</a>
+1. <a href="https://mitre-attack.github.io/attack-navigator/">ATT&CK navigator</a><br>
 Navigation and annotation of the ATT&CK for each matrix (However, I have no idea how to use this).
 <br>
 <br>
