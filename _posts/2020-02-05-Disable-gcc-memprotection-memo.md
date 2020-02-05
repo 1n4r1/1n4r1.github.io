@@ -77,19 +77,6 @@ root@vagrant:/home/vagrant# ldd /usr/bin/test
 ### 2. Disable memory protections
 #### Disable ASLR
 {% highlight shell %}
-root@kali:~# gcc helloworld.c -o hello_world -fno-stack-protector
-
-root@kali:~# checksec --file hello_world 
-[*] '/root/hello_world'
-    Arch:     amd64-64-little
-    RELRO:    Partial RELRO
-    Stack:    No canary found
-    NX:       NX enabled
-    PIE:      PIE enabled
-{% endhighlight %}
-
-#### Confirm ASLA disabled
-{% highlight shell %}
 root@vagrant:/home/vagrant# echo 0 > /proc/sys/kernel/randomize_va_space
 
 root@vagrant:/home/vagrant# ldd /usr/bin/test
