@@ -5,7 +5,7 @@ categories: Kali
 ---
 
 # Explanation
-Memo about tips of code regulation tool for shell script "shellcheck"
+Memo about code regulation tool for shell script "shellcheck"
 
 # Environment
 * OS: Kali linux 2019.4
