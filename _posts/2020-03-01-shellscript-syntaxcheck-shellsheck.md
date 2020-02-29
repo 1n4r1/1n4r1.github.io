@@ -11,14 +11,14 @@ Memo about code regulation tool for shell script "shellcheck"
 * OS: Kali linux 2019.4
 
 # Solution
-### 1. Installation
+## 1. Installation
 
-#### Package installation
+### Package installation
 {% highlight shell %}
 root@kali:~# sudo apt-get install shellcheck
 {% endhighlight %}
 
-#### Cloning the vim plugin syntastic into the directory for Vim plugins
+### Cloning the vim plugin syntastic into the directory for Vim plugins
 {% highlight shell %}
 inar1@kali:~$ mkdir -p ~/.vim/pack/plugins/start
 
@@ -36,7 +36,7 @@ Resolving deltas: 100% (215/215), done.
 inar1@kali:~/.vim/pack/plugins/start$
 {% endhighlight %}
 
-#### Adding the following lines in the .vimrc
+### Adding the following lines in the .vimrc
 We have more info on the <a href="https://github.com/vim-syntastic/syntastic">official repository of syntastic</a>
 {% highlight shell %}
 set statusline+=%#warningmsg#
@@ -52,13 +52,13 @@ let g:syntastic_check_on_wq = 0
 After that, Vim starts to display the additional console for shellcheck.
 ![placeholder](https://inar1.github.io/public/images/2020-03-01/2020-02-29-09-03-23.png)
 
-### 2. Tips
-#### What code regulation is enforced?
+## 2. Tips
+### What code regulation is enforced?
 We have rules from SC1000 to SC2236.<br>
 If we wanna take a look at what exactly these rules are, try to look at the following page.<br>
 <a href="https://github.com/koalaman/shellcheck/wiki/Checks">https://github.com/koalaman/shellcheck/wiki/Checks</a>
 
-#### Command-line usage
+### Command-line usage
 * To ignore specific rules...
 {% highlight shell %}
 inar1@kali:~/kali-setup$ shellcheck -e SC1090 kali-init.sh
@@ -149,7 +149,7 @@ inar1@kali:~/kali-setup$
 {% endhighlight %}
 
 
-#### To ignore specific rules only once in the code
+### To ignore specific rules only once in the code
 Put a directive like the following
 {% highlight shell %}
 # shellcheck disable=SC2142
@@ -157,5 +157,5 @@ alias hischeck="history|awk '{print \$4}'|sort|uniq -c|sort -n"
 {% endhighlight %}
 
 
-#### Bad shell script codes example
+### Bad shell script codes example
 * <a href="https://github.com/koalaman/shellcheck/blob/master/README.md#user-content-gallery-of-bad-code">https://github.com/koalaman/shellcheck/blob/master/README.md#user-content-gallery-of-bad-code</a>
