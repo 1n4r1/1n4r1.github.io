@@ -12,7 +12,13 @@ Memo about tips of code regulation tool for shell script "shellcheck"
 
 # Solution
 ### 1. Installation
-#### Cloning the repository into the directory for Vim plugins
+
+#### Package installation
+{% highlight shell %}
+root@kali:~# sudo apt-get install shellcheck
+{% endhighlight %}
+
+#### Cloning the vim plugin syntastic into the directory for Vim plugins
 {% highlight shell %}
 inar1@kali:~$ mkdir -p ~/.vim/pack/plugins/start
 
@@ -30,13 +36,7 @@ Resolving deltas: 100% (215/215), done.
 inar1@kali:~/.vim/pack/plugins/start$
 {% endhighlight %}
 
-#### Package installation
-{% highlight shell %}
-root@kali:~# sudo apt-get install shellcheck
-{% endhighlight %}
-
 #### Adding the following lines in the .vimrc
-This is just an example from the official page.<br>
 We have more info on the <a href="https://github.com/vim-syntastic/syntastic">official repository of syntastic</a>
 {% highlight shell %}
 set statusline+=%#warningmsg#
@@ -47,10 +47,10 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-{% endhighlight %}*
+{% endhighlight %}
 
 After that, Vim starts to display the additional console for shellcheck.
-![placeholder](https://inar1.github.io/public/images/2020-03-01/2020-03-01-09-03-23.png)
+![placeholder](https://inar1.github.io/public/images/2020-03-01/2020-02-29-09-03-23.png)
 
 ### 2. Tips
 #### What code regulation is enforced?
