@@ -149,8 +149,12 @@ inar1@kali:~/kali-setup$
 {% endhighlight %}
 
 
-#### How to customise for Vim automation check
-Damn I have no idea how to fix Vimscript!!
+#### To ignore specific rules only once
+Put a comment like the following
+{% highlight shell %}
+# shellcheck disable=SC2142
+alias hischeck="history|awk '{print \$4}'|sort|uniq -c|sort -n"
+{% endhighlight %}
 
 
 #### Bad shell script codes example
