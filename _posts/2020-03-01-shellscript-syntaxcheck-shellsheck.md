@@ -5,7 +5,7 @@ categories: Kali
 ---
 
 # Explanation
-Memo about how to install / auto-run shellcheck code regulation tool for shell script
+Memo about tips of code regulation tool for shell script "shellcheck"
 
 # Environment
 * OS: Kali linux 2019.4
@@ -30,7 +30,7 @@ Resolving deltas: 100% (215/215), done.
 inar1@kali:~/.vim/pack/plugins/start$
 {% endhighlight %}
 
-#### Installing shellcheck
+#### Package installation
 {% highlight shell %}
 root@kali:~# sudo apt-get install shellcheck
 {% endhighlight %}
@@ -52,7 +52,7 @@ let g:syntastic_check_on_wq = 0
 After that, Vim starts to display the additional console for shellcheck.
 ![placeholder](https://inar1.github.io/public/images/2020-03-01/2020-03-01-09-03-23.png)
 
-### 2. Info bit more
+### 2. Tips
 #### What code regulation is enforced?
 We have rules from SC1000 to SC2236.<br>
 If we wanna take a look at what exactly these rules are, try to look at the following page.<br>
@@ -149,8 +149,8 @@ inar1@kali:~/kali-setup$
 {% endhighlight %}
 
 
-#### To ignore specific rules only once
-Put a comment like the following
+#### To ignore specific rules only once in the code
+Put a directive like the following
 {% highlight shell %}
 # shellcheck disable=SC2142
 alias hischeck="history|awk '{print \$4}'|sort|uniq -c|sort -n"
