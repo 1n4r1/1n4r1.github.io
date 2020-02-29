@@ -1,11 +1,11 @@
 ---
 layout: post
-title: Memo - Enforcing code regulation with Vim and checkshell
+title: Memo - Enforcing code regulation with Vim and shellcheck
 categories: Kali
 ---
 
 # Explanation
-Memo about how to install / auto-run code regulation tool for 
+Memo about how to install / auto-run shellcheck code regulation tool for shell script
 
 # Environment
 * OS: Kali linux 2019.4
@@ -30,7 +30,7 @@ Resolving deltas: 100% (215/215), done.
 inar1@kali:~/.vim/pack/plugins/start$
 {% endhighlight %}
 
-#### Installing checkshell
+#### Installing shellcheck
 {% highlight shell %}
 root@kali:~# sudo apt-get install shellcheck
 {% endhighlight %}
