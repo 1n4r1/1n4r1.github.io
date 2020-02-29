@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Memo - Enforcing code regulation with Vim and shellcheck
+title: Memo - Enforcing code regulation with shellcheck
 categories: Kali
 ---
 
@@ -77,7 +77,7 @@ For more information:
   https://www.shellcheck.net/wiki/SC1090 -- Can't follow non-constant source....
 {% endhighlight %}
 
-* To specify the output format...
+* To specify the output format(like gcc, checkstyle, json)...
 {% highlight shell %}
 inar1@kali:~/kali-setup$ shellcheck --format=gcc  kali-init.sh
 kali-init.sh:52:3: warning: Can't follow non-constant source. Use a directive to specify location. [SC1090]
