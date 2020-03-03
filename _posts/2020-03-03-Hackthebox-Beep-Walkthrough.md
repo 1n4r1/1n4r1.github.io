@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Hackthebox Safe Walkthrough
+title: Hackthebox Beep Walkthrough
 categories: HackTheBox
 ---
 
