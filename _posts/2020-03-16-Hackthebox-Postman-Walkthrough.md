@@ -71,7 +71,31 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 ### Redis enumeration:
 Reference: <a href="https://book.hacktricks.xyz/pentesting/6379-pentesting-redis">https://book.hacktricks.xyz/pentesting/6379-pentesting-redis</a>
 {% highlight shell %}
-root@kali:~# redis-cli -h 10.10.10.160
+inar1@kali:~$ redis-cli -h 10.10.10.160
+10.10.10.160:6379> info
+# Server
+redis_version:4.0.9
+redis_git_sha1:00000000
+redis_git_dirty:0
+redis_build_id:9435c3c2879311f3
+redis_mode:standalone
+os:Linux 4.15.0-58-generic x86_64
+arch_bits:64
+multiplexing_api:epoll
+atomicvar_api:atomic-builtin
+gcc_version:7.4.0
+process_id:616
+run_id:521dd2981efd190099f6fdc8744a20a1b3217664
+tcp_port:6379
+uptime_in_seconds:444
+uptime_in_days:0
+hz:10
+lru_clock:7323466
+executable:/usr/bin/redis-server
+config_file:/etc/redis/redis.conf
+
+---
+
 10.10.10.160:6379> keys *
 (empty list or set)
 
