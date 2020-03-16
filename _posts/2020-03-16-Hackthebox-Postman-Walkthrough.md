@@ -250,7 +250,7 @@ computer2008     (id_rsa.bak)
 Warning: Only 2 candidates left, minimum 8 needed for performance.
 1g 0:00:00:06 DONE (2020-03-15 10:55) 0.1468g/s 2105Kp/s 2105Kc/s 2105KC/sa6_123..*7¡Vamos!
 Session completed
-*{% endhighlight %}
+{% endhighlight %}
 
 Actually, we have only one user "Matt" who is allowed to log in except redis.<br>
 This time, we can't SSH but we can run su command to be the user "Matt".
@@ -296,7 +296,7 @@ Matt@Postman:~$ pwd
 
 Matt@Postman:~$ cat user.txt 
 517ad0ec2458ca97af8d93aac08a2f3c
-{% endhighlight %}_
+{% endhighlight %}
 
 
 ## 3. Getting Root
@@ -367,7 +367,7 @@ id
 uid=0(root) gid=0(root) groups=0(root)
 python -c "import pty;pty.spawn('/bin/bash')"
 root@Postman:/usr/share/webmin/package-updates/# 
-{% endhighlight %}*
+{% endhighlight %}
 
 As always, root.txt is in the directory "/root".
 {% highlight shell %}
