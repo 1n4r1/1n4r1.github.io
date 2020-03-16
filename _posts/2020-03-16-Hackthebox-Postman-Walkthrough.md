@@ -190,6 +190,7 @@ With some enumeration, we can find an interesting file "id_rsa.bak" in the "/opt
 {% highlight shell %}
 redis@Postman:~$ ls /opt/
 id_rsa.bak
+
 redis@Postman:~$ cat /opt/id_rsa.bak 
 -----BEGIN RSA PRIVATE KEY-----
 Proc-Type: 4,ENCRYPTED
