@@ -208,7 +208,7 @@ root@kali:~#
 {% endhighlight %}
 
 Kali Linux can brute-force the password with the John the Ripper.<br>
-However, we need to change the SSH private key into the hash which format is readable by John the Ripper.<br>
+However, we need to change the SSH private key into the hash which format is crackable by John the Ripper.<br>
 By cracking with "rockyou.txt", we can achieve a password "computer2008" for someone.
 {% highlight shell %}
 root@kali:~# /usr/share/john/ssh2john.py id_rsa.bak > hash.txt
@@ -277,7 +277,7 @@ Matt@Postman:~$ cat user.txt
 
 ## 3. Getting Root
 
-We still have one service that we haven't looked through with is Webmin httpd.
+We still have one service that we haven't looked through with is "Webmin httpd".
 ![placeholder](https://inar1.github.io/public/images/2020-03-16/2020-03-16-19-02-20.png)
 
 For the privilege escalation, we can use the credential for Matt again.<br>
