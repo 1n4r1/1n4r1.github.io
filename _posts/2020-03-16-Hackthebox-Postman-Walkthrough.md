@@ -231,7 +231,7 @@ id_rsa.bak                                                        100% 1743    3
 root@kali:~# 
 {% endhighlight %}
 
-Kali Linux can brute-force the password with the John the Ripper.<br>
+Kali Linux can brute-force the password of a SSH private key with the John the Ripper.<br>
 However, we need to change the SSH private key into the hash which format is crackable by John the Ripper.<br>
 By cracking with "rockyou.txt", we can achieve a password "computer2008" for someone.
 {% highlight shell %}
