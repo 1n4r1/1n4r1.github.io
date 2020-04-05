@@ -4,7 +4,7 @@ title: Hackthebox Postman Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://inar1.github.io/public/images/2020-03-16/postman-badge.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-03-16/postman-badge.png)
 
 # Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
@@ -303,14 +303,14 @@ Matt@Postman:~$ cat user.txt
 ## 3. Getting Root
 
 We still have one service that we haven't looked through with is "Webmin httpd".
-![placeholder](https://inar1.github.io/public/images/2020-03-16/2020-03-16-19-02-20.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-03-16/2020-03-16-19-02-20.png)
 
 For the privilege escalation, we can use the credential for Matt again.<br>
 By trying the credential for Matt, we can confirm that the credential for Matt is available for the authentication.
 {% highlight shell %}
 Matt:computer2008
 {% endhighlight %}
-![placeholder](https://inar1.github.io/public/images/2020-03-16/2020-03-16-19-07-01.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-03-16/2020-03-16-19-07-01.png)
 
 Also, we can search the vulnerability for the Webmin v1.9.1 with searchsploit.
 {% highlight shell %}
