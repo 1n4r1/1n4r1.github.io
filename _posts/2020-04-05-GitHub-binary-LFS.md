@@ -11,8 +11,8 @@ This is a memo of enabling GFS on GitHub,
 # Environment
 * OS: Kali linux 2019.4
 
-# Solution
-## 1. Installation
+# Reference
+* <a href="https://github.com/git-lfs/git-lfs/wiki/Tutorial">Git LFS Tutorial</a>
 
 ### Package installation
 {% highlight shell %}
@@ -57,7 +57,7 @@ $ git push origin Github-LFS
 
 ---
 
-Enumerating objects: 761, done.0/310), 21 MB | 965 KB/s                                              
+Enumerating objects: 761, done.0/310), 21 MB | 965 KB/s
 Counting objects: 100% (761/761), done.
 Delta compression using up to 8 threads
 Compressing objects: 100% (376/376), done.
@@ -66,3 +66,31 @@ Total 385 (delta 5), reused 0 (delta 0)
 
 ---
 {% endhighlight %}
+
+Alternatively, we can use "git lfs migrate" command.
+{% highlight shell %}
+$ git lfs migrate import --include="*.png"
+migrate: override changes in your working copy? [Y/n] Y
+migrate: changes in your working copy will be overridden ...
+migrate: Fetching remote refs: ..., done.
+migrate: Sorting commits: ..., done.
+migrate: Rewriting commits: 100% (2/2), done.
+  master                33de649d04553205a0db99802b2b965459e284ce -> cb1533f0115d4a0caaa691b9c6eff20a73670e0a
+migrate: Updating refs: ..., done.
+migrate: checkout: ..., done.
+{% endhighlight %}
+
+After the command execution, we need to run the following command to remove the pre-existing objects.
+{% highlight shell %}
+$ git reflog expire --expire-unreachable=now --all
+$ git gc --prune=now
+Enumerating objects: 3197, done.
+Counting objects: 100% (3197/3197), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (1526/1526), done.
+Writing objects: 100% (3197/3197), done.
+Total 3197 (delta 1642), reused 3197 (delta 1642)
+{% endhighlight %}
+
+Now we can see that our binary file is managed by Git LFS.
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-04-05/2020-04-05-13-00-00.png)
