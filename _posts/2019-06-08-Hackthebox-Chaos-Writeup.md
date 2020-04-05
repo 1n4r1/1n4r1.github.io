@@ -4,7 +4,7 @@ title: Hackthebox Chaos Writeup
 categories: HackTheBox
 ---
 
-![placeholder](https://inar1.github.io/public/images/2019-06-08/chaos_badge.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-06-08/chaos_badge.png)
 ## Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has bunch of vulnerable machines in its own VPN.
 This is a write-up of machine "Chaos" on that website.
@@ -85,14 +85,14 @@ Gobuster v2.0.1              OJ Reeves (@TheColonial)
 
 ### 2. Getting User
 We found a ditrectory "wp" and it has wordpress website.
-![placeholder](https://inar1.github.io/public/images/2019-06-08/2019-06-08-09-53-48.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-06-08/2019-06-08-09-53-48.png)
 
 It shows a password input box for protected area of this page.
-![placeholder](https://inar1.github.io/public/images/2019-06-08/2019-06-08-09-54-29.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-06-08/2019-06-08-09-54-29.png)
 
 As we can see, this post is by user "human".<br>
 So put "human" as a password,  we can pass the authentication and get following credential for webmail.
-![placeholder](https://inar1.github.io/public/images/2019-06-08/2019-06-08-09-55-12.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-06-08/2019-06-08-09-55-12.png)
 {% highlight shell %}
 ayush:jiujitsu
 {% endhighlight %}
@@ -340,14 +340,14 @@ We have to add following line in "/etc/hosts" for name resolution.
 {% endhighlight %}
 
 We have an interesting page to create a pdf file there.
-![placeholder](https://inar1.github.io/public/images/2019-06-08/2019-06-08-09-56-06.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-06-08/2019-06-08-09-56-06.png)
 
 If we see the response, we can figure out this page is using pdfTex version 3.14159265-2.6-1.40.19
-![placeholder](https://inar1.github.io/public/images/2019-06-08/2019-06-08-08-58-53.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-06-08/2019-06-08-08-58-53.png)
 
 At the same time, we can find a line "\write18 enabled".<br>
 This means, we can execute shell command by having a payload and push the button "Create PDF".
-![placeholder](https://inar1.github.io/public/images/2019-06-08/2019-06-08-09-11-41.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-06-08/2019-06-08-09-11-41.png)
 {% highlight shell %}
 root@kali:~# nc -nlvp 4444
 listening on [any] 4444 ...

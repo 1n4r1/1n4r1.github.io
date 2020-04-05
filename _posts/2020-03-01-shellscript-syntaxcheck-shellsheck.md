@@ -50,7 +50,7 @@ let g:syntastic_check_on_wq = 0
 {% endhighlight %}
 
 After that, Vim starts to display the additional console for shellcheck.
-![placeholder](https://inar1.github.io/public/images/2020-03-01/2020-02-29-09-03-23.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-03-01/2020-02-29-09-03-23.png)
 
 ## 2. Tips
 ### What code regulation is enforced?

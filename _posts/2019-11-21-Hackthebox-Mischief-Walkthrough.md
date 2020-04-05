@@ -4,7 +4,7 @@ title: Hackthebox Mischief Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://inar1.github.io/public/images/2019-11-21/mischief-badge.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-11-21/mischief-badge.png)
 
 # Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
@@ -183,8 +183,8 @@ With the credential, we can login to the web server for IPv6.
 {% highlight shell %}
 loki:godofmischiefisloki
 {% endhighlight %}
-![placeholder](https://inar1.github.io/public/images/2019-11-21/2019-11-20-16-03-52.png)
-![placeholder](https://inar1.github.io/public/images/2019-11-21/2019-11-20-16-04-22.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-11-21/2019-11-20-16-03-52.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-11-21/2019-11-20-16-04-22.png)
 
 We got another credential. Then, try to look for a place to use.<br>
 If we go over the above process enumeration, we can find that apache is running but there is no port listening.
@@ -221,7 +221,7 @@ root@kali:~#
 
 Now we found a Unique-Local address "dead:beef:0000:0000:0250:56ff:feb9:c793".<br>
 Try to access with web browser.
-![placeholder](https://inar1.github.io/public/images/2019-11-21/2019-11-20-16-27-19.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-11-21/2019-11-20-16-27-19.png)
 
 Then, login to the console with the following password found on port 3366.<br>
 However, this does not work.
@@ -233,10 +233,10 @@ After some trying common password combination, we can find out that the followin
 {% highlight shell %}
 administrator:trickeryanddeceit
 {% endhighlight %}
-![placeholder](https://inar1.github.io/public/images/2019-11-21/2019-11-20-16-42-09.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-11-21/2019-11-20-16-42-09.png)
 
 If we put just like "id;", we can see that the command is executed.
-![placeholder](https://inar1.github.io/public/images/2019-11-21/2019-11-20-16-48-42.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-11-21/2019-11-20-16-48-42.png)
 
 Next, launch a netcat listener with "ncat". This is because it has an option "-6" for IPv6.
 {% highlight shell %}

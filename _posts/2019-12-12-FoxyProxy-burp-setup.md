@@ -19,13 +19,13 @@ This time, "FoxyProxy" was used for OWASP Juice Shop on the localhost:3000.
 ### 1. Installing FoxyProxy
 
 At first, go to the Chrome webstore and install Chrome extension FoxyProxy.
-![placeholder](https://inar1.github.io/public/images/2019-12-12/2019-12-11-23-36-55.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-12/2019-12-11-23-36-55.png)
 
 ### 2. Launch Burp Suite
 
 Next, launch Burp Suite.<br>
 This time, default setting (IP: 127.0.0.1, port: 8080) was used.
-![placeholder](https://inar1.github.io/public/images/2019-12-12/2019-12-12-01-27-55.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-12/2019-12-12-01-27-55.png)
 
 ### 3. Edit "/etc/hosts"
 
@@ -40,18 +40,18 @@ Add following line to the "/etc/hosts" to give an additional name "juice-shop" f
 Then, open the extension icon on the right of Chrome header and select "options"<br>
 Click "add New Proxy" and open the "Proxy settings" window.<br>
 Go to "Proxy Details" and set configuration for running Burp Suite.
-![placeholder](https://inar1.github.io/public/images/2019-12-12/2019-12-12-00-03-48.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-12/2019-12-12-00-03-48.png)
 
 Next, go to "URL Patterns" and "Add new pattern".<br>
 We can use Wildcard for the domain name for the proxy.
-![placeholder](https://inar1.github.io/public/images/2019-12-12/2019-12-12-01-24-17.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-12/2019-12-12-01-24-17.png)
 
 Finally, go to top page of FoxyProxy configuration and enable the proxy configuration.<br>
 Choose "Use proxies based on their pre-defined patterns and priorities" as Proxy mode.
-![placeholder](https://inar1.github.io/public/images/2019-12-12/2019-12-12-00-08-47.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-12/2019-12-12-00-08-47.png)
 
 ### 5. Check the configuration with Burp Suite.
 
 Access "http://sec-juice:3000" with Google Chrome and take a look at "HTTP history" tab on Burp Suite.<br>
 We can confirm that we can analyze the traffic to localhost.
-![placeholder](https://inar1.github.io/public/images/2019-12-12/2019-12-12-01-23-33.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-12/2019-12-12-01-23-33.png)

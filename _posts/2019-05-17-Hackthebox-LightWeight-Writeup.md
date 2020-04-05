@@ -4,7 +4,7 @@ title: Hackthebox Lightweight Writeup
 categories: HackTheBox
 ---
 
-![placeholder](https://inar1.github.io/public/images/2019-05-17/lightweight_badge.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-05-17/lightweight_badge.png)
 ## Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has bunch of vulnerable machines in its own VPN.
 This is a write-up of machine "Lightweight" on that website.
@@ -153,7 +153,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.74 seconds
 ### 2. Getting User
 
 Since we can not use gobuster here, we have to enumerate the website manually.
-![placeholder](https://inar1.github.io/public/images/2019-05-17/2019-05-17-19-39-18.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-05-17/2019-05-17-19-39-18.png)
 
 In this top page, we can find links to following pages.
 1. /info.php
@@ -161,7 +161,7 @@ In this top page, we can find links to following pages.
 3. /user.php
 
 We can find interesting information on user.php
-![placeholder](https://inar1.github.io/public/images/2019-05-17/2019-05-17-19-54-32.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-05-17/2019-05-17-19-54-32.png)
 
 According to this info, we can figure out we can login to this box with following credential.
 {% highlight shell %}

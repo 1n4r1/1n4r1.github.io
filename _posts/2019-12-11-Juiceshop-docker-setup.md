@@ -52,7 +52,7 @@ info: Port 3000 is available (OK)
 info: Server listening on port 3000
 
 {% endhighlight %}
-![placeholder](https://inar1.github.io/public/images/2019-12-11/2019-12-11-13-35-40.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-11/2019-12-11-13-35-40.png)
 
 ### 3. Version confirmation
 

@@ -4,7 +4,7 @@ title: Hackthebox Jarvis Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://inar1.github.io/public/images/2019-11-10/jarvis-badge.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-11-10/jarvis-badge.png)
 # Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
 To learn a new technique/knowledge, solve all machines (As much as possible!!).<br>
@@ -103,14 +103,14 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 ### 2. Getting User
 
 On the port 80, there is a website which we can researve a room of a hotel.
-![placeholder](https://inar1.github.io/public/images/2019-11-10/2019-11-09-19-40-46.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-11-10/2019-11-09-19-40-46.png)
 
 In the path "/room.php", we have a parameter for GET request which is "cod".
-![placeholder](https://inar1.github.io/public/images/2019-11-10/2019-11-09-19-41-30.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-11-10/2019-11-09-19-41-30.png)
 
 By putting a single quote, we can confirm that there is no picture.<br>
 This means that the parameter "cod" is not handled appropriately.
-![placeholder](https://inar1.github.io/public/images/2019-11-10/2019-11-09-19-41-57.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-11-10/2019-11-09-19-41-57.png)
 
 Then, we can try to check if there is really a SQL injection.<br>
 We can use SQLmap and figure out that the parameter "cod" is actually vulnerable.
@@ -184,7 +184,7 @@ database management system users password hashes:
 
 After that, try to login to phpadmin with the credential.<br>
 We can figure out that the version of phpmyadmin is "4.8.0"
-![placeholder](https://inar1.github.io/public/images/2019-11-10/2019-11-09-21-33-11.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-11-10/2019-11-09-21-33-11.png)
 
 Metasploit has several exploits for Authenticated remote code execution of phpmyadmin.
 {% highlight shell %}

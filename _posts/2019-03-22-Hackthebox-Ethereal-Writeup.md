@@ -141,15 +141,15 @@ Gobuster v2.0.0              OJ Reeves (@TheColonial)
 
 As always, try to enumerate HTTP.<br>
 If we click on "MENU", we can find an access to admin console.
-![placeholder](https://inar1.github.io/public/images/2019-03-22/2019-03-20-11-25-03.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-22/2019-03-20-11-25-03.png)
 
 Clicking on "Menu" again and "PING" redirects us to ethreal.htb:8080.<br>
 We have to add following line in "/etc/hosts".
 {% highlight shell %}
 10.10.10.106 ethereal.htb
 {% endhighlight %}
-![placeholder](https://inar1.github.io/public/images/2019-03-22/2019-03-09-17-35-42.png)
-![placeholder](https://inar1.github.io/public/images/2019-03-22/2019-03-20-11-27-17.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-22/2019-03-09-17-35-42.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-22/2019-03-20-11-27-17.png)
 
 However, since we don't have any credentials right now, continue our enumeration.<br>
 
@@ -199,11 +199,11 @@ root@kali:~# tree /mnt/
 
 We found 1 executable and 1 dat file.<br>
 Spin up a new windows VM with Virtualbox and try to execute it(wine didn't work for me).<br>
-![placeholder](https://inar1.github.io/public/images/2019-03-22/2019-03-20-13-40-27.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-22/2019-03-20-13-40-27.png)
 
 It asked password but the password was easily guessable "password".<br>
 Seeing each entry of pbox.exe, we can gather some interesting "credentials".
-![placeholder](https://inar1.github.io/public/images/2019-03-22/2019-03-20-13-40-45.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-22/2019-03-20-13-40-45.png)
 
 List:
 {% highlight shell %}
@@ -223,7 +223,7 @@ Try each patterns and we can find following credential to login ethereal.htb:808
 {% highlight shell %}
 alan:!C414m17y57r1k3s4g41n!
 {%endhighlight %}
-![placeholder](https://inar1.github.io/public/images/2019-03-22/2019-03-20-13-42-22.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-22/2019-03-20-13-42-22.png)
 
 Sounds like "ping" command is executed internally.<br>
 Then, try OS command injection by putting some windows OS command in the textbox and submit.<br>
@@ -714,7 +714,7 @@ C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin>makecert.exe -n "CN=Ethereal" -
 {% endhighlight %}
 
 Makecert.exe requires password input but we don't need put anything ant click "ok"
-![placeholder](https://inar1.github.io/public/images/2019-03-22/2019-03-20-17-16-24.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-22/2019-03-20-17-16-24.png)
 
 Then, execute following commands.
 {% highlight shell %}

@@ -4,7 +4,7 @@ title: Hackthebox Haystack Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://inar1.github.io/public/images/2019-11-08/haystack-badge.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-11-08/haystack-badge.png)
 # Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
 To learn a new technique/knowledge, solve all machines (As much as possible!!).<br>
@@ -41,7 +41,7 @@ Nmap done: 1 IP address (1 host up) scanned in 161.51 seconds
 
 HTTP enumeration:<br>
 Sounds like only one page with heystack image available.
-![placeholder](https://inar1.github.io/public/images/2019-11-08/2019-11-05-19-16-09.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-11-08/2019-11-05-19-16-09.png)
 {% highlight shell %}
 root@kali:~# gobuster dir -u http://10.10.10.115/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x .html,.php,.txt -s '200,204,301,302,403'
 ===============================================================
@@ -126,7 +126,7 @@ la aguja en el pajar es "clave"
 {% endhighlight %}
 
 Google is always our friend. Translate the message.
-![placeholder](https://inar1.github.io/public/images/2019-11-08/2019-11-05-19-49-12.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-11-08/2019-11-05-19-49-12.png)
 {% highlight shell %}
 la aguja en el pajar es "clave"
 
@@ -228,10 +228,10 @@ We can find "Kibana" which is data visualization UI used with Elasticsearch.
 {% highlight shell %}
 ssh -L 5601:127.0.0.1:5601 security@10.10.10.115 -N
 {% endhighlight %}
-![placeholder](https://inar1.github.io/public/images/2019-11-08/2019-11-08-10-26-17.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-11-08/2019-11-08-10-26-17.png)
 
 By clicking the "Management" tab, we can figure out that the version of Kibana is "6.4.2"
-![placeholder](https://inar1.github.io/public/images/2019-11-08/2019-11-08-10-27-10.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-11-08/2019-11-08-10-27-10.png)
 
 By quick search, we can find that this version of kibana has a <a href="https://github.com/mpgn/CVE-2018-17246">LFI "CVE-2018-17246"</a><br>
 As it's written, upload followin javascript shell to "/dev/shm"<br>

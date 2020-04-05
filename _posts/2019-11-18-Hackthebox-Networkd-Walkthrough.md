@@ -4,7 +4,7 @@ title: Hackthebox Networkd Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://inar1.github.io/public/images/2019-11-18/networkd-badge.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-11-18/networkd-badge.png)
 # Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
 This is a walkthrough of a box "Networkd".<br>
@@ -66,10 +66,10 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 
 We have almost only one port 80 to enumerate at a glancce.<br>
 In the path "/upload.php", we can find a function to upload an image file.
-![placeholder](https://inar1.github.io/public/images/2019-11-18/2019-11-17-14-23-16.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-11-18/2019-11-17-14-23-16.png)
 
 In the path "/backup", we can find a backup file.
-![placeholder](https://inar1.github.io/public/images/2019-11-18/2019-11-17-13-59-24.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-11-18/2019-11-17-13-59-24.png)
 
 Then, extract the files from the tar file.<br>
 We have following 4 files there.
@@ -226,11 +226,11 @@ Usage: http://target.com/simple-backdoor.php?cmd=cat+/etc/passwd
 
 Then, upload the double extensioned file.<br>
 We can see a message which says file is uploaded successfully.
-![placeholder](https://inar1.github.io/public/images/2019-11-18/2019-11-17-14-49-32.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-11-18/2019-11-17-14-49-32.png)
 
 The uploaded file is in the path "/uploads".<br>
 According to "photos.php", the name of uploaded file is "10_10_14_13.php.gif"
-![placeholder](https://inar1.github.io/public/images/2019-11-18/2019-11-17-14-56-38.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-11-18/2019-11-17-14-56-38.png)
 
 We can access to the webshell uploaded just like following.
 {% highlight shell %}

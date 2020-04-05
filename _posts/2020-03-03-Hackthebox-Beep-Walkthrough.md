@@ -4,7 +4,7 @@ title: Hackthebox Beep Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://inar1.github.io/public/images/2020-03-03/beep-badge.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-03-03/beep-badge.png)
 
 # Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
@@ -133,7 +133,7 @@ root@kali:~#
 
 ## 2. Getting Root
 On port 443, we can find a login console of Elastix.
-![placeholder](https://inar1.github.io/public/images/2020-03-03/2020-03-01-10-18-39.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-03-03/2020-03-01-10-18-39.png)
 
 We can find a vulnerability for the Elastix by searchsploit.
 {% highlight shell %}
@@ -154,16 +154,16 @@ Shellcodes: No Result
 {% endhighlight %}
 
 This time, we can take advantage of the vulnerability "<a href="https://www.exploit-db.com/exploits/37637">Elastix 2.2.0 - 'graph.php' Local File Inclusion</a>".
-![placeholder](https://inar1.github.io/public/images/2020-03-03/2020-03-01-23-18-10.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-03-03/2020-03-01-23-18-10.png)
 
 According to this page, by accessing the following HTTP request, we can exploit the LFI of Elastix.
 {% highlight shell %}
 https://10.10.10.7/vtigercrm/graph.php?current_language=../../../../../../../..//etc/amportal.conf%00&module=Accounts&action
 {% endhighlight %}
-![placeholder](https://inar1.github.io/public/images/2020-03-03/2020-03-01-22-59-39.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-03-03/2020-03-01-22-59-39.png)
 
 If we grep the word "password", we can find an interesting parameter.
-![placeholder](https://inar1.github.io/public/images/2020-03-03/2020-03-01-22-59-08.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-03-03/2020-03-01-22-59-08.png)
 
 Now we got the following password.
 {% highlight shell %}

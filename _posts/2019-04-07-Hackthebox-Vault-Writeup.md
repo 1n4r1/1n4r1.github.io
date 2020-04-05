@@ -58,7 +58,7 @@ Gobuster v2.0.0              OJ Reeves (@TheColonial)
 {% endhighlight %}
 
 In index.php, there is a message "We are proud to announce our first client: Sparklays (Sparklays.com still under construction)".<br>
-![placeholder](https://inar1.github.io/public/images/2019-04-07/2019-04-01-13-29-39.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-07/2019-04-01-13-29-39.png)
 Try to access to /sparklays.
 
 Gobuster HTTP /sparklays:
@@ -114,11 +114,11 @@ Gobuster v2.0.0              OJ Reeves (@TheColonial)
 
 In "/sparklays/design/design.html", we have a link to "/sparklays/design/changelogo.php".<br>
 "changelogo.php" has a form which we can upload a file.
-![placeholder](https://inar1.github.io/public/images/2019-04-07/2019-04-01-15-35-18.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-07/2019-04-01-15-35-18.png)
 
 If we upload a image file, we can find it in the directory "/sparklays/design/uploads/".<br>
 This form has file upload restriction but by changing file extension to "php5" and Content-type, we can bypass the restriction.
-![placeholder](https://inar1.github.io/public/images/2019-04-07/2019-04-01-15-59-40.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-07/2019-04-01-15-59-40.png)
 
 By accessing uploaded php code, we can achieve a reverse shell.
 {% highlight shell %}
@@ -237,10 +237,10 @@ We can try to open this website with browser(But generally don't run web browser
 {% highlight shell %}
 root@kali:~# proxychains google-chrome --no-sandbox
 {% endhighlight %}
-![placeholder](https://inar1.github.io/public/images/2019-04-07/2019-04-01-19-27-37.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-07/2019-04-01-19-27-37.png)
 
 In "/vpnconfig.php", we can find a form which we can edit / execute .ovpn file.
-![placeholder](https://inar1.github.io/public/images/2019-04-07/2019-04-01-19-25-19.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-07/2019-04-01-19-25-19.png)
 
 After running netcat, by posting following data with "vpnconfig.php", we can achieve a reverse shell from VM "DNS"
 {% highlight shell %}

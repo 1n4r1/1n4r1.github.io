@@ -111,7 +111,7 @@ We have found 2 interesting pages.
 {% endhighlight %}
 
 Product List page:
-![placeholder](https://inar1.github.io/public/images/2019-02-27/2019-02-26-21-09-32.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-02-27/2019-02-26-21-09-32.png)
 
 If we click each product of this list, we can redirect to following url like this.
 
@@ -121,7 +121,7 @@ http://10.10.10.104/mvc/Product.aspx?ProductSubCategoryId=18
 
 And, if we add a single quote end of this url, we can get this error
 
-![placeholder](https://inar1.github.io/public/images/2019-02-27/2019-02-26-19-00-57.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-02-27/2019-02-26-19-00-57.png)
 
 This means that Product.aspx has SQL injection vulnerability.<br>
 In this case, we can actually use an undocumented stored procedure for MSSQL to steal SMB credentials.<br>
@@ -230,16 +230,16 @@ Session completed
 
 Now, we have username and password to login to Powershell Web Access.
 
-![placeholder](https://inar1.github.io/public/images/2019-02-27/2019-02-26-21-06-26.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-02-27/2019-02-26-21-06-26.png)
 
 Since we have powershell, we can easily access to user.txt.
 
-![placeholder](https://inar1.github.io/public/images/2019-02-27/2019-02-26-21-12-40.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-02-27/2019-02-26-21-12-40.png)
 
 ### 3.Getting Root
 After logged in the Powershell console, we can find that there is an interesting file
 
-![placeholder](https://inar1.github.io/public/images/2019-02-27/2019-02-27-12-56-50.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-02-27/2019-02-27-12-56-50.png)
 
 By using searchsploit, we can find a <a href="https://www.exploit-db.com/exploits/43390">Local Privilege Escalation</a>.
 {% highlight shell %}

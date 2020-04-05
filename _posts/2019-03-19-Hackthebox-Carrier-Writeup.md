@@ -101,14 +101,14 @@ iso.3.6.1.2.1.47.1.1.1.1.11 = STRING: "SN#NET_45JDX23"
 
 ### 2.Getting User
 What we can find on port 80 is login console of Lyghtspeed with some Error.
-![placeholder](https://inar1.github.io/public/images/2019-03-19/2019-03-19-20-09-30.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-19/2019-03-19-20-09-30.png)
 
 By looking at "/doc/error_codef.pdf", we can figure out what these error code means and there is an interesting line.
-![placeholder](https://inar1.github.io/public/images/2019-03-19/2019-03-19-20-11-45.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-19/2019-03-19-20-11-45.png)
 
 At the same time, we can find interesting information at "/doc/diagram_for_tac.png".<br>
 We will use this information later.
-![placeholder](https://inar1.github.io/public/images/2019-03-19/diagram_for_tac.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-19/diagram_for_tac.png)
 
 We can guess like "SN" stands for "serial number".<br>
 If we try some petterns of info from SNMP, we can find this credential for Lyghtspeed
@@ -117,7 +117,7 @@ admin:NET_45JDX23
 {% endhighlight %}
 
 After logged in, we can find an interesting page /diag.php.
-![placeholder](https://inar1.github.io/public/images/2019-03-19/2019-03-19-20-13-46.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-19/2019-03-19-20-13-46.png)
 
 Sounds like if we click "verify status" button, we have a result of linux command.<br>
 The value which we post is base64 encoded.
@@ -133,7 +133,7 @@ By sending arbitrary code, we can achieve user.txt.
 check=aHR0cDtpZDtjYXQgL3Jvb3QvdXNlci50eHQgIyA=
 # http;id;cat /root/user.txt # 
 {% endhighlight %}
-![placeholder](https://inar1.github.io/public/images/2019-03-19/2019-03-19-10-09-46.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-19/2019-03-19-10-09-46.png)
 
 ### Getting Root
 By taking advantage of this RCE, we can easily achieve reverse shell.
@@ -194,7 +194,7 @@ lo        Link encap:Local Loopback
 {% endhighlight %}
 
 On the ticket page, we can find some info about this network.
-![placeholder](https://inar1.github.io/public/images/2019-03-19/2019-03-19-20-16-37.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-19/2019-03-19-20-16-37.png)
 
 We already know that <a href="https://www.nongnu.org/quagga/">Quagga</a> is running on this server.<br>
 By enumeration, we can find additional servers which is realated to this server.<br>

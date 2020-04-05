@@ -4,7 +4,7 @@ title: Hackthebox Jeeves Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://inar1.github.io/public/images/2019-09-16/jeeves-badge.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-09-16/jeeves-badge.png)
 ## Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
 This is a walkthrough of a machine "Jeeves" on that website.<br>
@@ -107,11 +107,11 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 
 On port 50000, we can find Jenkins dashboard on "/askjeeves".<br>
 Besides, there is an interesting menu "Manage Jenkins".
-![placeholder](https://inar1.github.io/public/images/2019-09-16/2019-09-15-13-08-21.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-09-16/2019-09-15-13-08-21.png)
 
 After that, we can find a menu "Script Console".<br>
 This allows us to run any <a href="https://groovy-lang.org/">Groovy</a> script.
-![placeholder](https://inar1.github.io/public/images/2019-09-16/2019-09-15-13-08-41.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-09-16/2019-09-15-13-08-41.png)
 
 To get a reverse shell, we need to launch netcat and execute a payload.<br>
 We can find it from <a href="https://gist.github.com/frohoff/fed1ffaab9b9beeb1c76">Github repository</a>.
@@ -119,7 +119,7 @@ We can find it from <a href="https://gist.github.com/frohoff/fed1ffaab9b9beeb1c7
 root@kali:~# nc -nlvp 443
 listening on [any] 443 ...
 {% endhighlight %}
-![placeholder](https://inar1.github.io/public/images/2019-09-16/2019-09-15-13-10-38.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-09-16/2019-09-15-13-10-38.png)
 
 Now we got a reverse shell which is "kohsuke" user.
 {% highlight shell %}

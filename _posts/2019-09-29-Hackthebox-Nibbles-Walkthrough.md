@@ -4,7 +4,7 @@ title: Hackthebox Nibbles Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://inar1.github.io/public/images/2019-09-29/nibbles-badge.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-09-29/nibbles-badge.png)
 # Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
 To learn a new technique/knowledge, solve all machines (As much as possible!!).<br>
@@ -40,7 +40,7 @@ Nmap done: 1 IP address (1 host up) scanned in 42.33 seconds
 ### 2. Getting User
 
 We have only one port interesting which is 80 (HTTP) and sounds there is nothing here.
-![placeholder](https://inar1.github.io/public/images/2019-09-29/2019-09-29-09-52-04.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-09-29/2019-09-29-09-52-04.png)
 
 By running curl, we can find an interesting comment on the webpage.
 {% highlight shell %}
@@ -74,7 +74,7 @@ Content-Type: text/html
 {% endhighlight %}
 
 It said there is nothing interesting there. However, it is an interesting website.
-![placeholder](https://inar1.github.io/public/images/2019-09-29/2019-09-29-09-57-44.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-09-29/2019-09-29-09-57-44.png)
 
 try to gobuster again.
 In the "README", we can see that current version of this "Nibbleblog" is "v4.0.3".

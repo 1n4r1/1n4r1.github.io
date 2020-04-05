@@ -4,7 +4,7 @@ title: Hackthebox Help Writeup
 categories: HackTheBox
 ---
 
-![placeholder](https://inar1.github.io/public/images/2019-06-09/help_badge.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-06-09/help_badge.png)
 ## Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has bunch of vulnerable machines in its own VPN.
 This is a write-up of machine "Help" on that website.
@@ -93,10 +93,10 @@ Gobuster v2.0.1              OJ Reeves (@TheColonial)
 
 ### 2. Getting User
 In /support, we can confirm <a href="https://github.com/evolutionscript/HelpDeskZ-1.0">"HelpdeskZ"</a> is running.
-![placeholder](https://inar1.github.io/public/images/2019-06-09/2019-06-09-23-29-00.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-06-09/2019-06-09-23-29-00.png)
 
 In /readme.html, we can see that the version of HelpdeskZ is "1.0.2"
-![placeholder](https://inar1.github.io/public/images/2019-06-09/2019-06-09-23-29-16.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-06-09/2019-06-09-23-29-16.png)
 
 By searchsploit, we can find a vulnerability for helpdesk ver 1.0.2.
 {% highlight shell %}
@@ -112,10 +112,10 @@ Shellcodes: No Result
 {% endhighlight %}
 
 Sounds like we can upload arbitraty file with this file upload feature in module for ticket submission.
-![placeholder](https://inar1.github.io/public/images/2019-06-09/2019-06-09-23-29-53.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-06-09/2019-06-09-23-29-53.png)
 
 However, when we try php file uploading, we get "File is not allowed"
-![placeholder](https://inar1.github.io/public/images/2019-06-09/2019-06-09-16-44-38.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-06-09/2019-06-09-16-44-38.png)
 
 Then, try to look at the code of HelpdeskZ.
 <a href="https://github.com/evolutionscript/HelpDeskZ-1.0/blob/master/controllers/submit_ticket_controller.php">"https://github.com/evolutionscript/HelpDeskZ-1.0/blob/master/controllers/submit_ticket_controller.php"</a> 
@@ -203,7 +203,7 @@ print "Sorry, I did not find anything"
 {% endhighlight %}
 
 Then, upload our php web reverse shell, launch nc and run the exploit.<br>
-![placeholder](https://inar1.github.io/public/images/2019-06-09/2019-06-09-23-30-54.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-06-09/2019-06-09-23-30-54.png)
 {% highlight shell %}
 root@kali:~# nc -nlvp 443
 listening on [any] 443 ...

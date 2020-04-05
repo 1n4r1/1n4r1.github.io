@@ -112,7 +112,7 @@ Gobuster v2.0.1              OJ Reeves (@TheColonial)
 
 ### 2. Getting User
 We can find a login page in "/admin" port 9999.<br>
-![placeholder](https://inar1.github.io/public/images/2019-03-24/2019-03-23-10-52-11.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-24/2019-03-23-10-52-11.png)
 This login console is controlled by "/admin/js/login.js" and we can find the password "superduperlooperpassword_lol".
 {% highlight shell %}
 root@kali:~# curl http://10.10.10.111:9999/admin/js/login.js
@@ -141,17 +141,17 @@ return false;
 {% endhighlight %}
 
 In the redirected page "/admin/success.html", there is a "encrypted message"
-![placeholder](https://inar1.github.io/public/images/2019-03-24/2019-03-23-10-58-52.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-24/2019-03-23-10-58-52.png)
 {% highlight shell %}
 root@kali:~# cat success.html
 ..... ..... ..... .!?!! .?... ..... ..... ...?. ?!.?. ..... ..... ..... ..... ..... ..!.? ..... ..... .!?!! .?... ..... ..?.? !.?.. ..... ..... ....! ..... ..... .!.?. ..... .!?!! .?!!! !!!?. ?!.?! !!!!! !...! ..... ..... .!.!! !!!!! !!!!! !!!.? ..... ..... ..... ..!?! !.?!! !!!!! !!!!! !!!!? .?!.? !!!!! !!!!! !!!!! .?... ..... ..... ....! ?!!.? ..... ..... ..... .?.?! .?... ..... ..... ...!. !!!!! !!.?. ..... .!?!! .?... ...?. ?!.?. ..... ..!.? ..... ..!?! !.?!! !!!!? .?!.? !!!!! !!!!. ?.... ..... ..... ...!? !!.?! !!!!! !!!!! !!!!! ?.?!. ?!!!! !!!!! !!.?. ..... ..... ..... .!?!! .?... ..... ..... ...?. ?!.?. ..... !.... ..... ..!.! !!!!! !.!!! !!... ..... ..... ....! .?... ..... ..... ....! ?!!.? !!!!! !!!!! !!!!! !?.?! .?!!! !!!!! !!!!! !!!!! !!!!! .?... ....! ?!!.? ..... .?.?! .?... ..... ....! .?... ..... ..... ..!?! !.?.. ..... ..... ..?.? !.?.. !.?.. ..... ..!?! !.?.. ..... .?.?! .?... .!.?. ..... .!?!! .?!!! !!!?. ?!.?! !!!!! !!!!! !!... ..... ...!. ?.... ..... !?!!. ?!!!! !!!!? .?!.? !!!!! !!!!! !!!.? ..... ..!?! !.?!! !!!!? .?!.? !!!.! !!!!! !!!!! !!!!! !.... ..... ..... ..... !.!.? ..... ..... .!?!! .?!!! !!!!! !!?.? !.?!! !.?.. ..... ....! ?!!.? ..... ..... ?.?!. ?.... ..... ..... ..!.. ..... ..... .!.?. ..... ...!? !!.?! !!!!! !!?.? !.?!! !!!.? ..... ..!?! !.?!! !!!!? .?!.? !!!!! !!.?. ..... ...!? !!.?. ..... ..?.? !.?.. !.!!! !!!!! !!!!! !!!!! !.?.. ..... ..!?! !.?.. ..... .?.?! .?... .!.?. ..... ..... ..... .!?!! .?!!! !!!!! !!!!! !!!?. ?!.?! !!!!! !!!!! !!.!! !!!!! ..... ..!.! !!!!! !.?.
 {% endhighlight %}
 
 This does not make any sense. However, we can use <a href="https://www.dcode.fr/langage-ook">This website</a> to interpret this encrypted code.
-![placeholder](https://inar1.github.io/public/images/2019-03-24/2019-03-23-23-08-36.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-24/2019-03-23-23-08-36.png)
 
 We got an interesting information. Let's try /asdiSIAJJ0QWE9JAS.
-![placeholder](https://inar1.github.io/public/images/2019-03-24/2019-03-23-23-29-16.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-24/2019-03-23-23-29-16.png)
 
 There is a bese64 encoded message.<br>
 We can figure out what's this message by following command.
@@ -177,7 +177,7 @@ root@kali:~# cat index.php
 {% endhighlight %}
 
 By using Burp Suite, we can decode this code as ASCII character.
-![placeholder](https://inar1.github.io/public/images/2019-03-24/2019-03-24-14-40-06.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-24/2019-03-24-14-40-06.png)
 {% highlight shell %}
 root@kali:~# cat frolic.b64 
 KysrKysgKysrKysgWy0+KysgKysrKysgKysrPF0gPisrKysgKy4tLS0gLS0uKysgKysrKysgLjwr
@@ -196,14 +196,14 @@ root@kali:~# cat frolic.b64 | base64 -d
 {% endhighlight %}
 
 Then, we got another brainfuck code. Again, try to use <a href="https://www.dcode.fr/langage-ook">This website</a>.
-![placeholder](https://inar1.github.io/public/images/2019-03-24/2019-03-23-23-56-19.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-24/2019-03-23-23-56-19.png)
 
 We can login to playsms which is in "/playsms". This information is found in"/dev/backup".
-![placeholder](https://inar1.github.io/public/images/2019-03-24/2019-03-24-00-51-58.png)
-![placeholder](https://inar1.github.io/public/images/2019-03-24/2019-03-24-00-53-04.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-24/2019-03-24-00-51-58.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-24/2019-03-24-00-53-04.png)
 
 The credential is "admin:idkwhatispass".
-![placeholder](https://inar1.github.io/public/images/2019-03-24/2019-03-24-14-44-51.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-24/2019-03-24-14-44-51.png)
 
 searchsploit:
 {% highlight shell %}

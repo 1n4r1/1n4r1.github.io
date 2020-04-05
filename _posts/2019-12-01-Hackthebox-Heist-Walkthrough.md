@@ -4,7 +4,7 @@ title: Hackthebox Heist Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://inar1.github.io/public/images/2019-12-01/heist-badge.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-01/heist-badge.png)
 
 # Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
@@ -106,11 +106,11 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 
 On the port 80, we can find a login console.<br>
 We don't have any credential yet but we can login as a guest.'
-![placeholder](https://inar1.github.io/public/images/2019-12-01/2019-12-02-01-30-10.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-01/2019-12-02-01-30-10.png)
 
 Then, we can see the following messages.<br>
 One of the post has an attachment that is a config file of cisco router.
-![placeholder](https://inar1.github.io/public/images/2019-12-01/2019-12-02-01-30-34.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-01/2019-12-02-01-30-34.png)
 {% highlight shell %}
 root@kali:~# curl http://10.10.10.149/attachments/config.txt
 version 12.2
@@ -195,8 +195,8 @@ We can use <a href="https://passwordrecovery.io/cisco/">this website</a> for tha
 $uperP@ssword
 Q4)sJu\Y8qz*A3?d
 {% endhighlight %}
-![placeholder](https://inar1.github.io/public/images/2019-12-01/2019-11-30-20-34-25.png)
-![placeholder](https://inar1.github.io/public/images/2019-12-01/2019-11-30-20-37-01.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-01/2019-11-30-20-34-25.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-01/2019-11-30-20-37-01.png)
 
 Now we have the following users from "issues.php" and passwords from "/attachment/config.txt".<br>
 Then, try each pattern for SMB login with <a href="https://github.com/byt3bl33d3r/CrackMapExec.git">CrackMapExec</a>.

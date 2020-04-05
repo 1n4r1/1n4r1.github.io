@@ -63,4 +63,4 @@ OpenJDK Runtime Environment (build 1.8.0_171-8u171-b11-2-b11)
 OpenJDK 64-Bit Server VM (build 25.171-b11, mixed mode)
 {% endhighlight %}
 After that, we can confirm that Burp is working correctly.
-![placeholder](https://inar1.github.io/public/images/2019-02-06/2019-02-06-20-22-10.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-02-06/2019-02-06-20-22-10.png)

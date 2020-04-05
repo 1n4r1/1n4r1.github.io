@@ -8,7 +8,7 @@ categories: OWASP
 <a href="https://www2.owasp.org/www-project-juice-shop/">OWASP Juice Shop</a> is one of the vulnerable application from OWASP written in Node.js, Express and Angular for the practice.<br>
 The application contains a vast number of hacking challenges from 1 star challenge to 5 star challenges.<br>
 This is a writeup of 2 stars challenge.
-![placeholder](https://inar1.github.io/public/images/2019-12-14/2019-12-14-13-17-30.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-14/2019-12-14-13-17-30.png)
 
 # Environment
 * OS: Kali linux 2019.4
@@ -22,7 +22,7 @@ This is a writeup of 2 stars challenge.
 
 This is kinda guessing task.<br>
 By accessing the <a href="http://localhost:3000/#/administration">http://localhost:3000/#/administration</a>, we can achieve the purpose.
-![placeholder](https://inar1.github.io/public/images/2019-12-14/2019-12-14-14-01-29.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-14/2019-12-14-14-01-29.png)
 
 ### 2. Classic Stored XSS
 #### Prerequisite
@@ -32,7 +32,7 @@ login as a user
 
 Login as any user and go to <a href="http://localhost:3000/#/profile">http://localhost:3000/#/profile</a>.<br>
 Set "&lt;script>alert('xss')</script>" as a Username and submit. We can get the following output.
-![placeholder](https://inar1.github.io/public/images/2019-12-14/2019-12-14-11-38-16.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-14/2019-12-14-11-38-16.png)
 
 This sanitaization is not enough.<br>
 By setting the following payload, we can execute stored XSS.
@@ -69,7 +69,7 @@ login as a user
 
 After logged in, go to <a href="http://localhost:3000/#/administration">http://localhost:3000/#/administration</a> which we found in the previous challenge.
 By clicking the trash bins, delete the 5-star feedback.
-![placeholder](https://inar1.github.io/public/images/2019-12-14/2019-12-14-14-05-25.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-14/2019-12-14-14-05-25.png)
 <br>
 
 
@@ -80,7 +80,7 @@ By clicking the trash bins, delete the 5-star feedback.
 The login console has SQL injection.<br>
 Go to <a href="http://localhost:3000/#/login">http://localhost:3000/#/login</a> and use following username and random password for login credential.<br>
 we can login as a user "admin@juice-sh.op".
-![placeholder](https://inar1.github.io/public/images/2019-12-14/2019-12-14-14-07-06.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-14/2019-12-14-14-07-06.png)
 
 ### 6.  Login MC SafeSearch
 
@@ -103,21 +103,21 @@ mc.safesearch@juice-sh.op:Mr. N00dles
 If the prerequisite is done already, we already know the username is "admin@juice-sh.op".<br>
 Launch Burp Suite and go to <a href="http://localhost:3000/#/login">http://localhost:3000/#/login</a>, try to login with random password.<br>
 Then, We can find the following traffic.
-![placeholder](https://inar1.github.io/public/images/2019-12-14/2019-12-14-13-38-46.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-14/2019-12-14-13-38-46.png)
 
 This time, use Burp Intruder.<br>
 At first, right click the traffic and go to "Send to Intruder".<br>
 Specify just "password" with the tab "Positions".
-![placeholder](https://inar1.github.io/public/images/2019-12-14/2019-12-14-13-40-42.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-14/2019-12-14-13-40-42.png)
 
 Next, go to "Paylad" tab. Load "/usr/share/durb/wordlists/others/best1050.txt".
-![placeholder](https://inar1.github.io/public/images/2019-12-14/2019-12-14-13-45-27.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-14/2019-12-14-13-45-27.png)
 
 Then, start attack
-![placeholder](https://inar1.github.io/public/images/2019-12-14/2019-12-14-13-49-48.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-14/2019-12-14-13-49-48.png)
 
 By filtering, we can find the correct password "admin123".
-![placeholder](https://inar1.github.io/public/images/2019-12-14/2019-12-14-13-58-08.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-14/2019-12-14-13-58-08.png)
 
 ### 8. Security Policy
 #### Prerequisite
@@ -126,7 +126,7 @@ login as a user
 > Behave like any "white-hat" should before getting into the action.
 
 We have to just go to "Account" -> "Privacy & Security" -> "Privacy Policy".
-![placeholder](https://inar1.github.io/public/images/2019-12-14/2019-12-14-13-55-10.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-14/2019-12-14-13-55-10.png)
 
 ### 9. View Basket
 #### Prerequisite
@@ -136,7 +136,7 @@ login as a user
 
 Launch Burp Suite and open the page <a href="http://localhost:3000/#/basket">http://localhost:3000/#/basket</a>.<br>
 We can find the following traffic. By changing the sending uri to "/rest/basket/2"(With Burp Repeater or whatever), we can clear the challenge.
-![placeholder](https://inar1.github.io/public/images/2019-12-14/2019-12-14-02-59-16.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-14/2019-12-14-02-59-16.png)
 
 ### 10. Weird Crypto
 #### Prerequisite
@@ -145,4 +145,4 @@ login as a user
 > Inform the shop about an algorithm or library it should definitely not use the way it does.
 
 We can send the following message and it completes the challenge.
-![placeholder](https://inar1.github.io/public/images/2019-12-14/2019-12-14-13-13-39.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-14/2019-12-14-13-13-39.png)

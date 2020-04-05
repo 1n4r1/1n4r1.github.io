@@ -4,7 +4,7 @@ title: Hackthebox Netmon Writeup
 categories: HackTheBox
 ---
 
-![placeholder](https://inar1.github.io/public/images/2019-07-01/netmon-badge.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-07-01/netmon-badge.png)
 ## Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has bunch of vulnerable machines in its own VPN.<br>
 This is a write-up of machine "Netmon" on that website.<br>
@@ -126,7 +126,7 @@ dd58ce67b49e15105e88096c8d9255a5
 
 ### 3. Getting Root
 On port 80, we can confirm that <a href="https://www.paessler.com/prtg">PRTG network monitor</a> is running and its version is "18.1.37.13946".
-![placeholder](https://inar1.github.io/public/images/2019-07-01/2019-07-01-11-11-59.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-07-01/2019-07-01-11-11-59.png)
 
 In the exploit-db, we can find possible exploit for the PRTG Network monitor.
 {% highlight shell %}
@@ -180,7 +180,7 @@ But to login, we need to change the password to "PrTg@dmin2019"
 
 Then, launch the Burp suite and login to PRTG console.<br>
 This is because we have to grab the authenticated cookie to run the exploit code.
-![placeholder](https://inar1.github.io/public/images/2019-07-01/2019-07-01-12-29-40.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-07-01/2019-07-01-12-29-40.png)
 
 After that run the exploit with the cookie.<br>
 This creates a new admin user "pentest:P3nT3st!".
