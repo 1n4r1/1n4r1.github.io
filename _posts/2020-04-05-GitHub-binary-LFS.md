@@ -53,5 +53,16 @@ Changes not staged for commit:
 Then, commit and push the branch.<br>
 We see some diagnostic information about .png file upload.
 {% highlight shell %}
+$ git push origin Github-LFS
 
+---
+
+Enumerating objects: 761, done.0/310), 21 MB | 965 KB/s                                              
+Counting objects: 100% (761/761), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (376/376), done.
+Writing objects: 100% (385/385), 50.71 KiB | 1.37 MiB/s, done.
+Total 385 (delta 5), reused 0 (delta 0)
+
+---
 {% endhighlight %}
