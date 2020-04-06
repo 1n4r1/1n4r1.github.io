@@ -4,7 +4,7 @@ title: Hackthebox None Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-04-06/node-badge.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-04-07/node-badge.png)
 
 # Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
@@ -40,8 +40,11 @@ Nmap done: 1 IP address (1 host up) scanned in 118.96 seconds
 
 ## 2. Getting User
 
-Using Burp Suite, we can find an interesting HTTP request to "/api/users/latest" on port 3000.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-04-06/node-badge.png)
+We can find a NodeJS website on port 3000.
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-04-07/2020-04-05-21-35-11.png)
+
+Using Burp Suite, we can find an interesting HTTP request to "/api/users/latest".
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-04-07/2020-04-05-21-40-44.png)
 
 Then, access to the API.<br>
 We can see some passwords for user "tom", "mark" and "rastating".
@@ -103,9 +106,11 @@ root@kali:~# curl -s http://10.10.10.58:3000/api/users/ | jq
 
 We can crack the password using <a href="https://crackstation.net/">Crackstation.net</a>.<br>
 The cracked password is "manchester".
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-04-06/node-badge.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-04-07/2020-04-05-21-57-05.png)
 
-We can download a file "myplace.backup" base64 encoded.<br>
+We can download a file "myplace.backup" base64 encoded.
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-04-07/2020-04-05-22-00-44.png)
+
 Try to decode with base64 command.
 {% highlight shell %}
 root@kali:~# cat myplace.backup | base64 --decode > myplace
