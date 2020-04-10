@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Hackthebox None Walkthrough
+title: Hackthebox Node Walkthrough
 categories: HackTheBox
 ---
 
