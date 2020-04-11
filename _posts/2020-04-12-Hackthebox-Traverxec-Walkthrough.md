@@ -355,7 +355,7 @@ drwx--x--x 5 david david 4096 Oct 25 17:02 ..
 -rwx------ 1 david david  363 Oct 25 16:26 server-stats.sh
 ```
 
-We can find that in `server-stats.sh`, we have an interesting line that tries to run a command with root permission.
+In `server-stats.sh`, we have an interesting line that tries to run a command with root permission.
 ```shell
 david@traverxec:~/bin$ cat server-stats.sh 
 #!/bin/bash
@@ -370,7 +370,7 @@ echo "Last 5 journal log lines:"
 /usr/bin/sudo /usr/bin/journalctl -n5 -unostromo.service | /usr/bin/cat 
 ```
 
-Since we don't have a password for user `david`, we can't run `sudo -l`.
+Since we don't have any password for user `david`, we can't run `sudo -l`.
 ```shell
 david@traverxec:~/bin$ sudo -l
 [sudo] password for david:
