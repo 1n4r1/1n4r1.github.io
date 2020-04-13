@@ -156,11 +156,32 @@ PORT    STATE SERVICE
 Nmap done: 1 IP address (1 host up) scanned in 0.74 seconds
 ```
 
-We have an exploit for Heartbleed <a href="https://github.com/sensepost/heartbleed-poc">here</a>.<br>
-Running several times could give us base64-encoded string.
+Then, try `searchsploit`.
+```shell
+root@kali:~# searchsploit heartbleed
+-------------------------------------------------------------------------------------------------------- ----------------------------------------
+ Exploit Title                                                                                          |  Path
+                                                                                                        | (/usr/share/exploitdb/)
+-------------------------------------------------------------------------------------------------------- ----------------------------------------
+OpenSSL 1.0.1f TLS Heartbeat Extension - 'Heartbleed' Memory Disclosure (Multiple SSL/TLS Versions)     | exploits/multiple/remote/32764.py
+OpenSSL TLS Heartbeat Extension - 'Heartbleed' Information Leak (1)                                     | exploits/multiple/remote/32791.c
+OpenSSL TLS Heartbeat Extension - 'Heartbleed' Information Leak (2) (DTLS Support)                      | exploits/multiple/remote/32998.c
+OpenSSL TLS Heartbeat Extension - 'Heartbleed' Memory Disclosure                                        | exploits/multiple/remote/32745.py
+-------------------------------------------------------------------------------------------------------- ----------------------------------------
+Shellcodes: No Result
+```
+
+This time, `OpenSSL 1.0.1f TLS Heartbeat Extension - 'Heartbleed' Memory Disclosure` has been used.<br>
+We have an interesting parameter `$text=`.
 ```shell
 
 ```
+
+Decode the base64 text.
+```shell
+
+```
+
 
 ## 3. Getting Root
 
