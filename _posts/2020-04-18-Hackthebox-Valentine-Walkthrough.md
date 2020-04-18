@@ -184,7 +184,7 @@ On the top page, we have an image an woman with `bleeding heart`.
 ![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-04-18/omg.png)
 
 Then, try to check if this has <a href="https://heartbleed.com/">Heartbleed</a>.<br>
-We can confirm that this server is vulnerable.
+We can confirm that this server is vulnerable to the `Heartbleed` affects some old versions of `OpenSSL`.
 ```shell
 root@kali:~# nmap -p 443 --script ssl-heartbleed valentine.htb
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-04-12 15:42 EEST
