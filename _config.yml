@@ -8,6 +8,7 @@ tagline:          ""
 description:      ""
 url:              https://inar1.github.io/
 baseurl:          https://inar1.github.io/
+imageurl:         https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/
                   # the optional subpath of your site, e.g. "/my-jekyll-site/"
                   # This will apply to all pages in your Jekyll site.
 
