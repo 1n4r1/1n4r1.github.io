@@ -13,7 +13,7 @@ This is a walkthrough of the initial setup using Windows Server 2019.
 Go to [Try Windows Server on-premises or on Azure](https://www.microsoft.com/en-us/windows-server/trial) and click "Download free trial".
 
 We can download the ISO of Windows Server 2019.
-![placeholder]({{ site.imageurl }}2020-05-28/2020-05-27-08-29-15.png)
+![placeholder]({{ site.imageurl }}2020-05-28/2020-05-27-08-29-15.png "IMG")
 
 
 ## 2. Creating VM on Virtualbox
@@ -24,7 +24,7 @@ I don't wanna write since it's gonna be too lengthy!!
 We have 2 steps to be careful.
 
 ### 1. Select "Windows Server 2019 Standard (Desktop Experience)"
-![placeholder]({{ site.imageurl }}2020-05-28/2020-05-27-09-11-55.png)
+![placeholder]({{ site.imageurl }}2020-05-28/2020-05-27-09-11-55.png "IMG")
 
 ### 2. Select "Custom: Install Windows Only (advanced)"
 ![placeholder]({{ site.imageurl }}2020-05-28/2020-05-27-09-13-32.png)
