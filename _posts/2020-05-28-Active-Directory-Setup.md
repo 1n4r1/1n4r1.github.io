@@ -27,7 +27,7 @@ We have 2 steps to be careful.
 ![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-28/2020-05-27-09-11-55.png)
 
 ### 2. Select "Custom: Install Windows Only (advanced)"
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-28/)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-28/2020-05-27-09-13-32.png)
 
 
 ## 4. Setup Active Directory
@@ -52,7 +52,7 @@ Select a server. This time, we have only one candidate "WIN-NQ3R36R6PUN"
 Select "Active Directory Domain Services" and add some features required for Active Directory.
 ![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-28/2020-05-27-21-18-44.png)
 
-Confirm "Active Directory Domain Services" is check and go next.
+Confirm "Active Directory Domain Services" is checked and go next.
 
 ### 6. "Features"
 We've already added features. Just click "Next".
@@ -80,6 +80,7 @@ Put password.
 
 ### 11. "DNS Options"
 We don't have DNS service, we can just click "Next"
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-28/2020-05-27-23-34-55.png)
 
 ### 12. "Additional Options"
 We can click "Next", however the name "AD" is not suitable for the actual use.
@@ -94,7 +95,7 @@ Check the configuration and click "Next"
 ![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-28/2020-05-27-13-20-20.png)
 
 ### 15. "Prerequisite Check"
-We get some errors.<br>
+We get some warnings.<br>
 However, if we have a message "All prerequisite checks passed successfully. Click 'install' to begin installation"
 ![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-28/2020-05-27-13-22-33.png)
 
@@ -106,7 +107,7 @@ Try to login as Active Directory Administrator.
 
 ### 2. Server Manager
 Now we have a menu for "AD DS".<br>
-Click "AD DS" and check if we have our server name "WIN-71O2SFQSVV3".
+Click "AD DS" and check if we have our server name.
 ![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-28/2020-05-27-13-39-22.png)
 
 Also, if we right click, we can find that we have management menus for "AD DS".
@@ -118,5 +119,7 @@ Then, go to "ad.mycooladmin.com" -> "Domain Controllers". We can find that this 
 
 ### 3. DNS configuration
 If we have succeeded the configuration of DNS, it should be '127.0.0.1'.
-`netsh interface ip show dnsservers`
+```
+netsh interface ip show dnsservers
+```
 ![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-28/2020-05-27-13-52-03.png)
