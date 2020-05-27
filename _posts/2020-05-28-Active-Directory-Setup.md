@@ -45,15 +45,12 @@ Select "Role-based or feature-based installation".
 ![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-28/2020-05-27-11-02-22.png)
 
 ### 4. "Select destination server"
-Select a server. This time, we have only one candidate "WIN-71O2SFQSVV3"
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-28/)
+Select a server. This time, we have only one candidate "WIN-NQ3R36R6PUN"
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-28/2020-05-27-21-15-38.png)
 
 ### 5. "Select Server roles"
-Select "Active Directory Domain Services"
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-28/2020-05-27-12-43-57.png)
-
-Also Add some features required for Active Directory
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-28/2020-05-27-12-43-57.png)
+Select "Active Directory Domain Services" and add some features required for Active Directory.
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-28/2020-05-27-21-18-44.png)
 
 Confirm "Active Directory Domain Services" is check and go next.
 
@@ -63,7 +60,7 @@ We've already added features. Just click "Next".
 
 ### 7. "AD DS"
 Explanation for Active Directory. Click "Next".
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-28/)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-28/2020-05-27-21-23-17.png)
 
 ### 8. "Confirmation installation selections"
 If no problem, click "Install".
