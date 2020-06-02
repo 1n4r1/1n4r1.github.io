@@ -431,7 +431,7 @@ Mode                LastWriteTime         Length Name
 -arh--        12/3/2019   6:45 AM           3732 PowerShell_transcript.RESOLUTE.OJuoBGhU.20191203063201.txt
 ```
 
-We can see that `ryan` is mounting a network drive using `cmd /c net use X: \\fs01\backups ryan Serv3r4Admin4cc123!`
+We can see that `ryan` is mounting a network drive on `X:` using `cmd /c net use X: \\fs01\backups ryan Serv3r4Admin4cc123!`
 ```shell
 *Evil-WinRM* PS C:\PSTranscripts\20191203> type PowerShell_transcript.RESOLUTE.OJuoBGhU.20191203063201.txt
 **********************
