@@ -418,7 +418,7 @@ Mode                LastWriteTime         Length Name
 d--h--        12/3/2019   6:45 AM                20191203
 ```
 
-
+In the `20191203`, we have one text file for `PowerShell transcript` that shows the executed commands and their output.
 ```shell
 *Evil-WinRM* PS C:\PSTranscripts\20191203> ls -Hidden
 
@@ -431,7 +431,7 @@ Mode                LastWriteTime         Length Name
 -arh--        12/3/2019   6:45 AM           3732 PowerShell_transcript.RESOLUTE.OJuoBGhU.20191203063201.txt
 ```
 
-
+We can see that `ryan` is mounting a network drive on `X:` using `cmd /c net use X: \\fs01\backups ryan Serv3r4Admin4cc123!`
 ```shell
 *Evil-WinRM* PS C:\PSTranscripts\20191203> type PowerShell_transcript.RESOLUTE.OJuoBGhU.20191203063201.txt
 **********************
