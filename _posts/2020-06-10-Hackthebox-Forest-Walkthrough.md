@@ -387,7 +387,8 @@ What we can find out is that:
 3. `PRIVILEGED IT ACCOUNTS` group is a member of `ACCOUNT OPERATORS` group.
 4. `ACCOUNT OPERATORS` group has `GenericALL` (full control) permission for `EXCHANGE WINDOWS PERMISSIONS` group.
 5. `EXCHANGE WINDOWS PERMISSIONS` group has `WriteDacl` privileges on the domain.
-6. With the `WriteDacl` permission, we can grant `DCSync` rights to dump the NTLM hashes.
+6. With the `WriteDacl` permission, we can grant rights for `DCSync` to dump the NTLM hashes.
+7. We can pretend to be a domain controller and gain credentials using `DCsync` feature mainly for DC replication and management.
 
 ### Exploitation
 To get administrator account, put `svc-alfresco` into `Exchange Windows Permissions` group.
@@ -457,7 +458,7 @@ Please choose a path [0-1] 1
 root@kali:~#
 ```
 
-After that, we can use `secretdump.py` in the `Impacket` to dump the password hash for `administrator`.<br>
+After that, we can use `secretdump.py` in `Impacket` to dump the password hash for `administrator`.<br>
 We found the password hash of `Administrator`.
 ```shell
 root@kali:~# /usr/local/bin/secretsdump.py svc-alfresco:s3rvice@10.10.10.161
