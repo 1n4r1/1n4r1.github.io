@@ -309,7 +309,7 @@ e5e4e47ae7022664cda6eb013fb0d9ed
 ## 3. Getting Root
 
 To investigate a specific domain, we can use `bloodhound`.<br>
-We can install it by using `pip install bloodhound` command.<br>
+We can install it by using `pip install bloodhound`.<br>
 
 ### Setting up bloodhound GUI
 I don't talk about it since it can be so lengthy!!<br>
@@ -373,10 +373,21 @@ CODE_OF_CONDUCT.md             evil-winrm.rb    LICENSE
 ```
 
 #### 3. Data import to Bloodhound
-You can just drag/drop the zip file you downloaded or 'Upload data' menu on the right side of BloodHound.
+You can just drag/drop the zip file you downloaded or 'Upload data' menu on the right side of BloodHound.<br>
+Or you can use 'Upload Data' on the right side menu.
 
 #### 4. Find a shortest way to Admin Users
+Click 'Pathfinding' of the top menu. We can Look for a shortest way from 'SVC-ALFRESCO' to 'DOMAIN ADMINS'.
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-10/2020-06-08-23-41-43.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-10/2020-06-08-23-41-24.png)
 
+What we can find out is that:
+1. `SVC-ALFRESCO` is a member of `SERVICE ACCOUNTS` group.
+2. `SERVICE ACCOUNTS` group is a member of `PRIVILEGED IT ACCOUNTS` group.
+3. `PRIVILEGED IT ACCOUNTS` group is a member of `ACCOUNT OPERATORS` group.
+4. `ACCOUNT OPERATORS` group has `GenericALL` (full control) permission for `EXCHANGE WINDOWS PERMISSIONS` group.
+5. `EXCHANGE WINDOWS PERMISSIONS` group has `WriteDacl` privileges on the domain.
+6. With the `WriteDacl` permission, we can grant `DCSync` rights to dump the NTLM hashes.
 
 ### Exploitation
 To get administrator account, put `svc-alfresco` into `Exchange Windows Permissions` group.
@@ -414,7 +425,7 @@ The command completed successfully.
 
 ```
 
-Next, install [aclpwn](https://github.com/fox-it/aclpwn.py.git) and run.<br>
+Next, install [aclpwn](https://github.com/fox-it/aclpwn.py.git) and run to give `DCSync` permission to `svc-alfresco`.<br>
 You need to keep neo4j running for this script on port 7687.
 ```shell
 root@kali:~# pip install aclpwn
