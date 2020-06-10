@@ -226,7 +226,7 @@ santi
 
 Next, look for user accounts that do not have the property 'Do not require Kerberos preauthentication' (`UF_DONT_REQUIRE_PREAUTH`) set.<br>
 This attack is called [AS-REP Roasting](https://blog.stealthbits.com/cracking-active-directory-passwords-with-as-rep-roasting/).<br>
-Pre-authentication is needed for the issue of TGT ticket during the Kerberos authentication. If it's disabled, DC would provide an encrypted TGT that can be cracked offline when requested.<br>
+Pre-authentication is needed for the issue of TGT (Ticket Granting Tickets) during the Kerberos authentication. If it's disabled, DC would provide an encrypted TGT that can be cracked offline when requested.<br>
 We can use `GetNPUsers.py` in [Impacket](https://github.com/SecureAuthCorp/impacket) to implement this attack.
 ```shell
 root@kali:~# python impacket/examples/GetNPUsers.py -format john -no-pass -usersfile ./users.txt -dc-ip 10.10.10.161 htb.local/
@@ -308,8 +308,8 @@ e5e4e47ae7022664cda6eb013fb0d9ed
 
 ## 3. Getting Root
 
-To investigate a specific domain, we can use `bloodhound`.<br>
-We can install it by using `pip install bloodhound`.<br>
+To investigate a specific domain, we can use [bloodhound](https://github.com/BloodHoundAD/BloodHound).<br>
+We can install it by using `pip install bloodhound` or download from official repository.<br>
 
 ### Setting up bloodhound GUI
 I don't talk about it since it can be so lengthy!!<br>
