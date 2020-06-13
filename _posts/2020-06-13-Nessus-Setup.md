@@ -16,7 +16,11 @@ This is a walkthrough of the initial setup and first scan of Nessus free edition
 
 # Solution
 ## 1. Installation
-Since we can't install it with `apt-get`, we have to download the deb package from the [website](https://www.tenable.com/downloads/nessus) and install manually.
+Since we can't install it with `apt-get`, we have to download the deb package from the [website](https://www.tenable.com/downloads/nessus) and install manually.<br>
+For the Kali linux, we can use the following version.
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-13-13-03-31.png)
+
+Click the filename and accept the license agreement. To install the deb package, we can use `dpkg`
 ```shell
 root@kali:~# dpkg -i Nessus-8.10.1-debian6_amd64.deb 
 Selecting previously unselected package nessus.
@@ -89,10 +93,10 @@ For the "Settings" tab, at least we need to specify the scan name and IP address
 ![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-10-23-09-58.png)
 
 On the "Credential" tab, we can specify the username and password for each service.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-10-23-09-58.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-13-13-10-28.png)
 
 On the "Plugins" tab, we can select plugins to be enabled.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-10-23-09-58.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-13-12-50-58.png)
 
 When finished the configuration, push "save" and go to "My Scans".<br>
 On the right side, we have an icon to launch a scan.
@@ -100,7 +104,7 @@ On the right side, we have an icon to launch a scan.
 
 ## 5. Scan result
 Click the scan and go to "Vulnerabilities". We can see the information about vulnerabilities.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-13-12-48-24.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-10-23-57-31.png)
 
 We have "Remediations" tab as well. According to vulnerability info, it suggests how to improve the security.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-13-12-50-58.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-11-00-10-48.png)
