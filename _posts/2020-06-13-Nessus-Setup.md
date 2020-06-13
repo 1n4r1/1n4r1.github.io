@@ -85,16 +85,22 @@ After that, we need to choose the scan template.
 ![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-10-23-08-07.png)
 
 Then, setting up the target machine.<br>
-At least we need to specify the IP address and push "save".
+For the "Settings" tab, at least we need to specify the scan name and IP address.
 ![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-10-23-09-58.png)
 
-When finished the configuration, go to "My Scans".<br>
+On the "Credential" tab, we can specify the username and password for each service.
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-10-23-09-58.png)
+
+On the "Plugins" tab, we can select plugins to be enabled.
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-10-23-09-58.png)
+
+When finished the configuration, push "save" and go to "My Scans".<br>
 On the right side, we have an icon to launch a scan.
 
 
 ## 5. Scan result
 Click the scan and go to "Vulnerabilities". We can see the information about vulnerabilities.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-10-23-57-31.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-13-12-48-24.png)
 
 We have "Remediations" tab as well. According to vulnerability info, it suggests how to improve the security.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-11-00-10-48.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-13-12-50-58.png)
