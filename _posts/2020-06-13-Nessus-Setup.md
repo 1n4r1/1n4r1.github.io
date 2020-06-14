@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Getting started Nessus
-categories: Vulnerability Scanner
+categories: Scanner
 ---
 
 ![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/nessus.png)
