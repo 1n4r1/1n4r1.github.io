@@ -28,16 +28,26 @@ This is actually a link to `HKEY_USERS\<SID-FOR-CURRENT-USER>`.<br>
 
 ### 3. HKEY_LOCAL_MACHINE(HKLM)
 ![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-21/2020-06-20-14-12-10.png)
-All of the system settings are stored here.
+Majority of the configuration information for the software we install and Windows operating system itself.
 
 #### BCD00000000
 Boot configuration Database
 
+#### DRIVERS
+Settings for display, 
+
+#### HARDWARE
+Holds data pertaining to the BIOS, processors and other hardware devices.
+
 #### SAM
-Database for Security Accounts Manager. Looks empty to even Administrator account.
+Database for Security Accounts Manager. Need SYSTEM account to access.
 
 #### SECURITY
-Stored in `C:\Windows\System32\config\SECURITY`. Looks empty to even Administrator account.
+Stored in `C:\Windows\System32\config\SECURITY`. Need SYSTEM account to access.
+
+#### SOFTWARE
+Most commonly accessed from the HKLM hive. Organized alphabetically by the software vendor.<br>
+Also, `HKEY_LOCAL_MACHINE\SOFTWARE\Classes` subkey of this key describes various UI details including extensions.
 
 #### SYSTEM
 Stored in `C:\Windows\System32\config\SYSTEM`. 
@@ -84,6 +94,10 @@ User Name              SID
 ====================== ===========================================
 mydomain\administrator S-1-5-21-299884335-592523710-3968369954-500
 ```
+
+## Browse Windows registry with command prompt
+
+
 
 
 ## Browse / Edit Windows registry with PowerShell
