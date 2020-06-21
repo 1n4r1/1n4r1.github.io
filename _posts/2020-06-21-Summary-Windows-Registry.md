@@ -77,14 +77,14 @@ These are the examples of the stored data type of Windows registry.
 
 
 ## How to get SID of users
-### Get SID of a local user
+### 1. Get SID of a local user
 ```shell
 C:\Users\Administrator>wmic useraccount where name='Administrator' get sid
 SID
 S-1-5-21-299884335-592523710-3968369954-500
 ```
 
-### Get SID for current logged in domain user
+### 2. Get SID for current logged in domain user
 ```shell
 C:\Users\Administrator>whoami /user
 
@@ -97,7 +97,7 @@ mydomain\administrator S-1-5-21-299884335-592523710-3968369954-500
 ```
 
 ## Browse Windows registry with command prompt
-### Listing subkeys
+### 1. Listing subkeys
 ```
 C:\Users\Administrator>reg query "HKLM\SOFTWARE\Microsoft\Windows"
 
@@ -118,7 +118,7 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Windows Error Reporting
 HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Windows Search
 ```
 
-### Extract a value of a specific key
+### 2. Extract a specific value of a key
 ```shell
 C:\Users\Administrator>reg query "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RUN" /v VBoxTray
 
@@ -128,7 +128,7 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RUN
 
 
 ## Browse / Edit Windows registry with PowerShell
-### Listing all exposed drives including HKLM and HKCU
+### 1. Listing all exposed drives including HKLM and HKCU
 ```shell
 PS C:\Users\Administrator> get-psdrive
 
@@ -146,7 +146,7 @@ Variable                               Variable
 WSMan                                  WSMan
 ```
 
-### Navigate to the local machine registry root key
+### 2. Navigate to the local machine registry root key
 We can use `cd` command.
 ```shell
 PS C:\Users\Administrator> cd HKLM:\
@@ -159,7 +159,7 @@ PS C:\Users\Administrator> set-location -path HKLM:\SOFTWARE
 PS HKLM:\SOFTWARE>
 ```
 
-### Output sub keys
+### 3. Output sub keys
 ```shell
 PS HKLM:\SOFTWARE> Get-Childitem
 
@@ -191,7 +191,7 @@ RegisteredApplications         File Explorer             :
                                Software\Microsoft\Windows\CurrentVersion\Applets\Wordpad\Capabilities
 ```
 
-### Output registry entries in a readable form
+### 4. Output registry entries in a readable form
 ```shell
 PS HKLM:\> Get-ItemProperty -path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion
 
@@ -215,7 +215,7 @@ PSDrive                  : HKLM
 PSProvider               : Microsoft.PowerShell.Core\Registry
 ```
 
-### Add a new key
+### 5. Add a new key
 ```shell
 PS HKCU:\> new-item 'HKCU:\Testkey'
 
@@ -230,7 +230,7 @@ Testkey
 
 ```
 
-### Add a new property to a key
+### 6. Add a new property to a key
 ```shell
 PS HKCU:\> new-itemproperty -LiteralPath 'HKCU:Testkey' -Name 'param1' -PropertyType 'String' -Value 'test'
 
@@ -245,7 +245,7 @@ PSProvider   : Microsoft.PowerShell.Core\Registry
 
 ```
 
-### Retrieve properties from a key
+### 7. Retrieve properties from a key
 ```shell
 PS HKCU:\> Get-ItemProperty -path HKCU:\Testkey
 
@@ -260,13 +260,13 @@ PSProvider   : Microsoft.PowerShell.Core\Registry
 
 ```
 
-### Retrieve a value of single property from a key
+### 8. Retrieve a value of single property from a key
 ```shell
 PS HKCU:\> Get-ItemPropertyvalue -LiteralPath 'HKCU:Testkey' -Name param1
 test
 ```
 
-### Update a value of single property
+### 9. Update a value of single property
 ```shell
 PS HKCU:\> set-itemproperty -Literalpath 'HKCU:Testkey' -Name param1 -Value 'test-test'
 
@@ -274,14 +274,14 @@ PS HKCU:\> Get-ItemPropertyvalue -LiteralPath 'HKCU:Testkey' -Name param1
 test-test
 ```
 
-### Existing check of a key
+### 10. Existing check of a key
 ```shell
 PS HKCU:\> Test-Path -LiteralPath "HKCU:\testkey"
 True
 
 ```
 
-### Delete a key
+### 11. Delete a key
 ```shell
 PS HKCU:\> Remove-Item -LiteralPath "HKCU:\Testkey"
 
