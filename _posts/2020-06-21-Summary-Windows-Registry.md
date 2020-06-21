@@ -288,5 +288,3 @@ PS HKCU:\> Remove-Item -LiteralPath "HKCU:\Testkey"
 PS HKCU:\> Test-Path -LiteralPath "HKCU:\testkey"
 False
 ```
-## File path
-2. Supporting files for `HKEY_CURRENT_USER`:
