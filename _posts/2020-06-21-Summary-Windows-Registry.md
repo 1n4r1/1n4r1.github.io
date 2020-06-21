@@ -15,50 +15,51 @@ First, open the registry with `regedit.exe`. We have 5 root keys there.
 
 ### 1. HKEY_CLASSES_ROOT(HKCR)
 ![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-21/2020-06-20-14-17-35.png)
-A section to manage file type associations.<br>
-This key provides a view of the registry that merges the information from `HKEY_LOCAL_MACHINE\Software\Classes` and `HKEY_CURRENT_USER\Software\Classes`.<br>
-The `HKEY_LOCAL_MACHINE\Software\Classes` holds default settings that can apply to all users on the local computer.<br>
-And the `HKEY_CURRENT_USER\Software\Classes` key contains settings that override that default settings.
+* A section to manage file type associations.
+* Provides a view of the registry that merges the information from `HKEY_LOCAL_MACHINE\Software\Classes` and `HKEY_CURRENT_USER\Software\Classes`.<br>
+* `HKEY_LOCAL_MACHINE\Software\Classes` holds default settings that can apply to all users on the local computer.
+* `HKEY_CURRENT_USER\Software\Classes` key contains settings that override that default settings.
 
 ### 2. HKEY_CURRENT_USER(HKCU)
 ![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-21/2020-06-20-14-11-23.png)
-Information about the user currently logged in.<br>
-This is actually a link to `HKEY_USERS\<SID-FOR-CURRENT-USER>`.<br>
-`HKCU\Software` holds user-level settings for the most of the software.
+* Information about the user currently logged in.<br>
+* `HKCU\Software` holds user-level settings for the most of the software.
+* `%USERPROFILE%\AppData\Local\Microsoft\Windows\Usrclass.dat` and `%LocalAppData%\Microsoft\Windows\Usrclass.dat` hold the data.
 
 ### 3. HKEY_LOCAL_MACHINE(HKLM)
 ![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-21/2020-06-20-14-12-10.png)
-Majority of the configuration information for the software we install and Windows operating system itself.
+* Majority of the configuration information for the software we install and Windows operating system itself.
 
 #### BCD00000000
-Boot configuration Database
-
-#### DRIVERS
-Settings for display, 
+* Boot configuration Database.
+* Replaced `boot.ini` of Windows XP
 
 #### HARDWARE
-Holds data pertaining to the BIOS, processors and other hardware devices.
+* Holds data pertaining to the BIOS, processors and other hardware devices.
 
 #### SAM
-Database for Security Accounts Manager. Need SYSTEM account to access.
+* Database for Security Accounts Manager. Need SYSTEM account to access.
+* Stored in `%SystemRoot%\System32\Config\SAM`
 
 #### SECURITY
-Stored in `C:\Windows\System32\config\SECURITY`. Need SYSTEM account to access.
+* Need SYSTEM account to access.
+* Stored in `%SystemRoot%\System32\Config\SECURITY`
 
 #### SOFTWARE
-Most commonly accessed from the HKLM hive. Organized alphabetically by the software vendor.<br>
-Also, `HKEY_LOCAL_MACHINE\SOFTWARE\Classes` subkey of this key describes various UI details including extensions.
+* Most commonly accessed from the HKLM hive. Organized alphabetically by the software vendor.
+* `HKEY_LOCAL_MACHINE\SOFTWARE\Classes` subkey of this key describes various UI details including extensions.
+* `%SystemRoot%\System32\Config\SOFTWARE`
 
 #### SYSTEM
-Stored in `C:\Windows\System32\config\SYSTEM`. 
+* Stored in `%SystemRoot%\System32\Config\SYSTEM`.
 
 ### 4. HKEY_USERS(HKU)
 ![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-21/2020-06-20-14-12-45.png)
-Stores all of the settings for all user profiles actively loaded on the system.<br>
+* Stores all of the settings for all user profiles actively loaded on the system.<br>
 
 ### 5. HKEY_CURRENT_CONFIG(HKCC)
 ![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-21/2020-06-20-14-17-35.png)
-Information about the hardware profile that is used by the local computer at system setup.
+* Information about the hardware profile that is used by the local computer at system setup.
 
 
 ## Stored data type
@@ -96,8 +97,34 @@ mydomain\administrator S-1-5-21-299884335-592523710-3968369954-500
 ```
 
 ## Browse Windows registry with command prompt
+### Listing subkeys
+```
+C:\Users\Administrator>reg query "HKLM\SOFTWARE\Microsoft\Windows"
 
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\ClickNote
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\DWM
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\EnterpriseResourceManager
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\HTML Help
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\ITStorage
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\ScheduledDiagnostics
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\ScriptedDiagnosticsProvider
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Shell
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\SoftwareInventoryLogging
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\StreamProvider
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Tablet PC
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\TabletPC
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Windows Error Reporting
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Windows Search
+```
 
+### Extract a value of a specific key
+```shell
+C:\Users\Administrator>reg query "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RUN" /v VBoxTray
+
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RUN
+    VBoxTray    REG_EXPAND_SZ    %SystemRoot%\system32\VBoxTray.exe
+```
 
 
 ## Browse / Edit Windows registry with PowerShell
@@ -261,15 +288,5 @@ PS HKCU:\> Remove-Item -LiteralPath "HKCU:\Testkey"
 PS HKCU:\> Test-Path -LiteralPath "HKCU:\testkey"
 False
 ```
-
-
 ## File path
-1. Supporting files for all hives except `HKEY_CURRENT_USER`:
-* `C:\Windows\System32\config`
-
 2. Supporting files for `HKEY_CURRENT_USER`:
-* `%USERPROFILE%\AppData\Local\Microsoft\Windows\Usrclass.dat` or `%LocalAppData%\Microsoft\Windows\Usrclass.dat`
-
-## Reference
-
-* [Windows registry information for advanced users](https://support.microsoft.com/en-ie/help/256986/windows-registry-information-for-advanced-users)
