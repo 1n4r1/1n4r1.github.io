@@ -4,7 +4,7 @@ title: Hackthebox Forest Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-10/forest.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-06-10/forest.png)
 
 # Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
@@ -377,8 +377,8 @@ You can just drag/drop the zip file you downloaded or use 'Upload data' menu on 
 
 #### 4. Find a shortest way to Admin Users
 Click 'Pathfinding' of the top menu. We can Look for a shortest way from 'SVC-ALFRESCO' to 'DOMAIN ADMINS'.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-10/2020-06-08-23-41-43.png)
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-10/2020-06-08-23-41-24.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-06-10/2020-06-08-23-41-43.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-06-10/2020-06-08-23-41-24.png)
 
 What we can find out is that:
 1. `SVC-ALFRESCO` is a member of `SERVICE ACCOUNTS` group.

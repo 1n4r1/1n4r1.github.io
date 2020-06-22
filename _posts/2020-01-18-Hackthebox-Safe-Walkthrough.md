@@ -4,7 +4,7 @@ title: Hackthebox Safe Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-01-18/safe-badge.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-01-18/safe-badge.png)
 
 # Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
@@ -157,7 +157,7 @@ root@kali:~#
 
 Actually, we can disassemble and view the actual C code of this executable with "<a href="https://ghidra-sre.org/">Ghidra</a>".<br>
 It is showing that actually "uptime" command is running.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-01-18/2020-01-17-12-02-44.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-01-18/2020-01-17-12-02-44.png)
 
 Then, open the executable with GDB and its extension GEF.<br>
 By the "checksec" command, we can analyze if it has any protection.<br>

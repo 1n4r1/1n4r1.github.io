@@ -4,7 +4,7 @@ title: Hackthebox Bastard Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-01-11/bastard-badge.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-01-11/bastard-badge.png)
 #### Retired date: 2017/09/17
 
 # Explanation
@@ -47,7 +47,7 @@ root@kali:~#
 ### 2. Getting User
 
 By accessing the web server, we can find the website that Drupal CMS is running.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-01-11/2020-01-11-01-36-38.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-01-11/2020-01-11-01-36-38.png)
 
 At first, try to figure out its version, we can see the file "CHANGELOG.txt".<br>
 The version is "Drupal 7.54"

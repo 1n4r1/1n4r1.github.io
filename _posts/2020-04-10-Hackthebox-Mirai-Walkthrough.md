@@ -4,7 +4,7 @@ title: Hackthebox Mirai Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-04-10/mirai-badge.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-04-10/mirai-badge.png)
 
 # Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
@@ -73,7 +73,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 ## 2. Getting User
 We found an admin console in `10.10.10.48/admin/`.<br>
 The name of the service is `Pi-hole`.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-04-10/2020-04-10-10-30-38.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-04-10/2020-04-10-10-30-38.png)
 
 The default password for `Pi-hole`is `pi:raspberry`.<br>
 We can use it for the SSH login.

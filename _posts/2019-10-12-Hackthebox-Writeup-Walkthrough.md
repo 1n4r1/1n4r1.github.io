@@ -4,7 +4,7 @@ title: Hackthebox Writeup Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-10-12/writeup-badge.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-10-12/writeup-badge.png)
 # Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
 To learn a new technique/knowledge, solve all machines (As much as possible!!).<br>
@@ -66,19 +66,19 @@ Progress: 107 / 220561 (0.05%)^C
 
 Sounds like we can't use gobuster for this box.<br>
 At first, try to look at the web page.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-10-12/2019-10-10-15-54-20.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-10-12/2019-10-10-15-54-20.png)
 
 There was nothing here. Next, look at the path which is specified in "http-robots.txt"<br>
 We can find a web page which "<a href="https://www.cmsmadesimple.org/">CMS Made Simple</a>" is used.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-10-12/2019-10-10-15-54-58.png)
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-10-12/2019-10-10-15-55-20.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-10-12/2019-10-10-15-54-58.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-10-12/2019-10-10-15-55-20.png)
 
 In the download page of CMS Made Simple, we can find a link which we can see the content of the package.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-10-12/2019-10-12-19-12-34.png)
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-10-12/2019-10-12-19-13-04.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-10-12/2019-10-12-19-12-34.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-10-12/2019-10-12-19-13-04.png)
 
 In the directory "/trunk/doc", we can find "CHANGELOG.txt".
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-10-12/2019-10-12-19-30-06.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-10-12/2019-10-12-19-30-06.png)
 
 By accessing the "CHANGELOG.txt" on Writeup, we can figure out the version of CMS Made Simple is "2.2.9.1"
 {% highlight shell %}

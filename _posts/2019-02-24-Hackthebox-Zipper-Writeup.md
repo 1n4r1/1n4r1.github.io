@@ -59,18 +59,18 @@ Gobuster v2.0.0              OJ Reeves (@TheColonial)
 
 ### 2.Getting User
 Sounds like an Zabbix is running on the server.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-02-24/2019-02-24-17-10-44.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-02-24/2019-02-24-17-10-44.png)
 
 We can login as a guest user.<br>
 By enumeration, we can figure out there is a user "zapper".
 
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-02-24/2019-02-24-17-12-21.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-02-24/2019-02-24-17-12-21.png)
 
 zapper uses easily guessable password "zapper".<br>
 By taking advantage of this, we can login to zabbix as general user.<br>
 However, we are still not able to use Zabbix GUI console due to its configuration.
 
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-02-24/2019-02-24-14-04-11.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-02-24/2019-02-24-14-04-11.png)
 
 Then we have to use <a href="https://github.com/usit-gd/zabbix-cli">"zabbix-cli"</a><br>
 At first, we have to install and setup zabbix-cli with following commands.
@@ -131,20 +131,20 @@ At first, enable the GUI console and change the group to "Zabbix administratiors
 
 Next, login with Web console and go to Configuration->Actions.
 
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-02-24/2019-02-24-15-47-02.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-02-24/2019-02-24-15-47-02.png)
 
 Create new action which executes reverse shell<br>
 Action window:
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-02-24/2019-02-24-17-46-27.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-02-24/2019-02-24-17-46-27.png)
 Conditions window:
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-02-24/2019-02-24-17-47-05.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-02-24/2019-02-24-17-47-05.png)
 Operations window:
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-02-24/2019-02-24-17-48-16.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-02-24/2019-02-24-17-48-16.png)
 
 Next, we have to create a new trigger for the action.<br>
 Go Configuration->Hosts->Zipper(hostname)->Triggers->Create trigger
 
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-02-24/2019-02-24-17-57-03.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-02-24/2019-02-24-17-57-03.png)
 
 We have to wait for a while for getting a reverse shell.
 
@@ -252,7 +252,7 @@ drwxr-xr-x 6 zapper zapper 4096 Sep  9 19:12 ..
 
 In that file, we can find that it is likely to use "systemctl" command.
 
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-02-24/2019-02-24-16-19-47.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-02-24/2019-02-24-16-19-47.png)
 
 We can take advantage of this possible shell injection weakness.<br>
 We can create a shell which name is "systemctl" in the same directory and zabbix-service would execute it.

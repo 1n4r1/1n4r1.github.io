@@ -12,9 +12,9 @@ categories: Git
 How to skip authiorization when we access remote repository via https<br>
 Example:
 {% highlight shell %}
-root@kali:~/inar1.github.io# git push origin git-skip-auth
-Username for 'https://github.com': inar1
-Password for 'https://inar1@github.com': 
+root@kali:~/1n4r1.github.io# git push origin git-skip-auth
+Username for 'https://github.com': 1n4r1
+Password for 'https://1n4r1@github.com': 
 {% endhighlight %}
 
 ## Solution
@@ -29,7 +29,7 @@ We have to login with username/password one time after this command.<br>
 Then, the auth data will be stored here
 {% highlight shell %}
 root@kali:~# cat .git-credentials 
-https://inar1:SuperStrongFakePassword!!@github.com
+https://1n4r1:SuperStrongFakePassword!!@github.com
 root@kali:~#
 {% endhighlight %}
 

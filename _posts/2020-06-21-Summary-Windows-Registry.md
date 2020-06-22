@@ -11,23 +11,23 @@ This is a brief summary of How it is and how to browse / edit it.
 
 ## Opening with regedit.exe
 First, open the registry with `regedit.exe`. We have 5 root keys there.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-21/2020-06-20-14-09-55.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-06-21/2020-06-20-14-09-55.png)
 
 ### 1. HKEY_CLASSES_ROOT(HKCR)
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-21/2020-06-20-14-17-35.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-06-21/2020-06-20-14-17-35.png)
 * A section to manage file type associations.
 * Provides a view of the registry that merges the information from `HKEY_LOCAL_MACHINE\Software\Classes` and `HKEY_CURRENT_USER\Software\Classes`.<br>
 * `HKEY_LOCAL_MACHINE\Software\Classes` holds default settings that can apply to all users on the local computer.
 * `HKEY_CURRENT_USER\Software\Classes` key contains settings that override that default settings.
 
 ### 2. HKEY_CURRENT_USER(HKCU)
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-21/2020-06-20-14-11-23.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-06-21/2020-06-20-14-11-23.png)
 * Information about the user currently logged in.<br>
 * `HKCU\Software` holds user-level settings for the most of the software.
 * `%USERPROFILE%\AppData\Local\Microsoft\Windows\Usrclass.dat` and `%LocalAppData%\Microsoft\Windows\Usrclass.dat` hold the data.
 
 ### 3. HKEY_LOCAL_MACHINE(HKLM)
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-21/2020-06-20-14-12-10.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-06-21/2020-06-20-14-12-10.png)
 * Majority of the configuration information for the software we install and Windows operating system itself.
 
 #### BCD00000000
@@ -54,11 +54,11 @@ First, open the registry with `regedit.exe`. We have 5 root keys there.
 * Stored in `%SystemRoot%\System32\Config\SYSTEM`.
 
 ### 4. HKEY_USERS(HKU)
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-21/2020-06-20-14-12-45.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-06-21/2020-06-20-14-12-45.png)
 * Stores all of the settings for all user profiles actively loaded on the system.<br>
 
 ### 5. HKEY_CURRENT_CONFIG(HKCC)
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-21/2020-06-20-14-17-35.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-06-21/2020-06-20-14-17-35.png)
 * Information about the hardware profile that is used by the local computer at system setup.
 
 

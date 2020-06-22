@@ -4,7 +4,7 @@ title: Getting started Nessus
 categories: Scanner
 ---
 
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/nessus.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-06-13/nessus.png)
 
 # Explanation
 [Nessus](https://www.tenable.com/products/nessus) is a proprietary vulnerability scanner developed by Tenable, Inc.<br>
@@ -18,7 +18,7 @@ This is a walkthrough of the initial setup and first scan of Nessus free edition
 ## 1. Installation
 Since we can't install it with `apt-get`, we have to download the deb package from the [website](https://www.tenable.com/downloads/nessus) and install manually.<br>
 For the Kali linux, we can use the following version.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-13-13-03-31.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-06-13/2020-06-13-13-03-31.png)
 
 Click the filename and accept the license agreement. To install the deb package, we can use `dpkg`
 ```shell
@@ -61,7 +61,7 @@ Jun 10 22:15:39 kali systemd[1]: Started LSB: Starts and stops the Nessus.
 ## 2. Gaining activation code
 Go to [Obtain an Activation Code](https://www.tenable.com/products/nessus/activation-code).<br>
 This time, select free edition and push "Register Now".
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-10-22-23-33.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-06-13/2020-06-10-22-23-33.png)
 
 After that, fill out the personal information like full name and mail address.<br>
 The activation code will be sent to the registered email address.
@@ -69,34 +69,34 @@ The activation code will be sent to the registered email address.
 ## 3. Setting up
 Go to `https://localhost:8834`.<br>
 Select `Nessus Essential`.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-10-22-32-44.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-06-13/2020-06-10-22-32-44.png)
 
 We can skip the next step because we already have an active code.<br>
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-10-22-33-14.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-06-13/2020-06-10-22-33-14.png)
 
 Then, create an username and password.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-10-22-48-19.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-06-13/2020-06-10-22-48-19.png)
 
 After that, it takes some time to finish the initialization.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-10-22-49-25.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-06-13/2020-06-10-22-49-25.png)
 
 
 ## 4. Creating a new scan
 We have `Scans` Tab on console. Click and select `New Scan` on the right side.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-10-23-07-17.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-06-13/2020-06-10-23-07-17.png)
 
 After that, we need to choose the scan template.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-10-23-08-07.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-06-13/2020-06-10-23-08-07.png)
 
 Then, setting up the target machine.<br>
 For the "Settings" tab, at least we need to specify the scan name and IP address.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-10-23-09-58.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-06-13/2020-06-10-23-09-58.png)
 
 On the "Credential" tab, we can specify the username and password for each service.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-13-13-10-28.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-06-13/2020-06-13-13-10-28.png)
 
 On the "Plugins" tab, we can select plugins to be enabled.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-13-12-50-58.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-06-13/2020-06-13-12-50-58.png)
 
 When finished the configuration, push "save" and go to "My Scans".<br>
 On the right side, we have an icon to launch a scan.
@@ -104,7 +104,7 @@ On the right side, we have an icon to launch a scan.
 
 ## 5. Scan result
 Click the scan and go to "Vulnerabilities". We can see the information about vulnerabilities.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-10-23-57-31.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-06-13/2020-06-10-23-57-31.png)
 
 We have "Remediations" tab as well. According to vulnerability info, it suggests how to improve the security.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-13/2020-06-11-00-10-48.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-06-13/2020-06-11-00-10-48.png)

@@ -121,14 +121,14 @@ Gobuster v2.0.0              OJ Reeves (@TheColonial)
 
 ### 2. Getting User
 As we can see, <a href="https://moodle.org/">Moodule</a> is running on this server.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-26/2019-04-26-12-31-33.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-04-26/2019-04-26-12-31-33.png)
 We can login the moodle as guest user but there is not any interesting information.<br>
 By enumerating some other pages, we can find that there is a strange image file on "/gallery.html"
 What we can find is that
 1. There is a image tag its source file is exist but we can not see
 2. This tag shows unknown message which says "That's an F"
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-26/2019-04-26-12-40-15.png)
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-26/2019-04-26-12-40-42.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-04-26/2019-04-26-12-40-15.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-04-26/2019-04-26-12-40-42.png)
 
 By executing curl command, we can figure out what is the content of 5.png
 {% highlight shell %}
@@ -199,13 +199,13 @@ This means we got this credential for moodle.
 {% highlight shell %}
 giovanni:Th4C00lTheacha#
 {% endhighlight %}
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-26/2019-04-26-14-54-27.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-04-26/2019-04-26-14-54-27.png)
 
 Then click on Algebra, setting button, and "More..."
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-26/2019-04-26-14-57-44.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-04-26/2019-04-26-14-57-44.png)
 
 Click "questions" and "create a new question".<br>
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-26/2019-04-26-15-01-09.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-04-26/2019-04-26-15-01-09.png)
 
 Then, click "Caluculated" and "add".<br>
 Put following values, save the change and click "next page".
@@ -215,7 +215,7 @@ Question test: foo
 fomula: /*{a*/`$_GET[0]`;//{x}}
 Grade: 100%
 {% endhighlight %}
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-26/2019-04-26-18-07-08.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-04-26/2019-04-26-18-07-08.png)
 
 By sending following request with web browser, we can achieve a reverse shell.
 {% highlight shell %}

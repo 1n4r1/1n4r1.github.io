@@ -4,7 +4,7 @@ title: Hackthebox Postman Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-03-16/postman-badge.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-03-16/postman-badge.png)
 
 # Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
@@ -71,7 +71,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 ### Redis enumeration:
 Reference: <a href="https://book.hacktricks.xyz/pentesting/6379-pentesting-redis">https://book.hacktricks.xyz/pentesting/6379-pentesting-redis</a>
 {% highlight shell %}
-inar1@kali:~$ redis-cli -h 10.10.10.160
+1n4r1@kali:~$ redis-cli -h 10.10.10.160
 10.10.10.160:6379> info
 # Server
 redis_version:4.0.9
@@ -303,14 +303,14 @@ Matt@Postman:~$ cat user.txt
 ## 3. Getting Root
 
 We still have one service that we haven't looked through with is "Webmin httpd".
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-03-16/2020-03-16-19-02-20.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-03-16/2020-03-16-19-02-20.png)
 
 For the privilege escalation, we can use the credential for Matt again.<br>
 By trying the credential for Matt, we can confirm that the credential for Matt is available for the authentication.
 {% highlight shell %}
 Matt:computer2008
 {% endhighlight %}
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-03-16/2020-03-16-19-07-01.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-03-16/2020-03-16-19-07-01.png)
 
 Also, we can search the vulnerability for the Webmin v1.9.1 with searchsploit.
 {% highlight shell %}

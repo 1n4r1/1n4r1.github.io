@@ -4,14 +4,14 @@ title: Hackthebox Kotarak Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-01-14/kotarak-badge.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-01-14/kotarak-badge.png)
 
 #### Retired date: 2018/03/10
 
 # Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
 For the practice, solve the left boxes in the list of OSCP like boxes and this is a walkthrough of a box "Kotarak".<br>
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/general/oscp_like_box.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/general/oscp_like_box.png)
 
 # Solution
 ### 1. Initial Enumeration
@@ -111,7 +111,7 @@ root@kali:~#
 
 We have 2 interesting services.<br>
 On the port 8080, we have Tomcat and on the port 60000, we can find a "Private Browser".
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-01-14/2020-01-14-14-03-25.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-01-14/2020-01-14-14-03-25.png)
 
 By adding a parameter, we can view the prohibited web pages of Kotarak like "server-status".<br>
 Meaning, this web application has a SSRF (Server Side Request Forgery) vulnerability and an attacker can view the hidden services.<br>
@@ -120,14 +120,14 @@ The interesting point is that "Kotarak" has a running service on "127.0.0.1:888"
 {% highlight shell %}
 http://10.10.10.55:60000/url.php?path=http://localhost:60000/server-status
 {% endhighlight %}
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-01-14/2020-01-14-14-11-44.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-01-14/2020-01-14-14-11-44.png)
 
 Then,take a look at "127.0.0.1:888" by sending the following request to the native web browser.
 #### Request to see "http://10.10.10.55:8888":
 {% highlight shell %}
 http://10.10.10.55:60000/url.php?path=http://localhost:888
 {% endhighlight %}
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-01-14/2020-01-14-14-12-20.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-01-14/2020-01-14-14-12-20.png)
 
 To go to each hyperlink, sounds we need to add "?doc=backup" parameter.<br>
 So, "http://localhost:888/?doc=backup" is the appropriate URL to access to these links.
@@ -141,7 +141,7 @@ root@kali:~#
 
 Then, try to access the "backup" file on the port 888.<br>
 Sounds it's empty page but by taking a look at source code, we can find a hidden credential.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-01-14/2020-01-14-21-06-09.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-01-14/2020-01-14-21-06-09.png)
 {% highlight shell %}
 root@kali:~# curl -s http://10.10.10.55:60000/url.php?path=localhost:888/?doc=backup | grep password
   you must define such a user - the username and password are arbitrary. It is
@@ -159,7 +159,7 @@ we can figure out the following credential is available for tomcat.
 {% highlight shell %}
 admin:3@g01PdhB!
 {% endhighlight %}
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-01-14/2020-01-14-14-50-37.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-01-14/2020-01-14-14-50-37.png)
 
 Since we have an exploit for tomcat, take advantage of the credential and get the user shell of "tomcat".
 {% highlight shell %}
@@ -282,8 +282,8 @@ root@kali:~#
 {% endhighlight %}
 
 We can crack some of the hashes by using <a href="https://crackstation.net/">CrackStation</a>
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-01-14/2020-01-14-15-07-49.png)
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-01-14/2020-01-14-15-08-17.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-01-14/2020-01-14-15-07-49.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-01-14/2020-01-14-15-08-17.png)
 
 Now we had the following credentials.
 {% highlight shell %}

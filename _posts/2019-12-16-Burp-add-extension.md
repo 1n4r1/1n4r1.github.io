@@ -17,11 +17,11 @@ To automate the reflected XSS finding process, install a burp extension <a href=
 ### 1. Setting up Burp Suite
 
 At first, download the .jar file from <a href="https://github.com/elkokc/reflector/releases">https://github.com/elkokc/reflector/releases</a>.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-16/2019-12-16-11-34-42.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-12-16/2019-12-16-11-34-42.png)
 
 Then launch Burp Suite and go to "Extender" -> "Extensions" tab.<br>
 Click "Add" and set "reflector2.1" as "Extension file".
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-16/2019-12-16-11-02-18.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-12-16/2019-12-16-11-02-18.png)
 
 Now we had new tab "Reflector".
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-16/2019-12-16-11-08-00.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-12-16/2019-12-16-11-08-00.png)
