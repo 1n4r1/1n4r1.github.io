@@ -199,7 +199,7 @@ This means the password should contain characters from three of the following ca
 PS C:\Users\Administrator> New-ADOrganizationalUnit -Name "testunit" -Path "DC=mydomain,DC=local"
 ```
 
-## Adding a new user for existing organizational unit
+## Adding a new user for an existing organizational unit
 ```shell
 PS C:\Users\Administrator> New-ADUser testuser -GivenName Doe -Surname John -Path "OU=testunit,DC=mydomain,DC=l
 ocal" -UserPrincipalName "testuser@mydomain.local" -AccountPassword (ConvertTo-SecureString -AsPlainText "MyPas
@@ -224,7 +224,7 @@ Surname           : John
 UserPrincipalName : testuser@mydomain.local
 ```
 
-## Find Groups of a specific user
+## Find groups of a specific user
 ```shell
 PS C:\Users\Administrator> Get-ADPrincipalGroupMembership -Identity testuser
 
