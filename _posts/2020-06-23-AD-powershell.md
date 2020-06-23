@@ -128,6 +128,18 @@ Protected Users      group                CN=Protected Users,CN=Users,DC=mydomai
 RAS and IAS Servers  group                CN=RAS and IAS Servers,CN=Users,DC=mydomain,DC=local
 Read-only Domain ... group                CN=Read-only Domain Controllers,CN=Users,DC=mydomain,DC=local
 Schema Admins        group                CN=Schema Admins,CN=Users,DC=mydomain,DC=local
+
+# If go to OU
+PS AD:\cn=users,dc=mydomain,dc=local> cd ../
+
+PS AD:\dc=mydomain,dc=local> cd "ou=Domain Controllers"
+
+PS AD:\ou=Domain Controllers,dc=mydomain,dc=local> ls
+
+Name                 ObjectClass          DistinguishedName
+----                 -----------          -----------------
+WIN-K0TMKMC41V4      computer             CN=WIN-K0TMKMC41V4,OU=Domain Controllers,DC=mydomain,DC=local
+
 ```
 
 Reference: [Mount Active Directory as a drive in PowerShell](https://4sysops.com/archives/mount-active-directory-as-a-drive-in-powershell/#changing-to-a-domain-or-an-ou)
