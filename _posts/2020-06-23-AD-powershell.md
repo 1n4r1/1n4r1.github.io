@@ -5,8 +5,7 @@ categories: Windows
 ---
 
 # Explanation
-The Windows Registry is a hierarchical database that stores low-level settings for the Windows OS and applications using the registry.
-This is a brief summary of How it is and how to browse / edit it.
+Brief memo about how to operate / recon AD DS with PowerShell
 
 # Environment
 * Windows Server 2016 Standard Evaluation
