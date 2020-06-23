@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Summary - AD PowerShell
+title: Memo - Operating AD DS with PowerShell
 categories: Windows
 ---
 
