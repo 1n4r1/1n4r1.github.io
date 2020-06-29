@@ -72,6 +72,45 @@ Cmdlet          Add-ADFineGrainedPasswordPolicySubject             1.0.0.0    ac
 
 ```
 
+## Getting information about current AD Domain
+```shell
+PS C:\Users\Administrator> Get-ADDomain
+
+
+AllowedDNSSuffixes                 : {}
+ChildDomains                       : {}
+ComputersContainer                 : CN=Computers,DC=mydomain,DC=local
+DeletedObjectsContainer            : CN=Deleted Objects,DC=mydomain,DC=local
+DistinguishedName                  : DC=mydomain,DC=local
+DNSRoot                            : mydomain.local
+DomainControllersContainer         : OU=Domain Controllers,DC=mydomain,DC=local
+DomainMode                         : Windows2016Domain
+DomainSID                          : S-1-5-21-299884335-592523710-3968369954
+ForeignSecurityPrincipalsContainer : CN=ForeignSecurityPrincipals,DC=mydomain,DC=local
+Forest                             : mydomain.local
+InfrastructureMaster               : WIN-K0TMKMC41V4.mydomain.local
+LastLogonReplicationInterval       :
+LinkedGroupPolicyObjects           : {CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=Policies,CN=System,DC=mydomain,DC=lo
+                                     cal}
+LostAndFoundContainer              : CN=LostAndFound,DC=mydomain,DC=local
+ManagedBy                          :
+Name                               : mydomain
+NetBIOSName                        : MYDOMAIN
+ObjectClass                        : domainDNS
+ObjectGUID                         : 11d78b80-7a3f-4187-a841-656090e12b5d
+ParentDomain                       :
+PDCEmulator                        : WIN-K0TMKMC41V4.mydomain.local
+PublicKeyRequiredPasswordRolling   : True
+QuotasContainer                    : CN=NTDS Quotas,DC=mydomain,DC=local
+ReadOnlyReplicaDirectoryServers    : {}
+ReplicaDirectoryServers            : {WIN-K0TMKMC41V4.mydomain.local}
+RIDMaster                          : WIN-K0TMKMC41V4.mydomain.local
+SubordinateReferences              : {DC=ForestDnsZones,DC=mydomain,DC=local, DC=DomainDnsZones,DC=mydomain,DC=local,
+                                     CN=Configuration,DC=mydomain,DC=local}
+SystemsContainer                   : CN=System,DC=mydomain,DC=local
+UsersContainer                     : CN=Users,DC=mydomain,DC=local
+```
+
 ## Mounting AD: drive and operate like a file system
 ```shell
 PS C:\Users\Administrator> cd AD:
