@@ -4,7 +4,7 @@ title: Hackthebox Luke Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-09-14/luke-badge.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-09-14/luke-badge.png)
 ## Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has bunch of vulnerable machines in its own VPN.<br>
 This is a walkthrough of machine "Luke" on that website.<br>
@@ -273,10 +273,10 @@ We have several URLs which we can try these creds on.
 3. http://10.10.10.137:8000 (Ajenti login console)
 
 By trying creds for "Derry" on /management, we can go to the page which we have some sensitive files.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-09-14/2019-09-14-19-48-59.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-09-14/2019-09-14-19-48-59.png)
 
 In config.json, we can find a password for user "root".
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-09-14/2019-09-14-21-45-58.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-09-14/2019-09-14-21-45-58.png)
 
 Now we got following credential.
 {% highlight shell %}
@@ -284,12 +284,12 @@ root:KpMasng6S5EtTy9Z
 {% endhighlight %}
 
 We can use this cred for login to Ajenti.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-09-14/2019-09-14-19-53-18.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-09-14/2019-09-14-19-53-18.png)
 
 There is a menu "Terminal" on the bottom of side bar.<br>
 Choose and click "New" button.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-09-14/2019-09-14-19-54-55.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-09-14/2019-09-14-19-54-55.png)
 
 After that, click the created terminal and we can get a terminal for the root user.<br>
 As always, root.txt is in the directory for root.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-09-14/2019-09-14-19-57-53.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-09-14/2019-09-14-19-57-53.png)

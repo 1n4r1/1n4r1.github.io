@@ -4,7 +4,7 @@ title: Hackthebox Traverxec Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-04-12/traverxec.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-04-12/traverxec.png)
 
 # Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>

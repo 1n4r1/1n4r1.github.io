@@ -13,26 +13,26 @@ Changing all authors and committers of git history.
 
 ## Solution
 {% highlight shell %}
-root@kali:~# git filter-branch -f --env-filter "GIT_AUTHOR_NAME='inar1'; GIT_AUTHOR_EMAIL='inar1@protonmail.com'; GIT_COMMITTER_NAME='inar1'; GIT_COMMITTER_EMAIL='inar1@protonmail.com';" HEAD
+root@kali:~# git filter-branch -f --env-filter "GIT_AUTHOR_NAME='1n4r1'; GIT_AUTHOR_EMAIL='1n4r1@protonmail.com'; GIT_COMMITTER_NAME='1n4r1'; GIT_COMMITTER_EMAIL='1n4r1@protonmail.com';" HEAD
 {% endhighlight %}
 
 This causes conflict between local git repo and remote.<br>
 After this command, we have to use git push --force.
 
 {% highlight shell %}
-root@kali:~/inar1.github.io# git push origin master
-Username for 'https://github.com': inar1
-Password for 'https://inar1@github.com': 
-To https://github.com/inar1/inar1.github.io.git
+root@kali:~/1n4r1.github.io# git push origin master
+Username for 'https://github.com': 1n4r1
+Password for 'https://1n4r1@github.com': 
+To https://github.com/1n4r1/1n4r1.github.io.git
  ! [rejected]        master -> master (non-fast-forward)
-error: failed to push some refs to 'https://github.com/inar1/inar1.github.io.git'
+error: failed to push some refs to 'https://github.com/1n4r1/1n4r1.github.io.git'
 hint: Updates were rejected because the tip of your current branch is behind
 hint: its remote counterpart. Integrate the remote changes (e.g.
 hint: 'git pull ...') before pushing again.
 hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 
 
-root@kali:~/inar1.github.io# git push -- force origin master
+root@kali:~/1n4r1.github.io# git push -- force origin master
 fatal: 'force' does not appear to be a git repository
 fatal: Could not read from remote repository.
 

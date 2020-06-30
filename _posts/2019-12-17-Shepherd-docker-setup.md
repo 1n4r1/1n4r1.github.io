@@ -4,7 +4,7 @@ title: Running OWASP Security Shepherd with Docker compose on Kali 2019.4
 categories: OWASP
 ---
 
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/general/ss.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/general/ss.png)
 
 # Explanation
 <a href="https://github.com/OWASP/SecurityShepherd">OWASP Security Shepherd</a> is a vulnerable web application for the practice.<br>
@@ -45,27 +45,27 @@ root@kali:~/SecurityShepherd# docker-compose up -d # -d for get terminal back
 {% endhighlight %}
 
 ### 3. Login
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-17/2019-12-17-15-06-15.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-12-17/2019-12-17-15-06-15.png)
 We can use the following credential for login.
 {% highlight shell %}
 admin:password
 {% endhighlight %}
 
 After that, change the current password.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-17/2019-12-17-15-06-43.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-12-17/2019-12-17-15-06-43.png)
 
 Now we can start the challenges.<br>
 By clicking "Get Next Challenge", we cam proceed to the challenges.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-17/2019-12-17-14-52-30.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-12-17/2019-12-17-14-52-30.png)
 
 First challenge is for the HTTP request modification with local proxy.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-17/2019-12-17-15-25-29.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-12-17/2019-12-17-15-25-29.png)
 
 ### 4. Select Open Floor mode
 To see all challenges, we have to change the mode to the "Open Floor mode".<br>
 Click "Admin" and go to "Module Management" -> "Challenge Module Layout".<br>
 Enable the "Open Floor mode" by clicking the button.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-12-17/2019-12-17-22-43-33.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-12-17/2019-12-17-22-43-33.png)
 
 ### 5. Remove Docker container
 {% highlight shell %}

@@ -17,20 +17,20 @@ I have done this more than 5 times but still I forget so took this memo.
 ## Solution
 ### 1. SSL Error
 Without any settings, if we use Burp with https, browser shows this certification error.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-20/2019-03-19-23-35-56.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-03-20/2019-03-19-23-35-56.png)
 
 ### 2. Download SSL cert
 By accessing the Burp page on localhost, we can download the certificate "cacert.der".<br>
 We have to click on the button "CA Certificate".
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-20/2019-03-20-00-08-41.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-03-20/2019-03-20-00-08-41.png)
 
 ### 3. Register the cert on google chrome
 Go to settings and click "Advanced". There is a menu "Manage certificates".
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-20/2019-03-19-23-42-27.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-03-20/2019-03-19-23-42-27.png)
 
 Click "Authorities", then "Import".<br>
 After selected "cacert.der" downloaded, it shows some options.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-20/2019-03-19-23-46-12.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-03-20/2019-03-19-23-46-12.png)
 
 Only choosing the first one "Trust this certificate for identifying websites" is enough.<br>
 
@@ -40,6 +40,6 @@ Then, restart the chrome and it would be fine.
 ### 5. If still had a same error?
 In this case, we can confirm the validity of certification on "Manage certificates".<br>
 Click on "org-PortSwigger" and that certificate would be "untrusted".
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-03-20/2019-03-20-00-03-21.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-03-20/2019-03-20-00-03-21.png)
 
 We can edit the certificate, or delete and install it again.

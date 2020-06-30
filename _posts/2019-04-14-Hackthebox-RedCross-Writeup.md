@@ -114,20 +114,20 @@ Gobuster v2.0.1              OJ Reeves (@TheColonial)
 
 ### 2. Getting User
 We can find a login console on the top page.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-14/2019-04-13-19-37-17.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-04-14/2019-04-13-19-37-17.png)
 
 Besides, we can find an interesting pdf under the directory "/documents"
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-14/2019-04-13-22-03-30.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-04-14/2019-04-13-22-03-30.png)
 
 By sending following message, we can create a new credential "guest:guest".
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-14/2019-04-14-12-26-40.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-04-14/2019-04-14-12-26-40.png)
 
 We can login to the console with a credential "guest:guest".
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-14/2019-04-14-12-29-17.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-04-14/2019-04-14-12-29-17.png)
 
 If we put a single quote in a UserID and submit, we receive followin message.<br>
 This means this webapp has SQLinjection vulnerability.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-14/2019-04-13-22-13-22.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-04-14/2019-04-13-22-13-22.png)
 
 In this case, the url we are redirected is following.
 {% highlight shell %}
@@ -140,7 +140,7 @@ or dest like ''
 {% endhighlight %}
 
 We can put % there and we can achieve following output.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-14/2019-04-13-22-23-51.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-04-14/2019-04-13-22-23-51.png)
 
 Sounds like we have admin webapp and we have sub domain for that.<br>
 Add following line in "/etc/hosts" and try to access.
@@ -149,25 +149,25 @@ Add following line in "/etc/hosts" and try to access.
 {% endhighlight %}
 
 We can find another login console.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-14/2019-04-14-12-31-43.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-04-14/2019-04-14-12-31-43.png)
 
 we can try the credential "guest:guest". However, it shows a message we don't have enough privilege.
 Then, try to do session replay attack.<br>
 Open Burp Suite and check the "PHPSESSID" in the Cookie when we accessed "intra.redcross.htb".
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-14/2019-04-14-10-28-06.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-04-14/2019-04-14-10-28-06.png)
 
 Then, turn intercept on and try to access "admin.redcross.htb".<br>
 check the value of "PHPSESSID" in the cookie and change the value to the above session id.<br>
 We have to modify following 3 requests.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-14/2019-04-14-10-32-08.png)
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-14/2019-04-14-10-32-37.png)
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-14/2019-04-14-10-33-28.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-04-14/2019-04-14-10-32-08.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-04-14/2019-04-14-10-32-37.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-04-14/2019-04-14-10-33-28.png)
 
 Then, we can access to the admin console of "admin.redcross.htb".
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-14/2019-04-14-10-36-11.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-04-14/2019-04-14-10-36-11.png)
 With accessing "User Management", we can create a new user on redcross.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-14/2019-04-14-10-45-38.png)
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-14/2019-04-14-10-45-56.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-04-14/2019-04-14-10-45-38.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-04-14/2019-04-14-10-45-56.png)
 
 We cam use this credential for ssh login.
 {% highlight shell %}
@@ -198,7 +198,7 @@ We can enumerate some directories. However, there is nothing interesting.<br>
 
 Then, go back to admin console. We still have another page "Firewall".<br>
 By providing our ip, we can put in in a "whitelist" of "firewall".
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-04-14/2019-04-14-12-56-43.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-04-14/2019-04-14-12-56-43.png)
 
 Try to scan the ports again.
 {% highlight shell %}

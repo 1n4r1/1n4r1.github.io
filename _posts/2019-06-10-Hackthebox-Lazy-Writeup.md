@@ -4,7 +4,7 @@ title: Hackthebox Lazy Writeup
 categories: HackTheBox
 ---
 
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-06-10/lazy-badge.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-06-10/lazy-badge.png)
 ## Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has bunch of vulnerable machines in its own VPN.<br>
 This is a write-up of machine "Lazy" on that website.<br>
@@ -70,14 +70,14 @@ Gobuster v2.0.1              OJ Reeves (@TheColonial)
 ### 2. Getting User
 Lazy has a website which we can login.<br>
 We can also register a new user for us in following page.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-06-10/2019-06-10-13-43-35.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-06-10/2019-06-10-13-43-35.png)
 
 We can do user enumeration by trying to register a possible username.<br>
 For example, have user "admin" here.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-06-10/2019-06-10-13-45-07.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-06-10/2019-06-10-13-45-07.png)
 
-Then, create a new user which name is "inar1" and login, we have following cookie for authentication.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-06-10/2019-06-10-13-52-36.png)
+Then, create a new user which name is "1n4r1" and login, we have following cookie for authentication.
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-06-10/2019-06-10-13-52-36.png)
 {% highlight shell %}
 auth=GVeL9h27Y%2BJk5zAWW%2BiAHNproCe8AF5k
 {% endhighlight %}
@@ -131,7 +131,7 @@ NOTE: The ID# marked with ** is recommended :  2
 {% endhighlight %}
 
 Then, wait for the result.<br>
-We can decrypt the base64 and the value is "user=inar1".
+We can decrypt the base64 and the value is "user=1n4r1".
 {% highlight shell %}
 NOTE: The ID# marked with ** is recommended : 2
 
@@ -171,7 +171,7 @@ Block 2 Results:
 -------------------------------------------------------
 ** Finished ***
 
-[+] Decrypted value (ASCII): user=inar1
+[+] Decrypted value (ASCII): user=1n4r1
 
 [+] Decrypted value (HEX): 757365723D696E617231060606060606
 
@@ -251,7 +251,7 @@ Block 1 Results:
 
 Then try to access with the cookie "auth=BAitGdYuupMjA3gl1aFoOwAAAAAAAAAA".<br>
 We can find an interesting path "/mysshkeywithnamemitsos"
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-06-10/2019-06-10-14-35-06.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-06-10/2019-06-10-14-35-06.png)
 
 By accessing the url "http://10.10.10.18/mysshkeywithnamemitsos"
 {% highlight shell %}

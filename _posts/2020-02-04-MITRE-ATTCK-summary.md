@@ -4,7 +4,7 @@ title: Summary - MITRE ATT&CK
 categories: Security-framework
 ---
 
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-02-04/mitre_attack_matrix.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-02-04/mitre_attack_matrix.png)
 
 # Explanation
 To dig into the enterprise level information security knowledge (Meaning not a CTF or something like that !!),<br>
@@ -42,11 +42,11 @@ What we have to care is "Enterprise" is mostly for the post-exploitation while P
 3. Pre-ATT&CK Matrix
 
 The following <a href="https://attack.mitre.org/resources/enterprise-introduction/">model</a> explains what "PRE-ATT&CK" and "ATT&CK" cover.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-02-04/enterprise-pre-lifecycle.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-02-04/enterprise-pre-lifecycle.png)
 
 To explain a bit more, this time I use the "<a href="https://attack.mitre.org/matrices/enterprise/">Enterprise Matrix</a>".<br>
 The following is the part of Enterprise Matrix.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-02-04/2020-02-01-16-07-53.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-02-04/2020-02-01-16-07-53.png)
 
 We have 3 keyword for this matrix.
 1. <a href="https://attack.mitre.org/tactics/enterprise/">Tactics</a> : The header of the matrix. Separated as sub categories.
@@ -55,7 +55,7 @@ We have 3 keyword for this matrix.
 
 Then, go to each Techniques.<br>
 This time, the example is "<a href="https://attack.mitre.org/techniques/T1106/">Execution through API</a>".
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-02-04/2020-02-03-21-04-24.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-02-04/2020-02-03-21-04-24.png)
 
 Each Techniques has the following information.
 1. General description

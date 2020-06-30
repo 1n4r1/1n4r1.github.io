@@ -4,7 +4,7 @@ title: Hackthebox Celestial Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-10-05/celestial-badge.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-10-05/celestial-badge.png)
 ## Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
 To learn a new technique/knowledge, solve all machines (As much as possible!!).<br>

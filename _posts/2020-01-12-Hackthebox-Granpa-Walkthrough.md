@@ -4,13 +4,13 @@ title: Hackthebox Granpa/Granny Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-01-12/granpa-badge.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-01-12/granpa-badge.png)
 #### Retired date: 2017/07/07
 
 # Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
 For the practice, solve the left boxes in the list of OSCP like boxes and this is a walkthrough of a box "Granpa" and we can use same technique for "Granny" also.<br>
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/general/oscp_like_box.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/general/oscp_like_box.png)
 
 # Solution
 ### 1. Initial Enumeration

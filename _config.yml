@@ -3,18 +3,18 @@ markdown:         kramdown
 highlighter:      rouge
 
 # Setup
-title:            inar1.github.io
+title:            1n4r1.github.io
 tagline:          ""
 description:      ""
-url:              https://inar1.github.io/
-baseurl:          https://inar1.github.io/
-imageurl:         https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/
+url:              https://1n4r1.github.io/
+baseurl:          https://1n4r1.github.io/
+imageurl:         https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/
                   # the optional subpath of your site, e.g. "/my-jekyll-site/"
                   # This will apply to all pages in your Jekyll site.
 
 author:
-  name:           inari
-  url:            https://github.com/inar1
+  name:           1n4ri
+  url:            https://github.com/1n4r1
 paginate:         5
 # paginate_path:    '/page:num'
                     # Or '/my-jekyll-site/page:num' if you want to move your index pages
@@ -28,6 +28,6 @@ plugins:
 version:            2.0.1
 
 github:
-  repo:             https://github.com/inar1
+  repo:             https://github.com/1n4r1
 
 google_analytics: UA-135458812-1

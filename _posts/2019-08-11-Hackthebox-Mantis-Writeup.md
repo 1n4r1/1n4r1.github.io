@@ -4,7 +4,7 @@ title: Hackthebox Mantis Writeup
 categories: HackTheBox
 ---
 
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-08-11/mantis-badge.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-08-11/mantis-badge.png)
 ## Explanation
 To practice pentesting for Active Directory environment, solved an old machine "Mantis" on <a href="https://www.hackthebox.eu">Hackthebox</a>.
 
@@ -146,7 +146,7 @@ Gobuster v2.0.1              OJ Reeves (@TheColonial)
 
 ### 2. Getting Root
 By enumeration, We found an interesiting page on port 1337.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-08-11/2019-08-11-11-18-40.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-08-11/2019-08-11-11-18-40.png)
 
 We can decode this unknown base64 encoded string with following way.
 {% highlight shell %}

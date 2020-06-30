@@ -93,4 +93,4 @@ Total 3197 (delta 1642), reused 3197 (delta 1642)
 {% endhighlight %}
 
 Now we can see that our binary file is managed by Git LFS.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-04-05/2020-04-05-13-00-00.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-04-05/2020-04-05-13-00-00.png)

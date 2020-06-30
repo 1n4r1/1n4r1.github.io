@@ -4,7 +4,7 @@ title: Hackthebox Friendzone Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-09-05/friendzone-badge.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-09-05/friendzone-badge.png)
 ## Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has bunch of vulnerable machines in its own VPN.<br>
 This is a walkthrough of machine "Friendzone" on that website.<br>
@@ -582,7 +582,7 @@ Gobuster v2.0.1              OJ Reeves (@TheColonial)
 {% endhighlight %}
 
 Directory "wordpress" has nothing interesting. However, we can find a new domain "friendzoneportal.red"
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-09-05/2019-09-04-23-08-50.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-09-05/2019-09-04-23-08-50.png)
 
 Then add following line and access.
 {% highlight shell %}
@@ -686,24 +686,24 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 {% endhighlight %}
 
 we can find a login form on "https://administrator1.friendzone.red/login.php".
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-09-05/2019-09-04-23-13-14.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-09-05/2019-09-04-23-13-14.png)
 
 we can also find an interesting php script "timestamp.php".
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-09-05/2019-09-04-23-13-35.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-09-05/2019-09-04-23-13-35.png)
 
 Next, try to access with the previous credential from SMB.<br>
 It says go to "dashboard.php".
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-09-05/2019-09-04-23-15-32.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-09-05/2019-09-04-23-15-32.png)
 
 We found a shaddy website with php.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-09-05/2019-09-04-23-16-34.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-09-05/2019-09-04-23-16-34.png)
 
 Then, go to "https://administrator1.friendzone.red/dashboard.php?image_id=a.jpg&pagename=timestamp" as he says.
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-09-05/2019-09-04-23-17-32.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-09-05/2019-09-04-23-17-32.png)
 
 We can see a paramter "timestamp".<br>
 Try to replace the parameter with "login".
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2019-09-05/2019-09-04-23-19-06.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2019-09-05/2019-09-04-23-19-06.png)
 
 The webapp showed the output of "login.php" (If we put wrong password it says "Wrong!").<br>
 This means, we found possible LFI.<br>
