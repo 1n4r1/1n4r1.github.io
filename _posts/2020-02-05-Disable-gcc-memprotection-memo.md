@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Memo - disable memory protection for gcc
+title: Memo / disable memory protection for gcc
 categories: Reversing
 ---
 

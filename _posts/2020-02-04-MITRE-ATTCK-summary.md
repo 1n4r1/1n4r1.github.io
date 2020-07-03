@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Summary - MITRE ATT&CK
+title: Summary / MITRE ATT&CK
 categories: Security-framework
 ---
 
