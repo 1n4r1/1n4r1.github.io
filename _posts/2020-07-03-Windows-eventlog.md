@@ -49,19 +49,22 @@ An audited security access attempt that fails. Only for the security.
 
 ## Application events
 ![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-03/2020-07-02-22-54-01.png)
-#### Event file:
+### Event file:
 `%SystemRoot%\System32\Winevt\Logs\Application.evtx`
 
 
 ## Security events
 ![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-03/2020-07-02-22-53-32.png)
-#### Event file:
+### Event file:
 `%SystemRoot%\System32\Winevt\Logs\Security.evtx`
 
 #### Event ID 4624: Login success
 #### Event ID 4625: Login failed
 #### Event ID 4634: Log off
-#### Event ID 4648: Runas
+#### Event ID 4648: A logon was attempted using explicit credentials
+This event is generated when a process attempts an account logon by explicitly specifying that account's credentials.<br>
+Most commonly occurs in batch-type configurations such as scheduled tasks, or when using the "RUNAS" command.
+
 #### Event ID 4662: Directory Service Access
 Active Directory logs this event when an user accesses an AD account
 
