@@ -80,7 +80,7 @@ Events for both successful and failed service ticket requests.
 
 ## System log
 ![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-03/2020-07-02-22-54-25.png)
-#### Event file:
+### Event file:
 `%SystemRoot%\System32\Winevt\Logs\System.evtx`
 #### Event ID 7036: None
 
