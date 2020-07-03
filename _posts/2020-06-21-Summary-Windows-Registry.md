@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Summary - Windows registry
+title: Memo / Windows registry
 categories: Windows
 ---
 
