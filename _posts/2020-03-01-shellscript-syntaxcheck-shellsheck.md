@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Memo - Enforcing code regulation with shellcheck
+title: Memo / Enforcing code regulation with shellcheck
 categories: Kali
 ---
 

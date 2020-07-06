@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Memo - Enable Git Large File Storage on GitHub
+title: Memo / Enable Git Large File Storage on GitHub
 categories: Git
 ---
 

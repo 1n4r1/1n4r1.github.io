@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Summary - ELF format
+title: Summary / ELF format
 categories: Reversing
 ---
 
