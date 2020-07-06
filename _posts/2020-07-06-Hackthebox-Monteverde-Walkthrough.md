@@ -317,6 +317,7 @@ d-----         1/3/2020   5:28 AM                WindowsPowerShell
 ```
 
 We can take a look at [this post](https://blog.xpnsec.com/azuread-connect-for-redteam/) for privilege escalation to gain the admin account using `Azure AD connect`.<br>
+In short, if an user has `Replicating Directory Changes` permission within AD, we can perform `DCSync` to get all up-to-date AD objects from DCs.
 Or we can use [this script](https://github.com/Hackplayers/PsCabesha-tools/blob/master/Privesc/Azure-ADConnect.ps1).<br>
 On the local host, clone `PsCabesha-tools` repository.
 ```shell
