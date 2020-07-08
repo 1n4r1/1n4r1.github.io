@@ -243,6 +243,8 @@ nadine@SERVMON C:\Program Files\NSClient++>nscp web password --display
 Current password: ew2x6SsGTxjRwXOT
 ```
 
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-06/servmon.png)
+
 ```shell
 nadine@SERVMON C:\Program Files\NSClient++>type nsclient.ini
 ´╗┐# If you want to fill this file with all available options run the following command:
@@ -262,6 +264,14 @@ password = ew2x6SsGTxjRwXOT
 allowed hosts = 127.0.0.1
 ```
 
+SSH tunnel
+```shell
+
+```
+
 ![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-06/servmon.png)
 
+Exploit
+```shell
 
+```
