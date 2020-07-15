@@ -62,10 +62,10 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 ## 2. Getting User
 At `http://10.10.10.171/music`, we have a website.<br>
 If we click the `Login`, we can go to another page which includes the version of the CMS [OpenNetAdmin](https://opennetadmin.com/) `v18.1.1`.
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-15/2020-07-14-19-32-09.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-15/2020-07-14-23-45-59.png)
 ![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-15/2020-07-14-23-46-57.png)
 
-Then, try to search any exploit for it.<br>
+Then, try to search exploits for it.<br>
 We have a remote code execution for `OpenNetAdmin v18.1.1`
 ```shell
 root@kali:~# searchsploit opennetadmin
@@ -390,7 +390,7 @@ User joanna may run the following commands on openadmin:
     (ALL) NOPASSWD: /bin/nano /opt/priv
 ```
 
-It's easy to find the [exploit](https://gtfobins.github.io/gtfobins/nano/) by googling `nano privilege escalation`.
+It's easy to find the [exploit](https://gtfobins.github.io/gtfobins/nano/) by googling `nano privilege escalation`.<br>
 Using the following commands, we can achieve a root shell and `root.txt`.
 
 #### 1. Open the `/opt/priv` with `nano`.
