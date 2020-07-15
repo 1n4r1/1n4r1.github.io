@@ -390,8 +390,8 @@ User joanna may run the following commands on openadmin:
     (ALL) NOPASSWD: /bin/nano /opt/priv
 ```
 
-
-Using the following way, we can achieve a root shell and `root.txt`.
+It's easy to find the [exploit](https://gtfobins.github.io/gtfobins/nano/) by googling `nano privilege escalation`.
+Using the following commands, we can achieve a root shell and `root.txt`.
 
 #### 1. Open the `/opt/priv` with `nano`.
 ![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-15/2020-07-15-11-56-54.png)
