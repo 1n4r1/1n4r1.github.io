@@ -332,7 +332,7 @@ After that, we can take a look at the graphical map of the domain using queries.
 
 Using the query `Find Principals with DCSync Rights`, we can find out that `svc_loanmgr` has `GetChangesAll` right.<br>
 This permission is known that can be abused to sync credentials from a Domain Controller.
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-21/2020-07-20-23-54-58.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-21/2020-07-21-01-31-26.png)
 
 For the Windows privilege escalation, we can use `WinPEAS.exe` from [privilege-escalation-awesome-scripts-suite](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/winPEAS).
 #### Downloading WinPEAS.exe:
