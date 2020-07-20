@@ -7,7 +7,8 @@ categories: HackTheBox
 ![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-19/sauna.png)
 
 # Explanation
-[Hackthebox](https://www.hackthebox.eu/) is a website which has a bunch of vulnerable machines in its own VPN.<br>
+[Hackthebox](https://www.hackthebox.eu/) is a website which has a bunch of vulnerable machines in its own VPN.
+
 This is a walkthrough of a box `Sauna`.
 
 # Solution
@@ -177,6 +178,7 @@ At `http://10.10.10.175/about.html#team`, we can find some members of `Egotistic
 ![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-19/sauna.png)
 
 Then, create an user list to enumerate the domain users of ``.
+
 We can use [Hackthebox](https://www.hackthebox.eu/) 
 ```shell
 
