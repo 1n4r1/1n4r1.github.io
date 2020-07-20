@@ -175,9 +175,10 @@ root@kali:~# dig axfr @10.10.10.175 egotistical-bank.local
 ## 2. Getting User
 
 At `http://10.10.10.175/about.html#team`, we can find some members of `Egotistical Bank`.
+
 ![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-19/sauna.png)
 
-Then, create an user list to enumerate the domain users of ``.
+Then, create an user list to enumerate the domain users of `EGOTISTICAL-BANK.LOCAL`.
 
 We can use [Hackthebox](https://www.hackthebox.eu/) 
 ```shell
