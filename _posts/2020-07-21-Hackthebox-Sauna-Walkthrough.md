@@ -259,7 +259,7 @@ Use the "--show" option to display all of the cracked passwords reliably
 Session completed
 ```
 
-Now we got the password for user `fsmith`.<br>
+Now we got the password `Thestrokes23` for user `fsmith`.<br>
 We can use [evil-winrm](https://github.com/Hackplayers/evil-winrm) to achieve the user shell.
 ```shell
 root@kali:~# gem install evil-winrm
