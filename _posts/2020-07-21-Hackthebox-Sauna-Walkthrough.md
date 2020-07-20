@@ -175,7 +175,7 @@ root@kali:~# dig axfr @10.10.10.175 egotistical-bank.local
 ## 2. Getting User
 
 At `http://10.10.10.175/about.html#team`, we can find some members of `Egotistical Bank`.
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-19/sauna.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-21/2020-07-20-17-22-30.png)
 
 Then, create an user list to enumerate the domain users of `EGOTISTICAL-BANK.LOCAL`.<br>
 We can use [username-anarchy](https://www.hackthebox.eu/) to create an user list.<br>
@@ -325,11 +325,11 @@ root@kali:~# bloodhound
 
 If all setting is done, we can login and see the empty view.<br>
 We can drag/drop all json files to import the domain data to the database.
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-21/sauna.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-21/2020-07-20-23-53-15.png)
 
 Using the query `Find Principals with DCSync Rights`, we can find out that `svc_loanmgr` has `GetChangesAll` right.<br>
 This permission is known that can be abused to sync credentials from a Domain Controller.
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-21/sauna.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-21/2020-07-20-23-54-58.png)
 
 For the Windows privilege escalation, we can use `WinPEAS.exe` from [privilege-escalation-awesome-scripts-suite](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/winPEAS).
 #### Downloading:
