@@ -1205,3 +1205,6 @@ Microsoft Windows [Version 10.0.17763.973]
 C:\Windows\system32>type C:\Users\Administrator\Desktop\root.txt
 f3ee04965c68257382e31502cc5e881f
 ```
+
+## 4. Reference
+1. [How To Attack Kerberos 101](https://m0chan.github.io/2019/07/31/How-To-Attack-Kerberos-101.html#as-rep-roasting)
