@@ -325,7 +325,8 @@ root@kali:~# bloodhound
 ```
 
 If the initial setting is done, we can login and see the empty view.<br>
-We can drag/drop all json files to import the domain information to the database.
+We can drag/drop all json files to import the domain information to the database.<br>
+After that, we can take a look at the graphical map of the domain using queries.
 ![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-21/2020-07-20-23-53-15.png)
 
 Using the query `Find Principals with DCSync Rights`, we can find out that `svc_loanmgr` has `GetChangesAll` right.<br>
