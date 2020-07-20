@@ -333,7 +333,7 @@ This permission is known that can be abused to sync credentials from a Domain Co
 ![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-21/2020-07-20-23-54-58.png)
 
 For the Windows privilege escalation, we can use `WinPEAS.exe` from [privilege-escalation-awesome-scripts-suite](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/winPEAS).
-#### Downloading:
+#### Downloading WinPEAS.exe:
 ```shell
 root@kali:~# git clone https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite.git
 
@@ -342,7 +342,7 @@ root@kali:~# git clone https://github.com/carlospolop/privilege-escalation-aweso
 root@kali:~# cp privilege-escalation-awesome-scripts-suite/winPEAS/winPEASexe/winPEAS/bin/x64/Release/winPEAS.exe .
 ```
 
-#### Uploading `winPEAS.exe` using `evil-winrm`:
+#### Uploading WinPEAS.exe using evil-winrm:
 ```shell
 root@kali:~# evil-winrm -i 10.10.10.175 -u fsmith -p Thestrokes23
 
