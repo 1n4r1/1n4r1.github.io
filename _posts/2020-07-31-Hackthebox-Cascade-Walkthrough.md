@@ -4,7 +4,7 @@ title: Hackthebox Cascade Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-31/cascade.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-29/cascade.png)
 
 # Explanation
 [Hackthebox](https://www.hackthebox.eu/) is a website which has a bunch of vulnerable machines in its own VPN.<br>
