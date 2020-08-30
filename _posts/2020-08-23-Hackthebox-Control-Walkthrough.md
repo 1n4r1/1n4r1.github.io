@@ -420,12 +420,13 @@ get-acl HKLM:\SYSTEM\CurrentControlSet | format-list
 
 The first command shows the content of `HKLM:\SYSTEM\CurrentControlset`.<br>
 It contains the following 6 keys.
-1. Control: Windows Configuration e.g. system startup and some aspects of device configuration
-2. Enum: Hardware config
-3. Hardware profiles:
-4. Policies:
-5. Services: Windows services list
-6. Software: 
+1. Control
+2. Enum
+3. Hardware profiles
+4. Policies
+5. Services
+6. Software
+* [Reference](https://docs.microsoft.com/en-us/windows-hardware/drivers/install/hklm-system-currentcontrolset-services-registry-tree)
 ```shell
 PS C:\Users\Hector\Documents> get-childitem HKLM:\SYSTEM\CurrentControlset | format-list
 get-childitem HKLM:\SYSTEM\CurrentControlset | format-list
@@ -510,9 +511,9 @@ ValueCount    : 0
 Name          : HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlset\Software
 ```
 
-Then, try to get the access the permission of this registry tree.<br>
-We can find SDDL (Security Descriptor Definition Language) as well, but it's a pain in a back to read.
-```shell
+The second command is for trying to get the access the permission of this registry tree.<br>
+We can find SDDL (Security Descriptor Definition Language) as well, but plain SDDL is not human readable.
+```shel
 PS C:\> get-acl HKLM:\SYSTEM\CurrentControlSet | format-list
 get-acl HKLM:\SYSTEM\CurrentControlSet | format-list
 
@@ -544,7 +545,7 @@ Sddl   : O:BAG:SYD:AI(A;;KA;;;BA)(A;ID;KR;;;AU)(A;CIIOID;GR;;;AU)(A;ID;KR;;;SO)(
 ```
 
 Using the following command, we can make the SDDL readable for humans.<br>
-It shows that `Control\Hector` has `FullControl` permission.
+It shows that `Control\Hector` has `FullControl` permission and we can modify the value of `ImagePath` for the fully qualified path of driver's image file.
 ```
 PS C:\Users\Hector\Documents> $acl = get-acl HKLM:\System\CurrentControlSet\Services
 $acl = get-acl HKLM:\System\CurrentControlSet\Services
@@ -604,7 +605,10 @@ Minimum  :
 Property : 
 ```
 
-We can confirm that `Hector\Control` has permission for `wuau` (Windows update) as well.
+We can confirm that `Hector\Control` has permission for `wuau` (Windows update Automatic Update) as well.<br>
+We can take advantage of this because...<br>
+1. We can restart it manually.
+2. It is already configured to run as LocalSystem.
 ```
 PS C:\Users\Hector\Documents> get-acl HKLM:\System\CurrentControlSet\services\* | Format-List * | findstr /i "hector Users Path Everyone" | findstr /i "wuau"
 get-acl HKLM:\System\CurrentControlSet\services\* | Format-List * | findstr /i "hector Users Path Everyone" | findstr /i "wuau"
