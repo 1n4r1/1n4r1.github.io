@@ -544,7 +544,7 @@ Sddl   : O:BAG:SYD:AI(A;;KA;;;BA)(A;ID;KR;;;AU)(A;CIIOID;GR;;;AU)(A;ID;KR;;;SO)(
 ```
 
 Using the following command, we can make the SDDL readable for humans.<br>
-It shows that `Control\Hector` has `FullControl` permission and we can modify the value `ImagePath` for the fully qualified path of driver's image file.
+It shows that `Control\Hector` has `FullControl` permission and we can modify the value `ImagePath` for specifying executables.
 ```
 PS C:\Users\Hector\Documents> $acl = get-acl HKLM:\System\CurrentControlSet\Services
 $acl = get-acl HKLM:\System\CurrentControlSet\Services
