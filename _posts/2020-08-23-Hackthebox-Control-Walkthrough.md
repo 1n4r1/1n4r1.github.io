@@ -418,7 +418,7 @@ get-childitem HKLM:\SYSTEM\CurrentControlset | format-list
 get-acl HKLM:\SYSTEM\CurrentControlSet | format-list
 ```
 
-The first command shows the content of `HKLM:\SYSTEM\CurrentControlset`.<br>
+The first command shows the entries of `HKLM:\SYSTEM\CurrentControlset`.<br>
 It contains the following 6 keys.
 1. Control
 2. Enum
@@ -426,7 +426,6 @@ It contains the following 6 keys.
 4. Policies
 5. Services
 6. Software
-* [Reference](https://docs.microsoft.com/en-us/windows-hardware/drivers/install/hklm-system-currentcontrolset-services-registry-tree)
 ```shell
 PS C:\Users\Hector\Documents> get-childitem HKLM:\SYSTEM\CurrentControlset | format-list
 get-childitem HKLM:\SYSTEM\CurrentControlset | format-list
@@ -545,7 +544,7 @@ Sddl   : O:BAG:SYD:AI(A;;KA;;;BA)(A;ID;KR;;;AU)(A;CIIOID;GR;;;AU)(A;ID;KR;;;SO)(
 ```
 
 Using the following command, we can make the SDDL readable for humans.<br>
-It shows that `Control\Hector` has `FullControl` permission and we can modify the value of `ImagePath` for the fully qualified path of driver's image file.
+It shows that `Control\Hector` has `FullControl` permission and we can modify the value `ImagePath` for the fully qualified path of driver's image file.
 ```
 PS C:\Users\Hector\Documents> $acl = get-acl HKLM:\System\CurrentControlSet\Services
 $acl = get-acl HKLM:\System\CurrentControlSet\Services
