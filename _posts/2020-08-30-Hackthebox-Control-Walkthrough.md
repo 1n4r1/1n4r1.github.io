@@ -426,6 +426,7 @@ It contains the following 6 keys.
 4. Policies
 5. Services
 6. Software
+
 ```shell
 PS C:\Users\Hector\Documents> get-childitem HKLM:\SYSTEM\CurrentControlset | format-list
 get-childitem HKLM:\SYSTEM\CurrentControlset | format-list
