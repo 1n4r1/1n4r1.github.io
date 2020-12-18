@@ -400,6 +400,7 @@ In the config file `nsclient.ini`, we have tons of information.<br>
 What we need to know is the following.
 1. The password is `ew2x6SsGTxjRwXOT`
 2. Accessible host is `127.0.0.1`
+
 ```
 nadine@SERVMON C:\Program Files>type .\NSClient++\nsclient.ini
 type .\NSClient++\nsclient.ini
