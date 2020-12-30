@@ -4,7 +4,7 @@ title: Hackthebox Buff Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-12-29/buff.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-12-30/buff.png)
 
 # Explanation
 [Hackthebox](https://www.hackthebox.eu/) is a website which has a bunch of vulnerable machines in its own VPN.<br>
@@ -64,7 +64,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 ## 2. Getting User
 
 Take a look at `http://10.10.10.198:8080`, we can find a subtitle that shows the running software and its version.
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-12-29/2020-12-27-15-41-31.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2020-12-30/2020-12-27-15-41-31.png)
 
 Using searchsploit, we can find an RCE [Gym Management System 1.0 - Unauthenticated Remote Code Execution](https://www.exploit-db.com/exploits/48506).
 ```
@@ -198,6 +198,9 @@ dir
 
 Using the following command, we can see that actually this binary is running as a process.
 ```
+C:\xampp\htdocs\gym\upload>tasklist -v | findstr CloudMe
+tasklist -v | findstr CloudMe
+CloudMe.exe                   4128                            0     38,552 K Unknown
 
 ```
 
