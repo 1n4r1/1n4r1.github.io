@@ -377,7 +377,8 @@ f0183e44378ea9774433e2ca6ac78c6a  flag.txt
 
 ## 3. Getting Root
 
-Now we had a shell in a container of `docker-toolbox`.
+Now we had a shell in a container of `docker-toolbox`.<br>
+The IP address of the container is `172.17.0.2` and we can guess `172.17.0.1` is the Docker host VM.
 ```
 postgres@bc56e3cc55e9:/var/lib/postgresql$ ifconfig
 ifconfig
@@ -399,8 +400,7 @@ lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
 
 ```
 
-According to the document,<br>
-The default credential is `docker:tcuser`.<br>
+According to the document, the default credential is `docker:tcuser`.<br>
 To SSH, we have to spawn an interactive TTY shell using python3.
 ```
 postgres@bc56e3cc55e9:/$ python3 -c 'import pty; pty.spawn("/bin/bash")'
