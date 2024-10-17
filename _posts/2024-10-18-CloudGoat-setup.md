@@ -51,7 +51,7 @@ on linux_386
 ```shell
 kali@kali:~$ sudo apt install jq 
 
-<snip>
+---snip---
 
 kali@kali:~$ jq --version
 jq-1.7
@@ -63,7 +63,7 @@ kali@kali:~$ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o 
 unzip awscliv2.zip
 sudo ./aws/install
 
-<snip>
+---snip---
 
 kali@kali:~$ aws --version              
 aws-cli/2.18.7 Python/3.12.6 Linux/6.8.11-amd64 exe/x86_64.kali.2024
@@ -73,11 +73,11 @@ aws-cli/2.18.7 Python/3.12.6 Linux/6.8.11-amd64 exe/x86_64.kali.2024
 ```shell
  kali@kali:~$ sudo apt-get update
 
- <snip>
+ ---snip---
 
  kali@kali:~$ sudo apt install python3-venv
 
-<snip>
+---snip---
 
 kali@kali:~$ python3 -m venv .venv 
 
@@ -91,7 +91,8 @@ kali@kali:~/cloudgoat$ source ../.venv/bin/activate
 Collecting argcomplete~=3.2.3 (from -r ./requirements.txt (line 5))
   Downloading argcomplete-3.2.3-py3-none-any.whl.metadata (16 kB)
 
-<snip>
+---snip---
+
 ```
 ## AWS CLI setup
 ```shell
@@ -166,7 +167,7 @@ you run "terraform init" in the future.
 
 Terraform has been successfully initialized!
 
-<snip>
+---snip---
 
 [cloudgoat] terraform output completed with no error code.
 cloudgoat_output_aws_account_id = 096165652555
@@ -258,6 +259,6 @@ Terraform will perform the following actions:
         # (2 unchanged attributes hidden)
     }
 
-<snip>
+---snip---
 
 ```
