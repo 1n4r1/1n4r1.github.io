@@ -8,13 +8,13 @@ categories: Cloud
 [CloudGoat](https://github.com/RhinoSecurityLabs/cloudgoat) is a Opensource "Vulnerable by design" AWS deployment tool.<br>
 This explains how to setup the environment using CloudGoat on Kali Linux.
 
-# Kali Version
+## Kali Version
 ```shell
 kali@kali:~$ uname -a
 Linux kali 6.8.11-amd64 #1 SMP PREEMPT_DYNAMIC Kali 6.8.11-1kali2 (2024-05-30) x86_64 GNU/Linux
 ```
 
-# Terraform Installation
+## Terraform Installation
 ```shell
 kali@kali:~$ mkdir terraform 
 
@@ -47,7 +47,7 @@ Terraform v1.9.7
 on linux_386
 ```
 
-# JQ Installation
+## JQ Installation
 ```shell
 kali@kali:~$ sudo apt install jq 
 
@@ -57,7 +57,7 @@ kali@kali:~$ jq --version
 jq-1.7
 ```
 
-# AWS-CLI Installation
+## AWS-CLI Installation
 ```shell
 kali@kali:~$ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
@@ -69,7 +69,7 @@ kali@kali:~$ aws --version
 aws-cli/2.18.7 Python/3.12.6 Linux/6.8.11-amd64 exe/x86_64.kali.2024
 ```
 
-# CloudGoat Installation
+## CloudGoat Installation
 ```shell
  kali@kali:~$ sudo apt-get update
 
@@ -93,14 +93,15 @@ Collecting argcomplete~=3.2.3 (from -r ./requirements.txt (line 5))
 
 <snip>
 ```
-# AWS CLI setup
+## AWS CLI setup
 ```shell
 (.venv)kali@kali:~/cloudgoat$ aws configure              
 AWS Access Key ID [None]: AKIARMY7LNBF5PZ5EDF2
 AWS Secret Access Key [None]: <MASKED>
 Default region name [None]: ap-northeast-1
 Default output format [None]: 
-                                                                                                         (.venv)kali@kali:~/cloudgoat$ cat /home/kali/.aws/config 
+
+(.venv)kali@kali:~/cloudgoat$ cat /home/kali/.aws/config 
 [default]
 region = ap-northeast-1
                                                                                                         
@@ -125,7 +126,7 @@ aws_secret_access_key = <MASKED>
 (.venv)kali@kali:~/cloudgoat$                                       
 ```
 
-# CloudGoat Setup
+## CloudGoat Setup
 ```shell
 (.venv)kali@kali:~/cloudgoat$ ./cloudgoat.py config whitelist --auto
 No whitelist.txt file was found at /home/kali/cloudgoat/whitelist.txt
@@ -144,7 +145,7 @@ A default profile name of "default" has been saved.
 (.venv)kali@kali:~/cloudgoat$ 
 ```
 
-# Create a LAB (example of vulnerable_lambda)
+## Create a LAB (example of vulnerable_lambda)
 ```shell
 .venv)kali@kali:~/cloudgoat$ ./cloudgoat.py create vulnerable_lambda
 Using default profile "default" from config.yml...
@@ -179,7 +180,7 @@ scenario_cg_id = vulnerable_lambda_cgid6wknt7nttr
     /home/kali/cloudgoat/vulnerable_lambda_cgid6wknt7nttr/start.txt
 ```
 
-# Listing all scenarios with deployed/undeployed information
+## Listing all scenarios with deployed/undeployed information
 ```shell
 (.venv)kali@kali:~/cloudgoat$ ./cloudgoat.py list all
 
@@ -214,7 +215,7 @@ scenario_cg_id = vulnerable_lambda_cgid6wknt7nttr
 (.venv)kali@kali:~/cloudgoat$
 ```
 
-# Destroying the lab created
+## Destroying the lab created
 ```shell
 (.venv)kali@kali:~/cloudgoat$ ./cloudgoat.py destroy vulnerable_lambda
 Using default profile "default" from config.yml...
