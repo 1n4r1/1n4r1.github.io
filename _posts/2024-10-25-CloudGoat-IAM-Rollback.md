@@ -286,7 +286,7 @@ kali@kali:~/cloudgoat$ aws iam set-default-policy-version --policy-arn arn:aws:i
 kali@kali:~/cloudgoat$
 ```
 
-## The default version id has been changed
+## The default version id has been changed to `v3` which has "admin privilege"
 ```shell
 kali@kali:~/cloudgoat$ aws iam get-policy --policy-arn arn:aws:iam::096165652555:policy/cg-raynor-policy-iam_privesc_by_rollback_cgidi6arp6df8r --profile raynor
 {
