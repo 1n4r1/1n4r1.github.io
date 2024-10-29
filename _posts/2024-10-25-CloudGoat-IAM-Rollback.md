@@ -57,6 +57,17 @@ Default output format [None]:
 kali@kali:~/cloudgoat$
 ```
 
+## To make sure currently `raynor` does not have a permission to create VPC (Checking for any other permission could be OK)
+```shell
+kali@kali:~/cloudgoat$ aws ec2 create-vpc --cidr-block 192.168.0.0/23 --profile raynor --region ap-northeast-1
+
+An error occurred (UnauthorizedOperation) when calling the CreateVpc operation: You are not authorized to perform this operation.
+
+---snip---
+
+kali@kali:~/cloudgoat$
+```
+
 ## Listing policies attached with the IAM role
 ```shell
 kali@kali:~/cloudgoat$ aws iam list-attached-user-policies --user-name raynor-iam_privesc_by_rollback_cgidi6arp6df8r --profile raynor
@@ -305,6 +316,36 @@ kali@kali:~/cloudgoat$ aws iam get-policy --policy-arn arn:aws:iam::096165652555
         "Tags": []
     }
 }
+
+kali@kali:~/cloudgoat$
+```
+
+## By creating a VPC (or any other operation used not to be permitted), we can check if actually the configuration has been changed.
+```shell
+kali@kali:~/cloudgoat$ aws ec2 create-vpc --cidr-block 192.168.0.0/23 --profile raynor --region ap-northeast-1                                                                          
+{
+    "Vpc": {
+        "OwnerId": "096165652555",
+        "InstanceTenancy": "default",
+        "Ipv6CidrBlockAssociationSet": [],
+        "CidrBlockAssociationSet": [
+            {
+                "AssociationId": "vpc-cidr-assoc-0227ca6ada14901fc",
+                "CidrBlock": "192.168.0.0/23",
+                "CidrBlockState": {
+                    "State": "associated"
+                }
+            }
+        ],
+        "IsDefault": false,
+        "VpcId": "vpc-0671aa5ca39eacf35",
+        "State": "pending",
+        "CidrBlock": "192.168.0.0/23",
+        "DhcpOptionsId": "dopt-05d81e222ba30a616"
+    }
+}
+
+kali@kali:~/cloudgoat$ aws ec2 delete-vpc --vpc-id vpc-0671aa5ca39eacf35
 
 kali@kali:~/cloudgoat$
 ```
